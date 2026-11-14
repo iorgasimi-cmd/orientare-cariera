@@ -1,0 +1,74 @@
+/* ==========================================================================
+   TOATE CULORILE APLICAȚIEI SUNT AICI. Dacă vrei să schimbi o culoare, schimb-o doar în acest fișier.
+   Regula de contrast: textul trebuie să aibă cel puțin 4,5 față de fundalul lui (7 acolo unde e posibil);
+   marginile butoanelor și ale câmpurilor, cel puțin 3. După orice schimbare, rulează:  node teste/contrast.js
+   Notă: în manifest.webmanifest, în index.html (meta theme-color) și în icons/icon.svg culorile
+   sunt scrise de mână, pentru că acolo nu se pot folosi variabile. Dacă schimbi albastru-verzuiul sau fundalul, schimbă-le și acolo.
+   ========================================================================== */
+
+:root {
+  /* Fundal și text */
+  --fundal: #FAF7F2;            /* alb cald */
+  --suprafata: #FFFFFF;         /* cartele și câmpuri */
+  --text: #1F2937;              /* gri închis, nu negru pur */
+  --text-slab: #4B5563;         /* texte secundare, încă lizibile */
+
+  /* Culoarea principală: albastru-verzui (titluri, bara de progres, butoanele importante) */
+  --principal: #0F766E;
+  --principal-text: #FFFFFF;    /* text pe butonul principal */
+  --principal-moale: #DDF0EC;   /* fundal discret, cu text închis deasupra */
+
+  /* Accent cald: chihlimbar (felicitări, pași făcuți, butonul „Continuă”) */
+  --cald: #F59E0B;
+  --cald-text: #1F2937;         /* text pe chihlimbar: mereu închis, niciodată alb */
+  --cald-moale: #FEF1CF;        /* fundal discret pentru felicitări */
+  --cald-contur: #B45309;       /* marginea elementelor chihlimbar */
+
+  /* Linii și margini */
+  --contur: #6B7280;            /* margini de butoane și câmpuri (contrast cel puțin 3) */
+  --linie: #E2DDD4;             /* linii decorative, fără rol de citire */
+
+  /* Erori și atenționări: roșu moale, folosit doar când e nevoie (niciodată pentru rezultatele testelor) */
+  --eroare-text: #9B1C1C;
+  --eroare-fundal: #FDEEEC;
+  --eroare-contur: #C0392B;
+
+  --focus: #1F2937;             /* conturul când navighezi cu tastatura */
+  --umbra: rgba(31, 41, 55, .10);
+}
+
+/* Traseul pentru adulți (18+ și 45+): accent mai liniștit */
+body[data-traseu="adult"] {
+  --cald: #EBBB62;
+  --cald-moale: #FAF0DA;
+  --cald-contur: #96661A;
+}
+
+/* Modul întunecat al telefonului (se aplică automat) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --fundal: #141A19;
+    --suprafata: #1E2827;
+    --text: #F1F5F4;
+    --text-slab: #B6C2BF;
+    --principal: #5EC4B8;
+    --principal-text: #0C1F1D;
+    --principal-moale: #24403C;
+    --cald: #F59E0B;
+    --cald-text: #1F2937;
+    --cald-moale: #3A3220;
+    --cald-contur: #F5B94B;
+    --contur: #8FA19D;
+    --linie: #34413F;
+    --eroare-text: #FFB4AE;
+    --eroare-fundal: #3C2321;
+    --eroare-contur: #E08A84;
+    --focus: #F1F5F4;
+    --umbra: rgba(0, 0, 0, .4);
+  }
+  body[data-traseu="adult"] {
+    --cald: #E3B25A;
+    --cald-moale: #353023;
+    --cald-contur: #E8C27A;
+  }
+}

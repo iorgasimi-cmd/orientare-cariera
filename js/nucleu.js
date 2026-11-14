@@ -1,0 +1,76 @@
+/* Nucleul aplicației: funcții comune folosite de toate modulele. */
+(function (g) {
+  "use strict";
+
+  function esc(s) {
+    return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;", "'": "&#39;" }[c];
+    });
+  }
+
+  var C = {
+    module: {},
+    esc: esc,
+    ecran: "start",
+    eroare: "",
+    deArata: "", /* id-ul unui element care trebuie adus în ecran după următoarea desenare */
+    reg: function (nume, m) { C.module[nume] = m; },
+    mergi: function (nume) { C.ecran = nume; C.eroare = ""; },
+
+    /* Buton: act = "modul.actiune" sau "nav" (schimbă ecranul). */
+    buton: function (text, act, arg, clasa) {
+      return '<button type="button" class="btn ' + (clasa || "") + '" data-act="' + esc(act) + '"' +
+        (arg != null ? ' data-arg="' + esc(arg) + '"' : "") + ">" + text + "</button>";
+    },
+
+    /* Câmp de text legat de o cale din starea salvată. */
+    camp: function (cale, eticheta, ajutor, rows) {
+      var val = g.Stocare.ia(cale, "");
+      var id = "c-" + cale.replace(/[^a-z0-9]/gi, "-");
+      return '<div class="camp"><label for="' + id + '">' + eticheta + "</label>" +
+        (ajutor ? '<p class="ajutor" id="' + id + '-a">' + ajutor + "</p>" : "") +
+        '<textarea id="' + id + '" data-camp="' + esc(cale) + '" data-text="1" rows="' + (rows || 4) + '"' +
+        (ajutor ? ' aria-describedby="' + id + '-a"' : "") + ">" + esc(val) + "</textarea></div>";
+    },
+
+    /* Data de azi, în ora locală, ca AAAA-LL-ZZ. */
+    azi: function () {
+      var d = new Date();
+      var m = String(d.getMonth() + 1).padStart(2, "0");
+      var z = String(d.getDate()).padStart(2, "0");
+      return d.getFullYear() + "-" + m + "-" + z;
+    },
+    /* Numărul de zile dintre două date AAAA-LL-ZZ. */
+    zile: function (a, b) {
+      var x = Date.UTC.apply(null, a.split("-").map(function (n, i) { return i === 1 ? n - 1 : +n; }));
+      var y = Date.UTC.apply(null, b.split("-").map(function (n, i) { return i === 1 ? n - 1 : +n; }));
+      return Math.round((y - x) / 86400000);
+    },
+    /* Adaugă zile la o dată AAAA-LL-ZZ și întoarce tot AAAA-LL-ZZ. */
+    adauga: function (data, zile) {
+      var p = data.split("-").map(Number), d = new Date(Date.UTC(p[0], p[1] - 1, p[2] + zile));
+      return d.getUTCFullYear() + "-" + String(d.getUTCMonth() + 1).padStart(2, "0") + "-" + String(d.getUTCDate()).padStart(2, "0");
+    },
+    /* AAAA-LL-ZZ devine ZZ.LL.AAAA (cum se scrie la noi). */
+    format: function (data) { var p = String(data).split("-"); return p.length === 3 ? p[2] + "." + p[1] + "." + p[0] : ""; },
+    /* Săptămâna curentă a planului (0 = prima), de la data la care a început planul. */
+    saptamana: function () {
+      var start = g.Stocare.ia("plan.start", null);
+      if (!start) return 0;
+      return Math.max(0, Math.floor(C.zile(start, C.azi()) / 7));
+    },
+    /* Gruparea pe clase pentru sfaturi. */
+    grupa: function () {
+      var c = g.Stocare.ia("clasa", "");
+      if (c === "9" || c === "10") return ["explorare"];
+      if (c === "11" || c === "12") return ["alegere"];
+      return ["explorare", "alegere"];
+    },
+    pagina: function (titlu, corp, inapoi) {
+      return { titlu: titlu, corp: corp, inapoi: inapoi === undefined ? "elev/meniu" : inapoi };
+    }
+  };
+
+  g.Cariera = C;
+  if (typeof module !== "undefined" && module.exports) module.exports = C;
+})(typeof window !== "undefined" ? window : globalThis);
