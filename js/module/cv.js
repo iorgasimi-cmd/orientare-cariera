@@ -262,15 +262,7 @@
       rezultat: function () { S.pune("cv.verificat", true); C.mergi("cv/rezultat"); },
       /* Copiază promptul; dacă telefonul nu lasă, selectează textul ca omul să-l copieze singur. */
       copiaza: function () {
-        var doc = g.document, t = doc && doc.getElementById("c-prompt-ia"), st = doc && doc.getElementById("stare-copiere");
-        if (!t) return false;
-        var spune = function (m) { if (st) st.textContent = m; };
-        var selecteaza = function () { try { t.focus(); t.select(); t.setSelectionRange(0, t.value.length); } catch (e) { /* nimic */ } spune(D.ia.selectat); };
-        try {
-          if (g.navigator && g.navigator.clipboard && g.navigator.clipboard.writeText) {
-            g.navigator.clipboard.writeText(t.value).then(function () { spune(D.ia.copiat); }, selecteaza);
-          } else selecteaza();
-        } catch (e) { selecteaza(); }
+        C.copiaza("c-prompt-ia", "stare-copiere", D.ia.copiat, D.ia.selectat);
         return false;
       }
     },

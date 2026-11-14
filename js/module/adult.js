@@ -10,10 +10,11 @@
   }
   function e45() { return S.ia("varsta", "") === "45+"; }
   /* Pașii deja construiți și ecranul lor; ceilalți apar „în pregătire”. */
-  var ECRANE = { cv: "cv/intro" };
+  var ECRANE = { cv: "cv/intro", scrisoare: "scrisoare/intro" };
   function stare(p) {
     if (!ECRANE[p]) return '<span class="stare">○ în pregătire</span>';
     if (p === "cv" && S.ia("cv.verificat", false)) return '<span class="stare gata">✓ verificat</span>';
+    if (p === "scrisoare" && S.ia("scrisoare.gata", false)) return '<span class="stare gata">✓ schelet făcut</span>';
     return '<span class="stare">○ de făcut</span>';
   }
 

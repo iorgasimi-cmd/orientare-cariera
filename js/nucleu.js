@@ -66,6 +66,18 @@
       if (c === "11" || c === "12") return ["alegere"];
       return ["explorare", "alegere"];
     },
+    /* Copiază textul dintr-o căsuță; dacă telefonul nu lasă, îl selectează ca omul să-l copieze singur. */
+    copiaza: function (idText, idStare, mesajCopiat, mesajSelectat) {
+      var doc = g.document, t = doc && doc.getElementById(idText), st = doc && doc.getElementById(idStare);
+      if (!t) return;
+      var spune = function (m) { if (st) st.textContent = m; };
+      var selecteaza = function () { try { t.focus(); t.select(); t.setSelectionRange(0, t.value.length); } catch (e) { /* nimic */ } spune(mesajSelectat); };
+      try {
+        if (g.navigator && g.navigator.clipboard && g.navigator.clipboard.writeText) {
+          g.navigator.clipboard.writeText(t.value).then(function () { spune(mesajCopiat); }, selecteaza);
+        } else selecteaza();
+      } catch (e) { selecteaza(); }
+    },
     pagina: function (titlu, corp, inapoi) {
       return { titlu: titlu, corp: corp, inapoi: inapoi === undefined ? "elev/meniu" : inapoi };
     }

@@ -9,10 +9,10 @@ function fals() { const m = {}; return { getItem: k => (k in m ? m[k] : null), s
 globalThis.window = globalThis;
 globalThis.localStorage = fals();
 
-["date/interese.js", "date/valori.js", "date/meserii.js", "date/sfaturi.js", "date/adulti.js", "date/cv.js",
+["date/interese.js", "date/valori.js", "date/meserii.js", "date/sfaturi.js", "date/adulti.js", "date/cv.js", "date/scrisoare.js",
  "js/stocare.js", "js/verificator.js", "js/nucleu.js",
  "js/module/interese.js", "js/module/puncte-forte.js", "js/module/meserii.js",
- "js/module/plan.js", "js/module/sfaturi.js", "js/module/reamintiri.js", "js/module/sistem.js", "js/module/adult.js", "js/module/cv.js"
+ "js/module/plan.js", "js/module/sfaturi.js", "js/module/reamintiri.js", "js/module/sistem.js", "js/module/adult.js", "js/module/cv.js", "js/module/scrisoare.js"
 ].forEach(f => require(path.join(rad, f)));
 
 const C = Cariera, S = Stocare, D = DATE;
@@ -467,10 +467,53 @@ test("ecranul ghidului: avertisment despre date, 5 sfaturi și buton „Copiază
   S.sterge();
 });
 
+console.log("Scrisoarea de intenție");
+test("6 întrebări, câte una pe ecran, cu ajutor potrivit situației și vârstei", () => {
+  S.sterge(); S.pune("varsta", "18-44"); S.pune("situatie", "schimb");
+  assert.strictEqual(D.scrisoare.intrebari.length, 6);
+  D.scrisoare.intrebari.forEach((q, i) => {
+    const c = C.module.scrisoare.ecran("q" + i).corp;
+    assert.strictEqual((c.match(/<textarea/g) || []).length, 1, "o singură întrebare pe ecran");
+    assert.ok(c.includes("Întrebarea " + (i + 1) + " din 6"));
+  });
+  assert.ok(C.module.scrisoare.ecran("q3").corp.includes("domeniul vechi"), "ajutor pentru schimbarea domeniului");
+  S.pune("situatie", "pauza"); assert.ok(C.module.scrisoare.ecran("q3").corp.includes("ce ai făcut în pauză"));
+  S.pune("varsta", "45+"); assert.ok(C.module.scrisoare.ecran("q4").corp.includes("Experiența ta e un atu"));
+  assert.ok(C.module.scrisoare.ecran("q5").corp.includes("Văd scheletul"));
+  S.sterge();
+});
+test("scheletul are 3 paragrafe cu răspunsurile omului, nu un text gata scris", () => {
+  S.sterge(); S.pune("varsta", "18-44"); S.pune("situatie", "caut");
+  S.pune("scrisoare.r.post", "asistent administrativ"); S.pune("scrisoare.r.firma", "Firma <Beta>");
+  S.pune("scrisoare.r.atrage", "Proiectul lor de voluntariat"); S.pune("scrisoare.r.competente", "Organizare, Excel");
+  C.module.scrisoare.actiuni.gata();
+  assert.strictEqual(C.ecran, "scrisoare/schelet");
+  const c = C.module.scrisoare.ecran("schelet").corp;
+  ["1. Ce te atrage la firmă", "2. Ce aduci tu", "3. Disponibilitate și încheiere", "Proiectul lor de voluntariat", "Organizare, Excel", "postul de asistent administrativ", "Toate cele bune"].forEach(t => assert.ok(c.includes(t), t));
+  assert.ok(c.includes("Firma &lt;Beta&gt;") && !c.includes("Firma <Beta>"), "textul omului e afișat în siguranță");
+  S.pune("scrisoare.r.disponibil", "În zilele lucrătoare, după ora 13.");
+  assert.ok(C.module.scrisoare.ecran("schelet").corp.includes("o discuție (în zilele lucrătoare, după ora 13). Încheie"), "disponibilitatea se potrivește în propoziție");
+  assert.ok(c.includes("nu ai scris încă") && c.includes("Completez"), "răspunsurile lipsă se pot completa");
+  assert.ok(c.includes("Înainte să o trimiți") && c.includes("30 de secunde"));
+  assert.ok(!/Stimate|Stimată|Doamnă|Domnule/.test(c), "nu scrie scrisoarea în locul omului");
+  assert.deepStrictEqual(Verificator.verificaText(c.replace(/<[^>]+>/g, " ")).map(x => x.gasit), []);
+  assert.ok(C.module.adult.ecran("meniu").corp.includes("✓ schelet făcut"));
+  S.sterge();
+});
+test("promptul pentru IA are regulile și răspunsurile omului, fără vârstă", () => {
+  const pr = C.module.scrisoare.promptIA({ post: "vânzător", firma: "Alfa", atrage: "magazinele noi", competente: "lucrul cu clienții", exemplu: "am ajutat\n20 de clienți pe zi", disponibil: "" }, "schimb");
+  ["Nu adăuga experiență, cifre sau calități pe care nu le-am scris eu", "- Postul: vânzător", "- Firma: Alfa", "- Exemplul meu: am ajutat 20 de clienți pe zi", "- Când pot vorbi: (nu am scris)", "- Ce mă atrage la firmă: magazinele noi", D.scrisoare.ia.prompt.situatii.schimb].forEach(t => assert.ok(pr.includes(t), t));
+  assert.ok(!/45|vârst/.test(pr));
+  S.sterge(); S.pune("varsta", "45+"); S.pune("situatie", "caut");
+  const p = C.module.scrisoare.ecran("ia");
+  [D.scrisoare.ia.atentie, "Copiază", 'id="c-prompt-scrisoare"'].forEach(t => assert.ok(p.corp.includes(t), t));
+  S.sterge();
+});
+
 console.log("Ecranele se desenează");
 test("fiecare ecran se desenează fără erori și fără „undefined”", () => {
   S.sterge(); S.pune("varsta", "sub18"); S.pune("clasa", "10");
-  const ecrane = ["start", "elev/clasa", "elev/bunvenit", "elev/meniu", "adult/situatie", "adult/bunvenit", "adult/meniu", "adult/pas/cv", "cv/intro", "cv/q0", "cv/q1", "cv/q2", "cv/q3", "cv/q4", "cv/rezultat", "cv/ia",
+  const ecrane = ["start", "elev/clasa", "elev/bunvenit", "elev/meniu", "adult/situatie", "adult/bunvenit", "adult/meniu", "adult/pas/cv", "cv/intro", "cv/q0", "cv/q1", "cv/q2", "cv/q3", "cv/q4", "cv/rezultat", "cv/ia", "scrisoare/intro", "scrisoare/q0", "scrisoare/q1", "scrisoare/q2", "scrisoare/q3", "scrisoare/q4", "scrisoare/q5", "scrisoare/schelet", "scrisoare/ia",
     "interese/intro", "interese/test", "interese/rezultat",
     "forte/intro", "forte/m0", "forte/m1", "forte/m2", "forte/ik0", "forte/ik1", "forte/ik2", "forte/ik3", "forte/valori", "forte/rezumat",
     "meserii/lista", "meserii/toate", "meserii/salvate",
