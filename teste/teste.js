@@ -9,10 +9,10 @@ function fals() { const m = {}; return { getItem: k => (k in m ? m[k] : null), s
 globalThis.window = globalThis;
 globalThis.localStorage = fals();
 
-["date/interese.js", "date/valori.js", "date/meserii.js", "date/sfaturi.js",
+["date/interese.js", "date/valori.js", "date/meserii.js", "date/sfaturi.js", "date/adulti.js",
  "js/stocare.js", "js/verificator.js", "js/nucleu.js",
  "js/module/interese.js", "js/module/puncte-forte.js", "js/module/meserii.js",
- "js/module/plan.js", "js/module/sfaturi.js", "js/module/reamintiri.js", "js/module/sistem.js"
+ "js/module/plan.js", "js/module/sfaturi.js", "js/module/reamintiri.js", "js/module/sistem.js", "js/module/adult.js"
 ].forEach(f => require(path.join(rad, f)));
 
 const C = Cariera, S = Stocare, D = DATE;
@@ -269,10 +269,61 @@ test("mesajul de reamintire potrivit", () => {
   assert.strictEqual(m(0, false, 1, false, false), D.sfaturi.mesaje.inceput);
 });
 
+console.log("Traseul pentru adulți");
+test("după vârsta de adult urmează întrebarea despre situație", () => {
+  S.sterge();
+  C.module.sistem.actiuni.varsta("18-44"); assert.strictEqual(C.ecran, "adult/situatie");
+  assert.strictEqual(C.module.sistem.traseu("18-44"), "adult/situatie", "fără situație aleasă, traseul începe cu întrebarea");
+  const q = C.module.adult.ecran("situatie");
+  assert.strictEqual(q.titlu, "Care e situația ta acum?");
+  D.adulti.situatii.forEach(x => assert.ok(q.corp.includes(x.t), x.id));
+  assert.ok(q.corp.includes("concediul de creștere a copilului"));
+  C.module.adult.actiuni.situatie("nimic"); assert.strictEqual(S.ia("situatie", ""), "", "o valoare necunoscută nu se salvează");
+  C.module.adult.actiuni.situatie("caut"); assert.strictEqual(C.ecran, "adult/bunvenit");
+  assert.strictEqual(C.module.sistem.traseu("18-44"), "adult/meniu");
+  /* chiar dacă situația e deja aleasă, alegerea vârstei întreabă din nou (se poate schimba) */
+  C.module.sistem.actiuni.varsta("45+"); assert.strictEqual(C.ecran, "adult/situatie");
+  assert.ok(C.module.adult.ecran("situatie").corp.includes("✓ Caut un loc de muncă"), "alegerea de acum se vede bifată");
+  S.sterge();
+});
+test("fiecare situație are bun venit și pașii ei, în ordinea din prompt", () => {
+  const ordine = { caut: ["CV-ul meu", "Scrisoarea de intenție", "Pregătirea pentru interviu", "Planul meu"],
+    schimb: ["Test de interese", "Puncte forte și valori", "Ce iei cu tine în noul domeniu", "CV-ul meu", "Pregătirea pentru interviu", "Planul meu"],
+    pauza: ["CV-ul meu", "Scrisoarea de intenție", "Pregătirea pentru interviu", "Planul meu"],
+    nustiu: ["Test de interese", "Puncte forte și valori", "Planul meu"] };
+  Object.keys(ordine).forEach(id => {
+    S.sterge(); S.pune("varsta", "18-44"); S.pune("situatie", id);
+    const sit = D.adulti.situatii.find(x => x.id === id);
+    const b = C.module.adult.ecran("bunvenit").corp;
+    assert.ok(b.includes(sit.bun.slice(0, 30)) && !b.includes(D.adulti.accent45), id);
+    const m = C.module.adult.ecran("meniu").corp;
+    let poz = -1;
+    ordine[id].forEach((t, i) => { const k = m.indexOf((i + 1) + ". " + t); assert.ok(k > poz, id + ": " + t); poz = k; });
+    if (id === "nustiu") assert.ok(!m.includes("CV-ul meu"), "„Încă nu știu” lasă CV-ul pentru mai târziu");
+  });
+  S.sterge();
+});
+test("45+: același traseu, cu accentul pe experiență și pe pași mici în competențele digitale", () => {
+  S.sterge(); S.pune("varsta", "45+"); S.pune("situatie", "pauza");
+  const b = C.module.adult.ecran("bunvenit").corp;
+  assert.ok(b.includes(D.adulti.accent45));
+  assert.ok(!/vârsta nu contează|discrimin/i.test(b), "fără promisiuni sau temeri despre vârstă");
+  const st = C.module.sistem.ecran("setari").corp;
+  assert.ok(st.includes("Situația: <strong>Revin după o pauză</strong>") && !st.includes("Clasa:"));
+  S.sterge();
+});
+test("pașii încă nefăcuți se deschid și spun clar că sunt în pregătire", () => {
+  S.sterge(); S.pune("varsta", "18-44"); S.pune("situatie", "caut");
+  const p = C.module.adult.ecran("pas/cv");
+  assert.strictEqual(p.titlu, "CV-ul meu"); assert.ok(p.corp.includes("se pregătește") && p.corp.includes("Înapoi la drumul meu"));
+  assert.strictEqual(C.module.adult.ecran("pas/necunoscut").titlu, "Drumul tău");
+  S.sterge();
+});
+
 console.log("Ecranele se desenează");
 test("fiecare ecran se desenează fără erori și fără „undefined”", () => {
   S.sterge(); S.pune("varsta", "sub18"); S.pune("clasa", "10");
-  const ecrane = ["start", "elev/clasa", "elev/bunvenit", "elev/meniu", "adult/curand",
+  const ecrane = ["start", "elev/clasa", "elev/bunvenit", "elev/meniu", "adult/situatie", "adult/bunvenit", "adult/meniu", "adult/pas/cv",
     "interese/intro", "interese/test", "interese/rezultat",
     "forte/intro", "forte/m0", "forte/m1", "forte/m2", "forte/ik0", "forte/ik1", "forte/ik2", "forte/ik3", "forte/valori", "forte/rezumat",
     "meserii/lista", "meserii/toate", "meserii/salvate",

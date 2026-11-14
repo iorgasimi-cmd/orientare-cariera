@@ -17,7 +17,10 @@
   ];
 
   /* Alegerea traseului după vârstă. În etapa 1 funcționează traseul pentru elevi. */
-  function traseu(varsta) { return varsta === "sub18" ? "elev/meniu" : "adult/curand"; }
+  function traseu(varsta) {
+    if (varsta === "sub18") return "elev/meniu";
+    return S.ia("situatie", "") ? "adult/meniu" : "adult/situatie";
+  }
 
   function start() {
     var corp = "<p>Bună! Aici te ajut, pas cu pas, să te gândești la drumul tău: ce îți place, la ce ești bun(ă) și ce poți face în continuare.</p>" +
@@ -57,17 +60,12 @@
     return C.pagina("Drumul tău", corp, null);
   }
 
-  function adult() {
-    var corp = "<p>Traseul pentru adulți (CV, scrisoare de intenție, interviu, negociere) se pregătește și nu este încă gata.</p>" +
-      "<p>Revino mai târziu sau schimbă răspunsul dacă ai ales greșit.</p>" +
-      '<div class="rand">' + C.buton("Schimb răspunsul", "nav", "start", "primar") + "</div>";
-    return C.pagina("În curând", corp, "start");
-  }
 
   function setari() {
     var notif = S.ia("rem.notif", false);
     var corp = '<section class="card"><h2>Răspunsurile mele</h2><p>Vârsta: <strong>' + esc((VARSTE.filter(function (v) { return v.id === S.ia("varsta", ""); })[0] || { t: "nealeasă" }).t) +
-      "</strong>" + (S.ia("clasa", "") ? "<br>Clasa: <strong>" + esc((CLASE.filter(function (c) { return c.id === S.ia("clasa", ""); })[0] || { t: "" }).t) + "</strong>" : "") +
+      "</strong>" + (S.ia("varsta", "") && S.ia("varsta", "") !== "sub18" && C.module.adult && C.module.adult.situatia() ? "<br>Situația: <strong>" + esc(C.module.adult.situatia().t) + "</strong>" : "") +
+      (S.ia("varsta", "") === "sub18" && S.ia("clasa", "") ? "<br>Clasa: <strong>" + esc((CLASE.filter(function (c) { return c.id === S.ia("clasa", ""); })[0] || { t: "" }).t) + "</strong>" : "") +
       '</p><div class="rand">' + C.buton("Schimb răspunsurile", "nav", "start") + "</div></section>" +
       '<section class="card"><h2>Reamintiri</h2><p>Cât timp o temă aleasă nu e bifată, îți arăt tema și butoanele la fiecare deschidere a aplicației. Poți cere și notificări, dar aplicația nu are server: o notificare apare doar când pornești aplicația, nu când e închisă. Pe iPhone, probabil, doar după ce adaugi aplicația pe ecranul principal (încă netestat). La „Tema săptămânii” poți pune și o reamintire în calendarul telefonului, care sună chiar dacă aplicația e închisă.</p>' +
       '<div class="rand">' + C.buton(notif ? "Opresc notificările" : "Vreau notificări", "reamintiri.notificari") + "</div></section>" +
@@ -113,7 +111,7 @@
       return ({ clasa: clasa, setari: setari, sterge: sterge, date: date, despre: despre, criza: criza })[sub] ? ({ clasa: clasa, setari: setari, sterge: sterge, date: date, despre: despre, criza: criza })[sub]() : start();
     },
     actiuni: {
-      varsta: function (id) { S.pune("varsta", id); C.mergi(id === "sub18" ? "elev/clasa" : traseu(id)); },
+      varsta: function (id) { S.pune("varsta", id); C.mergi(id === "sub18" ? "elev/clasa" : "adult/situatie"); },
       clasa: function (id) { S.pune("clasa", id); C.mergi("elev/bunvenit"); },
       sterge_tot: function () { S.sterge(); C.mergi("start"); },
       inapoi: function () { C.mergi(S.ia("varsta", "") ? traseu(S.ia("varsta", "")) : "start"); }
@@ -126,6 +124,5 @@
     ecran: function (sub) { return sub === "clasa" ? clasa() : sub === "bunvenit" ? bunVenit() : meniu(); },
     actiuni: {}
   });
-  C.reg("adult", { ecran: adult, actiuni: {} });
   C.reg("start", { ecran: start, actiuni: {} });
 })(typeof window !== "undefined" ? window : globalThis);
