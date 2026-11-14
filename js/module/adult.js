@@ -9,6 +9,13 @@
     return D.situatii.filter(function (s) { return s.id === id; })[0] || null;
   }
   function e45() { return S.ia("varsta", "") === "45+"; }
+  /* Pașii deja construiți și ecranul lor; ceilalți apar „în pregătire”. */
+  var ECRANE = { cv: "cv/intro" };
+  function stare(p) {
+    if (!ECRANE[p]) return '<span class="stare">○ în pregătire</span>';
+    if (p === "cv" && S.ia("cv.verificat", false)) return '<span class="stare gata">✓ verificat</span>';
+    return '<span class="stare">○ de făcut</span>';
+  }
 
   function intrebare() {
     var ales = S.ia("situatie", "");
@@ -34,7 +41,7 @@
     var s = situatia();
     if (!s) return intrebare();
     var corp = '<div class="meniu-lista">' + s.pasi.map(function (p, i) {
-      return C.buton("<strong>" + (i + 1) + ". " + esc(D.pasi[p].t) + '</strong><span class="stare">○ în pregătire</span>', "nav", "adult/pas/" + p, "lista");
+      return C.buton("<strong>" + (i + 1) + ". " + esc(D.pasi[p].t) + "</strong>" + stare(p), "nav", ECRANE[p] || "adult/pas/" + p, "lista");
     }).join("") + "</div>" +
       '<p class="mic">Situația ta: <strong>' + esc(s.t) + "</strong></p>" +
       '<div class="rand">' + C.buton("Schimb situația", "nav", "adult/situatie") + "</div>";

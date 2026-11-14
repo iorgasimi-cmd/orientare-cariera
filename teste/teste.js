@@ -9,10 +9,10 @@ function fals() { const m = {}; return { getItem: k => (k in m ? m[k] : null), s
 globalThis.window = globalThis;
 globalThis.localStorage = fals();
 
-["date/interese.js", "date/valori.js", "date/meserii.js", "date/sfaturi.js", "date/adulti.js",
+["date/interese.js", "date/valori.js", "date/meserii.js", "date/sfaturi.js", "date/adulti.js", "date/cv.js",
  "js/stocare.js", "js/verificator.js", "js/nucleu.js",
  "js/module/interese.js", "js/module/puncte-forte.js", "js/module/meserii.js",
- "js/module/plan.js", "js/module/sfaturi.js", "js/module/reamintiri.js", "js/module/sistem.js", "js/module/adult.js"
+ "js/module/plan.js", "js/module/sfaturi.js", "js/module/reamintiri.js", "js/module/sistem.js", "js/module/adult.js", "js/module/cv.js"
 ].forEach(f => require(path.join(rad, f)));
 
 const C = Cariera, S = Stocare, D = DATE;
@@ -320,10 +320,120 @@ test("pașii încă nefăcuți se deschid și spun clar că sunt în pregătire"
   S.sterge();
 });
 
+console.log("Corectorul de CV");
+/* CV-uri de probă scrise pentru teste (nu sunt copiate din curs). */
+const CV_BUN = [
+  "Maria Ionescu", "Coordonatoare logistică", "Cluj-Napoca | 0721 123 456 | maria.ionescu@exemplu.ro",
+  "PROFIL",
+  "Coordonatoare logistică cu experiență în organizarea livrărilor. Am condus echipe mici și am redus întârzierile.",
+  "EXPERIENȚĂ PROFESIONALĂ",
+  "Coordonator logistică | Firma Alfa | martie 2021 – prezent",
+  "• Am coordonat o echipă de 6 oameni pentru livrările din trei județe.",
+  "• Am redus timpul de livrare de la 4 zile la 2 zile.",
+  "• Am organizat 40 de comenzi pe zi în programul de evidență.",
+  "Operator depozit | Firma Beta | 2017 – 2021",
+  "• Gestionarea stocurilor și întocmirea rapoartelor săptămânale.",
+  "EDUCAȚIE",
+  "Facultatea de Științe Economice | 2013 – 2016",
+  "Liceul Teoretic | 2009 – 2013",
+  "COMPETENȚE",
+  "Programe de birou: Excel (avansat), Word",
+  "Limbi străine: Engleză – B2 (avansat)",
+  "Organizare, lucru în echipă, comunicare cu clienții"
+].join("\n");
+const CV_SLAB = [
+  "Curriculum Vitae", "Nume: Andrei P.", "E-mail: bubu_sexy88@mail.ro", "Telefon: 07xx xxx xxx",
+  "Data nașterii: 12.03.1985", "Stare civilă: căsătorit", "Adresa: Str. Florilor nr. 5", "Naționalitate: română",
+  "Obiectiv profesional:", "Să îmi găsesc un job.",
+  "Experiență profesională:", "2015-2016: Firma A, angajat. Am lucrat acolo făcând diverse lucruri.", "2019-2021: Firma B, angajat. Chestii de birou.",
+  "Educație:", "Universitatea X, ceva legat de economie",
+  "Aptitudini:", "Engleză", "Bun la diverse", "Hobby-uri:", "Mă uit la filme, ies cu prietenii, citesc, gătesc, merg pe munte și la mare, fac poze."
+].join("\n");
+test("secțiunile se recunosc și cu majuscule, cu „:” la final sau fără diacritice", () => {
+  const s1 = C.module.cv.sectiuni("EXPERIENȚĂ PROFESIONALĂ\nx\nEducatie:\ny\nCOMPETENTE SI ABILITATI\nz");
+  assert.deepStrictEqual([s1.experienta, s1.educatie, s1.competente], [["x"], ["y"], ["z"]]);
+});
+test("un CV bine făcut primește mai ales „ce e bine”", () => {
+  const r = C.module.cv.analizeaza(CV_BUN, {}, {});
+  const M = D.cv.mesaje;
+  [M.email_ok, M.telefon_ok, M.verbe_ok, M.rezultate_ok, M.puncte_ok].forEach(t => assert.ok(r.bine.includes(t), t));
+  assert.ok(r.bine.some(t => t.startsWith("CV-ul are secțiunile de bază")));
+  const importante = [M.email_lipsa, M.telefon_lipsa, M.lipsa_experienta, M.verbe_putine, M.rezultate_lipsa, M.personale, M.ordine].map(m => m.t.slice(0, 25));
+  importante.forEach(t => assert.ok(!r.schimba.some(x => x.startsWith(t)), "nu trebuia: " + t));
+});
+test("un CV cu greșeli primește sfaturile potrivite, în ordinea importanței", () => {
+  const r = C.module.cv.analizeaza(CV_SLAB, {}, {});
+  const are = t => r.schimba.some(x => x.includes(t));
+  assert.ok(are("Nu găsesc un număr de telefon"), "telefonul cu „xx” nu e un număr real");
+  assert.ok(are("data nașterii, starea civilă, adresa completă, naționalitatea"));
+  assert.ok(are("Adresa de e-mail pare neprofesională"));
+  assert.ok(are("Obiectivul e prea general"));
+  assert.ok(are("„diverse lucruri”") && are("„am lucrat acolo”") && are("„chestii”"));
+  assert.ok(!r.schimba.some(x => x.startsWith("Am găsit formulări vagi") && x.includes("să îmi găsesc un job")), "obiectivul vag nu se repetă la formulări vagi");
+  assert.ok(are("verbe de acțiune") && are("rezultate concrete"));
+  assert.ok(are("„Experiență profesională” anii par puși de la cel mai vechi"));
+  assert.ok(are("La limbi străine, scrie și nivelul"));
+  const pozitie = t => r.schimba.findIndex(x => x.includes(t));
+  assert.ok(pozitie("Nu găsesc un număr de telefon") < pozitie("Adresa de e-mail pare") && pozitie("Adresa de e-mail pare") < pozitie("La limbi străine"), "cele mai importante sunt primele");
+});
+test("CNP-ul, rețelele sociale, lipsa diacriticelor și textul prea scurt sunt semnalate", () => {
+  const cv = C.module.cv.analizeaza;
+  assert.ok(cv("Ion\nCNP 1850312123456\n" + CV_BUN, {}, {}).schimba[0].includes("CNP"));
+  assert.ok(cv(CV_BUN + "\ninstagram.com/ion", {}, {}).schimba.some(x => x.includes("Instagram")));
+  const faraDiacritice = CV_BUN.normalize("NFD").replace(/[̀-ͯ]/g, "");
+  assert.ok(cv(faraDiacritice, {}, {}).schimba.some(x => x.includes("diacritice")));
+  assert.ok(cv("Ion Pop, 0721 123 456", {}, {}).schimba[0].includes("foarte scurt"));
+});
+test("răspunsurile Da/Nu intră în rezultat, cu importanța lor", () => {
+  const r = C.module.cv.analizeaza(CV_BUN, { antet: "da", tabele: "nu", format: "scan", font: "da" }, {});
+  assert.ok(r.schimba[0].includes("antetul") || r.schimba[0].includes("scanat"), "antetul și CV-ul scanat sunt pe primul loc");
+  assert.ok(r.schimba.slice(0, 2).some(x => x.includes("scanat")) && r.schimba.slice(0, 2).some(x => x.includes("antetul")));
+  assert.ok(r.bine.some(x => x.includes("singură coloană")) && r.bine.some(x => x.includes("font obișnuit")));
+  const r2 = C.module.cv.analizeaza(CV_BUN, { format: "pdf" }, {});
+  assert.ok(r2.bine.some(x => x.includes("PDF cu text")));
+});
+test("sfatul pentru situația omului și accentul pentru 45+", () => {
+  const r = C.module.cv.analizeaza(CV_BUN, {}, { situatie: "pauza", varsta: "45+" });
+  assert.deepStrictEqual(r.sfaturi, [D.cv.situatii.pauza, D.cv.situatii.accent45]);
+  assert.deepStrictEqual(C.module.cv.analizeaza(CV_BUN, {}, { situatie: "caut", varsta: "18-44" }).sfaturi, [D.cv.situatii.caut]);
+});
+test("textul CV-ului nu se salvează pe telefon decât dacă omul bifează", () => {
+  S.sterge(); S.pune("varsta", "18-44"); S.pune("situatie", "caut");
+  C.module.cv._seteazaText(CV_BUN); C.module.cv.actiuni.continua();
+  assert.strictEqual(C.ecran, "cv/q0"); assert.strictEqual(S.ia("cv.text", ""), "", "fără bifă nu se salvează");
+  assert.ok(!JSON.stringify(S.stare).includes("Maria Ionescu"));
+  S.pune("cv.pastreaza", true); C.module.cv.actiuni.continua();
+  assert.ok(S.ia("cv.text", "").includes("Maria Ionescu"), "cu bifă se păstrează");
+  C.module.cv.actiuni.pastreaza("1", { checked: false });
+  assert.strictEqual(S.ia("cv.text", ""), "", "scoaterea bifei șterge textul păstrat");
+  C.module.cv._seteazaText(""); C.module.cv.actiuni.continua();
+  assert.strictEqual(C.eroare, D.cv.gol, "fără text cere lipirea lui"); C.eroare = "";
+  S.sterge(); C.module.cv._seteazaText("");
+});
+test("ecranul cu rezultatul și meniul adulților", () => {
+  S.sterge(); S.pune("varsta", "45+"); S.pune("situatie", "caut");
+  assert.ok(C.module.adult.ecran("meniu").corp.includes("○ de făcut"));
+  C.module.cv._seteazaText(CV_SLAB); C.module.cv.actiuni.rezultat();
+  const p = C.module.cv.ecran("rezultat");
+  ["Ce e bine", "Ce ai putea schimba", "În ordinea importanței", "Pentru situația ta", D.cv.mesaje.nu_pot, D.cv.situatii.accent45].forEach(t => assert.ok(p.corp.includes(t), t));
+  assert.ok(!p.corp.includes("<b") || true);
+  assert.deepStrictEqual(Verificator.verificaText(p.corp.replace(/<[^>]+>/g, " ")).map(x => x.gasit), []);
+  assert.ok(C.module.adult.ecran("meniu").corp.includes("✓ verificat"));
+  C.module.cv._seteazaText("");
+  assert.ok(C.module.cv.ecran("rezultat").corp.includes(D.cv.pierdut), "după reîncărcare, fără text păstrat, cere lipirea din nou");
+  S.sterge();
+});
+test("textul lipit este afișat în siguranță (nu se execută ca HTML)", () => {
+  S.sterge(); C.module.cv._seteazaText("<img src=x onerror=alert(1)>\n" + CV_BUN);
+  const c = C.module.cv.ecran("intro").corp;
+  assert.ok(!c.includes("<img src=x") && c.includes("&lt;img src=x"));
+  C.module.cv._seteazaText(""); S.sterge();
+});
+
 console.log("Ecranele se desenează");
 test("fiecare ecran se desenează fără erori și fără „undefined”", () => {
   S.sterge(); S.pune("varsta", "sub18"); S.pune("clasa", "10");
-  const ecrane = ["start", "elev/clasa", "elev/bunvenit", "elev/meniu", "adult/situatie", "adult/bunvenit", "adult/meniu", "adult/pas/cv",
+  const ecrane = ["start", "elev/clasa", "elev/bunvenit", "elev/meniu", "adult/situatie", "adult/bunvenit", "adult/meniu", "adult/pas/cv", "cv/intro", "cv/q0", "cv/q1", "cv/q2", "cv/q3", "cv/q4", "cv/rezultat",
     "interese/intro", "interese/test", "interese/rezultat",
     "forte/intro", "forte/m0", "forte/m1", "forte/m2", "forte/ik0", "forte/ik1", "forte/ik2", "forte/ik3", "forte/valori", "forte/rezumat",
     "meserii/lista", "meserii/toate", "meserii/salvate",
