@@ -232,7 +232,6 @@
       '<textarea id="c-prompt-ia" rows="14" readonly>' + esc(pr) + "</textarea></div>" +
       '<div class="rand">' + C.buton("Copiază", "cv.copiaza", null, "continua") + "</div>" +
       '<p id="stare-copiere" class="mic" role="status"></p>' +
-      '<p class="nota">' + esc(I.nota) + "</p>" +
       '<div class="rand">' + C.buton("Înapoi la rezultat", "nav", "cv/rezultat") + C.buton("Înapoi la drumul meu", "nav", "adult/meniu", "primar") + "</div>";
     return C.pagina(I.titlu, corp, "cv/rezultat");
   }

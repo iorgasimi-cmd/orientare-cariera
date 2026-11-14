@@ -451,13 +451,14 @@ test("fără probleme găsite, promptul o spune, fără o listă goală", () => 
   const pr = C.module.cv.promptIA({ schimba: [] }, {});
   assert.ok(pr.includes(D.cv.ia.prompt.fara_probleme) && !pr.includes(D.cv.ia.prompt.probleme));
 });
-test("ecranul ghidului: avertisment despre date, 5 sfaturi, buton „Copiază” și nota despre rezultate diferite", () => {
+test("ecranul ghidului: avertisment despre date, 5 sfaturi și buton „Copiază”", () => {
   S.sterge(); S.pune("varsta", "18-44"); S.pune("situatie", "caut");
   C.module.cv._seteazaText(CV_SLAB);
   assert.ok(C.module.cv.ecran("rezultat").corp.includes("Vrei să-l corectezi cu ajutorul unei IA?"));
   const p = C.module.cv.ecran("ia");
   assert.strictEqual(p.titlu, D.cv.ia.titlu);
-  [D.cv.ia.atentie, D.cv.ia.nota, "Copiază", "CNP"].forEach(t => assert.ok(p.corp.includes(t), t));
+  [D.cv.ia.atentie, "Copiază", "CNP"].forEach(t => assert.ok(p.corp.includes(t), t));
+  assert.ok(!p.corp.includes("Nu am putut încerca promptul"), "nota a fost scoasă la cererea autoarei");
   assert.strictEqual((p.corp.match(/<li>/g) || []).length, 5);
   assert.ok(p.corp.includes('id="c-prompt-ia"') && p.corp.includes("readonly"));
   assert.deepStrictEqual(Verificator.verificaText(p.corp.replace(/<[^>]+>/g, " ")).map(x => x.gasit), []);

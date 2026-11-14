@@ -114,7 +114,6 @@ window.DATE.cv = {
       "Citește cu voce tare ce ți-a propus și compară cu CV-ul tău. Păstrează doar ce e adevărat și sună ca tine.",
       "Când ai terminat, lipește CV-ul nou aici și verifică-l din nou."
     ],
-    nota: "Nu am putut încerca promptul cu fiecare program de IA. Răspunsurile pot fi diferite de la un program la altul și de la o zi la alta.",
     copiat: "Am copiat promptul. Acum lipește-l în chat.",
     selectat: "Promptul e selectat. Apasă lung pe el și alege „Copiază”.",
     /* Textul promptului. Liniile goale despart părțile. */
