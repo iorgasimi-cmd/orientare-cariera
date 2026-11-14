@@ -430,10 +430,46 @@ test("textul lipit este afișat în siguranță (nu se execută ca HTML)", () =>
   C.module.cv._seteazaText(""); S.sterge();
 });
 
+console.log("Ghidul pentru corectarea cu o IA");
+test("promptul are regula „nu adăuga”, problemele găsite numerotate și locul pentru CV", () => {
+  const an = C.module.cv.analizeaza(CV_SLAB, { antet: "da" }, {});
+  const pr = C.module.cv.promptIA(an, { situatie: "caut", varsta: "18-44" });
+  assert.ok(pr.includes("Nu adăuga experiență sau cifre care nu sunt în textul meu."));
+  assert.ok(pr.includes(D.cv.ia.prompt.situatii.caut));
+  an.schimba.filter(t => t !== D.cv.mesaje.scurt.t).forEach((t, i) => assert.ok(pr.includes((i + 1) + ". " + t), "problema " + (i + 1)));
+  assert.ok(!C.module.cv.promptIA({ schimba: [D.cv.mesaje.scurt.t, "Altceva."] }, {}).includes("foarte scurt"), "sfatul „prea scurt” nu intră în prompt");
+  assert.ok(pr.trim().endsWith("[lipește aici textul CV-ului]"));
+});
+test("promptul NU conține textul CV-ului, datele de contact sau vârsta", () => {
+  const an = C.module.cv.analizeaza(CV_BUN, {}, {});
+  const pr = C.module.cv.promptIA(an, { situatie: "pauza", varsta: "45+" });
+  ["Maria Ionescu", "0721 123 456", "maria.ionescu@exemplu.ro", "Firma Alfa"].forEach(t => assert.ok(!pr.includes(t), t));
+  assert.ok(!/\b45\b|vârst|ani\b/.test(pr), "fără vârstă");
+  assert.ok(pr.includes(D.cv.ia.prompt.accent45) && pr.includes(D.cv.ia.prompt.situatii.pauza));
+});
+test("fără probleme găsite, promptul o spune, fără o listă goală", () => {
+  const pr = C.module.cv.promptIA({ schimba: [] }, {});
+  assert.ok(pr.includes(D.cv.ia.prompt.fara_probleme) && !pr.includes(D.cv.ia.prompt.probleme));
+});
+test("ecranul ghidului: avertisment despre date, 5 sfaturi, buton „Copiază” și nota despre rezultate diferite", () => {
+  S.sterge(); S.pune("varsta", "18-44"); S.pune("situatie", "caut");
+  C.module.cv._seteazaText(CV_SLAB);
+  assert.ok(C.module.cv.ecran("rezultat").corp.includes("Vrei să-l corectezi cu ajutorul unei IA?"));
+  const p = C.module.cv.ecran("ia");
+  assert.strictEqual(p.titlu, D.cv.ia.titlu);
+  [D.cv.ia.atentie, D.cv.ia.nota, "Copiază", "CNP"].forEach(t => assert.ok(p.corp.includes(t), t));
+  assert.strictEqual((p.corp.match(/<li>/g) || []).length, 5);
+  assert.ok(p.corp.includes('id="c-prompt-ia"') && p.corp.includes("readonly"));
+  assert.deepStrictEqual(Verificator.verificaText(p.corp.replace(/<[^>]+>/g, " ")).map(x => x.gasit), []);
+  C.module.cv._seteazaText("");
+  assert.ok(C.module.cv.ecran("ia").corp.includes(D.cv.pierdut), "fără text cere lipirea din nou");
+  S.sterge();
+});
+
 console.log("Ecranele se desenează");
 test("fiecare ecran se desenează fără erori și fără „undefined”", () => {
   S.sterge(); S.pune("varsta", "sub18"); S.pune("clasa", "10");
-  const ecrane = ["start", "elev/clasa", "elev/bunvenit", "elev/meniu", "adult/situatie", "adult/bunvenit", "adult/meniu", "adult/pas/cv", "cv/intro", "cv/q0", "cv/q1", "cv/q2", "cv/q3", "cv/q4", "cv/rezultat",
+  const ecrane = ["start", "elev/clasa", "elev/bunvenit", "elev/meniu", "adult/situatie", "adult/bunvenit", "adult/meniu", "adult/pas/cv", "cv/intro", "cv/q0", "cv/q1", "cv/q2", "cv/q3", "cv/q4", "cv/rezultat", "cv/ia",
     "interese/intro", "interese/test", "interese/rezultat",
     "forte/intro", "forte/m0", "forte/m1", "forte/m2", "forte/ik0", "forte/ik1", "forte/ik2", "forte/ik3", "forte/valori", "forte/rezumat",
     "meserii/lista", "meserii/toate", "meserii/salvate",

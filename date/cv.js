@@ -99,5 +99,45 @@ window.DATE.cv = {
       ["diverse sarcini", "diverse sarcini"], ["diverse activitati", "diverse activități"]],
     limbi: ["engleza", "franceza", "germana", "italiana", "spaniola", "rusa", "maghiara", "portugheza", "chineza", "araba", "turca"],
     prescurtariObisnuite: ["CV", "RON", "EUR", "USD", "SRL", "SA", "IT", "PC", "HR", "UE", "EU", "ASE", "PFA", "ONG", "SUA", "UK", "TV", "OK", "II", "III", "IV", "VI", "VII", "VIII", "IX", "XI", "XII", "ANOFM", "CNP"]
+  },
+  /* Ghidul pentru corectarea CV-ului cu o IA din afară (subagentul 9). Aplicația nu folosește IA și nu trimite nimic:
+     doar pregătește un text de copiat. */
+  ia: {
+    titlu: "Corectez CV-ul cu o IA",
+    cartela: "Îți dau un text gata pregătit, pe care îl copiezi într-un chat cu inteligență artificială (IA), plus câteva sfaturi ca să nu inventeze nimic.",
+    explica: "IA (inteligența artificială) este un program cu care vorbești în scris, într-un chat, de exemplu Claude, ChatGPT sau Gemini. Promptul este textul cu care îi spui programului ce să facă.",
+    atentie: "Înainte să lipești CV-ul în chat, scoate CNP-ul, adresa exactă și alte date pe care nu vrei să le dai. Tu rămâi răspunzător(oare) de tot ce scrie în CV.",
+    sfaturi: [
+      "Copiază promptul de mai jos și lipește-l în chat. Apoi lipește textul CV-ului, fără date sensibile.",
+      "Cere schimbările pe rând: întâi rezumatul, apoi experiența. Așa vezi ușor ce s-a schimbat.",
+      "Nu lăsa programul să inventeze experiență, cifre, diplome sau competențe pe care nu le ai. Dacă apare ceva nou, șterge-l.",
+      "Citește cu voce tare ce ți-a propus și compară cu CV-ul tău. Păstrează doar ce e adevărat și sună ca tine.",
+      "Când ai terminat, lipește CV-ul nou aici și verifică-l din nou."
+    ],
+    nota: "Nu am putut încerca promptul cu fiecare program de IA. Răspunsurile pot fi diferite de la un program la altul și de la o zi la alta.",
+    copiat: "Am copiat promptul. Acum lipește-l în chat.",
+    selectat: "Promptul e selectat. Apasă lung pe el și alege „Copiază”.",
+    /* Textul promptului. Liniile goale despart părțile. */
+    prompt: {
+      inceput: "Te rog să mă ajuți să îmbunătățesc CV-ul meu, scris în limba română.",
+      reguli: [
+        "Nu adăuga experiență sau cifre care nu sunt în textul meu.",
+        "Nu inventa diplome, competențe sau rezultate. Dacă îți lipsește o informație, întreabă-mă.",
+        "Nu schimba datele mele de contact.",
+        "Scrie simplu, profesionist și corect, cu diacritice.",
+        "Arată-mi ce ai schimbat și de ce, ca să pot verifica."
+      ],
+      probleme: "O verificare automată a găsit aceste lucruri de îmbunătățit:",
+      fara_probleme: "O verificare automată nu a găsit probleme importante. Uită-te totuși la claritate și la greșelile de scriere.",
+      final: "Mai jos este textul CV-ului meu, fără date personale sensibile:",
+      loc: "[lipește aici textul CV-ului]",
+      situatii: {
+        caut: "Caut un loc de muncă și vreau ca CV-ul să se potrivească anunțurilor la care aplic.",
+        schimb: "Vreau să-mi schimb domeniul. Ajută-mă să scot în față ce știu să fac și se potrivește și în noul domeniu.",
+        pauza: "Revin la muncă după o pauză. Vreau s-o scriu simplu și sincer, ca pe o etapă, fără s-o ascund.",
+        nustiu: "Încă nu știu ce post caut. Ajută-mă să scot în față ce mi-a ieșit bine."
+      },
+      accent45: "Vreau să pun în față experiența și rezultatele mele, și ce folosesc din tehnologie."
+    }
   }
 };

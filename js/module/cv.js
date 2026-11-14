@@ -153,6 +153,25 @@
     return { bine: bine, schimba: schimba.map(function (x) { return x.t; }), sfaturi: sfaturi, cuvinte: cuvinte };
   }
 
+  /* Subagent 9: textul de copiat într-un chat cu IA. Nu conține textul CV-ului și nici vârsta omului. Calcul pur. */
+  function promptIA(analiza, context) {
+    var P = D.ia.prompt, ctx = context || {}, l = [P.inceput, ""];
+    if (ctx.situatie && P.situatii[ctx.situatie]) l.push(P.situatii[ctx.situatie]);
+    if (ctx.varsta === "45+") l.push(P.accent45);
+    if (ctx.situatie || ctx.varsta === "45+") l.push("");
+    l.push("Reguli:");
+    P.reguli.forEach(function (r) { l.push("- " + r); });
+    l.push("");
+    /* „textul pare foarte scurt” e un sfat pentru om, nu pentru programul de IA */
+    var pr = ((analiza && analiza.schimba) || []).filter(function (t) { return t !== D.mesaje.scurt.t; });
+    if (pr.length) { l.push(P.probleme); pr.forEach(function (t, i) { l.push((i + 1) + ". " + t); }); }
+    else l.push(P.fara_probleme);
+    l.push("", P.final, P.loc);
+    return l.join("\n");
+  }
+  function textulCV() { return textCV || (S.ia("cv.pastreaza", false) ? S.ia("cv.text", "") : ""); }
+  function context() { return { situatie: S.ia("situatie", ""), varsta: S.ia("varsta", "") }; }
+
   /* ---- Ecrane ---- */
   function intro() {
     var pastreaza = S.ia("cv.pastreaza", false);
@@ -192,10 +211,30 @@
       (r.schimba.length ? '<p class="mic">În ordinea importanței.</p><ol>' + r.schimba.map(function (t) { return "<li>" + esc(t) + "</li>"; }).join("") + "</ol>"
         : "<p>" + esc(M.nimic_de_schimbat) + "</p>") + "</section>" +
       (r.sfaturi.length ? '<section class="card"><h2>Pentru situația ta</h2>' + r.sfaturi.map(function (t) { return "<p>" + esc(t) + "</p>"; }).join("") + "</section>" : "") +
+      '<section class="card"><h2>Vrei să-l corectezi cu ajutorul unei IA?</h2><p>' + esc(D.ia.cartela) + '</p><div class="rand">' +
+        C.buton("Văd cum", "nav", "cv/ia", "primar") + "</div></section>" +
       '<p class="nota">' + esc(M.nu_pot) + "</p>" +
       '<p class="mic">' + esc(mesaj(M.cuvinte, { n: r.cuvinte })) + "</p>" +
       '<div class="rand">' + C.buton("Verific din nou", "nav", "cv/intro") + C.buton("Înapoi la drumul meu", "nav", "adult/meniu", "primar") + "</div>";
     return C.pagina("Rezultatul verificării", corp, "adult/meniu");
+  }
+
+  function ghidIA() {
+    var I = D.ia, text = textulCV();
+    if (!text.trim()) {
+      return C.pagina(I.titlu, "<p>" + esc(D.pierdut) + '</p><div class="rand">' + C.buton("Lipesc din nou", "nav", "cv/intro", "primar") + "</div>", "cv/intro");
+    }
+    var pr = promptIA(analizeaza(text, S.ia("cv.q", {}), context()), context());
+    var corp = "<p>" + esc(I.explica) + "</p>" +
+      '<p class="alerta"><strong>Atenție:</strong> ' + esc(I.atentie) + "</p>" +
+      '<h2>Cum faci</h2><ol class="pasi">' + I.sfaturi.map(function (t) { return "<li>" + esc(t) + "</li>"; }).join("") + "</ol>" +
+      '<div class="camp"><label for="c-prompt-ia">Promptul de copiat</label>' +
+      '<textarea id="c-prompt-ia" rows="14" readonly>' + esc(pr) + "</textarea></div>" +
+      '<div class="rand">' + C.buton("Copiază", "cv.copiaza", null, "continua") + "</div>" +
+      '<p id="stare-copiere" class="mic" role="status"></p>' +
+      '<p class="nota">' + esc(I.nota) + "</p>" +
+      '<div class="rand">' + C.buton("Înapoi la rezultat", "nav", "cv/rezultat") + C.buton("Înapoi la drumul meu", "nav", "adult/meniu", "primar") + "</div>";
+    return C.pagina(I.titlu, corp, "cv/rezultat");
   }
 
   C.reg("cv", {
@@ -203,6 +242,7 @@
       var m = /^q(\d)$/.exec(sub || "");
       if (m && D.intrebari[Number(m[1])]) return intrebare(Number(m[1]));
       if (sub === "rezultat") return rezultat();
+      if (sub === "ia") return ghidIA();
       return intro();
     },
     actiuni: {
@@ -220,9 +260,23 @@
         S.pune("cv.text", S.ia("cv.pastreaza", false) ? textCV : "");
         C.mergi("cv/q0");
       },
-      rezultat: function () { S.pune("cv.verificat", true); C.mergi("cv/rezultat"); }
+      rezultat: function () { S.pune("cv.verificat", true); C.mergi("cv/rezultat"); },
+      /* Copiază promptul; dacă telefonul nu lasă, selectează textul ca omul să-l copieze singur. */
+      copiaza: function () {
+        var doc = g.document, t = doc && doc.getElementById("c-prompt-ia"), st = doc && doc.getElementById("stare-copiere");
+        if (!t) return false;
+        var spune = function (m) { if (st) st.textContent = m; };
+        var selecteaza = function () { try { t.focus(); t.select(); t.setSelectionRange(0, t.value.length); } catch (e) { /* nimic */ } spune(D.ia.selectat); };
+        try {
+          if (g.navigator && g.navigator.clipboard && g.navigator.clipboard.writeText) {
+            g.navigator.clipboard.writeText(t.value).then(function () { spune(D.ia.copiat); }, selecteaza);
+          } else selecteaza();
+        } catch (e) { selecteaza(); }
+        return false;
+      }
     },
     analizeaza: analizeaza,
+    promptIA: promptIA,
     sectiuni: sectiuni,
     /* doar pentru teste */
     _seteazaText: function (t) { textCV = t; }
