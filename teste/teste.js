@@ -887,6 +887,7 @@ test("limbajul corpului pentru elevi: în meniu, cu exemple de la școală, făr
   S.sterge(); S.pune("varsta", "sub18"); S.pune("clasa", "10");
   const ecr = ["intro", "semne", "tinuta", "exercitiu", "gata"].map(x => C.module.corp.ecran(x).corp).join(" ");
   assert.ok(!/interviu|\bjob\b|angajator/i.test(ecr), "fără interviu la elevi");
+  assert.ok(!/ținut/i.test(ecr) && ecr.includes("Cum mă îmbrac") && C.module.corp.ecran("intro").titlu === "Limbajul corpului și cum mă îmbrac");
   assert.ok(ecr.includes("prezentare în clasă") && !/2022|63 de studii|loc de muncă/.test(ecr));
   assert.strictEqual((C.module.corp.ecran("tinuta").corp.match(/type="checkbox"/g) || []).length, D.corp.elev.tinuta.lista.length);
   D.corp.elev.tinuta.lista.forEach(x => C.module.corp.actiuni.bifa(x.id, { checked: true }));

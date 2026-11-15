@@ -59,7 +59,7 @@
       C.buton("<strong>6. Comunicarea asertivă</strong>" + pasStatus(!!S.ia("asertiv.gata", false)), "nav", "asertiv/intro", "lista") +
       C.buton("<strong>7. Valorile mele</strong>" + pasStatus(!!S.ia("vp.gata", false)), "nav", S.ia("vp.gata", false) ? "valorile/rezultat" : "valorile/intro", "lista") +
       C.buton("<strong>8. Cum mă văd eu</strong>" + pasStatus(!!S.ia("stima.gata", false)), "nav", S.ia("stima.gata", false) ? "stima/rezultat" : "stima/intro", "lista") +
-      C.buton("<strong>9. Limbajul corpului și ținuta</strong>" + pasStatus(!!S.ia("corp.gata", false)), "nav", "corp/intro", "lista") +
+      C.buton("<strong>9. " + C.esc(g.DATE.corp.elev.titlu) + "</strong>" + pasStatus(!!S.ia("corp.gata", false)), "nav", "corp/intro", "lista") +
       "</div>";
     return C.pagina("Drumul tău", corp, null);
   }
