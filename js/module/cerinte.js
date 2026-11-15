@@ -10,7 +10,7 @@
     var V = C.eAdult() ? D.adult : D.elev;
     var corp = "<p>" + esc(V.intro) + "</p>" +
       V.lista.map(function (x) {
-        return '<section class="card"><h2>' + esc(x.t) + "</h2><p>" + esc(x.ce) + '</p><p class="mic">Sursa: ' + esc(x.sursa) + "</p>" +
+        return '<section class="card"><h2>' + esc(x.t) + "</h2><p>" + esc(x.ce) + '</p>' + (x.sursa ? '<p class="mic">Sursa: ' + esc(x.sursa) + "</p>" : "") +
           '<p class="idee">' + esc(x.pas) + "</p>" +
           '<div class="rand">' + C.buton(esc(x.buton), "nav", x.link) + "</div></section>";
       }).join("") +

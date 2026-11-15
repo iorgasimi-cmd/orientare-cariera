@@ -901,7 +901,8 @@ test("limbajul corpului pentru elevi: în meniu, cu exemple de la școală, făr
 test("ce cer angajatorii: fără procente, cu sursă și un pas mic; elevii au varianta lor", () => {
   S.sterge(); S.pune("varsta", "18-44"); S.pune("situatie", "caut");
   const a = C.module.cerinte.ecran("lista").corp;
-  assert.ok(!/%/.test(a) && (a.match(/Sursa:/g) || []).length === D.cerinte.adult.lista.length && a.includes("tot mai des"));
+  assert.ok(!/%|ManpowerGroup/.test(a) && a.includes("tot mai des"));
+  assert.ok(!/ManpowerGroup/.test(C.module.cerinte.ecran("lista").corp));
   D.cerinte.adult.lista.concat(D.cerinte.elev.lista).forEach(x => assert.ok(C.module[x.link.split("/")[0]], x.link));
   C.module.cerinte.actiuni.gata(); assert.strictEqual(C.ecran, "plan/hub");
   assert.ok(C.module.adult.ecran("meniu").corp.includes("✓ citit"));

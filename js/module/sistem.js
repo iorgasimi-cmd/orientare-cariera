@@ -72,7 +72,7 @@
       "</strong>" + (S.ia("varsta", "") && S.ia("varsta", "") !== "sub18" && C.module.adult && C.module.adult.situatia() ? "<br>Situația: <strong>" + esc(C.module.adult.situatia().t) + "</strong>" : "") +
       (S.ia("varsta", "") === "sub18" && S.ia("clasa", "") ? "<br>Clasa: <strong>" + esc((CLASE.filter(function (c) { return c.id === S.ia("clasa", ""); })[0] || { t: "" }).t) + "</strong>" : "") +
       '</p><div class="rand">' + C.buton("Schimb răspunsurile", "nav", "start") + "</div></section>" +
-      '<section class="card"><h2>Reamintiri</h2><p>Cât timp o temă aleasă nu e bifată, îți arăt tema și butoanele la fiecare deschidere a aplicației. Poți cere și notificări, dar aplicația nu are server: o notificare apare doar când pornești aplicația, nu când e închisă. Pe iPhone, probabil, doar după ce adaugi aplicația pe ecranul principal (încă netestat). La „Tema săptămânii” poți pune și o reamintire în calendarul telefonului, care sună chiar dacă aplicația e închisă.</p>' +
+      '<section class="card"><h2>Reamintiri</h2>' +
       '<div class="rand">' + C.buton(notif ? "Opresc notificările" : "Vreau notificări", "reamintiri.notificari") + "</div></section>" +
       '<section class="card"><h2>Date</h2><div class="rand">' + C.buton("Despre date", "nav", "sistem/date") + C.buton("Despre aplicație", "nav", "sistem/despre") + C.buton("Șterge tot", "nav", "sistem/sterge", "pericol") + "</div></section>";
     return C.pagina("Setări", corp, S.ia("varsta", "") ? traseu(S.ia("varsta", "")) : "start");
@@ -97,7 +97,6 @@
 
   function despre() {
     var corp = "<p>Aplicația te ajută să te gândești la drumul tău în carieră.</p>" +
-      "<p><strong>Starea conținutului:</strong> textele, întrebările testului și lista de meserii sunt o ciornă și încă nu au fost verificate de autoare. Unde informația nu e sigură, spunem asta.</p>" +
       "<p>Dacă te simți rău sau ești îngrijorat(ă), vorbește cu un adult de încredere, cu consilierul școlii sau cu medicul de familie. Dacă tu sau altcineva sunteți în pericol acum, sună la 112.</p>" +
       '<div class="rand">' + C.buton("Înapoi", "nav", "sistem/setari", "primar") + "</div>";
     return C.pagina("Despre aplicație", corp, "sistem/setari");

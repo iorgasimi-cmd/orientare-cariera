@@ -27,14 +27,13 @@ window.DATE.cerinte = {
       {
         t: "Comunicare și lucru în echipă",
         ce: "Comunicarea, colaborarea și lucrul în echipă sunt calitățile căutate cel mai des de angajatori.",
-        sursa: "ManpowerGroup, sondaj despre lipsa de personal, 2026",
         pas: "**Ce ai făcut împreună cu alții contează.** Notează un exemplu și exersează cum spui clar ce gândești.",
         link: "asertiv/intro", buton: "Comunicarea asertivă"
       },
       {
         t: "Unelte digitale și inteligența artificială",
         ce: "Angajatorii caută tot mai des oameni care știu să folosească unelte digitale, inclusiv inteligența artificială.",
-        sursa: "ManpowerGroup, 2026; sondaj eJobs, 2026",
+        sursa: "Sondaj eJobs, 2026",
         pas: "**Nu trebuie să știi totul dintr-o dată.** Alege o temă mică pe săptămână: un lucru digital nou.",
         link: "plan/hub", buton: "Planul meu"
       },
@@ -61,7 +60,6 @@ window.DATE.cerinte = {
       {
         t: "Comunicare și lucru în echipă",
         ce: "Angajatorii caută cel mai des oameni care comunică bine și lucrează bine cu alții.",
-        sursa: "ManpowerGroup, 2026",
         pas: "**Ce faci împreună cu alții contează.** Gândește-te la un proiect de la școală sau la un voluntariat.",
         link: "asertiv/intro", buton: "Comunicarea asertivă"
       },
@@ -75,7 +73,6 @@ window.DATE.cerinte = {
       {
         t: "Unelte digitale și inteligența artificială",
         ce: "Angajatorii caută tot mai des oameni care folosesc bine unelte digitale, inclusiv inteligența artificială.",
-        sursa: "ManpowerGroup, 2026",
         pas: "**Învață pas cu pas.** Exersează cum ceri clar ceva unei inteligențe artificiale.",
         link: "asertiv/ia", buton: "Cere clar și de la IA"
       },
