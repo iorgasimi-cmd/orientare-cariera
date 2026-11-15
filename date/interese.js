@@ -5,7 +5,7 @@ window.DATE = window.DATE || {};
 window.DATE.interese = {
   verificat: "neverificat",
   scriere: "2026-11-11",
-  /* Bagheta magică (curs, cap. 2.3): o întrebare care scoate din calcul fricile, ca să apară dorința reală. */
+  /* Bagheta magică: o întrebare care scoate din calcul fricile, ca să apară dorința reală. */
   bagheta: {
     elev: "Dacă nu ar conta notele, banii sau ce spun alții, ce ai vrea să faci?",
     adult: "Dacă banii sau lipsa de experiență nu ar fi o problemă, ce meserie ai alege mâine dimineață?"

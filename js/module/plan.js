@@ -1,7 +1,7 @@
 /* Subagent 3: plan și teme săptămânale.
-   Scop în stil SMART (curs, 4.3), trei teme pe săptămână din care elevul alege una,
+   Scop în stil SMART, trei teme pe săptămână din care elevul alege una,
    cele 5 obstacole (4.3), convingeri limitative (5.1), recadrare (5.3), privire înapoi (7.1).
-   Cele trei nevoi de motivație din curs (5.2): autonomie, competență, relaționare. */
+   Cele trei nevoi de motivație: autonomie, competență, relaționare. */
 (function (g) {
   "use strict";
   var C = g.Cariera, S = g.Stocare, D = g.DATE.sfaturi, esc = C.esc;

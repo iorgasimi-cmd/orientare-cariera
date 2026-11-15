@@ -321,7 +321,7 @@ test("pașii încă nefăcuți se deschid și spun clar că sunt în pregătire"
 });
 
 console.log("Corectorul de CV");
-/* CV-uri de probă scrise pentru teste (nu sunt copiate din curs). */
+/* CV-uri de probă scrise pentru teste. */
 const CV_BUN = [
   "Maria Ionescu", "Coordonatoare logistică", "Cluj-Napoca | 0721 123 456 | maria.ionescu@exemplu.ro",
   "PROFIL",
@@ -548,7 +548,7 @@ test("poveștile: până la 5, cu context, ce ai făcut și rezultat; apar ca aj
   assert.ok(C.module.interviu.ecran("hub").corp.includes("✓ 3 din 5 scrise"));
   S.sterge();
 });
-test("„Exersează”: filmarea (din curs), ce să nu spui, întrebările tale și promptul de simulare", () => {
+test("„Exersează”: filmarea, ce să nu spui, întrebările tale și promptul de simulare", () => {
   S.sterge(); S.pune("varsta", "18-44"); S.pune("situatie", "pauza"); S.pune("scrisoare.r.post", "Asistent administrativ.");
   const c = C.module.interviu.ecran("exersez").corp;
   ["Filmează-te cu telefonul", "Ce să nu spui", "Nu întreba de salariu în primele minute", "Întrebări pe care le poți pune tu", "Copiază", 'id="c-prompt-interviu"', D.interviu.exersez.ia.atentie].forEach(t => assert.ok(c.includes(C.esc(t)) || c.includes(t), t));

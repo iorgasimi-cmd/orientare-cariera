@@ -13,7 +13,7 @@
     { id: "procent", re: /\d+\s*%/,
       mesaj: "Procent fără sursă. Cifrele se pun doar cu sursă și dată, în fișierul de date." },
     { id: "dece", re: /(^|[.?!]\s+)De ce\s/,
-      mesaj: "Întrebare cu „de ce?”: sună a reproș (din curs, 2.3). Folosește „ce anume” sau „ce te-a făcut”." },
+      mesaj: "Întrebare cu „de ce?”: sună a reproș. Folosește „ce anume” sau „ce te-a făcut”." },
     { id: "jargon", re: /\b(assessment|soft[- ]?skills?|feedback|networking|skills|mindset)\b/i,
       mesaj: "Cuvânt englezesc. Folosește un cuvânt românesc sau explică-l într-o propoziție." },
     { id: "presiune", re: /\b(trebuie neapărat|ești obligat|nu ai de ales|ultima șansă|e prea târziu)\b/i,

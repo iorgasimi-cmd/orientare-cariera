@@ -1,5 +1,5 @@
 /* Date: sfaturi scurte pentru elevi, mesaje de încurajare, teme săptămânale, obstacole.
-   Bazate pe materialul de curs (capitolele 4.3, 5.1, 5.2, 5.3, 6.4, 8.1–8.3, 8.4) și pe indicațiile din promptul Simonei.
+   Bazate pe indicațiile din promptul Simonei.
    Ultima verificare de către Simona: NEVERIFICAT (ciornă scrisă la 2026-11-11).
    Regulă: fără cifre fără sursă, fără promisiuni, fără presiune. */
 window.DATE = window.DATE || {};
@@ -65,7 +65,7 @@ window.DATE.sfaturi = {
     { id: "t11", t: "Pune-ți ordine în program: notează ce ai de făcut mâine și alege un singur lucru important." },
     { id: "t12", t: "Notează un gând care te oprește, de exemplu „Nu sunt bun la așa ceva”. Scrie-l în alt fel și alege un pas mic." }
   ],
-  /* Teme săptămânale pentru adulți: pași mici, despre muncă (curs, cap. 6.1–6.3, 7.3 „strategia pașilor mici”, 8.4). */
+  /* Teme săptămânale pentru adulți: pași mici, despre muncă. */
   teme_adulti: [
     { id: "a1", t: "Alege o secțiune din CV (de exemplu experiența) și adaugă un rezultat concret și adevărat." },
     { id: "a2", t: "Caută 3 anunțuri care îți plac și notează ce cerințe se repetă." },
@@ -80,7 +80,7 @@ window.DATE.sfaturi = {
     { id: "a11", t: "Află despre un târg de joburi, un atelier sau un eveniment din domeniul tău și notează data." },
     { id: "a12", t: "Notează un gând care te oprește și scrie-l altfel, apoi un pas mic pe care îl poți face." }
   ],
-  /* Cele 5 obstacole psihologice din curs, cap. 4.3, formulate pentru elevi. Fiecare are o idee de răspuns, din curs. */
+  /* Cele 5 obstacole psihologice, formulate pentru elevi. Fiecare are o idee de răspuns. */
   obstacole: [
     { id: "o1", nume: "Gândesc prea mult", explicatie: "Citesc și caut tot mai mult, dar nu fac niciun pas.", idee: "**Mai bine un pas imperfect astăzi decât un pas perfect peste o lună.** Alege ceva mic și fă-l azi." },
     { id: "o2", nume: "Vreau să iasă perfect", explicatie: "Aștept momentul sau varianta perfectă.", idee: "Poți pune un scop de cantitate, nu de rezultat. De exemplu: „încerc trei lucruri săptămâna asta”." },

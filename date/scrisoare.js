@@ -1,6 +1,5 @@
 /* Date: scrisoarea de intenție (subagentul 10). Toate textele pe care le vede omul sunt aici.
-   Regulile vin din curs, cap. 6.1 („Scrisoarea de intenție mai e necesară?” și „Cum arată o scrisoare de intenție
-   profesionistă”) și anexa 6 (modelul de scrisoare). Aplicația dă un schelet, nu un text gata scris.
+   Când ajută o scrisoare și cum arată una bună. Aplicația dă un schelet, nu un text gata scris.
    Ultima verificare de către Simona: NEVERIFICAT (ciornă scrisă la 2026-11-14). */
 window.DATE = window.DATE || {};
 window.DATE.scrisoare = {
@@ -30,7 +29,7 @@ window.DATE.scrisoare = {
     { id: "disponibil", q: "Când ai putea vorbi cu ei, la telefon sau online?", ajutor: "De exemplu: în zilele lucrătoare, după ora 14. Poți lăsa gol.", randuri: 2 }
   ],
 
-  /* Scheletul: trei paragrafe și formula de final (anexa 6). {firma}, {post}, {disp} se înlocuiesc cu răspunsurile. */
+  /* Scheletul: trei paragrafe și formula de final. {firma}, {post}, {disp} se înlocuiesc cu răspunsurile. */
   schelet: {
     explica: "Iată scheletul scrisorii. Sub fiecare paragraf vezi ce ai scris tu. Scrie fiecare paragraf cu cuvintele tale, scurt.",
     paragrafe: [

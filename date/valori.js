@@ -1,5 +1,5 @@
 /* Date: valori de carieră și întrebările pentru puncte forte.
-   Valorile sunt inspirate din „ancorele de carieră” (Edgar Schein), descrise în curs, cap. 3.3.
+   Valorile sunt inspirate din „ancorele de carieră” (Edgar Schein).
    Formulările sunt simplificate pentru elevi. Ultima verificare: NEVERIFICAT (sursa originală trebuie verificată de Simona). */
 window.DATE = window.DATE || {};
 window.DATE.valori = {
@@ -19,19 +19,19 @@ window.DATE.valori = {
     { id: "calatorii", t: "Călătorii și aventură", d: "Locuri noi, schimbare, mișcare." },
     { id: "expertiza", t: "Să fiu foarte bun(ă) la ceva", d: "Să devii specialist într-un domeniu." }
   ],
-  /* Întrebări pentru momentele de succes (curs, cap. 3.2, metoda 1). Fără „de ce?”. */
+  /* Întrebări pentru momentele de succes. Fără „de ce?”. */
   momente: [
     "Povestește o situație (la școală, acasă, la un hobby sau la voluntariat) în care ți-a ieșit ceva foarte bine. Ce s-a întâmplat?",
     "Ce anume ai făcut tu, în mod special, ca să-ți iasă bine?",
     "Cum te-ai simțit în acel moment? Ce activitate a fost aproape ca un joc pentru tine?"
   ],
-  /* Aceleași întrebări, pentru adulți (curs, cap. 3.2, metodele 1 și 2). */
+  /* Aceleași întrebări, pentru adulți. */
   momenteAdult: [
     "Povestește o situație (la muncă, acasă, la un hobby sau la voluntariat) în care ți-a ieșit ceva foarte bine. Ce s-a întâmplat?",
     "Ce anume ai făcut tu, în mod special, ca să-ți iasă bine?",
     "Ce activități îți dau energie, în loc să te obosească? La ce sarcini uiți de timp?"
   ],
-  /* Cele 4 cercuri Ikigai, așa cum apar în curs, cap. 1.5. */
+  /* Cele 4 cercuri Ikigai. */
   ikigai: [
     { id: "place", t: "Ce îți place să faci?", ajutor: "Scrie 2–3 lucruri. **Nu contează dacă par mici.**" },
     { id: "bun", t: "La ce ești bun(ă)?", ajutor: "Ce spun alții că faci bine? La ce te cheamă colegii să-i ajuți?" },

@@ -1,5 +1,5 @@
 /* Subagent 10: scrisoarea de intenție (doar pentru adulți).
-   Pune întrebări una câte una, apoi arată un schelet cu trei paragrafe, făcut din răspunsurile omului (anexa 6 și cap. 6.1).
+   Pune întrebări una câte una, apoi arată un schelet cu trei paragrafe, făcut din răspunsurile omului.
    Nu scrie scrisoarea în locul omului. Pentru cine vrea, pregătește un prompt de copiat într-un chat cu IA. */
 (function (g) {
   "use strict";

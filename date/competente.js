@@ -1,6 +1,5 @@
 /* Date: „Ce iei cu tine în noul domeniu” (pentru adulți care își schimbă domeniul).
-   Baza: curs, cap. 1.4 (matricea competențelor: ce ai acum, ce cer anunțurile, diferența; analiza anunțurilor)
-   și cap. 3.2 (competențele care se transferă dintr-un domeniu în altul).
+   Matricea competențelor (ce ai acum, ce cer anunțurile, diferența), analiza anunțurilor și competențele care se transferă.
    Ultima verificare de către Simona: NEVERIFICAT (ciornă scrisă la 2026-11-15). */
 window.DATE = window.DATE || {};
 window.DATE.competente = {

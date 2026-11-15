@@ -1,5 +1,5 @@
 /* Subagent 11: pregătirea pentru interviu (doar pentru adulți).
-   Poveștile din experiență, întrebări de exersat pe grupe, sfaturi din curs (cap. 6.2) și un prompt pentru o simulare cu IA. */
+   Poveștile din experiență, întrebări de exersat pe grupe, sfaturi practice și un prompt pentru o simulare cu IA. */
 (function (g) {
   "use strict";
   var C = g.Cariera, S = g.Stocare, D = g.DATE.interviu, esc = C.esc;

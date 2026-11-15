@@ -1,6 +1,6 @@
 /* Date: traseul pentru adulți (18–44 de ani și 45+).
    A doua întrebare (situația), textul de bun venit pentru fiecare situație și pașii fiecărui traseu,
-   după tabelul din promptul autoarei și capitolul despre grupuri vulnerabile din curs (cap. 8.4).
+   după tabelul din promptul autoarei.
    Ultima verificare de către Simona: NEVERIFICAT (ciornă scrisă la 2026-11-14). */
 window.DATE = window.DATE || {};
 window.DATE.adulti = {

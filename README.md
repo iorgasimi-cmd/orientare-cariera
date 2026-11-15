@@ -52,8 +52,8 @@ node teste/contrast.js
 3. Lista de meserii din `date/meserii.js`: descrieri generale, fără salarii sau cifre. Oferta de licee și facultăți trebuie verificată.
 4. Sursa originală pentru ancorele de carieră (Schein), din care sunt inspirate valorile.
 5. Liniile de ajutor pentru ecranul „Ești important(ă)”: acum apare doar 112. Numerele altor servicii se adaugă doar după verificare.
-6. Acordul autorilor materialului de curs pe care se bazează ideile.
-7. Cifre din curs fără sursă, care **nu** sunt folosite în aplicație: „90% ATS”, „70% verifică rețelele sociale”, „de 10 ori mai multe șanse prin recomandare”, „7% / 38% / 55%”.
+6. Verifică drepturile pentru orice material folosit ca inspirație.
+7. Cifre fără sursă, care **nu** sunt folosite în aplicație: „90% ATS”, „70% verifică rețelele sociale”, „de 10 ori mai multe șanse prin recomandare”, „7% / 38% / 55%”.
 8. Reguli legale despre minori și date: aplicația nu scrie nimic despre lege; subiectul se verifică cu un specialist.
 
 ## Ce nu s-a putut testa

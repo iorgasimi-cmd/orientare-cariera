@@ -1,8 +1,7 @@
 /* Date: corectorul de CV (subagentul 8). Toate textele pe care le vede omul sunt aici, ca să poată fi schimbate ușor.
-   Regulile vin din curs: cap. 6.1 (structura unui CV, greșeli grave, sistemele automate de selecție) și anexele 4 și 5
-   (modelele „Așa da” și „Așa nu”), plus cap. 8.4 pentru sfaturile pe situații.
+   Reguli: structura unui CV, greșeli frecvente, sistemele automate de selecție (ATS), exemple bune și slabe, sfaturi pe situații.
    NU folosim cifra despre câte firme folosesc sisteme automate: nu are o sursă verificată.
-   Cursul nu dă o limită de pagini, deci aplicația nu judecă lungimea totală, ci doar spune câte cuvinte are textul.
+   Nu există o limită de pagini sigură, deci aplicația nu judecă lungimea totală, ci doar spune câte cuvinte are textul.
    Ultima verificare de către Simona: NEVERIFICAT (ciornă scrisă la 2026-11-14). */
 window.DATE = window.DATE || {};
 window.DATE.cv = {
@@ -18,7 +17,7 @@ window.DATE.cv = {
   gol: "Lipește mai întâi textul CV-ului în căsuța de mai sus.",
   pierdut: "Textul CV-ului nu mai este aici, pentru că nu l-ai păstrat pe telefon. Lipește-l din nou.",
 
-  /* ATS explicat simplu (cap. 6.1). */
+  /* ATS explicat simplu */
   ats: "Unele firme folosesc un program care citește CV-urile înainte să le vadă un om. **Se numește ATS.** Programul caută în CV cuvinte din anunț și poate citi greșit tabelele, coloanele, imaginile sau ce e scris în antet.",
 
   /* Întrebări cu răspuns, câte una pe ecran, despre ce nu se vede în textul lipit. */
@@ -83,7 +82,7 @@ window.DATE.cv = {
     nu_pot: "Nu pot verifica gramatica și nici dacă tot ce scrie este adevărat. Roagă pe cineva de încredere să citească CV-ul: greșelile de scriere contează mult."
   },
 
-  /* Sfaturi pe situații (cap. 6.1 și 8.4). */
+  /* Sfaturi pe situații */
   situatii: {
     caut: "**Potrivește CV-ul pentru fiecare anunț.** Alege 5–6 cuvinte importante din anunț. Verifică dacă apar la fel și în CV-ul tău.",
     schimb: "**Ce știi să faci contează mai mult decât titlul vechi.** Scrie ce iei cu tine în noul domeniu: comunicare, organizare, lucrul cu oamenii sau cu cifrele. Adaugă câte un exemplu.",

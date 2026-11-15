@@ -1,6 +1,5 @@
 /* Date: pregătirea pentru interviu (subagentul 11). Toate textele pe care le vede omul sunt aici.
-   Baza: curs, cap. 6.2 (tipuri de interviu, povești din experiență reale, simularea filmată cu telefonul,
-   ce să nu spui, întrebările puse de candidat) și cap. 2.3 (fără întrebări cu „de ce?”).
+   Tipuri de interviu, povești din experiență reale, simularea filmată, ce să nu spui, întrebările candidatului; fără întrebări cu „de ce?”.
    Întrebările de exersat sunt scrise original. Afirmațiile despre studii NU sunt folosite (sursă neverificată).
    Ultima verificare de către Simona: NEVERIFICAT (ciornă scrisă la 2026-11-15). */
 window.DATE = window.DATE || {};
@@ -52,7 +51,7 @@ window.DATE.interviu = {
     ] }
   ],
 
-  /* O întrebare în plus, după situație sau vârstă (cap. 8.4). */
+  /* O întrebare în plus, după situație sau vârstă */
   speciale: {
     titlu: "Pentru situația ta",
     pauza: { id: "s_pauza", q: "Văd o pauză în CV. Ce ai făcut în această perioadă?",

@@ -1,6 +1,5 @@
 /* Date: comunicarea asertivă (secțiune cerută de autoare).
-   Baza: curs, cap. 2 (stilurile de comunicare: pasiv, agresiv, pasiv-agresiv, asertiv; comunicarea asertivă;
-   coerența dintre cuvinte și limbajul corpului) și cap. 7.2 (păreri spuse concret, despre fapte, cu o soluție).
+   Stilurile de comunicare (pasiv, agresiv, pasiv-agresiv, asertiv), cuvinte și limbajul corpului, păreri spuse concret.
    Exemplele sunt scrise original, pentru situații de muncă. Fără cifre sau promisiuni despre rezultate.
    Ultima verificare de către Simona: NEVERIFICAT (ciornă scrisă la 2026-11-15). */
 window.DATE = window.DATE || {};

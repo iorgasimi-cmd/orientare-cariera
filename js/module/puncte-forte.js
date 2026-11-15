@@ -1,5 +1,5 @@
 /* Subagent 2: puncte forte și valori.
-   Momente de succes (curs, 3.2), cele 4 cercuri Ikigai (1.5), valori de carieră (3.3, ancore Schein).
+   Momente de succes, cele 4 cercuri Ikigai, valori de carieră (ancore Schein).
    Aplicația nu dă note: arată ce a scris omul și întreabă dacă se recunoaște. */
 (function (g) {
   "use strict";

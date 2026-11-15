@@ -1,5 +1,5 @@
 /* Comunicarea asertivă: ce este, ce câștigi, cele patru stiluri, cinci exemple din viața profesională
-   (pasiv, agresiv, asertiv), o formulă în trei pași și un exercițiu (curs, cap. 2 și 7.2). */
+   (pasiv, agresiv, asertiv), o formulă în trei pași și un exercițiu. */
 (function (g) {
   "use strict";
   var C = g.Cariera, S = g.Stocare, D = g.DATE.asertiv, esc = C.esc;

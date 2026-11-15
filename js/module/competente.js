@@ -1,5 +1,4 @@
-/* „Ce iei cu tine în noul domeniu” (pentru adulți): matricea competențelor și analiza anunțurilor (curs, cap. 1.4),
-   competențele care se transferă (cap. 3.2). Omul scrie ce are, lipește cerințele din anunțuri și bifează ce are deja. */
+/* „Ce iei cu tine în noul domeniu” (pentru adulți): matricea competențelor și analiza anunțurilor, competențele care se transferă. Omul scrie ce are, lipește cerințele din anunțuri și bifează ce are deja. */
 (function (g) {
   "use strict";
   var C = g.Cariera, S = g.Stocare, D = g.DATE.competente, esc = C.esc;
@@ -25,7 +24,7 @@
       .sort(function (a, b) { return b.n - a.n || a.i - b.i; });
   }
 
-  /* Calcul pur: concluzia, după regulile din curs (cap. 1.4). */
+  /* Calcul pur: concluzia. */
   function concluzie(textA, textB, bifate) {
     var lista = cerinte(textB), am = bifate || [];
     var ai = lista.filter(function (c) { return am.indexOf(c.cheie) >= 0; });

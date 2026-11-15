@@ -58,7 +58,7 @@
 
     if (cuvinte < 80) adauga(M.scurt);
 
-    /* Date de contact (cap. 6.1: nume, telefon, e-mail profesional, oraș) */
+    /* Date de contact: nume, telefon, e-mail profesional, oraș */
     var email = String(text).match(/[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/);
     if (email) {
       bine.push(M.email_ok);
@@ -68,7 +68,7 @@
     if (/(\+?40|\b0)\s?7\d{2}[\s.-]?\d{3}[\s.-]?\d{3}\b|(\+?40|\b0)\s?[23]\d{1,2}[\s.-]?\d{3}[\s.-]?\d{3,4}\b/.test(text)) bine.push(M.telefon_ok);
     else adauga(M.telefon_lipsa);
 
-    /* Ce nu e necesar (cap. 6.1 și anexa 5) */
+    /* Ce nu e necesar */
     if (/\b[1-8]\d{12}\b/.test(text)) adauga(M.cnp);
     var inutile = [];
     if (/data nasterii|\bnascut(a)?\b/.test(n)) inutile.push("data nașterii");
@@ -78,7 +78,7 @@
     if (inutile.length) adauga(M.personale, { lista: inutile.join(", ") });
     if (/instagram|tiktok|facebook\.com/.test(n)) adauga(M.retele);
 
-    /* Structura (cap. 6.1 și anexa 4) */
+    /* Structura */
     var are = function (k) { return !!(sec[k] && sec[k].join("").trim()); };
     var prezente = ["rezumat", "experienta", "educatie", "competente"].filter(are);
     if (prezente.length >= 3) bine.push(mesaj(M.sectiuni_ok, { lista: prezente.map(function (k) { return NUME_SECTIUNE[k]; }).join(", ") }));
@@ -93,7 +93,7 @@
       else if (fraze > 3) adauga(M.rezumat_lung, { n: fraze });
     }
 
-    /* Cum descrii experiența (cap. 6.1: rezultate, nu doar responsabilități; anexele 4 și 5) */
+    /* Cum descrii experiența */
     if (are("experienta")) {
       var exp = sec.experienta.join("\n"), ne = norm(exp);
       var verbe = {}; (ne.match(VERBE) || []).forEach(function (v) { verbe[v] = 1; });
@@ -109,14 +109,14 @@
     var buline = String(text).split(/\r?\n/).filter(function (l) { return BULINA.test(l); }).length;
     if (buline >= 3) bine.push(M.puncte_ok);
 
-    /* Ordinea: cel mai recent primul (cap. 6.1: educația „începând cu ultima formă”; anexa 4) */
+    /* Ordinea: cel mai recent primul */
     ["experienta", "educatie"].forEach(function (k) {
       if (!sec[k]) return;
       var ani = sec[k].map(function (l) { var m = l.match(/\b(19|20)\d{2}\b/); return m ? Number(m[0]) : null; }).filter(Boolean);
       if (ani.length >= 2 && ani[0] < ani[ani.length - 1]) adauga(M.ordine, { sectiune: NUME_SECTIUNE[k] });
     });
 
-    /* Limbi străine cu nivel (anexa 4: „Engleză (B2 - Avansat)”) */
+    /* Limbi străine cu nivel */
     var liniiLimbi = String(text).split(/\r?\n/).filter(function (l) {
       var nl = norm(l); return D.cuvinte.limbi.some(function (x) { return new RegExp("\\b" + x + "\\b").test(nl); });
     });
@@ -126,7 +126,7 @@
     /* Diacritice */
     if (String(text).length > 200 && !/[ăâîșțşţĂÂÎȘȚŞŢ]/.test(text) && ((" " + n + " ").match(/ (si|in|sa) /g) || []).length >= 2) adauga(M.diacritice);
 
-    /* Prescurtări (cap. 6.1: scrie și forma întreagă) */
+    /* Prescurtări */
     var obisnuite = D.cuvinte.prescurtariObisnuite, gasite = {};
     String(text).split(/\r?\n/).forEach(function (l) {
       var litere = l.replace(/[^A-Za-zĂÂÎȘȚăâîșț]/g, ""), mari = l.replace(/[^A-ZĂÂÎȘȚ]/g, "");
