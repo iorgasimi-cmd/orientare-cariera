@@ -11,6 +11,7 @@
       q: "Ce ți-ai dori să se întâmple sau să începi, în următoarele luni, în legătură cu școala sau cariera?",
       qAdult: "Ce ți-ai dori să se întâmple sau să începi, în următoarele luni, în legătură cu munca sau cariera ta?" },
     { c: "specific", lit: "S – specific", exp: "Un scop clar spune exact ce faci. „Un job mai bun” e vag; „Vorbesc cu două persoane care lucrează ca…” e clar.",
+      expElev: "Un scop clar spune exact ce faci. „Să aflu ce mi se potrivește” e vag; „Vorbesc cu două persoane care lucrează ca…” e clar.",
       q: "Spune într-o propoziție ce vrei să faci, cât mai clar." },
     { c: "masurabil", lit: "M – măsurabil", exp: "Ca să știi că ai reușit, ai nevoie de ceva ce poți număra sau bifa.",
       q: "Cum vei ști că ai reușit? Ce poți număra sau bifa?" },
@@ -49,7 +50,7 @@
   function scopPas(i) {
     var s = SCOP[i];
     var corp = '<p class="mic">Pasul ' + (i + 1) + " din " + SCOP.length + "</p>" +
-      '<p class="termen"><strong>' + esc(s.lit) + ".</strong> " + esc(s.exp) + "</p>";
+      '<p class="termen"><strong>' + esc(s.lit) + ".</strong> " + esc(!C.eAdult() && s.expElev ? s.expElev : s.exp) + "</p>";
     if (s.data) {
       var v = S.ia("plan.scop.termen", "");
       corp += '<div class="camp"><label for="c-termen">' + esc(s.q) + '</label><input id="c-termen" type="date" data-camp="plan.scop.termen" min="' + C.azi() + '" value="' + esc(v) + '"></div>';
@@ -169,7 +170,9 @@
       C.camp("plan.conv.noua", "Cum aș putea să-l scriu astfel încât să mă ajute?", "De exemplu: „Încă învăț, iar fiecare încercare mă ajută.”", 3) +
       C.camp("plan.conv.actiune", "Ce pas mic pot face în săptămâna asta?", "", 2) +
       "<h2>Aceeași întâmplare, privită altfel</h2>" +
-      "<p>O situație se poate vedea în mai multe feluri. De exemplu, „Am pierdut trei luni cu interviuri” poate deveni „Am avut trei luni de antrenament la interviuri”. Încearcă și tu.</p>" +
+      "<p>O situație se poate vedea în mai multe feluri. De exemplu, " +
+        (C.eAdult() ? "„Am pierdut trei luni cu interviuri” poate deveni „Am avut trei luni de antrenament la interviuri”."
+          : "„Am luat o notă mică la test” poate deveni „Acum știu exact ce mai am de învățat până la teză”.") + " Încearcă și tu.</p>" +
       C.camp("plan.recadrare.veche", "O situație care mă supără", "", 2) +
       C.camp("plan.recadrare.noua", "Ce am învățat din ea? Cum o pot privi altfel?", "", 3) +
       '<div class="rand">' + C.buton("Înapoi la plan", "nav", "plan/hub", "primar") + "</div>";

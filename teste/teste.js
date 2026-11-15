@@ -801,6 +801,17 @@ test("copywriting: nicio frază din textele aplicației nu are mai mult de 22 de
   assert.deepStrictEqual(lungi, []);
 });
 
+test("partea elevilor nu are exemple de la interviu sau job; adulții își păstrează exemplele", () => {
+  S.sterge(); S.pune("varsta", "sub18"); S.pune("clasa", "10");
+  const elev = C.module.plan.ecran("convingere").corp + C.module.plan.ecran("scop1").corp;
+  assert.ok(!/interviu|Un job mai bun/i.test(elev));
+  assert.ok(elev.includes("notă mică la test") && elev.includes("Să aflu ce mi se potrivește"));
+  S.pune("varsta", "18-44"); S.pune("situatie", "caut");
+  const adult = C.module.plan.ecran("convingere").corp + C.module.plan.ecran("scop1").corp;
+  assert.ok(adult.includes("antrenament la interviuri") && adult.includes("Un job mai bun"));
+  S.sterge();
+});
+
 console.log("Ecranele se desenează");
 test("fiecare ecran se desenează fără erori și fără „undefined”", () => {
   S.sterge(); S.pune("varsta", "sub18"); S.pune("clasa", "10");
