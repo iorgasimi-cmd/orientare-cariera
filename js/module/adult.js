@@ -14,6 +14,8 @@
     interese: function () { return S.ia("interese.top", null) ? "interese/rezultat" : "interese/intro"; },
     forte: function () { return (S.ia("forte.valori", []) || []).length >= 3 ? "forte/rezumat" : "forte/intro"; },
     competente: function () { return S.ia("competente.gata", false) ? "competente/concluzie" : "competente/intro"; },
+    valori: function () { return S.ia("vp.gata", false) ? "valorile/rezultat" : "valorile/intro"; },
+    stima: function () { return S.ia("stima.gata", false) ? "stima/rezultat" : "stima/intro"; },
     cv: "cv/intro", scrisoare: "scrisoare/intro", asertiv: "asertiv/intro", interviu: "interviu/hub", plan: "plan/hub"
   };
   function ecranPas(p) { var e = ECRANE[p]; return typeof e === "function" ? e() : e; }
@@ -25,6 +27,8 @@
     cv: function () { return S.ia("cv.verificat", false) ? "✓ verificat" : ""; },
     scrisoare: function () { return S.ia("scrisoare.gata", false) ? "✓ schelet făcut" : ""; },
     asertiv: function () { return S.ia("asertiv.gata", false) ? "✓ făcut" : ""; },
+    valori: function () { return S.ia("vp.gata", false) ? "✓ făcut" : ""; },
+    stima: function () { return S.ia("stima.gata", false) ? "✓ făcut" : ""; },
     interviu: function () { return C.module.interviu && C.module.interviu.nrPovesti() >= 3 ? "✓ povești scrise" : ""; },
     plan: function () { return S.ia("plan.start", null) ? "✓ început" : ""; }
   };

@@ -37,7 +37,7 @@
 
   function bunVenit() {
     var corp = "<p>Iată ce urmează. Poți face pașii în ordinea ta și te poți opri oricând.</p>" +
-      '<ol class="pasi"><li>Un test de interese: ce îți place să faci.</li><li>Punctele tale forte și ce contează pentru tine.</li><li>Idei de meserii și domenii.</li><li>Un plan mic, cu o temă pe săptămână.</li><li>Sfaturi scurte.</li><li>Cum spui clar ce vrei, inclusiv unui program de IA.</li></ol>' +
+      '<ol class="pasi"><li>Un test de interese: ce îți place să faci.</li><li>Punctele tale forte și ce contează pentru tine.</li><li>Idei de meserii și domenii.</li><li>Un plan mic, cu o temă pe săptămână.</li><li>Sfaturi scurte.</li><li>Cum spui clar ce vrei, inclusiv unui program de IA.</li><li>Ce valori contează pentru tine și cum te vezi.</li></ol>' +
       '<div class="rand">' + C.buton("Începem", "nav", "elev/meniu", "primar") + C.buton("Schimb răspunsurile", "nav", "start") + "</div>";
     return C.pagina("Bine ai venit!", corp, "elev/clasa");
   }
@@ -57,6 +57,8 @@
       C.buton("<strong>4. Planul meu</strong>" + pasStatus(plan), "nav", "plan/hub", "lista") +
       C.buton("<strong>5. Sfaturi</strong><span class=\"stare\">citire scurtă</span>", "nav", "sfaturi/lista", "lista") +
       C.buton("<strong>6. Comunicarea asertivă</strong>" + pasStatus(!!S.ia("asertiv.gata", false)), "nav", "asertiv/intro", "lista") +
+      C.buton("<strong>7. Valorile mele</strong>" + pasStatus(!!S.ia("vp.gata", false)), "nav", S.ia("vp.gata", false) ? "valorile/rezultat" : "valorile/intro", "lista") +
+      C.buton("<strong>8. Cum mă văd eu</strong>" + pasStatus(!!S.ia("stima.gata", false)), "nav", S.ia("stima.gata", false) ? "stima/rezultat" : "stima/intro", "lista") +
       "</div>";
     return C.pagina("Drumul tău", corp, null);
   }
