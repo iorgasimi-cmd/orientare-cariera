@@ -17,22 +17,22 @@ window.DATE.sfaturi = {
     { id: "alegere", titlu: "Alegerea liceului sau a facultății" }
   ],
   sfaturi: [
-    { tema: "motivatie", grupa: "explorare", t: "Nu trebuie să știi acum ce vrei să faci toată viața. Încearcă lucruri mici și observă ce te bucură." },
-    { tema: "motivatie", grupa: "explorare", t: "Dacă te blochezi, alege un pas foarte mic: o întrebare de pus cuiva sau o pagină de citit. Un pas mic contează." },
-    { tema: "motivatie", grupa: "alegere", t: "Când ai multe de făcut, alege un singur lucru important pe săptămână. Prea multe scopuri deodată obosesc." },
-    { tema: "motivatie", grupa: "alegere", t: "O alegere nu e pentru totdeauna. Mulți oameni își schimbă drumul. Poți învăța din fiecare pas." },
+    { tema: "motivatie", grupa: "explorare", t: "**Nu trebuie să știi acum ce vrei să faci toată viața.** Încearcă lucruri mici și observă ce te bucură." },
+    { tema: "motivatie", grupa: "explorare", t: "Dacă te blochezi, **alege un pas foarte mic**: o întrebare de pus cuiva sau o pagină de citit. Un pas mic contează." },
+    { tema: "motivatie", grupa: "alegere", t: "Când ai multe de făcut, **alege un singur lucru important pe săptămână**. Prea multe scopuri deodată obosesc." },
+    { tema: "motivatie", grupa: "alegere", t: "**O alegere nu e pentru totdeauna.** Mulți oameni își schimbă drumul. Poți învăța din fiecare pas." },
     { tema: "piata", grupa: "explorare", t: "Meseriile se schimbă în timp. De aceea, ce înveți să faci cu ceilalți și cum înveți lucruri noi poate conta cât și o meserie anume." },
     { tema: "piata", grupa: "explorare", t: "Angajatorii caută tot mai des oameni care se adaptează, comunică bine și lucrează în echipă. Le poți exersa la școală, într-un proiect sau în voluntariat." },
     { tema: "piata", grupa: "alegere", t: "Citește descrierea a cinci posturi reale, de la angajatori diferiți. Vezi ce se repetă: acolo ai de învățat." },
-    { tema: "piata", grupa: "alegere", t: "Angajările pot fi prudente în unele perioade. Dacă nu primești răspuns, nu înseamnă ceva despre tine. Poți încerca la mai multe locuri sau poți schimba strategia." },
-    { tema: "primul-job", grupa: "explorare", t: "Experiența se poate începe mic: voluntariat, ateliere, un proiect la școală. Fiecare pas se numără." },
+    { tema: "piata", grupa: "alegere", t: "Angajările pot fi prudente în unele perioade. Dacă nu primești răspuns, **nu înseamnă ceva despre tine**. Poți încerca la mai multe locuri sau poți schimba strategia." },
+    { tema: "primul-job", grupa: "explorare", t: "**Experiența se poate începe mic**: voluntariat, ateliere, un proiect la școală. Fiecare pas se numără." },
     { tema: "primul-job", grupa: "explorare", t: "Voluntariatul te lasă să încerci o meserie și să cunoști oameni, fără presiunea unui job. Întreabă la școală sau la un ONG ce există în orașul tău." },
-    { tema: "primul-job", grupa: "alegere", t: "Pentru primul tău CV, scrie ce ai făcut concret: un proiect, o activitate, un voluntariat. Nu e nevoie de multă experiență, ci de exemple reale." },
-    { tema: "primul-job", grupa: "alegere", t: "Ai grijă pe ce site sau la ce persoană scrii. Dacă ți se cere să plătești ca să primești un job, sau ți se promit bani ușor, oprește-te și vorbește cu un adult de încredere." },
+    { tema: "primul-job", grupa: "alegere", t: "Pentru primul tău CV, **scrie ce ai făcut concret**: un proiect, o activitate, un voluntariat. Nu e nevoie de multă experiență, ci de exemple reale." },
+    { tema: "primul-job", grupa: "alegere", t: "Ai grijă pe ce site sau la ce persoană scrii. Dacă ți se cere să plătești ca să primești un job, sau ți se promit bani ușor, **oprește-te și vorbește cu un adult de încredere**." },
     { tema: "alegere", grupa: "explorare", t: "Pentru liceu, întreabă-te: ce materii îți plac? Ce te face curios? Vorbește cu elevi din clasele mai mari și vizitează zilele porților deschise." },
     { tema: "alegere", grupa: "explorare", t: "Un adult care lucrează într-o meserie poate povesti în zece minute ce e greu și ce e frumos în ea. Întreabă-l pe cineva din familie sau din cartier." },
     { tema: "alegere", grupa: "alegere", t: "Pentru facultate, ai nevoie de patru lucruri de verificat: ce se învață, ce condiții de admitere sunt, unde se desfășoară și ce alte drumuri duc în aceeași direcție. Caută pe site-ul facultății." },
-    { tema: "alegere", grupa: "alegere", t: "Dacă familia ta are alte idei decât tine, scrie-ți motivele într-o foaie și vorbește calm cu ei. Decizia finală e a ta." }
+    { tema: "alegere", grupa: "alegere", t: "Dacă familia ta are alte idei decât tine, scrie-ți motivele într-o foaie și vorbește calm cu ei. **Decizia finală e a ta.**" }
   ],
   /* Mesaje scurte de încurajare, legate de tendințe discutate în promptul Simonei.
      Cifrele și sursele pentru tendințe se vor adăuga în pasul de verificare. */
@@ -82,10 +82,10 @@ window.DATE.sfaturi = {
   ],
   /* Cele 5 obstacole psihologice din curs, cap. 4.3, formulate pentru elevi. Fiecare are o idee de răspuns, din curs. */
   obstacole: [
-    { id: "o1", nume: "Gândesc prea mult", explicatie: "Citesc și caut tot mai mult, dar nu fac niciun pas.", idee: "Mai bine un pas imperfect astăzi decât un pas perfect peste o lună. Alege ceva mic și fă-l azi." },
+    { id: "o1", nume: "Gândesc prea mult", explicatie: "Citesc și caut tot mai mult, dar nu fac niciun pas.", idee: "**Mai bine un pas imperfect astăzi decât un pas perfect peste o lună.** Alege ceva mic și fă-l azi." },
     { id: "o2", nume: "Vreau să iasă perfect", explicatie: "Aștept momentul sau varianta perfectă.", idee: "Poți pune un scop de cantitate, nu de rezultat. De exemplu: „încerc trei lucruri săptămâna asta”." },
-    { id: "o3", nume: "Rezultatul vine târziu", explicatie: "Muncesc acum, dar efectul se vede abia mai târziu și îmi pierd curajul.", idee: "Sărbătorește pașii mici, nu doar rezultatul final. Dacă ai făcut tema, e un motiv de bucurie." },
+    { id: "o3", nume: "Rezultatul vine târziu", explicatie: "Muncesc acum, dar efectul se vede abia mai târziu și îmi pierd curajul.", idee: "**Sărbătorește pașii mici**, nu doar rezultatul final. Dacă ai făcut tema, e un motiv de bucurie." },
     { id: "o4", nume: "Mă simt mai puțin bun(ă) decât alții", explicatie: "Mă gândesc: „Cine sunt eu să încerc? Sigur sunt alții mai buni.”", idee: "Amintește-ți punctele tale tari și lucrurile care ți-au ieșit bine. Nu trebuie să fii cel mai bun, ci să încerci." },
-    { id: "o5", nume: "Vreau prea multe deodată", explicatie: "Planul meu e prea încărcat.", idee: "Alege un singur scop mare și lasă restul pentru mai târziu." }
+    { id: "o5", nume: "Vreau prea multe deodată", explicatie: "Planul meu e prea încărcat.", idee: "**Alege un singur scop mare** și lasă restul pentru mai târziu." }
   ]
 };

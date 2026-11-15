@@ -19,7 +19,7 @@ window.DATE.exercitii = {
   quiz: {
     compliment: {
       titlu: "Când primești un compliment",
-      intro: "Mulți oameni se încurcă la complimente: le neagă, se micșorează sau tac jenați. Un compliment primit frumos face discuția mai caldă pentru amândoi. Cel mai simplu: mulțumești și întorci ceva bun.",
+      intro: "Mulți oameni se încurcă la complimente: le neagă, se micșorează sau tac jenați. Un compliment primit frumos face discuția mai caldă pentru amândoi. **Cel mai simplu: mulțumești și întorci ceva bun.**",
       itemi: [
         {
           situatie: "Șefa îți spune, după ședință: „Prezentarea ta de azi a fost foarte bună.”",
@@ -41,7 +41,7 @@ window.DATE.exercitii = {
     },
     gluma: {
       titlu: "Glumă sau batjocură?",
-      intro: "O glumă prietenoasă se primește ușor: zâmbești, poți chiar s-o continui. Batjocura e altceva: se repetă, te face să pari mai puțin capabil(ă), de obicei de față cu alții. Pe aceasta o oprești calm, pe loc.",
+      intro: "O glumă prietenoasă se primește ușor: zâmbești, poți chiar s-o continui. Batjocura e altceva: se repetă, te face să pari mai puțin capabil(ă), de obicei de față cu alții. **Pe aceasta o oprești calm, pe loc.**",
       intrebare: "Ce crezi că este?",
       optiuni: [["gluma", "O glumă prietenoasă"], ["batjocura", "Batjocură"]],
       itemi: [
@@ -73,14 +73,14 @@ window.DATE.exercitii = {
     },
     argumente: {
       titlu: "Când cineva argumentează nedrept",
-      intro: "Uneori, într-o discuție, cineva nu răspunde la ce ai spus, ci încearcă doar să „câștige”. Dacă recunoști felul în care o face, poți răspunde calm, fără să te cerți.",
+      intro: "Uneori, într-o discuție, cineva nu răspunde la ce ai spus, ci încearcă doar să „câștige”. Dacă recunoști felul în care o face, **poți răspunde calm, fără să te cerți**.",
       tipuri: [
         { id: "persoana", t: "Atacă persoana", d: "Nu vorbește despre idee, ci despre tine: vârsta, vechimea, felul tău de a fi." },
         { id: "perfect", t: "„Dacă nu e perfect, nu e bun”", d: "Respinge o soluție doar pentru că nu rezolvă absolut tot." },
         { id: "detaliu", t: "Se agață de un detaliu mic", d: "Insistă pe un lucru mărunt, ca să pară că toată ideea e greșită." },
         { id: "rastalmaceste", t: "Îți răstălmăcește vorbele", d: "Spune că ai zis ceva mult mai mult sau mai rău decât ai spus." }
       ],
-      sfat: "Ce te ajută de obicei: o întrebare calmă, care aduce discuția înapoi la idee. De exemplu: „Ce anume nu merge, concret?” sau „Cum se leagă asta de ce am propus?”",
+      sfat: "Ce te ajută de obicei: **o întrebare calmă, care aduce discuția înapoi la idee**. De exemplu: „Ce anume nu merge, concret?” sau „Cum se leagă asta de ce am propus?”",
       intrebare: "Ce face colegul?",
       itemi: [
         {
@@ -110,7 +110,7 @@ window.DATE.exercitii = {
   /* ---- Cererea cu motiv ---- */
   cerere: {
     titlu: "Cererea mea",
-    intro: "O cerere sună mai respectuos când e o întrebare, nu un ordin, și când spui și motivul. „Trimite-mi raportul acum!” sună altfel decât „Îmi poți trimite raportul până la ora 12? Am nevoie de el pentru ședința cu clientul.”",
+    intro: "O cerere sună mai respectuos **când e o întrebare, nu un ordin, și când spui și motivul**. „Trimite-mi raportul acum!” sună altfel decât „Îmi poți trimite raportul până la ora 12? Am nevoie de el pentru ședința cu clientul.”",
     camp: "Scrie o cerere către un coleg sau către șef",
     ajutor: "De exemplu: să te ajute cu o sarcină, să schimbi o tură, să primești o zi liberă.",
     buton: "Verific cererea",
@@ -131,7 +131,7 @@ window.DATE.exercitii = {
     titlu: "Pauza de două secunde",
     intro: [
       "Când răspunzi imediat ce celălalt a terminat de vorbit, poate părea că nu l-ai ascultat, ci doar ai așteptat să-ți vină rândul.",
-      "O pauză scurtă, de două secunde, arată că te-ai gândit la ce a spus. Te ajută și pe tine să-ți aduni gândurile."
+      "**O pauză scurtă, de două secunde, arată că te-ai gândit la ce a spus.** Te ajută și pe tine să-ți aduni gândurile."
     ],
     cum: "Citește întrebarea ca și cum ți-ar pune-o cineva. Apasă butonul, așteaptă până se umple bara, apoi răspunde cu voce tare.",
     buton: "Am auzit întrebarea",
@@ -147,7 +147,7 @@ window.DATE.exercitii = {
     pasi: [
       "Respiră adânc, din burtă. Pune mâna pe burtă și simte cum se ridică.",
       "Citește textul de mai jos cu voce tare. Exagerează: vorbește tare, apoi încet, schimbă vocea la fiecare personaj.",
-      "Încetinește la frazele importante și grăbește-te puțin la cele mai puțin importante.",
+      "**Încetinește la frazele importante** și grăbește-te puțin la cele mai puțin importante.",
       "La interviu nu exagerezi, dar vocea va fi mai vie și mai sigură."
     ],
     text: [
@@ -163,7 +163,7 @@ window.DATE.exercitii = {
   /* ---- Începutul și finalul ---- */
   capete: {
     titlu: "Începutul și finalul tău",
-    intro: "Oamenii își amintesc cel mai bine cum începe și cum se termină o discuție. Pe acestea le poți pregăti cuvânt cu cuvânt. Pentru mijloc, notează doar câteva idei: dacă înveți totul pe de rost, sună a text citit.",
+    intro: "Oamenii își amintesc cel mai bine cum începe și cum se termină o discuție. **Pe acestea le poți pregăti cuvânt cu cuvânt.** Pentru mijloc, notează doar câteva idei: dacă înveți totul pe de rost, sună a text citit.",
     campuri: [
       { id: "inceput", t: "Cum te prezinți, în aproximativ 30 de secunde", ajutor: "Cine ești, ce experiență ai și ce cauți acum.", randuri: 4 },
       { id: "mijloc", t: "La mijloc: 2–3 idei pe care vrei să le spui", ajutor: "Doar câteva cuvinte pentru fiecare, de exemplu: „proiectul cu clienții noi”.", randuri: 3 },
@@ -180,7 +180,7 @@ window.DATE.exercitii = {
     camp: "Lipește aici textul anunțului sau câteva paragrafe de pe site-ul firmei",
     buton: "Văd cuvintele",
     rezultat: "Cuvintele care apar cel mai des",
-    sfat: "Folosește-le firesc, unde se potrivesc, de exemplu când vorbești despre experiența ta. Nu le înșira pe toate: s-ar simți forțat.",
+    sfat: "**Folosește-le firesc, unde se potrivesc**, de exemplu când vorbești despre experiența ta. Nu le înșira pe toate: s-ar simți forțat.",
     gol: "Lipește mai întâi un text în căsuța de mai sus.",
     putine: "Textul e prea scurt ca să văd ce se repetă. Lipește mai mult.",
     /* Cuvinte de legătură care nu se numără (fără diacritice, cu litere mici). */
@@ -191,7 +191,7 @@ window.DATE.exercitii = {
   /* ---- 2 întrebări, 1 poveste ---- */
   intrebari: {
     titlu: "Două întrebări, o poveste",
-    intro: "La un târg de joburi sau când cunoști pe cineva din domeniu, ajută să pui mai multe întrebări decât vorbești despre tine. Dar nu doar întrebări: spune și tu ceva, ca să fie o discuție, nu un interogatoriu.",
+    intro: "La un târg de joburi sau când cunoști pe cineva din domeniu, ajută **să pui mai multe întrebări decât vorbești despre tine**. Dar nu doar întrebări: spune și tu ceva, ca să fie o discuție, nu un interogatoriu.",
     alege: "Alege două întrebări pe care ți-ar plăcea să le pui",
     lista: [
       "Cum ați ajuns să lucrați în acest domeniu?",
@@ -211,19 +211,19 @@ window.DATE.exercitii = {
   /* ---- Cum să argumentezi: ideile principale și exercițiul „Argumentul meu” ---- */
   argumentez: {
     titlu: "Cum să argumentezi",
-    intro: "Să argumentezi înseamnă să explici calm și clar ce propui, ca celălalt să te poată înțelege și, poate, să fie de acord. Nu e o ceartă și nu e despre cine câștigă.",
+    intro: "Să argumentezi înseamnă să **explici calm și clar ce propui**, ca celălalt să te poată înțelege și, poate, să fie de acord. Nu e o ceartă și nu e despre cine câștigă.",
     ideiTitlu: "Ideile principale",
     idei: [
-      { t: "Spune ideea clar, de la început.", ex: "O singură propoziție: ce propui." },
-      { t: "Dă un motiv.", ex: "Ce rezolvă ideea ta." },
-      { t: "Sprijină motivul cu un exemplu sau un fapt adevărat.", ex: "Un exemplu concret convinge mai mult decât „eu cred că”." },
-      { t: "Arată ce câștigă și celălalt.", ex: "Nu doar ce câștigi tu." },
-      { t: "Recunoaște ce e adevărat în părerea celuilalt.", ex: "„Ai dreptate că… De aceea propun…”" },
-      { t: "Propune un pas mic sau o probă.", ex: "„Încercăm două săptămâni și vedem.”" },
-      { t: "Ascultă și cere lămuriri.", ex: "„Ce anume nu ți se pare bine?”" },
-      { t: "Rămâi la subiect.", ex: "Vorbește despre idee, nu despre persoană. Fără „mereu” și „niciodată”." },
-      { t: "Vorbește calm și simplu.", ex: "Încetinește la ideea principală." },
-      { t: "Fii sincer(ă) când nu știi.", ex: "„Nu știu sigur, verific și îți spun mâine.”" }
+      { t: "**Spune ideea clar, de la început.**", ex: "O singură propoziție: ce propui." },
+      { t: "**Dă un motiv.**", ex: "Ce rezolvă ideea ta." },
+      { t: "**Sprijină motivul cu un exemplu sau un fapt adevărat.**", ex: "Un exemplu concret convinge mai mult decât „eu cred că”." },
+      { t: "**Arată ce câștigă și celălalt.**", ex: "Nu doar ce câștigi tu." },
+      { t: "**Recunoaște ce e adevărat în părerea celuilalt.**", ex: "„Ai dreptate că… De aceea propun…”" },
+      { t: "**Propune un pas mic sau o probă.**", ex: "„Încercăm două săptămâni și vedem.”" },
+      { t: "**Ascultă și cere lămuriri.**", ex: "„Ce anume nu ți se pare bine?”" },
+      { t: "**Rămâi la subiect.**", ex: "Vorbește despre idee, nu despre persoană. Fără „mereu” și „niciodată”." },
+      { t: "**Vorbește calm și simplu.**", ex: "Încetinește la ideea principală." },
+      { t: "**Fii sincer(ă) când nu știi.**", ex: "„Nu știu sigur, verific și îți spun mâine.”" }
     ],
     formaTitlu: "O formă ușor de ținut minte: 4 pași",
     forma: "Ideea → Motivul → Exemplul → Propunerea",

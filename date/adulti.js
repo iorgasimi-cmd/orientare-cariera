@@ -19,12 +19,12 @@ window.DATE.adulti = {
     },
     {
       id: "pauza", t: "Revin după o pauză", d: "de exemplu, după concediul de creștere a copilului",
-      bun: "Ce știi să faci nu s-a pierdut. Te ajut să vorbești simplu și sincer despre pauză, în CV și la interviu, și să scrii ce ai învățat în acest timp.",
+      bun: "**Ce știi să faci nu s-a pierdut.** Te ajut să vorbești simplu și sincer despre pauză, în CV și la interviu, și să scrii ce ai învățat în acest timp.",
       pasi: ["cv", "scrisoare", "asertiv", "interviu", "plan"]
     },
     {
       id: "nustiu", t: "Încă nu știu ce vreau",
-      bun: "E normal să nu știi încă și nu e nevoie să hotărăști azi. Începem cu ce îți place, la ce ești bun(ă) și ce contează pentru tine. CV-ul îl lăsăm pentru mai târziu.",
+      bun: "**E normal să nu știi încă și nu e nevoie să hotărăști azi.** Începem cu ce îți place, la ce ești bun(ă) și ce contează pentru tine. CV-ul îl lăsăm pentru mai târziu.",
       pasi: ["interese", "forte", "asertiv", "plan"]
     }
   ],
@@ -33,7 +33,7 @@ window.DATE.adulti = {
   pasi: {
     interese: { t: "Test de interese", d: "Ce îți place să faci." },
     forte: { t: "Puncte forte și valori", d: "La ce ești bun(ă) și ce contează pentru tine într-un loc de muncă." },
-    competente: { t: "Ce iei cu tine în noul domeniu", d: "Ce știi să faci și se potrivește și în alt domeniu." },
+    competente: { t: "Ce iei cu tine în noul domeniu", d: "**Ce știi să faci și se potrivește și în alt domeniu.**" },
     cv: { t: "CV-ul meu", d: "Îți verifici CV-ul după câteva reguli simple." },
     scrisoare: { t: "Scrisoarea de intenție", d: "O scrii pas cu pas, cu ajutorul unor întrebări." },
     asertiv: { t: "Comunicarea asertivă", d: "Cum spui clar ce gândești și de ce ai nevoie, cu respect pentru tine și pentru ceilalți." },

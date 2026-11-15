@@ -84,7 +84,7 @@
       '<section class="card"><h2>' + esc(E.ia.titlu) + "</h2><p>" + esc(E.ia.explica) + "</p></section>" + C.ghidIA() + '<section class="card">' +
       '<p class="alerta"><strong>Atenție:</strong> ' + esc(E.ia.atentie) + "</p>" +
       '<div class="camp"><label for="c-prompt-interviu">Promptul de copiat</label>' +
-      '<textarea id="c-prompt-interviu" rows="10" readonly>' + esc(promptIA(S.ia("scrisoare.r.post", ""), S.ia("situatie", ""))) + "</textarea></div>" +
+      '<textarea id="c-prompt-interviu" rows="10" readonly>' + C.escSimplu(promptIA(S.ia("scrisoare.r.post", ""), S.ia("situatie", ""))) + "</textarea></div>" +
       '<div class="rand">' + C.buton("Copiază", "interviu.copiaza", null, "continua") + "</div>" +
       '<p id="stare-copiere-interviu" class="mic" role="status"></p></section>' +
       '<div class="rand">' + C.buton("Înapoi la interviu", "nav", "interviu/hub", "primar") + "</div>";

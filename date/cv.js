@@ -19,7 +19,7 @@ window.DATE.cv = {
   pierdut: "Textul CV-ului nu mai este aici, pentru că nu l-ai păstrat pe telefon. Lipește-l din nou.",
 
   /* ATS explicat simplu (cap. 6.1). */
-  ats: "Unele firme folosesc un program care citește CV-urile înainte să le vadă un om. Se numește ATS. Programul caută în CV cuvinte din anunț și poate citi greșit tabelele, coloanele, imaginile sau ce e scris în antet.",
+  ats: "Unele firme folosesc un program care citește CV-urile înainte să le vadă un om. **Se numește ATS.** Programul caută în CV cuvinte din anunț și poate citi greșit tabelele, coloanele, imaginile sau ce e scris în antet.",
 
   /* Întrebări cu răspuns, câte una pe ecran, despre ce nu se vede în textul lipit. */
   intrebari: [
@@ -85,11 +85,11 @@ window.DATE.cv = {
 
   /* Sfaturi pe situații (cap. 6.1 și 8.4). */
   situatii: {
-    caut: "Potrivește CV-ul pentru fiecare anunț: citește anunțul, alege 5–6 cuvinte importante din el și verifică dacă apar la fel și în CV-ul tău.",
-    schimb: "Scrie ce știi să faci și se potrivește și în noul domeniu (de exemplu comunicare, organizare, lucrul cu oamenii sau cu cifrele), cu câte un exemplu. Ce știi să faci contează mai mult decât titlul vechi.",
-    pauza: "Scrie pauza simplu și sincer, ca pe o etapă, de exemplu „Concediu de creștere a copilului” cu perioada. Adaugă ce ai învățat sau ai făcut în acest timp: cursuri, voluntariat, responsabilități.",
+    caut: "**Potrivește CV-ul pentru fiecare anunț**: citește anunțul, alege 5–6 cuvinte importante din el și verifică dacă apar la fel și în CV-ul tău.",
+    schimb: "Scrie ce știi să faci și se potrivește și în noul domeniu (de exemplu comunicare, organizare, lucrul cu oamenii sau cu cifrele), cu câte un exemplu. **Ce știi să faci contează mai mult decât titlul vechi.**",
+    pauza: "**Scrie pauza simplu și sincer, ca pe o etapă**, de exemplu „Concediu de creștere a copilului” cu perioada. Adaugă ce ai învățat sau ai făcut în acest timp: cursuri, voluntariat, responsabilități.",
     nustiu: "CV-ul poate aștepta până știi ce vrei. Când îl scrii, pune accent pe ce ți-a ieșit bine și pe ce îți place să faci.",
-    accent45: "Pune în față experiența și rezultatele concrete. Scrie și ce folosești din tehnologie: e-mail, programe de birou, întâlniri video."
+    accent45: "**Pune în față experiența și rezultatele concrete.** Scrie și ce folosești din tehnologie: e-mail, programe de birou, întâlniri video."
   },
 
   /* Liste de cuvinte folosite la verificare (fără diacritice, cu litere mici). */
@@ -109,7 +109,7 @@ window.DATE.cv = {
     sfaturi: [
       "Copiază promptul de mai jos și lipește-l în chat. Apoi lipește textul CV-ului, fără date sensibile.",
       "Cere schimbările pe rând: întâi rezumatul, apoi experiența. Așa vezi ușor ce s-a schimbat.",
-      "Nu lăsa programul să inventeze experiență, cifre, diplome sau competențe pe care nu le ai. Dacă apare ceva nou, șterge-l.",
+      "**Nu lăsa programul să inventeze experiență, cifre, diplome sau competențe pe care nu le ai.** Dacă apare ceva nou, șterge-l.",
       "Citește cu voce tare ce ți-a propus și compară cu CV-ul tău. Păstrează doar ce e adevărat și sună ca tine.",
       "Când ai terminat, lipește CV-ul nou aici și verifică-l din nou."
     ],

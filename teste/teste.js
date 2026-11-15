@@ -295,7 +295,7 @@ test("fiecare situație are bun venit și pașii ei, în ordinea din prompt", ()
     S.sterge(); S.pune("varsta", "18-44"); S.pune("situatie", id);
     const sit = D.adulti.situatii.find(x => x.id === id);
     const b = C.module.adult.ecran("bunvenit").corp;
-    assert.ok(b.includes(sit.bun.slice(0, 30)) && !b.includes(D.adulti.accent45), id);
+    assert.ok(b.includes(C.esc(sit.bun)) && !b.includes(C.esc(D.adulti.accent45)), id);
     const m = C.module.adult.ecran("meniu").corp;
     let poz = -1;
     ordine[id].forEach((t, i) => { const k = m.indexOf((i + 1) + ". " + t); assert.ok(k > poz, id + ": " + t); poz = k; });
@@ -415,7 +415,7 @@ test("ecranul cu rezultatul și meniul adulților", () => {
   assert.ok(C.module.adult.ecran("meniu").corp.includes("○ de făcut"));
   C.module.cv._seteazaText(CV_SLAB); C.module.cv.actiuni.rezultat();
   const p = C.module.cv.ecran("rezultat");
-  ["Ce e bine", "Ce ai putea schimba", "În ordinea importanței", "Pentru situația ta", D.cv.mesaje.nu_pot, D.cv.situatii.accent45].forEach(t => assert.ok(p.corp.includes(t), t));
+  ["Ce e bine", "Ce ai putea schimba", "În ordinea importanței", "Pentru situația ta", D.cv.mesaje.nu_pot, D.cv.situatii.accent45].forEach(t => assert.ok(p.corp.includes(C.esc(t)), t));
   assert.ok(!p.corp.includes("<b") || true);
   assert.deepStrictEqual(Verificator.verificaText(p.corp.replace(/<[^>]+>/g, " ")).map(x => x.gasit), []);
   assert.ok(C.module.adult.ecran("meniu").corp.includes("✓ verificat"));
@@ -493,7 +493,7 @@ test("scheletul are 3 paragrafe cu răspunsurile omului, nu un text gata scris",
   ["1. Ce te atrage la firmă", "2. Ce aduci tu", "3. Disponibilitate și încheiere", "Proiectul lor de voluntariat", "Organizare, Excel", "postul de asistent administrativ", "Toate cele bune"].forEach(t => assert.ok(c.includes(t), t));
   assert.ok(c.includes("Firma &lt;Beta&gt;") && !c.includes("Firma <Beta>"), "textul omului e afișat în siguranță");
   S.pune("scrisoare.r.disponibil", "În zilele lucrătoare, după ora 13.");
-  assert.ok(C.module.scrisoare.ecran("schelet").corp.includes("o discuție (în zilele lucrătoare, după ora 13). Încheie"), "disponibilitatea se potrivește în propoziție");
+  assert.ok(C.module.scrisoare.ecran("schelet").corp.includes("o discuție (în zilele lucrătoare, după ora 13). <strong>Încheie"), "disponibilitatea se potrivește în propoziție");
   assert.ok(c.includes("nu ai scris încă") && c.includes("Completez"), "răspunsurile lipsă se pot completa");
   assert.ok(c.includes("Înainte să o trimiți") && c.includes("30 de secunde"));
   assert.ok(!/Stimate|Stimată|Doamnă|Domnule/.test(c), "nu scrie scrisoarea în locul omului");
@@ -538,7 +538,7 @@ test("poveștile: până la 5, cu context, ce ai făcut și rezultat; apar ca aj
   S.sterge(); S.pune("varsta", "18-44"); S.pune("situatie", "caut");
   const p1 = C.module.interviu.ecran("poveste/1").corp;
   ["Unde erai și ce se întâmpla?", "Ce ai făcut tu, concret?", "Ce s-a întâmplat după aceea?"].forEach(t => assert.ok(p1.includes(t), t));
-  assert.ok(C.module.interviu.ecran("povesti").corp.includes(D.interviu.povesti.atentie), "poveștile trebuie să fie reale");
+  assert.ok(C.module.interviu.ecran("povesti").corp.includes(C.esc(D.interviu.povesti.atentie)), "poveștile trebuie să fie reale");
   assert.strictEqual(C.module.interviu.nrPovesti(), 0);
   S.pune("interviu.p.p1.titlu", "Clientul nemulțumit"); S.pune("interviu.p.p2.context", "La magazin"); S.pune("interviu.p.p4.rezultat", "Am terminat la timp");
   assert.strictEqual(C.module.interviu.nrPovesti(), 3);
@@ -776,6 +776,18 @@ test("explicația despre IA și prompt e aceeași, clară și pas cu pas, pe toa
   });
   assert.deepStrictEqual(Verificator.verificaDate(D.ia).map(p => p.gasit), []);
   C.module.cv._seteazaText(""); S.sterge();
+});
+
+test("ideile marcate cu ** apar îngroșate; căsuțele de scris și prompturile rămân fără marcaj", () => {
+  assert.strictEqual(C.esc("A **b** c"), "A <strong>b</strong> c");
+  assert.strictEqual(C.esc("<b>**x**</b>"), "&lt;b&gt;<strong>x</strong>&lt;/b&gt;", "textul tot e protejat");
+  assert.strictEqual(C.escSimplu("**x**"), "**x**");
+  S.sterge(); S.pune("varsta", "18-44"); S.pune("situatie", "caut"); S.pune("asertiv.situatie", "**test**");
+  assert.ok(C.module.asertiv.ecran("exercitiu").corp.includes(">**test**</textarea>"), "ce scrie omul nu se schimbă");
+  assert.ok(C.module.asertiv.ecran("intro").corp.includes("<strong>„Eu contez și tu contezi.”</strong>"));
+  const pr = [C.module.cv.promptIA({ schimba: ["x"] }, { situatie: "caut", varsta: "45+" }), C.module.scrisoare.promptIA({}, "schimb"), C.module.interviu.promptIA("x", "pauza")].join("");
+  assert.ok(!pr.includes("**"), "prompturile nu au steluțe");
+  S.sterge();
 });
 
 console.log("Ecranele se desenează");

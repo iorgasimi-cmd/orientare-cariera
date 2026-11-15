@@ -2,15 +2,21 @@
 (function (g) {
   "use strict";
 
-  function esc(s) {
+  /* Fără marcaj: pentru căsuțele de scris și pentru valori. */
+  function escSimplu(s) {
     return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
       return { "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;", "'": "&#39;" }[c];
     });
+  }
+  /* Pentru textele afișate: **ideea importantă** apare îngroșată, ca să se rețină ușor. */
+  function esc(s) {
+    return escSimplu(s).replace(/\*\*([^*]+?)\*\*/g, "<strong>$1</strong>");
   }
 
   var C = {
     module: {},
     esc: esc,
+    escSimplu: escSimplu,
     ecran: "start",
     eroare: "",
     deArata: "", /* id-ul unui element care trebuie adus în ecran după următoarea desenare */
@@ -30,7 +36,7 @@
       return '<div class="camp"><label for="' + id + '">' + eticheta + "</label>" +
         (ajutor ? '<p class="ajutor" id="' + id + '-a">' + ajutor + "</p>" : "") +
         '<textarea id="' + id + '" data-camp="' + esc(cale) + '" data-text="1" rows="' + (rows || 4) + '"' +
-        (ajutor ? ' aria-describedby="' + id + '-a"' : "") + ">" + esc(val) + "</textarea></div>";
+        (ajutor ? ' aria-describedby="' + id + '-a"' : "") + ">" + escSimplu(val) + "</textarea></div>";
     },
 
     /* Data de azi, în ora locală, ca AAAA-LL-ZZ. */

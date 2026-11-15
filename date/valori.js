@@ -33,7 +33,7 @@ window.DATE.valori = {
   ],
   /* Cele 4 cercuri Ikigai, așa cum apar în curs, cap. 1.5. */
   ikigai: [
-    { id: "place", t: "Ce îți place să faci?", ajutor: "Scrie 2–3 lucruri. Nu contează dacă par mici." },
+    { id: "place", t: "Ce îți place să faci?", ajutor: "Scrie 2–3 lucruri. **Nu contează dacă par mici.**" },
     { id: "bun", t: "La ce ești bun(ă)?", ajutor: "Ce spun alții că faci bine? La ce te cheamă colegii să-i ajuți?" },
     { id: "nevoie", t: "Ce nevoi are lumea din jurul tău, după părerea ta?", ajutor: "Ce probleme din jurul tău ai vrea să se rezolve?" },
     { id: "platit", t: "Pentru ce ar putea cineva să te plătească?", ajutor: "Aici nu ai nevoie de răspuns sigur. Scrie ce crezi sau lasă gol." }

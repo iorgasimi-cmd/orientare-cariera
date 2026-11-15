@@ -9,12 +9,12 @@ window.DATE.interviu = {
   scriere: "2026-11-15",
 
   titlu: "Pregătirea pentru interviu",
-  intro: "La interviu nu ajunge să spui „sunt comunicativ, organizat și muncitor”: toată lumea spune asta. Ajută mult să ai pregătite exemple concrete din experiența ta. Aici le scrii, exersezi întrebări și te pregătești pentru discuție.",
+  intro: "La interviu nu ajunge să spui „sunt comunicativ, organizat și muncitor”: toată lumea spune asta. **Ajută mult să ai pregătite exemple concrete din experiența ta.** Aici le scrii, exersezi întrebări și te pregătești pentru discuție.",
 
   povesti: {
     titlu: "Poveștile tale",
-    explica: "Notează 3–5 situații reale din experiența ta: un succes, o problemă rezolvată, o perioadă grea, o lucrare în echipă. Aceeași poveste te poate ajuta la mai multe întrebări.",
-    atentie: "Alege doar situații adevărate. La interviu, ce nu e adevărat iese la iveală, mai devreme sau mai târziu.",
+    explica: "Notează 3–5 situații reale din experiența ta: un succes, o problemă rezolvată, o perioadă grea, o lucrare în echipă. **Aceeași poveste te poate ajuta la mai multe întrebări.**",
+    atentie: "**Alege doar situații adevărate.** La interviu, ce nu e adevărat iese la iveală, mai devreme sau mai târziu.",
     maxim: 5,
     campuri: [
       { id: "titlu", t: "Un titlu scurt, ca să o recunoști", ajutor: "De exemplu: „Clientul nemulțumit” sau „Târgul de la grădiniță”.", randuri: 2 },
@@ -72,7 +72,7 @@ window.DATE.interviu = {
       text: [
         "Pune telefonul în fața ta și filmează-te câteva minute, răspunzând la 2–3 întrebări de aici. Dacă poți, îmbracă-te ca pentru interviu.",
         "Apoi uită-te: vorbești prea repede? Te uiți spre cameră? Spui des „ăăă”? Mulți oameni nu observă aceste lucruri până nu se văd.",
-        "Filmarea rămâne în telefonul tău. O poți șterge după aceea."
+        "**Filmarea rămâne în telefonul tău.** O poți șterge după aceea."
       ]
     },
     tipuri: {
@@ -95,7 +95,7 @@ window.DATE.interviu = {
     },
     tu: {
       titlu: "Întrebări pe care le poți pune tu",
-      explica: "La final, de obicei ești întrebat(ă) dacă ai întrebări. Una sau două întrebări bune arată că te interesează postul.",
+      explica: "La final, de obicei ești întrebat(ă) dacă ai întrebări. **Una sau două întrebări bune arată că te interesează postul.**",
       lista: [
         "Cum arată o zi obișnuită pe acest post?",
         "Ce așteptați de la cineva nou în primele luni?",

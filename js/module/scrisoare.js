@@ -78,7 +78,7 @@
       '<p class="alerta"><strong>Atenție:</strong> ' + esc(I.atentie) + "</p>" +
       '<h2>Cum faci</h2><ol class="pasi">' + I.sfaturi.map(function (t) { return "<li>" + esc(t) + "</li>"; }).join("") + "</ol>" +
       '<div class="camp"><label for="c-prompt-scrisoare">Promptul de copiat</label>' +
-      '<textarea id="c-prompt-scrisoare" rows="14" readonly>' + esc(promptIA(raspunsuri, S.ia("situatie", ""))) + "</textarea></div>" +
+      '<textarea id="c-prompt-scrisoare" rows="14" readonly>' + C.escSimplu(promptIA(raspunsuri, S.ia("situatie", ""))) + "</textarea></div>" +
       '<div class="rand">' + C.buton("Copiază", "scrisoare.copiaza", null, "continua") + "</div>" +
       '<p id="stare-copiere-scrisoare" class="mic" role="status"></p>' +
       '<div class="rand">' + C.buton("Înapoi la schelet", "nav", "scrisoare/schelet") + C.buton("Înapoi la drumul meu", "nav", "adult/meniu", "primar") + "</div>";

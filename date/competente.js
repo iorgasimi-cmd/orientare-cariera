@@ -10,7 +10,7 @@ window.DATE.competente = {
   titlu: "Ce iei cu tine în noul domeniu",
   intro: [
     "Unele lucruri pe care știi să le faci merg în aproape orice domeniu: să comunici, să te organizezi, să lucrezi cu oamenii, să rezolvi probleme. Altele țin de o meserie anume și se iau mai greu cu tine.",
-    "Aici pui alături ce ai acum și ce cer anunțurile pentru postul care te interesează. Diferența îți arată ce ai de învățat și ce poți scoate în față."
+    "Aici pui alături ce ai acum și ce cer anunțurile pentru postul care te interesează. **Diferența îți arată ce ai de învățat și ce poți scoate în față.**"
   ],
   pasi: ["Scrii ce ai acum.", "Lipești cerințele din 3–5 anunțuri reale.", "Bifezi ce ai deja și vezi ce îți lipsește."],
 
@@ -38,9 +38,9 @@ window.DATE.competente = {
     lipsa: "Ce îți lipsește",
     nimic: "Nimic de aici.",
     repetat: "se cere des",
-    invatare: "Diferența ține de cunoștințe: e o nevoie de învățare. Cele care se cer des sunt primele de învățat, de exemplu printr-un curs scurt.",
-    promovare: "Ai ce cer anunțurile. Dacă totuși nu primești răspunsuri, ce poți schimba ține mai ales de cum te prezinți: CV-ul, scrisoarea și interviul.",
+    invatare: "Diferența ține de cunoștințe: **e o nevoie de învățare**. Cele care se cer des sunt primele de învățat, de exemplu printr-un curs scurt.",
+    promovare: "Ai ce cer anunțurile. Dacă totuși nu primești răspunsuri, ce poți schimba **ține mai ales de cum te prezinți**: CV-ul, scrisoarea și interviul.",
     experienta: "Unele cerințe țin de anii de experiență. Poți căuta și posturi de început sau un stagiu, ca să câștigi experiență în noul domeniu.",
-    transfer: "În CV și la interviu, scrie ce iei cu tine ca pe lucruri pe care știi să le faci, fiecare cu un exemplu. Asta contează mai mult decât titlul vechi."
+    transfer: "În CV și la interviu, scrie ce iei cu tine ca pe lucruri pe care știi să le faci, fiecare cu un exemplu. **Asta contează mai mult decât titlul vechi.**"
   }
 };

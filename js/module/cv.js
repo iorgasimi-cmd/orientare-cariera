@@ -178,7 +178,7 @@
     var val = textCV || (pastreaza ? S.ia("cv.text", "") : "");
     var corp = D.intro.map(function (p) { return "<p>" + esc(p) + "</p>"; }).join("") +
       '<div class="camp"><label for="c-cv-text">Textul CV-ului</label>' +
-      '<textarea id="c-cv-text" rows="12" spellcheck="false">' + esc(val) + "</textarea></div>" +
+      '<textarea id="c-cv-text" rows="12" spellcheck="false">' + C.escSimplu(val) + "</textarea></div>" +
       '<label class="val"><input type="checkbox" data-chg="cv.pastreaza" value="1"' + (pastreaza ? " checked" : "") + "><span>" + esc(D.pastreaza) + "</span></label>" +
       (pastreaza ? "" : '<p class="mic">' + esc(D.nesalvat) + "</p>") +
       '<div class="rand">' + C.buton("Continuă", "cv.continua", null, "continua") + "</div>";
@@ -229,7 +229,7 @@
       '<p class="alerta"><strong>Atenție:</strong> ' + esc(I.atentie) + "</p>" +
       '<h2>Cum faci</h2><ol class="pasi">' + I.sfaturi.map(function (t) { return "<li>" + esc(t) + "</li>"; }).join("") + "</ol>" +
       '<div class="camp"><label for="c-prompt-ia">Promptul de copiat</label>' +
-      '<textarea id="c-prompt-ia" rows="14" readonly>' + esc(pr) + "</textarea></div>" +
+      '<textarea id="c-prompt-ia" rows="14" readonly>' + C.escSimplu(pr) + "</textarea></div>" +
       '<div class="rand">' + C.buton("Copiază", "cv.copiaza", null, "continua") + "</div>" +
       '<p id="stare-copiere" class="mic" role="status"></p>' +
       '<div class="rand">' + C.buton("Înapoi la rezultat", "nav", "cv/rezultat") + C.buton("Înapoi la drumul meu", "nav", "adult/meniu", "primar") + "</div>";
