@@ -105,7 +105,6 @@ window.DATE.cv = {
   ia: {
     titlu: "Corectez CV-ul cu o IA",
     cartela: "Îți dau un text gata pregătit, pe care îl copiezi într-un chat cu inteligență artificială (IA), plus câteva sfaturi ca să nu inventeze nimic.",
-    explica: "IA (inteligența artificială) este un program cu care vorbești în scris, într-un chat, de exemplu Claude, ChatGPT sau Gemini. Promptul este textul cu care îi spui programului ce să facă.",
     atentie: "Înainte să lipești CV-ul în chat, scoate CNP-ul, adresa exactă și alte date pe care nu vrei să le dai. Tu rămâi răspunzător(oare) de tot ce scrie în CV.",
     sfaturi: [
       "Copiază promptul de mai jos și lipește-l în chat. Apoi lipește textul CV-ului, fără date sensibile.",

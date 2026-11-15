@@ -9,10 +9,10 @@ function fals() { const m = {}; return { getItem: k => (k in m ? m[k] : null), s
 globalThis.window = globalThis;
 globalThis.localStorage = fals();
 
-["date/interese.js", "date/valori.js", "date/meserii.js", "date/sfaturi.js", "date/adulti.js", "date/cv.js", "date/scrisoare.js", "date/interviu.js", "date/competente.js", "date/asertiv.js",
+["date/interese.js", "date/valori.js", "date/meserii.js", "date/sfaturi.js", "date/adulti.js", "date/cv.js", "date/scrisoare.js", "date/interviu.js", "date/competente.js", "date/asertiv.js", "date/exercitii.js", "date/ia.js",
  "js/stocare.js", "js/verificator.js", "js/nucleu.js",
  "js/module/interese.js", "js/module/puncte-forte.js", "js/module/meserii.js",
- "js/module/plan.js", "js/module/sfaturi.js", "js/module/reamintiri.js", "js/module/sistem.js", "js/module/adult.js", "js/module/cv.js", "js/module/scrisoare.js", "js/module/interviu.js", "js/module/competente.js", "js/module/asertiv.js"
+ "js/module/plan.js", "js/module/sfaturi.js", "js/module/reamintiri.js", "js/module/sistem.js", "js/module/adult.js", "js/module/cv.js", "js/module/scrisoare.js", "js/module/interviu.js", "js/module/competente.js", "js/module/asertiv.js", "js/module/exercitii.js"
 ].forEach(f => require(path.join(rad, f)));
 
 const C = Cariera, S = Stocare, D = DATE;
@@ -459,7 +459,8 @@ test("ecranul ghidului: avertisment despre date, 5 sfaturi și buton „Copiază
   assert.strictEqual(p.titlu, D.cv.ia.titlu);
   [D.cv.ia.atentie, "Copiază", "CNP"].forEach(t => assert.ok(p.corp.includes(t), t));
   assert.ok(!p.corp.includes("Nu am putut încerca promptul"), "nota a fost scoasă la cererea autoarei");
-  assert.strictEqual((p.corp.match(/<li>/g) || []).length, 5);
+  D.cv.ia.sfaturi.forEach(t => assert.ok(p.corp.includes(C.esc(t)), t));
+  assert.strictEqual(D.cv.ia.sfaturi.length, 5);
   assert.ok(p.corp.includes('id="c-prompt-ia"') && p.corp.includes("readonly"));
   assert.deepStrictEqual(Verificator.verificaText(p.corp.replace(/<[^>]+>/g, " ")).map(x => x.gasit), []);
   C.module.cv._seteazaText("");
@@ -652,10 +653,87 @@ test("formula în trei pași, limbajul corpului, exercițiul și trecerea la pas
   S.sterge();
 });
 
+console.log("Exerciții pentru discuție");
+test("exercițiile apar la comunicarea asertivă (4) și la interviu (5)", () => {
+  S.sterge(); S.pune("varsta", "18-44"); S.pune("situatie", "caut");
+  const a = C.module.asertiv.ecran("intro").corp, x = C.module.asertiv.ecran("exercitiu").corp, i = C.module.interviu.ecran("exersez").corp;
+  ["Când primești un compliment", "Cererea mea", "Glumă sau batjocură?", "Ce fel de argument e acesta?"].forEach(t => assert.ok(a.includes(t) && x.includes(t), t));
+  ["Pauza de două secunde", "Încălzirea vocii", "Începutul și finalul tău", "Cuvintele firmei", "Două întrebări, o poveste"].forEach(t => assert.ok(i.includes(t), t));
+  S.sterge();
+});
+test("exercițiile cu alegere: întâi alegi, apoi vezi ce e potrivit și de ce; poți încerca din nou", () => {
+  S.sterge(); S.pune("varsta", "18-44"); S.pune("situatie", "caut");
+  let c = C.module.exercitii.ecran("quiz/compliment").corp;
+  assert.ok(!c.includes("✓ Potrivit") && (c.match(/exercitii\.alege/g) || []).length === 3, "înainte de alegere nu se vede răspunsul");
+  C.module.exercitii.actiuni.alege("compliment|0|0");
+  c = C.module.exercitii.ecran("quiz/compliment").corp;
+  assert.ok(c.includes("✗ Mai puțin potrivit · alegerea ta") && c.includes("✓ Potrivit") && c.includes("Încerc din nou"));
+  C.module.exercitii.actiuni.reia("compliment|0");
+  assert.ok(!C.module.exercitii.ecran("quiz/compliment").corp.includes("alegerea ta"));
+  C.module.exercitii.actiuni.alege("gluma|1|gluma");
+  c = C.module.exercitii.ecran("quiz/gluma/1").corp;
+  assert.ok(c.includes("✗ Nu chiar") && c.includes("Este: Batjocură") && c.includes("Un răspuns calm"));
+  C.module.exercitii.actiuni.alege("argumente|3|rastalmaceste");
+  c = C.module.exercitii.ecran("quiz/argumente/3").corp;
+  assert.ok(c.includes("✓ Ai recunoscut-o") && c.includes(C.esc(D.exercitii.quiz.argumente.sfat)) && c.includes("Gata"));
+  assert.ok(C.module.exercitii.ecran("quiz/argumente").corp.includes("Patru feluri de argumente nedrepte"));
+  /* fiecare situație are exact un răspuns potrivit sau un răspuns corect existent */
+  D.exercitii.quiz.compliment.itemi.forEach(it => assert.strictEqual(it.variante.filter(v => v.ok).length, 1));
+  D.exercitii.quiz.argumente.itemi.forEach(it => assert.ok(D.exercitii.quiz.argumente.tipuri.some(t => t.id === it.corect)));
+  S.sterge();
+});
+test("cererea: verifică întrebarea, motivul, termenul, presiunea și „mulțumesc”", () => {
+  const f = C.module.exercitii.analizeazaCerere, M = D.exercitii.cerere.mesaje;
+  const bun = f("Îmi poți trimite raportul până la ora 12? Am nevoie de el pentru că am ședință cu clientul. Mulțumesc!");
+  assert.deepStrictEqual(bun.bine, [M.intrebare_ok, M.motiv_ok, M.termen_ok]); assert.deepStrictEqual(bun.sfaturi, []);
+  const rau = f("Trimite-mi raportul imediat!");
+  assert.deepStrictEqual(rau.bine, []); assert.deepStrictEqual(rau.sfaturi, [M.intrebare_nu, M.motiv_nu, M.presiune, M.multumesc]);
+  assert.ok(f("Poti sa ma inlocuiesti vineri, fiindca am o programare la medic? Te rog.").bine.includes(M.motiv_ok), "merge și fără diacritice");
+  S.sterge(); C.module.exercitii.actiuni.verificaCerere(); assert.strictEqual(C.eroare, D.exercitii.cerere.gol); C.eroare = "";
+  S.pune("ex.cerere.text", "Mă ajuți?"); C.module.exercitii.actiuni.verificaCerere();
+  assert.ok(C.module.exercitii.ecran("cerere").corp.includes("Ce poți adăuga")); S.sterge();
+});
+test("cuvintele firmei: numără cuvintele care se repetă, fără cuvintele de legătură", () => {
+  const t = "Căutăm un coleg pentru echipa de logistică. În echipa noastră, logistica și clienții sunt pe primul loc. Lucrăm cu clienți din toată țara. Echipa este tânără.";
+  const l = C.module.exercitii.cuvinteFrecvente(t);
+  assert.strictEqual(l[0].w, "echipa"); assert.strictEqual(l[0].n, 3);
+  assert.ok(!l.some(x => ["pentru", "este", "noastră", "căutăm"].includes(x.w)));
+  assert.ok(l.every(x => x.n >= 2) && l.length <= D.exercitii.cuvinte.maxim);
+  S.sterge(); S.pune("ex.cuvinte.text", "foarte scurt"); S.pune("ex.cuvinte.arata", true);
+  assert.ok(C.module.exercitii.ecran("cuvinte").corp.includes(D.exercitii.cuvinte.putine)); S.sterge();
+});
+test("două întrebări: se pot alege cel mult două", () => {
+  S.sterge();
+  const a = C.module.exercitii.actiuni;
+  a.intrebare("0", { checked: true }); a.intrebare("3", { checked: true });
+  const el = { checked: true }; a.intrebare("5", el);
+  assert.strictEqual(el.checked, false); assert.strictEqual(C.eroare, D.exercitii.intrebari.prea_multe); C.eroare = "";
+  assert.deepStrictEqual(S.ia("ex.intrebari.alese"), [0, 3]);
+  a.intrebare("0", { checked: false }); assert.deepStrictEqual(S.ia("ex.intrebari.alese"), [3]);
+  S.sterge();
+});
+test("niciun text din exerciții nu are probleme (promisiuni, procente, „de ce”, jargon)", () => {
+  assert.deepStrictEqual(Verificator.verificaDate(D.exercitii).map(p => p.cale + ": " + p.gasit), []);
+  const tot = JSON.stringify(D.exercitii);
+  assert.ok(!/patrick|king|tactics|conversation/i.test(tot), "fără trimiteri la carte");
+});
+
+test("explicația despre IA și prompt e aceeași, clară și pas cu pas, pe toate cele trei ecrane cu prompt", () => {
+  S.sterge(); S.pune("varsta", "18-44"); S.pune("situatie", "caut");
+  C.module.cv._seteazaText("Ion Pop\n0722 111 222\nion@exemplu.ro\nExperiență profesională:\nAm lucrat acolo.");
+  const ecrane = [C.module.cv.ecran("ia").corp, C.module.scrisoare.ecran("ia").corp, C.module.interviu.ecran("exersez").corp];
+  ecrane.forEach((c, i) => {
+    ["Ce este IA și ce este un prompt", "Un prompt este mesajul", "Pas cu pas", "„Lipește”", "Ctrl și V", "Programul poate greși"].forEach(t => assert.ok(c.includes(C.esc(t)) || c.includes(t), i + ": " + t));
+    assert.strictEqual((c.match(/Ce este IA și ce este un prompt/g) || []).length, 1, "o singură dată pe ecran");
+  });
+  assert.deepStrictEqual(Verificator.verificaDate(D.ia).map(p => p.gasit), []);
+  C.module.cv._seteazaText(""); S.sterge();
+});
+
 console.log("Ecranele se desenează");
 test("fiecare ecran se desenează fără erori și fără „undefined”", () => {
   S.sterge(); S.pune("varsta", "sub18"); S.pune("clasa", "10");
-  const ecrane = ["start", "elev/clasa", "elev/bunvenit", "elev/meniu", "adult/situatie", "adult/bunvenit", "adult/meniu", "adult/pas/cv", "cv/intro", "cv/q0", "cv/q1", "cv/q2", "cv/q3", "cv/q4", "cv/rezultat", "cv/ia", "scrisoare/intro", "scrisoare/q0", "scrisoare/q1", "scrisoare/q2", "scrisoare/q3", "scrisoare/q4", "scrisoare/q5", "scrisoare/schelet", "scrisoare/ia", "interviu/hub", "interviu/povesti", "interviu/poveste/1", "interviu/poveste/5", "interviu/grup/tine", "interviu/grup/experienta", "interviu/grup/motivatie", "interviu/grup/dificile", "interviu/grup/special", "interviu/exersez", "competente/intro", "competente/a", "competente/b", "competente/tabel", "competente/concluzie", "asertiv/intro", "asertiv/exemplu/1", "asertiv/exemplu/5", "asertiv/exercitiu",
+  const ecrane = ["start", "elev/clasa", "elev/bunvenit", "elev/meniu", "adult/situatie", "adult/bunvenit", "adult/meniu", "adult/pas/cv", "cv/intro", "cv/q0", "cv/q1", "cv/q2", "cv/q3", "cv/q4", "cv/rezultat", "cv/ia", "scrisoare/intro", "scrisoare/q0", "scrisoare/q1", "scrisoare/q2", "scrisoare/q3", "scrisoare/q4", "scrisoare/q5", "scrisoare/schelet", "scrisoare/ia", "interviu/hub", "interviu/povesti", "interviu/poveste/1", "interviu/poveste/5", "interviu/grup/tine", "interviu/grup/experienta", "interviu/grup/motivatie", "interviu/grup/dificile", "interviu/grup/special", "interviu/exersez", "competente/intro", "competente/a", "competente/b", "competente/tabel", "competente/concluzie", "asertiv/intro", "asertiv/exemplu/1", "asertiv/exemplu/5", "asertiv/exercitiu", "exercitii/quiz/compliment", "exercitii/quiz/compliment/1", "exercitii/quiz/gluma/3", "exercitii/quiz/argumente", "exercitii/quiz/argumente/3", "exercitii/cerere", "exercitii/pauza", "exercitii/voce", "exercitii/capete", "exercitii/cuvinte", "exercitii/intrebari",
     "interese/intro", "interese/test", "interese/rezultat",
     "forte/intro", "forte/m0", "forte/m1", "forte/m2", "forte/ik0", "forte/ik1", "forte/ik2", "forte/ik3", "forte/valori", "forte/rezumat",
     "meserii/lista", "meserii/toate", "meserii/salvate",

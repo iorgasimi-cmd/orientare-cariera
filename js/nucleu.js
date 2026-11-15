@@ -81,6 +81,14 @@
     /* Adult = 18–44 sau 45+. Exercițiile comune își aleg textele și drumul după asta. */
     eAdult: function () { var v = g.Stocare.ia("varsta", ""); return !!v && v !== "sub18"; },
     acasa: function () { return C.eAdult() ? "adult/meniu" : "elev/meniu"; },
+    /* Explicația despre IA și prompt, la fel pe toate ecranele cu prompt (date/ia.js). */
+    ghidIA: function () {
+      var A = g.DATE && g.DATE.ia; if (!A) return "";
+      var li = function (x) { return x.map(function (t) { return "<li>" + esc(t) + "</li>"; }).join(""); };
+      return '<section class="card"><h2>' + esc(A.titlu) + "</h2>" + A.ce.map(function (t) { return "<p>" + esc(t) + "</p>"; }).join("") +
+        "<h2>" + esc(A.pasiTitlu) + '</h2><ol class="pasi">' + li(A.pasi) + "</ol>" +
+        '<p class="mic"><strong>Bine de știut:</strong></p><ul>' + li(A.binedestiut) + "</ul></section>";
+    },
     pagina: function (titlu, corp, inapoi) {
       return { titlu: titlu, corp: corp, inapoi: inapoi === undefined ? C.acasa() : inapoi };
     }

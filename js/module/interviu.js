@@ -76,11 +76,12 @@
 
   function exersez() {
     var E = D.exersez, lista = function (x) { return "<ul>" + x.map(function (t) { return "<li>" + esc(t) + "</li>"; }).join("") + "</ul>"; };
-    var corp = '<section class="card"><h2>' + esc(E.filmare.titlu) + "</h2>" + E.filmare.text.map(function (t) { return "<p>" + esc(t) + "</p>"; }).join("") + "</section>" +
+    var corp = (C.module.exercitii ? C.module.exercitii.cartela("interviu") : "") +
+      '<section class="card"><h2>' + esc(E.filmare.titlu) + "</h2>" + E.filmare.text.map(function (t) { return "<p>" + esc(t) + "</p>"; }).join("") + "</section>" +
       '<section class="card"><h2>' + esc(E.tipuri.titlu) + "</h2>" + lista(E.tipuri.lista) + "</section>" +
       '<section class="card"><h2>' + esc(E.nu.titlu) + "</h2>" + lista(E.nu.lista) + "</section>" +
       '<section class="card"><h2>' + esc(E.tu.titlu) + "</h2><p>" + esc(E.tu.explica) + "</p>" + lista(E.tu.lista) + "</section>" +
-      '<section class="card"><h2>' + esc(E.ia.titlu) + "</h2><p>" + esc(E.ia.explica) + "</p>" +
+      '<section class="card"><h2>' + esc(E.ia.titlu) + "</h2><p>" + esc(E.ia.explica) + "</p></section>" + C.ghidIA() + '<section class="card">' +
       '<p class="alerta"><strong>Atenție:</strong> ' + esc(E.ia.atentie) + "</p>" +
       '<div class="camp"><label for="c-prompt-interviu">Promptul de copiat</label>' +
       '<textarea id="c-prompt-interviu" rows="10" readonly>' + esc(promptIA(S.ia("scrisoare.r.post", ""), S.ia("situatie", ""))) + "</textarea></div>" +

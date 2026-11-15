@@ -225,7 +225,7 @@
       return C.pagina(I.titlu, "<p>" + esc(D.pierdut) + '</p><div class="rand">' + C.buton("Lipesc din nou", "nav", "cv/intro", "primar") + "</div>", "cv/intro");
     }
     var pr = promptIA(analizeaza(text, S.ia("cv.q", {}), context()), context());
-    var corp = "<p>" + esc(I.explica) + "</p>" +
+    var corp = C.ghidIA() +
       '<p class="alerta"><strong>Atenție:</strong> ' + esc(I.atentie) + "</p>" +
       '<h2>Cum faci</h2><ol class="pasi">' + I.sfaturi.map(function (t) { return "<li>" + esc(t) + "</li>"; }).join("") + "</ol>" +
       '<div class="camp"><label for="c-prompt-ia">Promptul de copiat</label>' +

@@ -16,7 +16,8 @@
         return '<section class="card' + (bun ? " stil-asertiv" : "") + '"><h2>' + (bun ? "✓ " : "") + esc(s.nume) + "</h2>" +
           '<p class="mic">' + esc(s.motto) + "</p><p>" + esc(s.text) + '</p><p class="citat">' + esc(s.ex) + "</p></section>";
       }).join("") +
-      '<div class="rand">' + C.buton("Văd 5 exemple", "nav", "asertiv/exemplu/1", "continua") + "</div>";
+      '<div class="rand">' + C.buton("Văd 5 exemple", "nav", "asertiv/exemplu/1", "continua") + "</div>" +
+      (C.module.exercitii ? C.module.exercitii.cartela("asertiv") : "");
     return C.pagina(D.titlu, corp, C.acasa());
   }
 
@@ -38,7 +39,8 @@
     var corp = '<section class="card"><h2>' + esc(F.titlu) + '</h2><ol class="pasi">' + F.pasi.map(function (t) { return "<li>" + esc(t) + "</li>"; }).join("") + "</ol></section>" +
       '<section class="card"><h2>' + esc(D.corp.titlu) + "</h2>" + lista(D.corp.lista) + "</section>" +
       "<h2>" + esc(X.titlu) + "</h2>" +
-      X.campuri.map(function (c) { return C.camp("asertiv." + c.id, esc(c.t), esc(c.ajutor), c.randuri); }).join("");
+      X.campuri.map(function (c) { return C.camp("asertiv." + c.id, esc(c.t), esc(c.ajutor), c.randuri); }).join("") +
+      (C.module.exercitii ? C.module.exercitii.cartela("asertiv") : "");
     var u = C.eAdult() && C.module.adult ? C.module.adult.urmator("asertiv") : null;
     corp += '<div class="rand">' + C.buton("Înapoi la exemple", "nav", "asertiv/exemplu/" + N) +
       C.buton(u ? "Gata. Continuă: " + esc(u.t) : "Gata", "asertiv.gata", u ? u.ecran : C.acasa(), "primar") + "</div>";

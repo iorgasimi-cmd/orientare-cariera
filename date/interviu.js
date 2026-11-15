@@ -105,7 +105,7 @@ window.DATE.interviu = {
     },
     ia: {
       titlu: "Simulare cu o IA",
-      explica: "Poți exersa un interviu scris, într-un chat cu inteligență artificială (IA), de exemplu Claude, ChatGPT sau Gemini. Copiază promptul de mai jos și răspunde la întrebări ca la un interviu adevărat.",
+      explica: "Poți exersa un interviu în scris, cu un program de inteligență artificială (IA). Programul îți pune întrebări, ca un angajator, iar tu îi răspunzi. Mai jos vezi ce este IA și cum faci, pas cu pas.",
       atentie: "Nu scrie în chat CNP-ul, adresa exactă sau alte date pe care nu vrei să le dai.",
       copiat: "Am copiat promptul. Acum lipește-l în chat.",
       selectat: "Promptul e selectat. Apasă lung pe el și alege „Copiază”.",
