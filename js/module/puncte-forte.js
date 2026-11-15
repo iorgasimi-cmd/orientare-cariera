@@ -27,8 +27,8 @@
   }
 
   function intro() {
-    var corp = "<p>Aici nu te întreb direct „care sunt calitățile tale”, pentru că așa ies adesea răspunsuri generale. Te rog să povestești câteva lucruri concrete, iar eu doar ți le arăt înapoi.</p>" +
-      "<p>Sunt trei pași: momente în care ți-a ieșit ceva bine, patru întrebări despre ce îți place și la ce ești bun(ă), apoi alegerea a 3–5 lucruri care contează pentru tine într-o meserie.</p>" +
+    var corp = "<p><strong>Afli la ce ești bun(ă) din lucruri pe care chiar le-ai făcut.</strong> Nu te întreb „ce calități ai”: așa ies răspunsuri generale. Povestești câteva întâmplări, iar eu ți le arăt înapoi.</p>" +
+      "<p>Sunt trei pași: momente în care ți-a ieșit bine, patru întrebări despre tine și 3–5 lucruri care contează pentru tine la muncă.</p>" +
       '<p class="nota">Nu există răspunsuri greșite și poți lăsa câmpuri goale.</p>' + nav("intro", null, "m0", "Începem");
     return C.pagina("Punctele mele forte și valorile", corp, C.acasa());
   }

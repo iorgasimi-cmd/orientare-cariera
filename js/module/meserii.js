@@ -38,7 +38,7 @@
     var corp = "<p>Pe baza răspunsurilor tale, poate te interesează aceste domenii. Sunt doar idei: poți salva ce ți se pare interesant.</p>" +
       '<p class="nota">' + esc(D.nota) + "</p>";
     corp += cl.map(function (x) { return cartela(x.m); }).join("");
-    corp += '<div class="rand">' + C.buton("Domeniile salvate", "nav", "meserii/salvate") + C.buton("Toate domeniile", "nav", "meserii/toate") +
+    corp += '<div class="rand">' + C.buton("Văd domeniile salvate", "nav", "meserii/salvate") + C.buton("Văd toate domeniile", "nav", "meserii/toate") +
       C.buton("Continuă: planul meu", "nav", "plan/hub", "continua") + "</div>";
     return C.pagina("Poate te interesează", corp);
   }

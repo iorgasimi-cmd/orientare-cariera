@@ -64,7 +64,7 @@ window.DATE.exercitii = {
           raspuns: "„Doar luni. Marțea le las să se odihnească.” Sau doar zâmbești."
         },
         {
-          situatie: "După ce faci o greșeală mică, șeful de tură îți spune de față cu toată echipa: „Normal, ce să aștepți de la cineva ca tine.”",
+          situatie: "Faci o greșeală mică. Șeful de tură spune, de față cu echipa: „Normal, ce să aștepți de la cineva ca tine.”",
           corect: "batjocura",
           expl: "Nu mai e despre greșeală, ci despre tine ca om. E o umilire, nu o glumă.",
           raspuns: "„Am greșit și o repar acum. Despre mine aș vrea să vorbim între patru ochi.”"
@@ -211,7 +211,7 @@ window.DATE.exercitii = {
   /* ---- Cum să argumentezi: ideile principale și exercițiul „Argumentul meu” ---- */
   argumentez: {
     titlu: "Cum să argumentezi",
-    intro: "Să argumentezi înseamnă să **explici calm și clar ce propui**, ca celălalt să te poată înțelege și, poate, să fie de acord. Nu e o ceartă și nu e despre cine câștigă.",
+    intro: "Un argument bun te ajută să fii ascultat(ă). Înseamnă să **explici calm și clar ce propui**. Nu e o ceartă și nu e despre cine câștigă.",
     ideiTitlu: "Ideile principale",
     idei: [
       { t: "**Spune ideea clar, de la început.**", ex: "O singură propoziție: ce propui." },

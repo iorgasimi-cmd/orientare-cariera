@@ -9,7 +9,7 @@ window.DATE.interviu = {
   scriere: "2026-11-15",
 
   titlu: "Pregătirea pentru interviu",
-  intro: "La interviu nu ajunge să spui „sunt comunicativ, organizat și muncitor”: toată lumea spune asta. **Ajută mult să ai pregătite exemple concrete din experiența ta.** Aici le scrii, exersezi întrebări și te pregătești pentru discuție.",
+  intro: "Mergi la interviu mai liniștit(ă) când ai răspunsurile pregătite. „Sunt comunicativ și muncitor” spune oricine. **Te ajută exemplele concrete din experiența ta.** Aici le scrii și le exersezi.",
 
   povesti: {
     titlu: "Poveștile tale",
@@ -56,7 +56,7 @@ window.DATE.interviu = {
   speciale: {
     titlu: "Pentru situația ta",
     pauza: { id: "s_pauza", q: "Văd o pauză în CV. Ce ai făcut în această perioadă?",
-      ajutor: "Spune simplu și sincer ce ai făcut (de exemplu, concediul de creștere a copilului), ce ai învățat și că acum ești pregătit(ă) să revii. Nu e nevoie să te scuzi." },
+      ajutor: "Spune simplu ce ai făcut, de exemplu concediul de creștere a copilului. Adaugă ce ai învățat și că ești pregătit(ă) să revii. **Nu e nevoie să te scuzi.**" },
     schimb: { id: "s_schimb", q: "Nu ai lucrat în acest domeniu. Ce aduci?",
       ajutor: "Spune ce știi să faci și se potrivește și aici (comunicare, organizare, lucrul cu oamenii sau cu cifrele), cu o poveste." },
     accent45: { id: "s_45", q: "Ce programe sau aplicații folosești în munca ta?",

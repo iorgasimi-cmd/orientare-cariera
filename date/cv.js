@@ -10,7 +10,7 @@ window.DATE.cv = {
   scriere: "2026-11-14",
 
   intro: [
-    "Lipește aici textul CV-ului tău. Îl verific după câteva reguli simple: datele de contact, structura, cum descrii ce ai făcut și ce informații nu sunt necesare.",
+    "Află în două minute ce poți îmbunătăți la CV-ul tău. Lipește textul aici. Îl verific după câteva reguli simple: contactul, structura, cum descrii ce ai făcut.",
     "Nu e nevoie să lipești CNP-ul sau adresa exactă. Dacă apar în CV, îți spun."
   ],
   pastreaza: "Păstrez textul pe acest telefon, ca să nu-l lipesc din nou",
@@ -27,7 +27,7 @@ window.DATE.cv = {
       optiuni: [["da", "Da"], ["nu", "Nu"], ["nustiu", "Nu știu"]],
       da: { p: 2, t: "Tabelele și coloanele pot fi citite greșit de programele ATS. Pune textul pe o singură coloană, de sus în jos." },
       nu: { bine: "Textul e pe o singură coloană, așa cum îl citesc cel mai ușor programele ATS." } },
-    { id: "antet", q: "Ai pus datele de contact în antet sau în subsol (partea de sus sau de jos a paginii, care se repetă pe fiecare pagină)?",
+    { id: "antet", q: "Ai pus datele de contact în antet sau în subsol? Adică sus sau jos pe pagină, repetate pe fiecare pagină.",
       optiuni: [["da", "Da"], ["nu", "Nu"], ["nustiu", "Nu știu"]],
       da: { p: 1, t: "Multe programe ATS nu citesc antetul și subsolul. Mută numele, telefonul și e-mailul în corpul paginii." },
       nu: { bine: "Datele de contact sunt în corpul paginii, unde le găsesc și programele ATS." },
@@ -85,8 +85,8 @@ window.DATE.cv = {
 
   /* Sfaturi pe situații (cap. 6.1 și 8.4). */
   situatii: {
-    caut: "**Potrivește CV-ul pentru fiecare anunț**: citește anunțul, alege 5–6 cuvinte importante din el și verifică dacă apar la fel și în CV-ul tău.",
-    schimb: "Scrie ce știi să faci și se potrivește și în noul domeniu (de exemplu comunicare, organizare, lucrul cu oamenii sau cu cifrele), cu câte un exemplu. **Ce știi să faci contează mai mult decât titlul vechi.**",
+    caut: "**Potrivește CV-ul pentru fiecare anunț.** Alege 5–6 cuvinte importante din anunț. Verifică dacă apar la fel și în CV-ul tău.",
+    schimb: "**Ce știi să faci contează mai mult decât titlul vechi.** Scrie ce iei cu tine în noul domeniu: comunicare, organizare, lucrul cu oamenii sau cu cifrele. Adaugă câte un exemplu.",
     pauza: "**Scrie pauza simplu și sincer, ca pe o etapă**, de exemplu „Concediu de creștere a copilului” cu perioada. Adaugă ce ai învățat sau ai făcut în acest timp: cursuri, voluntariat, responsabilități.",
     nustiu: "CV-ul poate aștepta până știi ce vrei. Când îl scrii, pune accent pe ce ți-a ieșit bine și pe ce îți place să faci.",
     accent45: "**Pune în față experiența și rezultatele concrete.** Scrie și ce folosești din tehnologie: e-mail, programe de birou, întâlniri video."
@@ -104,7 +104,7 @@ window.DATE.cv = {
      doar pregătește un text de copiat. */
   ia: {
     titlu: "Corectez CV-ul cu o IA",
-    cartela: "Îți dau un text gata pregătit, pe care îl copiezi într-un chat cu inteligență artificială (IA), plus câteva sfaturi ca să nu inventeze nimic.",
+    cartela: "Corectezi CV-ul mai repede cu un program de inteligență artificială (IA). Îți dau textul gata pregătit și sfaturi ca programul să nu inventeze nimic.",
     atentie: "Înainte să lipești CV-ul în chat, scoate CNP-ul, adresa exactă și alte date pe care nu vrei să le dai. Tu rămâi răspunzător(oare) de tot ce scrie în CV.",
     sfaturi: [
       "Copiază promptul de mai jos și lipește-l în chat. Apoi lipește textul CV-ului, fără date sensibile.",

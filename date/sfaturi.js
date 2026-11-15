@@ -28,10 +28,10 @@ window.DATE.sfaturi = {
     { tema: "primul-job", grupa: "explorare", t: "**Experiența se poate începe mic**: voluntariat, ateliere, un proiect la școală. Fiecare pas se numără." },
     { tema: "primul-job", grupa: "explorare", t: "Voluntariatul te lasă să încerci o meserie și să cunoști oameni, fără presiunea unui job. Întreabă la școală sau la un ONG ce există în orașul tău." },
     { tema: "primul-job", grupa: "alegere", t: "Pentru primul tău CV, **scrie ce ai făcut concret**: un proiect, o activitate, un voluntariat. Nu e nevoie de multă experiență, ci de exemple reale." },
-    { tema: "primul-job", grupa: "alegere", t: "Ai grijă pe ce site sau la ce persoană scrii. Dacă ți se cere să plătești ca să primești un job, sau ți se promit bani ușor, **oprește-te și vorbește cu un adult de încredere**." },
+    { tema: "primul-job", grupa: "alegere", t: "Ai grijă cui scrii. Ți se cer bani ca să primești un job? Ți se promit bani ușor? **Oprește-te și vorbește cu un adult de încredere.**" },
     { tema: "alegere", grupa: "explorare", t: "Pentru liceu, întreabă-te: ce materii îți plac? Ce te face curios? Vorbește cu elevi din clasele mai mari și vizitează zilele porților deschise." },
     { tema: "alegere", grupa: "explorare", t: "Un adult care lucrează într-o meserie poate povesti în zece minute ce e greu și ce e frumos în ea. Întreabă-l pe cineva din familie sau din cartier." },
-    { tema: "alegere", grupa: "alegere", t: "Pentru facultate, ai nevoie de patru lucruri de verificat: ce se învață, ce condiții de admitere sunt, unde se desfășoară și ce alte drumuri duc în aceeași direcție. Caută pe site-ul facultății." },
+    { tema: "alegere", grupa: "alegere", t: "Ca să alegi ușor, verifică **patru lucruri**: ce se învață, cum se intră, unde e facultatea, ce alte drumuri duc acolo. Le găsești pe site-ul facultății." },
     { tema: "alegere", grupa: "alegere", t: "Dacă familia ta are alte idei decât tine, scrie-ți motivele într-o foaie și vorbește calm cu ei. **Decizia finală e a ta.**" }
   ],
   /* Mesaje scurte de încurajare, legate de tendințe discutate în promptul Simonei.
@@ -63,7 +63,7 @@ window.DATE.sfaturi = {
     { id: "t9", t: "Caută pe site-ul unui liceu sau al unei facultăți care te interesează ce se învață acolo. Notează ce ți-a plăcut." },
     { id: "t10", t: "Învață un lucru nou, de pe un site sau dintr-un clip: zece minute, apoi povestește-l cuiva." },
     { id: "t11", t: "Pune-ți ordine în program: notează ce ai de făcut mâine și alege un singur lucru important." },
-    { id: "t12", t: "Notează o convingere care te oprește („Nu sunt bun la așa ceva”) și scrie-o în alt fel, apoi un pas pe care îl poți face." }
+    { id: "t12", t: "Notează un gând care te oprește, de exemplu „Nu sunt bun la așa ceva”. Scrie-l în alt fel și alege un pas mic." }
   ],
   /* Teme săptămânale pentru adulți: pași mici, despre muncă (curs, cap. 6.1–6.3, 7.3 „strategia pașilor mici”, 8.4). */
   teme_adulti: [

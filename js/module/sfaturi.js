@@ -26,7 +26,7 @@
     var t = D.teme.filter(function (x) { return x.id === id; })[0];
     if (!t) return lista();
     var corp = sfaturiPentru(id).map(function (s) { return '<section class="card"><p>' + esc(s.t) + "</p></section>"; }).join("");
-    corp += '<div class="rand">' + C.buton("Alte teme", "nav", "sfaturi/lista", "primar") + "</div>";
+    corp += '<div class="rand">' + C.buton("Văd alte teme", "nav", "sfaturi/lista", "primar") + "</div>";
     return C.pagina(t.titlu, corp, "sfaturi/lista");
   }
 

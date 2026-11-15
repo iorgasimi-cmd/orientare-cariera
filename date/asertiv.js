@@ -9,7 +9,7 @@ window.DATE.asertiv = {
   scriere: "2026-11-15",
 
   titlu: "Comunicarea asertivă",
-  ce: "A comunica asertiv înseamnă **să spui clar și calm ce gândești, ce simți și de ce ai nevoie**, respectându-i în același timp pe ceilalți. Pe scurt: **„Eu contez și tu contezi.”**",
+  ce: "Comunicarea asertivă te ajută să fii luat(ă) în serios fără să te cerți. Înseamnă **să spui clar și calm ce gândești și de ce ai nevoie**, cu respect pentru ceilalți. Pe scurt: **„Eu contez și tu contezi.”**",
   castig: {
     titlu: "Ce câștigi în carieră",
     lista: [
@@ -103,7 +103,7 @@ window.DATE.asertiv = {
   model: {
     titlu: "Cum ai putea spune asertiv?",
     explica: "Completează modelul de mai jos, pentru situația ta. Scrie doar ce urmează după cuvintele de început.",
-    exemplu: "Exemplu: Când primesc sarcini noi în ultima zi a săptămânii, mă simt copleșit(ă), pentru că vreau să le fac bine și am nevoie de timp. Propun să le aflu de luni, ca să le pot planifica.",
+    exemplu: "Exemplu: Când primesc sarcini noi vineri, mă simt copleșit(ă), pentru că vreau să le fac bine. Propun să le aflu de luni, ca să le pot planifica.",
     parti: [
       { id: "cand", inceput: "Când", t: "Când… (ce se întâmplă)", ajutor: "**Descrie faptul, ca o cameră de filmat**: ce s-a întâmplat, fără să judeci omul." },
       { id: "simt", inceput: "mă simt", t: "Mă simt… (ce simți)", ajutor: "Un cuvânt sau două despre ce simți, de exemplu: îngrijorat(ă), frustrat(ă), copleșit(ă), nedreptățit(ă)." },

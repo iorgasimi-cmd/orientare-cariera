@@ -790,6 +790,17 @@ test("ideile marcate cu ** apar îngroșate; căsuțele de scris și prompturile
   S.sterge();
 });
 
+test("copywriting: nicio frază din textele aplicației nu are mai mult de 22 de cuvinte", () => {
+  const lungi = [];
+  (function umbla(o, cale) {
+    if (typeof o === "string") o.replace(/\*\*/g, "").split(/(?<=[.!?…”])\s+(?=[A-ZĂÂÎȘȚ„–])/).forEach(fr => {
+      const n = fr.split(/\s+/).filter(w => /[A-Za-zĂÂÎȘȚăâîșț]/.test(w)).length; if (n > 22) lungi.push(cale + " (" + n + "): " + fr.slice(0, 60)); });
+    else if (Array.isArray(o)) o.forEach((x, i) => umbla(x, cale + "[" + i + "]"));
+    else if (o && typeof o === "object") Object.keys(o).forEach(k => { if (k !== "ignorate" && k !== "prompt") umbla(o[k], cale + "." + k); });
+  })(D, "DATE");
+  assert.deepStrictEqual(lungi, []);
+});
+
 console.log("Ecranele se desenează");
 test("fiecare ecran se desenează fără erori și fără „undefined”", () => {
   S.sterge(); S.pune("varsta", "sub18"); S.pune("clasa", "10");

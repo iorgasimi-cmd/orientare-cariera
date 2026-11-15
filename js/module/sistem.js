@@ -23,7 +23,7 @@
   }
 
   function start() {
-    var corp = "<p>Bună! Aici te ajut, pas cu pas, să te gândești la drumul tău: ce îți place, la ce ești bun(ă) și ce poți face în continuare.</p>" +
+    var corp = "<p>Bună! <strong>Găsește-ți drumul, pas cu pas.</strong> Afli ce îți place, la ce ești bun(ă) și ce poți face mai departe.</p>" +
       '<h2 class="intrebare-titlu">Câți ani ai?</h2><div class="meniu-lista">' +
       VARSTE.map(function (v) { return C.buton(esc(v.t), "sistem.varsta", v.id, "lista mare"); }).join("") + "</div>";
     return C.pagina("Orientare în carieră", corp, null);

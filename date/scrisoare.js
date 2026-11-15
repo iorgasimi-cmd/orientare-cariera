@@ -9,7 +9,7 @@ window.DATE.scrisoare = {
 
   titlu: "Scrisoarea de intenție",
   intro: [
-    "O scrisoare bună poate face diferența când schimbi domeniul, când ești la început sau când sunt mulți candidați. Astăzi, ea este adesea chiar textul din e-mail sau mesajul de pe LinkedIn.",
+    "**O scrisoare bună te poate scoate în față**, mai ales când schimbi domeniul, ești la început sau sunt mulți candidați. Azi e adesea chiar textul e-mailului sau mesajul de pe LinkedIn.",
     "Îți pun 6 întrebări, câte una pe ecran. La final primești un schelet cu paragrafele scrisorii, făcut din răspunsurile tale. **Tu scrii scrisoarea, cu cuvintele tale.**"
   ],
 
@@ -36,7 +36,7 @@ window.DATE.scrisoare = {
     paragrafe: [
       { titlu: "1. Ce te atrage la firmă", ghid: "**Începe cu ce ai aflat despre {firma}**, nu cu „Vă scriu pentru postul…”. Recrutorul știe deja de ce îi scrii.", din: ["atrage"] },
       { titlu: "2. Ce aduci tu", ghid: "Leagă 2–3 lucruri pe care știi să le faci de postul de {post}. Sprijină-le cu exemplul tău: **un exemplu concret convinge mai mult decât „sunt bun la…”**.", din: ["competente", "exemplu"] },
-      { titlu: "3. Disponibilitate și încheiere", ghid: "Spune că ești disponibil(ă) pentru o discuție{disp}. **Încheie cu o propunere**, de exemplu „Sunt disponibil(ă) să vă povestesc cum pot ajuta echipa”, nu cu o rugăminte ca „Sper să mă sunați”.", din: ["disponibil"] }
+      { titlu: "3. Disponibilitate și încheiere", ghid: "Spune că ești disponibil(ă) pentru o discuție{disp}. **Încheie cu o propunere**, nu cu o rugăminte. De exemplu: „Sunt disponibil(ă) să vă povestesc cum pot ajuta echipa.”", din: ["disponibil"] }
     ],
     final: "La sfârșit: „Toate cele bune,” sau „Cu stimă,”, apoi numele tău.",
     firmaGol: "firmă",

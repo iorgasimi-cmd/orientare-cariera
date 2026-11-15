@@ -19,7 +19,7 @@ window.DATE.adulti = {
     },
     {
       id: "pauza", t: "Revin după o pauză", d: "de exemplu, după concediul de creștere a copilului",
-      bun: "**Ce știi să faci nu s-a pierdut.** Te ajut să vorbești simplu și sincer despre pauză, în CV și la interviu, și să scrii ce ai învățat în acest timp.",
+      bun: "**Ce știi să faci nu s-a pierdut.** Te ajut să vorbești simplu despre pauză, în CV și la interviu. Scrii și ce ai învățat în acest timp.",
       pasi: ["cv", "scrisoare", "asertiv", "interviu", "plan"]
     },
     {
