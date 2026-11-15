@@ -601,7 +601,7 @@ test("planul pentru adulți are teme despre muncă, nu despre școală", () => {
   assert.ok(C.module.reamintiri.banner().includes(C.esc(D.sfaturi.teme_adulti[0].t)), "reamintirea găsește și temele de adulți");
   S.sterge();
 });
-test("„Ce iei cu tine”: cerințele repetate sunt primele, lipsurile și concluzia după curs", () => {
+test("„Ce iei cu tine”: cerințele repetate sunt primele, lipsurile și concluzia", () => {
   const K = C.module.competente;
   const B = "Excel avansat\nPermis auto\n- excel avansat.\nEngleză B2\n3 ani experiență în logistică\nExcel Avansat";
   const l = K.cerinte(B);
