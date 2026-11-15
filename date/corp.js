@@ -83,6 +83,54 @@ window.DATE.corp = {
     gata: "Am terminat exercițiul"
   },
 
+  /* Pentru elevi: aceleași idei, cu situații de la școală (fără „interviu”). Ce lipsește aici se ia din varianta de mai sus. */
+  elev: {
+    intro: [
+      "**Contează și ce spui fără cuvinte.** Adică felul în care privești, te miști și arăți.",
+      "O analiză din 2022 a adunat 63 de studii despre discuțiile pentru un loc de muncă. **Trei semnale au avut cea mai strânsă legătură cu nota primită:**"
+    ],
+    trei: [
+      "**o ținută îngrijită**, potrivită pentru locul unde mergi;",
+      "**privirea îndreptată spre omul** cu care vorbești;",
+      "**mișcările capului**, de exemplu când dai din cap ca să arăți că asculți."
+    ],
+    dupa: "**Le poți exersa de pe acum, la școală.** De exemplu, la o prezentare în clasă sau la un răspuns oral.",
+    meniu: [
+      { id: "semne", t: "Cum folosești semnalele", d: "Privirea, capul, mâinile. Și la o oră online." },
+      { id: "tinuta", t: "Ținuta", d: "O listă scurtă de bifat înainte de o zi importantă." },
+      { id: "exercitiu", t: "Exersează cu telefonul", d: "Te filmezi un minut și vezi ce poți schimba." }
+    ],
+    semne: {
+      practic: [
+        "**Stai drept, dar relaxat.** Ține mâinile la vedere, nu în buzunare.",
+        "**Respiră încet înainte să răspunzi.** O pauză scurtă îți dă timp să te gândești.",
+        "La o prezentare în fața clasei, privește pe rând spre mai mulți colegi, nu doar spre foaie."
+      ],
+      onlineTitlu: "La o oră sau o discuție online",
+      online: [
+        "**Pune camera la nivelul ochilor.** Poți așeza laptopul pe câteva cărți.",
+        "**Când vorbești, privește camera.** Pentru cel de pe ecran, asta arată ca o privire în ochi.",
+        "Așază-te cu fața spre lumină, de exemplu spre o fereastră."
+      ]
+    },
+    tinuta: {
+      explica: "Pentru o zi importantă: o prezentare, un examen oral sau o întâlnire nouă. **Sfaturile de mai jos sunt practice, de bun-simț.**",
+      lista: [
+        { id: "t1", t: "Hainele sunt curate și călcate." },
+        { id: "t3", t: "Hainele se potrivesc cu locul unde merg.", d: "Dacă școala are reguli despre haine, le respect." },
+        { id: "t4", t: "Mă simt bine în ele. Le-am probat înainte." },
+        { id: "t5", t: "Încălțămintea e curată și comodă." },
+        { id: "t6", t: "Le-am pregătit cu o seară înainte." }
+      ]
+    },
+    exercitiu: {
+      pasi: [
+        "**Filmează-te 1 minut în timp ce vorbești despre ceva care îți place.** De exemplu, un hobby sau o carte.",
+        "Uită-te la filmare. Apoi bifează ce ți-a ieșit bine."
+      ]
+    }
+  },
+
   final: {
     titlu: "Bravo!",
     felicitare: "Ai exersat limbajul corpului.",

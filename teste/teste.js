@@ -882,6 +882,19 @@ test("limbajul corpului: apare după interviu, bifele se salvează, exercițiul 
   assert.ok(C.module.adult.ecran("meniu").corp.includes("✓ exersat"));
 });
 
+test("limbajul corpului pentru elevi: în meniu, cu exemple de la școală, fără interviu", () => {
+  S.sterge(); S.pune("varsta", "sub18"); S.pune("clasa", "10");
+  const ecr = ["intro", "semne", "tinuta", "exercitiu", "gata"].map(x => C.module.corp.ecran(x).corp).join(" ");
+  assert.ok(!/interviu|\bjob\b|angajator/i.test(ecr), "fără interviu la elevi");
+  assert.ok(ecr.includes("prezentare în clasă") && ecr.includes("63 de studii"));
+  assert.strictEqual((C.module.corp.ecran("tinuta").corp.match(/type="checkbox"/g) || []).length, D.corp.elev.tinuta.lista.length);
+  D.corp.elev.tinuta.lista.forEach(x => C.module.corp.actiuni.bifa(x.id, { checked: true }));
+  assert.ok(C.module.corp.ecran("tinuta").corp.includes("Ai bifat tot"));
+  C.module.corp.actiuni.gata();
+  assert.ok(C.module.corp.ecran("gata").corp.includes("Înapoi la drumul meu"));
+  S.sterge();
+});
+
 test("valorile: 10 → 5 → 3 → 1, cu limită la fiecare pas, întrebări, note și rezultat", () => {
   S.sterge(); S.pune("varsta", "sub18"); S.pune("clasa", "10");
   const a = C.module.valorile.actiuni, L = D.valoriPers.listaElev;

@@ -2,7 +2,15 @@
    Bifele și răspunsul rămân doar pe telefon. */
 (function (g) {
   "use strict";
-  var C = g.Cariera, S = g.Stocare, esc = C.esc, D = g.DATE.corp;
+  var C = g.Cariera, S = g.Stocare, esc = C.esc, B = g.DATE.corp, D = B;
+
+  /* Elevii primesc textele din B.elev; ce lipsește acolo rămâne ca la adulți. */
+  function alege() {
+    if (C.eAdult()) return B;
+    var E = B.elev, R = Object.assign({}, B, E);
+    ["semne", "tinuta", "exercitiu"].forEach(function (k) { R[k] = Object.assign({}, B[k], E[k] || {}); });
+    return R;
+  }
 
   function lista(a) { return "<ul>" + a.map(function (t) { return "<li>" + esc(t) + "</li>"; }).join("") + "</ul>"; }
   function bife(L) {
@@ -12,7 +20,7 @@
     }).join("");
   }
   function butonFinal() {
-    var u = C.module.adult && C.module.adult.urmator("corp");
+    var u = C.eAdult() && C.module.adult && C.module.adult.urmator("corp");
     return u ? C.buton("Continuă: " + esc(u.t), "nav", u.ecran, "continua") : C.buton("Înapoi la drumul meu", "nav", C.acasa(), "primar");
   }
   function inapoi() { return '<div class="rand">' + C.buton("Înapoi", "nav", "corp/intro") + "</div>"; }
@@ -65,6 +73,7 @@
 
   C.reg("corp", {
     ecran: function (sub) {
+      D = alege();
       if (sub === "semne") return semne();
       if (sub === "tinuta") return tinuta();
       if (sub === "exercitiu") return exercitiu();
@@ -73,6 +82,7 @@
     },
     actiuni: {
       bifa: function (id, el) {
+        D = alege();
         S.pune("corp.b." + id, !!(el && el.checked));
         var z = g.document && g.document.getElementById("corp-toate");
         if (z) z.innerHTML = toateBifate() ? '<p class="felicitare">' + esc(D.tinuta.toate) + "</p>" : "";
