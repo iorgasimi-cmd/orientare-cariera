@@ -812,10 +812,47 @@ test("partea elevilor nu are exemple de la interviu sau job; adulții își păs
   S.sterge();
 });
 
+console.log("Asertivitate și IA pentru elevi");
+test("elevii au comunicarea asertivă în meniu, cu situații de la școală, nu de la muncă", () => {
+  S.sterge(); S.pune("varsta", "sub18"); S.pune("clasa", "9");
+  assert.ok(C.module.elev.ecran("meniu").corp.includes("6. Comunicarea asertivă"));
+  let tot = C.module.asertiv.ecran("intro").corp + C.module.asertiv.ecran("exercitiu").corp;
+  for (let i = 1; i <= 5; i++) tot += C.module.asertiv.ecran("exemplu/" + i).corp;
+  assert.ok(tot.includes(C.esc(D.asertiv.elev.ce)) && tot.includes("Un coleg îți cere tema") && tot.includes("Proiectul nu e gata"));
+  assert.ok(!/interviu|șef|ședinț|salariu|la muncă|raportul/i.test(tot.replace(/<[^>]+>/g, " ")), "fără exemple de la muncă");
+  assert.ok(!tot.includes("Exersează cu situații"), "exercițiile de la muncă nu apar la elevi");
+  assert.ok(tot.includes("Cere clar și de la IA"));
+  assert.strictEqual(C.module.asertiv.ecran("exercitiu").inapoi, "asertiv/intro");
+  S.pune("varsta", "18-44"); S.pune("situatie", "caut");
+  const a = C.module.asertiv.ecran("intro").corp;
+  assert.ok(a.includes("Exersează cu situații") && a.includes("Cere clar și de la IA") && !a.includes("Colegul vrea să copieze tema"));
+  S.sterge();
+});
+test("„Cere clar și de la IA”: 6 reguli, nota despre vârstă, alegerea cererii mai clare și întrebarea proprie", () => {
+  S.sterge(); S.pune("varsta", "sub18"); S.pune("clasa", "10");
+  let c = C.module.asertiv.ecran("ia").corp;
+  assert.strictEqual(D.asertiv.ia.reguli.length, 6);
+  ["Verifică ce îți spune.", "Nu scrie date personale.", "Folosește-o ca să înveți, nu ca să copiezi.", C.esc(D.asertiv.ia.varsta), "<details>"].forEach(x => assert.ok(c.includes(x), x));
+  C.module.asertiv.actiuni.iaAlege("0|a");
+  c = C.module.asertiv.ecran("ia").corp;
+  assert.ok(c.includes(D.asertiv.ia.gresit) && c.includes("✓ " + C.esc(D.asertiv.ia.quiz[0].b)));
+  C.module.asertiv.actiuni.iaAlege("1|a"); assert.ok(C.module.asertiv.ecran("ia").corp.includes(D.asertiv.ia.bine));
+  const f = C.module.asertiv.intrebareIA;
+  assert.strictEqual(f({ cine: "elev în clasa a X-a", ce: "să înțeleg aria cercului", cum: "explică-mi simplu, cu un exemplu" }), "Sunt elev în clasa a X-a. Vreau să înțeleg aria cercului. Te rog explică-mi simplu, cu un exemplu.");
+  assert.strictEqual(f({ cine: "Sunt elevă.", ce: "Vreau idei pentru un eseu", cum: "Te rog, pe scurt" }), "Sunt elevă. Vreau idei pentru un eseu. Te rog pe scurt.");
+  assert.strictEqual(f({ cine: "x", ce: "", cum: "y" }), "");
+  S.pune("asertiv.iam.cine", "elev"); S.pune("asertiv.iam.ce", "să învăț pentru teză"); S.pune("asertiv.iam.cum", "dă-mi 5 întrebări");
+  C.module.asertiv.actiuni.iaVad(); assert.strictEqual(C.deArata, "rezultat-ia"); C.deArata = "";
+  c = C.module.asertiv.ecran("ia").corp;
+  assert.ok(c.includes(">Sunt elev. Vreau să învăț pentru teză. Te rog dă-mi 5 întrebări.</textarea>") && c.includes("Copiază"));
+  assert.deepStrictEqual(Verificator.verificaText(c.replace(/<[^>]+>/g, " ")).map(x => x.gasit), []);
+  S.sterge();
+});
+
 console.log("Ecranele se desenează");
 test("fiecare ecran se desenează fără erori și fără „undefined”", () => {
   S.sterge(); S.pune("varsta", "sub18"); S.pune("clasa", "10");
-  const ecrane = ["start", "elev/clasa", "elev/bunvenit", "elev/meniu", "adult/situatie", "adult/bunvenit", "adult/meniu", "adult/pas/cv", "cv/intro", "cv/q0", "cv/q1", "cv/q2", "cv/q3", "cv/q4", "cv/rezultat", "cv/ia", "scrisoare/intro", "scrisoare/q0", "scrisoare/q1", "scrisoare/q2", "scrisoare/q3", "scrisoare/q4", "scrisoare/q5", "scrisoare/schelet", "scrisoare/ia", "interviu/hub", "interviu/povesti", "interviu/poveste/1", "interviu/poveste/5", "interviu/grup/tine", "interviu/grup/experienta", "interviu/grup/motivatie", "interviu/grup/dificile", "interviu/grup/special", "interviu/exersez", "competente/intro", "competente/a", "competente/b", "competente/tabel", "competente/concluzie", "asertiv/intro", "asertiv/exemplu/1", "asertiv/exemplu/5", "asertiv/exercitiu", "exercitii/quiz/compliment", "exercitii/quiz/compliment/1", "exercitii/quiz/gluma/3", "exercitii/quiz/argumente", "exercitii/quiz/argumente/3", "exercitii/argumentez", "exercitii/cerere", "exercitii/pauza", "exercitii/voce", "exercitii/capete", "exercitii/cuvinte", "exercitii/intrebari",
+  const ecrane = ["start", "elev/clasa", "elev/bunvenit", "elev/meniu", "adult/situatie", "adult/bunvenit", "adult/meniu", "adult/pas/cv", "cv/intro", "cv/q0", "cv/q1", "cv/q2", "cv/q3", "cv/q4", "cv/rezultat", "cv/ia", "scrisoare/intro", "scrisoare/q0", "scrisoare/q1", "scrisoare/q2", "scrisoare/q3", "scrisoare/q4", "scrisoare/q5", "scrisoare/schelet", "scrisoare/ia", "interviu/hub", "interviu/povesti", "interviu/poveste/1", "interviu/poveste/5", "interviu/grup/tine", "interviu/grup/experienta", "interviu/grup/motivatie", "interviu/grup/dificile", "interviu/grup/special", "interviu/exersez", "competente/intro", "competente/a", "competente/b", "competente/tabel", "competente/concluzie", "asertiv/intro", "asertiv/exemplu/1", "asertiv/exemplu/5", "asertiv/exercitiu", "asertiv/ia", "exercitii/quiz/compliment", "exercitii/quiz/compliment/1", "exercitii/quiz/gluma/3", "exercitii/quiz/argumente", "exercitii/quiz/argumente/3", "exercitii/argumentez", "exercitii/cerere", "exercitii/pauza", "exercitii/voce", "exercitii/capete", "exercitii/cuvinte", "exercitii/intrebari",
     "interese/intro", "interese/test", "interese/rezultat",
     "forte/intro", "forte/m0", "forte/m1", "forte/m2", "forte/ik0", "forte/ik1", "forte/ik2", "forte/ik3", "forte/valori", "forte/rezumat",
     "meserii/lista", "meserii/toate", "meserii/salvate",

@@ -135,3 +135,7 @@ fieldset.intrebare legend + * { clear: both; }
 .fara-js { padding: 16px; font-weight: 600; }
 
 @media (max-width: 359px) { .nume-app { display: none; } }
+
+details { margin: 14px 0; }
+details > summary { cursor: pointer; font-weight: 600; color: var(--principal); min-height: 2.6rem; padding: 8px 0; }
+details > summary:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }

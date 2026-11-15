@@ -130,5 +130,79 @@ window.DATE.asertiv = {
     },
     simtCunoscut: "Ai numit un sentiment. Celălalt înțelege ce simți.",
     sfat: "Citește fraza cu voce tare. Sună ca tine? Dacă da, e gata de folosit."
+  },
+
+  /* ---- Pentru elevi: aceleași idei, cu situații de la școală ---- */
+  elev: {
+    ce: "Să fii asertiv(ă) înseamnă **să spui clar ce gândești și ce vrei, fără să-i jignești pe ceilalți**. Pe scurt: **„Eu contez și tu contezi.”**",
+    castig: { titlu: "Ce câștigi", lista: [
+      "**Spui „nu”** fără să pierzi prietenii.",
+      "**Ceri ajutor** la școală fără să-ți fie rușine.",
+      "Vorbești calm cu profesorii și cu părinții, **chiar când nu ești de acord**.",
+      "**Ești ascultat(ă)** în proiectele de grup."
+    ] },
+    exemple: [
+      { titlu: "Colegul vrea să copieze tema", situatie: "Un coleg îți cere tema, ca s-o copieze. Tu nu vrei.",
+        pasiv: "I-o dai, deși nu vrei, și te superi în gând.", agresiv: "„Fă-ți singur tema, leneșule!”",
+        asertiv: "„Nu-ți dau tema s-o copiezi. Dacă vrei, îți explic exercițiul în pauză.”",
+        bine: "**Spui „nu” clar** și oferi ajutor." },
+      { titlu: "Prietenii vor să chiulești", situatie: "Prietenii insistă să chiulești cu ei de la o oră.",
+        pasiv: "Mergi cu ei, deși nu vrei.", agresiv: "„Sunteți proști, eu nu fac așa ceva.”",
+        asertiv: "„Nu vin. Am test la ora asta. Ne vedem după școală?”",
+        bine: "**Spui „nu” fără să-i jignești** și propui altceva." },
+      { titlu: "O notă care ți se pare nedreaptă", situatie: "Ai primit o notă care ți se pare prea mică.",
+        pasiv: "Taci și te superi acasă.", agresiv: "„Nu e corect, mereu mă depunctați!”",
+        asertiv: "„Îmi puteți arăta ce am greșit? Vreau să știu cum iau mai mult data viitoare.”",
+        bine: "**Ceri lămuriri calm**, fără acuzații." },
+      { titlu: "Colegii nu lucrează la proiect", situatie: "La un proiect de grup, doi colegi nu fac nimic.",
+        pasiv: "Faci tu tot și te superi.", agresiv: "„Voi nu faceți nimic niciodată!”",
+        asertiv: "„Predăm vineri. Propun așa: eu scriu textul, voi faceți prezentarea până joi. Ce ziceți?”",
+        bine: "Spui faptele și **propui o împărțire clară**." },
+      { titlu: "Părinții vor altă școală pentru tine", situatie: "Părinții vor să alegi alt liceu sau altă facultate decât îți dorești tu.",
+        pasiv: "Accepți fără să spui ce vrei.", agresiv: "„Nu mă înțelegeți, fac ce vreau!”",
+        asertiv: "„Știu că vreți binele meu. Eu mă gândesc la altceva. Putem vorbi diseară? Vă arăt ce am aflat.”",
+        bine: "**Arăți respect** și spui calm ce îți dorești." }
+    ],
+    formulaPrimul: "Spune ce vezi: faptele, fără etichete. „Proiectul nu e gata.”, nu „Ești leneș.”",
+    situatieAjutor: "La școală, acasă, cu prietenii sau în altă parte.",
+    modelExemplu: "Exemplu: Când colegii nu își fac partea la proiect, mă simt stresat(ă), pentru că vreau o notă bună. Propun să ne împărțim sarcinile azi."
+  },
+
+  /* ---- Cere clar și de la IA: reguli simple, legate de comunicarea asertivă ---- */
+  ia: {
+    titlu: "Cere clar și de la IA",
+    intro: "Un program de inteligență artificială (IA) îți răspunde mai bine **când îi ceri clar, ca într-o cerere asertivă**.",
+    reguli: [
+      { t: "Spune clar ce vrei.", ex: "„Explică-mi fotosinteza” e mai bun decât „ajută-mă la bio”." },
+      { t: "Spune cine ești și cum vrei răspunsul.", ex: "„Sunt în clasa a X-a. Explică-mi în 5 propoziții simple.”" },
+      { t: "Verifică ce îți spune.", ex: "IA poate greși sau poate inventa lucruri. Compară cu manualul sau întreabă un profesor." },
+      { t: "Nu scrie date personale.", ex: "Fără nume complet, adresă, CNP, parole sau poze cu tine." },
+      { t: "Folosește-o ca să înveți, nu ca să copiezi.", ex: "Cere explicații și exemple. Întreabă profesorul dacă ai voie s-o folosești la o temă." },
+      { t: "Spune ce nu-ți place.", ex: "Poți cere: „Mai simplu, te rog.” sau „Dă-mi un exemplu.”" }
+    ],
+    varsta: "Unele programe de IA au o vârstă minimă sau cer acordul părinților. Citește regulile programului și vorbește cu părinții.",
+    intrebare: "Care cerere e mai clară?",
+    quiz: [
+      { a: "„Ajută-mă la română.”", b: "„Sunt în clasa a IX-a. Dă-mi 3 idei pentru un eseu despre prietenie. Îl scriu eu.”", corect: "b",
+        expl: "A doua spune cine ești, ce vrei și că scrii tu eseul. Primești idei, nu o temă copiată." },
+      { a: "„Explică-mi pas cu pas cum rezolv o ecuație simplă, cu un exemplu.”", b: "„Scrie-mi tema la mate.”", corect: "a",
+        expl: "Prima te ajută să înveți. A doua doar îți face tema, iar la test tot tu trebuie să știi." }
+    ],
+    bine: "✓ Corect.", gresit: "✗ Mai încearcă.",
+    model: {
+      titlu: "Întrebarea mea pentru IA",
+      parti: [
+        { id: "cine", inceput: "Sunt", t: "Sunt… (cine ești)", ajutor: "De exemplu: „elev în clasa a X-a”." },
+        { id: "ce", inceput: "Vreau", t: "Vreau… (ce vrei să afli)", ajutor: "De exemplu: „să înțeleg cum se calculează aria cercului”." },
+        { id: "cum", inceput: "Te rog", t: "Te rog… (cum vrei răspunsul)", ajutor: "De exemplu: „explică-mi simplu, cu un exemplu”." }
+      ],
+      buton: "Văd întrebarea mea",
+      gol: "Completează toate cele trei părți.",
+      gata: "Întrebarea ta",
+      sfat: "Copiaz-o într-un program de IA. **Apoi verifică răspunsul** în manual sau cu un profesor.",
+      copiat: "Am copiat întrebarea.",
+      selectat: "Întrebarea e selectată. Apasă lung pe ea și alege „Copiază”."
+    },
+    primaData: "Prima dată folosești un program de IA? Vezi pașii"
   }
 };
