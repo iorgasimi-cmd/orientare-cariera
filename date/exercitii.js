@@ -72,7 +72,7 @@ window.DATE.exercitii = {
       ]
     },
     argumente: {
-      titlu: "Ce fel de argument e acesta?",
+      titlu: "Cum să argumentezi",
       intro: "Uneori, într-o discuție, cineva nu răspunde la ce ai spus, ci încearcă doar să „câștige”. Dacă recunoști felul în care o face, poți răspunde calm, fără să te cerți.",
       tipuri: [
         { id: "persoana", t: "Atacă persoana", d: "Nu vorbește despre idee, ci despre tine: vârsta, vechimea, felul tău de a fi." },

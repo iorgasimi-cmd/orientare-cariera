@@ -657,7 +657,7 @@ console.log("Exerciții pentru discuție");
 test("exercițiile apar la comunicarea asertivă (4) și la interviu (5)", () => {
   S.sterge(); S.pune("varsta", "18-44"); S.pune("situatie", "caut");
   const a = C.module.asertiv.ecran("intro").corp, x = C.module.asertiv.ecran("exercitiu").corp, i = C.module.interviu.ecran("exersez").corp;
-  ["Când primești un compliment", "Cererea mea", "Glumă sau batjocură?", "Ce fel de argument e acesta?"].forEach(t => assert.ok(a.includes(t) && x.includes(t), t));
+  ["Când primești un compliment", "Cererea mea", "Glumă sau batjocură?", "Cum să argumentezi"].forEach(t => assert.ok(a.includes(t) && x.includes(t), t));
   ["Pauza de două secunde", "Încălzirea vocii", "Începutul și finalul tău", "Cuvintele firmei", "Două întrebări, o poveste"].forEach(t => assert.ok(i.includes(t), t));
   S.sterge();
 });
