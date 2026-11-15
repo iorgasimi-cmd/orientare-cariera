@@ -871,6 +871,7 @@ test("limbajul corpului: apare după interviu, bifele se salvează, exercițiul 
   const i = C.module.corp.ecran("intro").corp;
   assert.ok(i.includes("trei semnale") && !/%|2022|63 de studii/.test(i));
   assert.ok(!C.module.corp.ecran("semne").corp.includes("bun-simț, nu rezultate"));
+  assert.ok(!C.module.corp.ecran("tinuta").corp.includes("de bun-simț") && C.module.corp.ecran("tinuta").corp.includes("Studiile despre haine la interviu sunt puține."));
   const a = C.module.corp.actiuni;
   D.corp.tinuta.lista.forEach(x => a.bifa(x.id, { checked: true }));
   assert.ok(C.module.corp.ecran("tinuta").corp.includes("Ai bifat tot"));

@@ -50,7 +50,7 @@ window.DATE.corp = {
 
   tinuta: {
     titlu: "Ținuta",
-    explica: "Studiile despre haine la interviu sunt puține. **Sfaturile de mai jos sunt practice, de bun-simț.**",
+    explica: "Studiile despre haine la interviu sunt puține.",
     bifeaza: "Bifează ce ai pregătit:",
     lista: [
       { id: "t1", t: "Hainele sunt curate și călcate." },
@@ -121,7 +121,7 @@ window.DATE.corp = {
     tinuta: {
       titlu: "Cum mă îmbrac",
       toate: "**Ai bifat tot.** Hainele tale sunt pregătite.",
-      explica: "Pentru o zi importantă: o prezentare, un examen oral sau o întâlnire nouă. **Sfaturile de mai jos sunt practice, de bun-simț.**",
+      explica: "Pentru o zi importantă: o prezentare, un examen oral sau o întâlnire nouă.",
       lista: [
         { id: "t1", t: "Hainele sunt curate și călcate." },
         { id: "t3", t: "Hainele se potrivesc cu locul unde merg.", d: "Dacă școala are reguli despre haine, le respect." },
