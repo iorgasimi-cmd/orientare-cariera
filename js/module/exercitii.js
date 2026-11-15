@@ -14,7 +14,7 @@
     { id: "quiz/compliment", t: D.quiz.compliment.titlu },
     { id: "cerere", t: D.cerere.titlu },
     { id: "quiz/gluma", t: D.quiz.gluma.titlu },
-    { id: "quiz/argumente", t: D.quiz.argumente.titlu }
+    { id: "argumentez", t: D.argumentez.titlu }
   ];
   var INTERVIU = [
     { id: "pauza", t: D.pauza.titlu },
@@ -24,7 +24,7 @@
     { id: "intrebari", t: D.intrebari.titlu }
   ];
   function inapoiPentru(id) {
-    return ASERTIV.some(function (x) { return x.id === id || id.indexOf(x.id) === 0; }) ? "asertiv/intro" : "interviu/exersez";
+    return id === "quiz/argumente" || ASERTIV.some(function (x) { return x.id === id || id.indexOf(x.id) === 0; }) ? "asertiv/intro" : "interviu/exersez";
   }
 
   /* Cartela cu butoanele exercițiilor, pusă în alte ecrane. */
@@ -97,7 +97,60 @@
     corp += '<div class="rand">' + (ales !== null ? C.buton("Încerc din nou", "exercitii.reia", id + "|" + i) : "") +
       (i < n - 1 ? C.buton("Situația următoare", "nav", "exercitii/quiz/" + id + "/" + (i + 1), "continua")
         : C.buton("Gata", "nav", inapoiPentru("quiz/" + id), "primar")) + "</div>";
-    return C.pagina(Q.titlu, corp, i > 0 ? "exercitii/quiz/" + id + "/" + (i - 1) : inapoiPentru("quiz/" + id));
+    return C.pagina(Q.titlu, corp, i > 0 ? "exercitii/quiz/" + id + "/" + (i - 1) : (id === "argumente" ? "exercitii/argumentez" : inapoiPentru("quiz/" + id)));
+  }
+
+  /* ---- Cum să argumentezi: ideile principale și „Argumentul meu” ---- */
+  function propozitie(t) {
+    var x = String(t || "").trim().replace(/\s+/g, " ").replace(/[\s.,;:!]+$/, "");
+    return x ? x.charAt(0).toUpperCase() + x.slice(1) + "." : "";
+  }
+  function inlocuieste(t, v) { Object.keys(v || {}).forEach(function (k) { t = t.split("{" + k + "}").join(v[k]); }); return t; }
+  /* Calcul pur: argumentul întreg și ce l-ar face mai convingător. */
+  function verificaArgument(r) {
+    var M = D.argumentez.model, R = M.reguli, p = {}, lipsa = [], sfaturi = [], bine = [];
+    M.parti.forEach(function (x) { p[x.id] = String((r && r[x.id]) || "").trim(); if (!p[x.id]) lipsa.push(inlocuieste(M.lipsa, { parte: x.t.split(" (")[0] })); });
+    if (lipsa.length) return { argument: "", lipsa: lipsa, sfaturi: [], bine: [], bun: false };
+    var ex = p.exemplu.replace(/^\s*(de exemplu|exemplu)\s*[,:]?\s*/i, "");
+    /* Dacă motivul începe cu „ca să”, „pentru că”…, se leagă de idee cu virgulă, în aceeași propoziție. */
+    var leaga = /^(ca sa|pentru ca|pentru a|fiindca|deoarece|intrucat|caci|ca)\b/.test(norm(p.motiv));
+    var inceput = leaga ? propozitie(p.idee).replace(/\.$/, "") + ", " + propozitie(p.motiv).replace(/^./, function (c) { return c.toLowerCase(); }) : propozitie(p.idee) + " " + propozitie(p.motiv);
+    var argument = [inceput, "De exemplu, " + propozitie(ex).replace(/^./, function (c) { return c.toLowerCase(); }), propozitie(p.propunere)].join(" ");
+    var n = { idee: norm(p.idee), motiv: norm(p.motiv), exemplu: norm(ex), propunere: norm(p.propunere) }, tot = [n.idee, n.motiv, n.exemplu, n.propunere].join(" "), gasit;
+    if ((p.idee.match(/[.!?](\s|$)/g) || []).length > 1 || p.idee.length > 160) sfaturi.push(R.ideeLunga);
+    if (p.motiv.length < 12) sfaturi.push(R.motivScurt);
+    if ((gasit = tot.match(/\b(mereu|niciodata|toata lumea|toti stiu|intotdeauna|tot timpul)\b/))) sfaturi.push(inlocuieste(R.absolut, { gasit: gasit[0] }));
+    if ((gasit = tot.match(/\b(tu nu stii|nu ai inteles|nu va pricepeti|esti prea|sunteti prea|nu te pricepi|habar n-ai|habar nu ai)\b/))) sfaturi.push(inlocuieste(R.persoana, { gasit: gasit[0] }));
+    if (/\d|\b(ieri|azi|saptamana trecuta|luna trecuta|anul trecut|de doua ori|de trei ori|luni|marti|miercuri|joi|vineri)\b/.test(n.exemplu)) bine.push(M.laude.exemplu);
+    else if (/\b(de obicei|in general|uneori|cateodata|des)\b/.test(n.exemplu)) sfaturi.push(R.exempluVag);
+    if ((gasit = n.propunere.match(/\b(sa fie mai bine|sa ne schimbam|sa ne straduim|sa ne descurcam mai bine|sa facem ceva)\b/))) sfaturi.push(inlocuieste(R.propunereVaga, { gasit: "„" + gasit[0] + "”" }));
+    else if (/\b(incercam|incepem|proba|saptamani|saptamana|o luna|de luni|pana|zile|ora|minute)\b/.test(n.propunere)) bine.push(M.laude.propunere);
+    return { argument: argument, lipsa: [], sfaturi: sfaturi, bine: bine, bun: !sfaturi.length };
+  }
+  function argumentez() {
+    var A = D.argumentez, M = A.model;
+    var corp = "<p>" + esc(A.intro) + "</p>" +
+      '<section class="card"><h2>' + esc(A.ideiTitlu) + '</h2><ol class="pasi">' +
+      A.idei.map(function (x) { return "<li><strong>" + esc(x.t) + "</strong> " + esc(x.ex) + "</li>"; }).join("") + "</ol></section>" +
+      '<section class="card stil-asertiv"><h2>' + esc(A.formaTitlu) + '</h2><p><strong>' + esc(A.forma) + '</strong></p><p class="citat">' + esc(A.exemplu) + "</p></section>" +
+      "<h2>" + esc(M.titlu) + "</h2><p>" + esc(M.explica) + "</p>" +
+      M.parti.map(function (x) { return C.camp("ex.arg." + x.id, esc(x.t), esc(x.ajutor), x.randuri); }).join("") +
+      '<div class="rand">' + C.buton(esc(M.buton), "exercitii.argument", null, "continua") + "</div>";
+    if (S.ia("ex.arg.verificat", false)) {
+      var v = verificaArgument(S.ia("ex.arg", {}));
+      corp += '<div id="rezultat-argument">';
+      if (v.lipsa.length) corp += '<section class="card"><h2>' + esc(M.gol) + "</h2><ul>" + v.lipsa.map(function (t) { return "<li>" + esc(t) + "</li>"; }).join("") + "</ul></section>";
+      else {
+        corp += '<section class="card"><h2>' + esc(M.argument) + '</h2><p class="citat">' + esc(v.argument) + "</p></section>" +
+          '<section class="card' + (v.bun ? " stil-asertiv" : "") + '"><h2>' + esc(v.bun ? M.bine : M.aproape) + "</h2>" +
+          (v.bine.length ? "<p>" + v.bine.map(esc).join(" ") + "</p>" : "") +
+          (v.sfaturi.length ? "<ul>" + v.sfaturi.map(function (t) { return "<li>" + esc(t) + "</li>"; }).join("") + "</ul>" : "") +
+          '<p class="mic">' + esc(M.sfat) + "</p></section>";
+      }
+      corp += "</div>";
+    }
+    corp += '<div class="rand">' + C.buton("Înapoi", "nav", "asertiv/intro") + C.buton(esc(A.continua), "nav", "exercitii/quiz/argumente", "continua") + "</div>";
+    return C.pagina(A.titlu, corp, "asertiv/intro");
   }
 
   /* ---- Cererea cu motiv (calcul pur) ---- */
@@ -199,7 +252,7 @@
     ecran: function (sub) {
       var m = /^quiz\/([a-z]+)(?:\/(\d+))?$/.exec(sub || "");
       if (m && D.quiz[m[1]]) { var i = Number(m[2] || 0); return quiz(m[1], Math.min(i, D.quiz[m[1]].itemi.length - 1)); }
-      var f = { cerere: cerere, pauza: pauza, voce: voce, capete: capete, cuvinte: cuvinte, intrebari: intrebari }[sub];
+      var f = { argumentez: argumentez, cerere: cerere, pauza: pauza, voce: voce, capete: capete, cuvinte: cuvinte, intrebari: intrebari }[sub];
       return f ? f() : C.module.asertiv.ecran("intro");
     },
     actiuni: {
@@ -229,10 +282,19 @@
       },
       cronometru: function (arg) { var p = String(arg).split("|"); pornesteCeas(p[0], Number(p[1])); return false; },
       pauza: function () { pornesteCeas("pauza-bara", 2, D.pauza.acum, D.pauza.asteapta); return false; },
-      altaIntrebare: function () { S.pune("ex.pauza.i", Number(S.ia("ex.pauza.i", 0)) + 1); }
+      altaIntrebare: function () { S.pune("ex.pauza.i", Number(S.ia("ex.pauza.i", 0)) + 1); },
+      argument: function () {
+        D.argumentez.model.parti.forEach(function (x) {
+          var el = g.document && g.document.getElementById("c-ex-arg-" + x.id);
+          if (el) S.pune("ex.arg." + x.id, el.value);
+        });
+        S.pune("ex.arg.verificat", true);
+        C.deArata = "rezultat-argument";
+      }
     },
     cartela: cartela,
     analizeazaCerere: analizeazaCerere,
+    verificaArgument: verificaArgument,
     cuvinteFrecvente: cuvinteFrecvente
   });
 })(typeof window !== "undefined" ? window : globalThis);

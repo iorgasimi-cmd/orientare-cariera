@@ -710,6 +710,28 @@ test("exercițiile cu alegere: întâi alegi, apoi vezi ce e potrivit și de ce;
   D.exercitii.quiz.argumente.itemi.forEach(it => assert.ok(D.exercitii.quiz.argumente.tipuri.some(t => t.id === it.corect)));
   S.sterge();
 });
+test("„Cum să argumentezi”: ideile principale, forma în 4 pași și exercițiul „Argumentul meu”", () => {
+  S.sterge(); S.pune("varsta", "18-44"); S.pune("situatie", "caut");
+  let c = C.module.exercitii.ecran("argumentez").corp;
+  assert.strictEqual(D.exercitii.argumentez.idei.length, 10);
+  ["Ideile principale", "Ideea → Motivul → Exemplul → Propunerea", "Argumentul meu", "Văd argumentul meu", "Continuă: când cineva argumentează nedrept"].forEach(x => assert.ok(c.includes(C.esc(x)), x));
+  assert.ok(C.module.asertiv.ecran("intro").corp.includes('data-arg="exercitii/argumentez"'), "cartela duce la „Cum să argumentezi”");
+  assert.strictEqual(C.module.exercitii.ecran("quiz/argumente").inapoi, "exercitii/argumentez");
+  const f = C.module.exercitii.verificaArgument;
+  const bun = f({ idee: "Propun să facem o ședință scurtă luni dimineață.", motiv: "ca să știm toți ce avem de făcut", exemplu: "de exemplu, săptămâna trecută doi colegi au lucrat la același raport", propunere: "hai să încercăm două săptămâni și apoi vedem" });
+  assert.strictEqual(bun.argument, "Propun să facem o ședință scurtă luni dimineață, ca să știm toți ce avem de făcut. De exemplu, săptămâna trecută doi colegi au lucrat la același raport. Hai să încercăm două săptămâni și apoi vedem.");
+  assert.ok(bun.bun && bun.bine.length === 2);
+  const slab = f({ idee: "Trebuie altfel.", motiv: "așa", exemplu: "mereu se întâmplă, tu nu știi", propunere: "să ne străduim" });
+  ["foarte scurt", "„mereu”", "atac la persoană", "prea generală"].forEach(x => assert.ok(slab.sfaturi.some(y => y.includes(x)), x));
+  assert.strictEqual(f({ idee: "x", motiv: "", exemplu: "", propunere: "y" }).lipsa.length, 2);
+  assert.ok(f({ idee: "Propun lucrul de acasă vinerea", motiv: "Ne concentrăm mai bine fără zgomot", exemplu: "ieri am terminat raportul acasă în două ore", propunere: "încercăm o lună" }).argument.startsWith("Propun lucrul de acasă vinerea. Ne concentrăm mai bine fără zgomot. De exemplu, ieri"), "motivul fără legătură rămâne propoziție separată");
+  S.pune("ex.arg.idee", "Propun o listă de verificare."); S.pune("ex.arg.motiv", "ca să greșim mai rar la comenzi"); S.pune("ex.arg.exemplu", "ieri am trimis două comenzi greșite"); S.pune("ex.arg.propunere", "o încercăm o lună");
+  C.module.exercitii.actiuni.argument(); assert.strictEqual(C.deArata, "rezultat-argument"); C.deArata = "";
+  c = C.module.exercitii.ecran("argumentez").corp;
+  assert.ok(c.includes("Argumentul tău") && c.includes("Propun o listă de verificare, ca să greșim mai rar la comenzi."));
+  assert.deepStrictEqual(Verificator.verificaText(c.replace(/<[^>]+>/g, " ")).map(x => x.gasit), []);
+  S.sterge();
+});
 test("cererea: verifică întrebarea, motivul, termenul, presiunea și „mulțumesc”", () => {
   const f = C.module.exercitii.analizeazaCerere, M = D.exercitii.cerere.mesaje;
   const bun = f("Îmi poți trimite raportul până la ora 12? Am nevoie de el pentru că am ședință cu clientul. Mulțumesc!");
@@ -759,7 +781,7 @@ test("explicația despre IA și prompt e aceeași, clară și pas cu pas, pe toa
 console.log("Ecranele se desenează");
 test("fiecare ecran se desenează fără erori și fără „undefined”", () => {
   S.sterge(); S.pune("varsta", "sub18"); S.pune("clasa", "10");
-  const ecrane = ["start", "elev/clasa", "elev/bunvenit", "elev/meniu", "adult/situatie", "adult/bunvenit", "adult/meniu", "adult/pas/cv", "cv/intro", "cv/q0", "cv/q1", "cv/q2", "cv/q3", "cv/q4", "cv/rezultat", "cv/ia", "scrisoare/intro", "scrisoare/q0", "scrisoare/q1", "scrisoare/q2", "scrisoare/q3", "scrisoare/q4", "scrisoare/q5", "scrisoare/schelet", "scrisoare/ia", "interviu/hub", "interviu/povesti", "interviu/poveste/1", "interviu/poveste/5", "interviu/grup/tine", "interviu/grup/experienta", "interviu/grup/motivatie", "interviu/grup/dificile", "interviu/grup/special", "interviu/exersez", "competente/intro", "competente/a", "competente/b", "competente/tabel", "competente/concluzie", "asertiv/intro", "asertiv/exemplu/1", "asertiv/exemplu/5", "asertiv/exercitiu", "exercitii/quiz/compliment", "exercitii/quiz/compliment/1", "exercitii/quiz/gluma/3", "exercitii/quiz/argumente", "exercitii/quiz/argumente/3", "exercitii/cerere", "exercitii/pauza", "exercitii/voce", "exercitii/capete", "exercitii/cuvinte", "exercitii/intrebari",
+  const ecrane = ["start", "elev/clasa", "elev/bunvenit", "elev/meniu", "adult/situatie", "adult/bunvenit", "adult/meniu", "adult/pas/cv", "cv/intro", "cv/q0", "cv/q1", "cv/q2", "cv/q3", "cv/q4", "cv/rezultat", "cv/ia", "scrisoare/intro", "scrisoare/q0", "scrisoare/q1", "scrisoare/q2", "scrisoare/q3", "scrisoare/q4", "scrisoare/q5", "scrisoare/schelet", "scrisoare/ia", "interviu/hub", "interviu/povesti", "interviu/poveste/1", "interviu/poveste/5", "interviu/grup/tine", "interviu/grup/experienta", "interviu/grup/motivatie", "interviu/grup/dificile", "interviu/grup/special", "interviu/exersez", "competente/intro", "competente/a", "competente/b", "competente/tabel", "competente/concluzie", "asertiv/intro", "asertiv/exemplu/1", "asertiv/exemplu/5", "asertiv/exercitiu", "exercitii/quiz/compliment", "exercitii/quiz/compliment/1", "exercitii/quiz/gluma/3", "exercitii/quiz/argumente", "exercitii/quiz/argumente/3", "exercitii/argumentez", "exercitii/cerere", "exercitii/pauza", "exercitii/voce", "exercitii/capete", "exercitii/cuvinte", "exercitii/intrebari",
     "interese/intro", "interese/test", "interese/rezultat",
     "forte/intro", "forte/m0", "forte/m1", "forte/m2", "forte/ik0", "forte/ik1", "forte/ik2", "forte/ik3", "forte/valori", "forte/rezumat",
     "meserii/lista", "meserii/toate", "meserii/salvate",

@@ -72,7 +72,7 @@ window.DATE.exercitii = {
       ]
     },
     argumente: {
-      titlu: "Cum să argumentezi",
+      titlu: "Când cineva argumentează nedrept",
       intro: "Uneori, într-o discuție, cineva nu răspunde la ce ai spus, ci încearcă doar să „câștige”. Dacă recunoști felul în care o face, poți răspunde calm, fără să te cerți.",
       tipuri: [
         { id: "persoana", t: "Atacă persoana", d: "Nu vorbește despre idee, ci despre tine: vârsta, vechimea, felul tău de a fi." },
@@ -206,6 +206,58 @@ window.DATE.exercitii = {
     poveste: "Și o poveste scurtă despre tine, de 2–3 propoziții",
     povesteAjutor: "Ceva ce ai făcut și ți-a plăcut, legat de domeniu. Poți folosi una dintre poveștile tale de la interviu.",
     sfat: "La discuție: pune o întrebare, ascultă, fă pauza de două secunde, pune a doua întrebare, apoi spune povestea ta când se potrivește."
+  },
+
+  /* ---- Cum să argumentezi: ideile principale și exercițiul „Argumentul meu” ---- */
+  argumentez: {
+    titlu: "Cum să argumentezi",
+    intro: "Să argumentezi înseamnă să explici calm și clar ce propui, ca celălalt să te poată înțelege și, poate, să fie de acord. Nu e o ceartă și nu e despre cine câștigă.",
+    ideiTitlu: "Ideile principale",
+    idei: [
+      { t: "Spune ideea clar, de la început.", ex: "O singură propoziție: ce propui." },
+      { t: "Dă un motiv.", ex: "Ce rezolvă ideea ta." },
+      { t: "Sprijină motivul cu un exemplu sau un fapt adevărat.", ex: "Un exemplu concret convinge mai mult decât „eu cred că”." },
+      { t: "Arată ce câștigă și celălalt.", ex: "Nu doar ce câștigi tu." },
+      { t: "Recunoaște ce e adevărat în părerea celuilalt.", ex: "„Ai dreptate că… De aceea propun…”" },
+      { t: "Propune un pas mic sau o probă.", ex: "„Încercăm două săptămâni și vedem.”" },
+      { t: "Ascultă și cere lămuriri.", ex: "„Ce anume nu ți se pare bine?”" },
+      { t: "Rămâi la subiect.", ex: "Vorbește despre idee, nu despre persoană. Fără „mereu” și „niciodată”." },
+      { t: "Vorbește calm și simplu.", ex: "Încetinește la ideea principală." },
+      { t: "Fii sincer(ă) când nu știi.", ex: "„Nu știu sigur, verific și îți spun mâine.”" }
+    ],
+    formaTitlu: "O formă ușor de ținut minte: 4 pași",
+    forma: "Ideea → Motivul → Exemplul → Propunerea",
+    exemplu: "„Propun să facem o ședință de 15 minute luni dimineață, ca să știm toți ce avem de făcut. Săptămâna trecută, doi colegi au lucrat la același raport. Hai să încercăm două săptămâni și apoi vedem dacă ne ajută.”",
+    model: {
+      titlu: "Argumentul meu",
+      explica: "Gândește-te la ceva ce vrei să propui la muncă sau la un interviu. Completează cei patru pași.",
+      parti: [
+        { id: "idee", t: "Ideea (ce propui)", ajutor: "O propoziție scurtă. De exemplu: „Propun să facem o ședință scurtă luni dimineață.”", randuri: 2 },
+        { id: "motiv", t: "Motivul (ce rezolvă)", ajutor: "De exemplu: „ca să știm toți ce avem de făcut în săptămâna aceea”.", randuri: 2 },
+        { id: "exemplu", t: "Exemplul (un fapt adevărat)", ajutor: "O situație care s-a întâmplat. De exemplu: „săptămâna trecută, doi colegi au lucrat la același raport”.", randuri: 3 },
+        { id: "propunere", t: "Propunerea (un pas concret)", ajutor: "Ceva ce puteți face. De exemplu: „hai să încercăm două săptămâni și apoi vedem”.", randuri: 2 }
+      ],
+      buton: "Văd argumentul meu",
+      argument: "Argumentul tău",
+      gol: "Încă nu ai completat toți pașii:",
+      lipsa: "Lipsește pasul „{parte}”.",
+      bine: "✓ Argumentul tău are toți cei patru pași și sună clar și calm.",
+      aproape: "Argumentul tău are toți cei patru pași. Câteva lucruri l-ar face mai convingător:",
+      laude: {
+        exemplu: "Exemplul tău e concret: spune când sau cât.",
+        propunere: "Propui un pas concret, ușor de încercat."
+      },
+      reguli: {
+        ideeLunga: "Ideea e cam lungă. Încearcă s-o spui într-o singură propoziție scurtă.",
+        motivScurt: "Motivul e foarte scurt. Spune ce rezolvă ideea ta.",
+        absolut: "Ai scris „{gasit}”. Cuvintele ca „mereu”, „niciodată” sau „toată lumea” sună a exagerare. Spune o situație anume.",
+        persoana: "Ai scris „{gasit}”. Asta sună ca un atac la persoană. Vorbește despre idee, nu despre om.",
+        exempluVag: "Exemplul e general. Spune o situație anume: când s-a întâmplat, cine, cât.",
+        propunereVaga: "Propunerea e prea generală ({gasit}). Spune un pas concret, de exemplu „încercăm două săptămâni” sau „începem de luni”."
+      },
+      sfat: "Citește argumentul cu voce tare. Apoi gândește-te: ce ar putea spune celălalt împotrivă? Pregătește un răspuns calm."
+    },
+    continua: "Continuă: când cineva argumentează nedrept"
   },
 
   cronometru: { porneste: "Pornește cronometrul", din: "secunde", gata: "Gata timpul." }
