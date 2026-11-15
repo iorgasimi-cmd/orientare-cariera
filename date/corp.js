@@ -1,5 +1,5 @@
 /* Date: „Limbajul corpului și ținuta” (adulți, după pregătirea pentru interviu).
-   Ce spun studiile: o meta-analiză din 2022 (63 de studii). Restul sunt sfaturi practice, spuse ca atare.
+   Ce spun studiile: o meta-analiză (Martín-Raugh și colegii). Restul sunt sfaturi practice, spuse ca atare.
    Fără reguli exacte (de exemplu „privește 70% din timp”), fiindcă sursa nu le susține.
    Ultima verificare de către Simona: NEVERIFICAT (ciornă scrisă la 2026-11-15). */
 window.DATE = window.DATE || {};
@@ -10,7 +10,7 @@ window.DATE.corp = {
 
   intro: [
     "**La interviu contează și ce spui fără cuvinte.** Adică felul în care privești, te miști și arăți.",
-    "O analiză din 2022 a adunat 63 de studii despre interviuri. **Trei semnale au avut cea mai strânsă legătură cu nota primită de candidați:**"
+    "Studiile despre interviuri arată că **trei semnale au cea mai strânsă legătură cu nota primită de candidați:**"
   ],
   trei: [
     "**o ținută îngrijită**, potrivită pentru locul de muncă;",
@@ -18,7 +18,7 @@ window.DATE.corp = {
     "**mișcările capului**, de exemplu când dai din cap ca să arăți că asculți."
   ],
   dupa: "Nu există reguli exacte. **Fii atent(ă) la aceste semnale și rămâi tu însuți / însăți.**",
-  sursa: "Sursa: Martín-Raugh și colegii, Journal of Organizational Behavior, 2022.",
+  sursa: "Sursa: Martín-Raugh și colegii, Journal of Organizational Behavior.",
   meniu: [
     { id: "semne", t: "Cum folosești semnalele", d: "Privirea, capul, mâinile. Și la interviul online." },
     { id: "tinuta", t: "Ținuta", d: "O listă scurtă de bifat înainte de interviu." },
@@ -34,7 +34,6 @@ window.DATE.corp = {
       "**Îmbracă-te îngrijit.** Detaliile sunt pe ecranul „Ținuta”."
     ],
     practicTitlu: "Sfaturi practice",
-    practicNota: "Acestea sunt sfaturi de bun-simț, nu rezultate de studii.",
     practic: [
       "**Stai drept, dar relaxat.** Ține mâinile la vedere, pe masă sau în poală.",
       "**Respiră încet înainte să răspunzi.** O pauză scurtă îți dă timp să te gândești.",
@@ -87,7 +86,7 @@ window.DATE.corp = {
   elev: {
     intro: [
       "**Contează și ce spui fără cuvinte.** Adică felul în care privești, te miști și arăți.",
-      "O analiză din 2022 a adunat 63 de studii despre discuțiile pentru un loc de muncă. **Trei semnale au avut cea mai strânsă legătură cu nota primită:**"
+      "Studiile arată că **trei semnale au cea mai strânsă legătură cu nota primită:**"
     ],
     trei: [
       "**o ținută îngrijită**, potrivită pentru locul unde mergi;",

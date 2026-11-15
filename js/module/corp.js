@@ -38,7 +38,7 @@
   function semne() {
     var M = D.semne;
     var corp = '<section class="card stil-asertiv"><h2>' + esc(M.studiiTitlu) + "</h2>" + lista(M.studii) + "</section>" +
-      '<section class="card"><h2>' + esc(M.practicTitlu) + '</h2><p class="mic">' + esc(M.practicNota) + "</p>" + lista(M.practic) + "</section>" +
+      '<section class="card"><h2>' + esc(M.practicTitlu) + '</h2>' + lista(M.practic) + "</section>" +
       '<section class="card"><h2>' + esc(M.onlineTitlu) + "</h2>" + lista(M.online) + "</section>" +
       '<div class="rand">' + C.buton("Înapoi", "nav", "corp/intro") + C.buton("Continuă: Ținuta", "nav", "corp/tinuta", "continua") + "</div>";
     return C.pagina(M.titlu, corp, "corp/intro");

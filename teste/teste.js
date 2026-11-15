@@ -869,7 +869,8 @@ test("limbajul corpului: apare după interviu, bifele se salvează, exercițiul 
   assert.strictEqual(p[p.indexOf("interviu") + 1], "corp");
   assert.ok(D.adulti.situatii.find(x => x.id === "nustiu").pasi.indexOf("corp") < 0);
   const i = C.module.corp.ecran("intro").corp;
-  assert.ok(i.includes("63 de studii") && !/%/.test(i));
+  assert.ok(i.includes("trei semnale") && !/%|2022|63 de studii/.test(i));
+  assert.ok(!C.module.corp.ecran("semne").corp.includes("bun-simț, nu rezultate"));
   const a = C.module.corp.actiuni;
   D.corp.tinuta.lista.forEach(x => a.bifa(x.id, { checked: true }));
   assert.ok(C.module.corp.ecran("tinuta").corp.includes("Ai bifat tot"));
@@ -886,7 +887,7 @@ test("limbajul corpului pentru elevi: în meniu, cu exemple de la școală, făr
   S.sterge(); S.pune("varsta", "sub18"); S.pune("clasa", "10");
   const ecr = ["intro", "semne", "tinuta", "exercitiu", "gata"].map(x => C.module.corp.ecran(x).corp).join(" ");
   assert.ok(!/interviu|\bjob\b|angajator/i.test(ecr), "fără interviu la elevi");
-  assert.ok(ecr.includes("prezentare în clasă") && ecr.includes("63 de studii"));
+  assert.ok(ecr.includes("prezentare în clasă") && !/2022|63 de studii|loc de muncă/.test(ecr));
   assert.strictEqual((C.module.corp.ecran("tinuta").corp.match(/type="checkbox"/g) || []).length, D.corp.elev.tinuta.lista.length);
   D.corp.elev.tinuta.lista.forEach(x => C.module.corp.actiuni.bifa(x.id, { checked: true }));
   assert.ok(C.module.corp.ecran("tinuta").corp.includes("Ai bifat tot"));
