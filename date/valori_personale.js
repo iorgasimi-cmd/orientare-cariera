@@ -1,5 +1,5 @@
 /* Date: exercițiul „Valorile mele” și scala stimei de sine (Rosenberg).
-   Valorile: alegi 10, apoi 5, apoi 3, apoi una; răspunzi la câteva întrebări și notezi cât trăiești după ele.
+   Valorile: alegi 10, apoi 5, apoi 3, apoi una; răspunzi la câteva întrebări și notezi cât contează pentru tine.
    Elevii au o listă scurtă, cu cuvinte simple; adulții, lista întreagă.
    Scala Rosenberg: 10 afirmații, 4 răspunsuri, scor 10–40; afirmațiile 3, 5, 8, 9, 10 se punctează invers.
    Ultima verificare de către Simona: NEVERIFICAT (ciornă scrisă la 2026-11-15). */
@@ -27,33 +27,33 @@ window.DATE.valoriPers = {
   preaPutine: "Alege exact {total}, ca să mergi mai departe.",
 
   intrebari: {
+    /* {v} = valoarea aleasă. Întrebări scurte, câte o idee. */
     elev: [
-      { id: "conteaza", t: "Ce anume face valoarea asta importantă pentru tine?" },
-      { id: "aduce", t: "Ce lucruri bune îți aduce?" },
-      { id: "cere", t: "Ce îți cere ea? De exemplu, la ce trebuie să fii atent(ă)?" },
-      { id: "fara", t: "Cum ar fi viața ta fără ea?" }
+      { id: "conteaza", t: "Ce înseamnă „{v}” pentru tine?", ajutor: "Scrie cu cuvintele tale, în una-două propoziții." },
+      { id: "aduce", t: "Când simți „{v}” în viața ta?", ajutor: "Dă un exemplu: la școală, acasă sau cu prietenii." },
+      { id: "cere", t: "Ce poți face ca să ai mai mult „{v}”?", ajutor: "Un lucru mic, pe care îl poți face săptămâna asta." },
+      { id: "fara", t: "Cum te-ai simți fără „{v}”?", ajutor: "" }
     ],
     adult: [
-      { id: "conteaza", t: "Ce anume face valoarea asta importantă pentru tine?" },
-      { id: "aduce", t: "Ce beneficii îți aduce?" },
-      { id: "cere", t: "Ce responsabilități îți aduce?" },
-      { id: "fara", t: "Ce s-ar întâmpla dacă ai pierde-o?" }
+      { id: "conteaza", t: "Ce înseamnă „{v}” pentru tine?", ajutor: "Scrie cu cuvintele tale, în una-două propoziții." },
+      { id: "aduce", t: "Ce îți aduce bun „{v}”?", ajutor: "În viața ta sau la muncă." },
+      { id: "cere", t: "Ce trebuie să faci ca să păstrezi „{v}”?", ajutor: "De exemplu: timp, efort, alegeri." },
+      { id: "fara", t: "Ce s-ar schimba dacă ai pierde „{v}”?", ajutor: "" }
     ]
   },
 
   nota: {
-    titlu: "Cât trăiești după ele?",
-    explica: "Pentru fiecare dintre cele 3 valori, alege o notă de la 1 la 10. **1 = deloc, 10 = în fiecare zi.**",
-    elev: "Gândește-te la școală, acasă și la timpul tău liber.",
-    adult: "Gândește-te și la viața personală, și la muncă."
+    titlu: "Cât contează pentru tine?",
+    explica: "Dă o notă de la 1 la 10 fiecărei valori. **1 = contează puțin, 10 = contează foarte mult.**",
+    elev: "Nu există note bune sau greșite.",
+    adult: "Nu există note bune sau greșite."
   },
 
   rezultat: {
     titlu: "Valorile tale",
     cea: "Cea mai importantă",
     top: "Primele 3, cu nota ta",
-    mic: "Valoarea „{v}” are nota {n}. **Poți alege o temă mică în plan, ca s-o trăiești mai des.**",
-    bine: "Trăiești deja după valorile tale. **E un lucru de păstrat.**",
+    fara: "**Ține minte aceste valori.** Te ajută să alegi ce ți se potrivește.",
     planElev: "Gândește-te la ele când alegi un liceu, o facultate sau o activitate.",
     planAdult: "Gândește-te la ele când alegi un loc de muncă sau un domeniu.",
     refac: "Refac exercițiul"

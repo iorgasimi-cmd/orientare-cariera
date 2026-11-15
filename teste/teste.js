@@ -878,10 +878,11 @@ test("valorile: 10 → 5 → 3 → 1, cu limită la fiecare pas, întrebări, no
   a.continua("3"); assert.ok(C.eroare); C.eroare = "";
   S.pune("vp.top", L[1]); a.continua("3"); assert.strictEqual(C.ecran, "valorile/intrebari");
   const q = C.module.valorile.ecran("intrebari").corp;
-  assert.ok(q.includes("Ce anume face valoarea asta importantă pentru tine?") && !/De ce/.test(q));
+  assert.ok(q.includes("Ce înseamnă „" + L[1] + "” pentru tine?") && q.includes("Când simți „" + L[1] + "” în viața ta?") && !/De ce|\{v\}/.test(q));
   S.pune("vp.nota.v0", 8); S.pune("vp.nota.v1", 3); S.pune("vp.nota.v2", 9);
   a.gata(); const r = C.module.valorile.ecran("rezultat").corp;
-  assert.ok(r.includes(L[1]) && r.includes("nota 3 din 10") && r.includes("Poți alege o temă mică în plan"));
+  assert.ok(r.includes(L[1]) && r.includes("contează 3 din 10") && r.includes("Ține minte aceste valori"));
+  assert.ok(C.module.valorile.ecran("nota").titlu === "Cât contează pentru tine?" && !C.module.valorile.ecran("nota").corp.includes("trăiești"));
   assert.ok(C.module.elev.ecran("meniu").corp.includes("7. Valorile mele</strong><span class=\"stare gata\">"));
   /* dacă schimbi alegerea de la început, pașii următori păstrează doar ce e încă ales */
   a.comuta("0|" + L[0], { checked: false }); a.comuta("0|" + L[20], { checked: true }); a.continua("0");

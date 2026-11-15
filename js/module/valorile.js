@@ -49,7 +49,7 @@
     var top = S.ia("vp.top", ""), Q = C.eAdult() ? V.intrebari.adult : V.intrebari.elev;
     if (!top) return pas(3);
     var corp = '<p class="citat">' + esc(top) + "</p>" +
-      Q.map(function (q) { return C.camp("vp.r." + q.id, esc(q.t), "", 3); }).join("") +
+      Q.map(function (q) { return C.camp("vp.r." + q.id, esc(inl(q.t, { v: top })), esc(q.ajutor || ""), 3); }).join("") +
       '<div class="rand">' + C.buton("Înapoi", "nav", "valorile/p3") + C.buton("Continuă", "nav", "valorile/nota", "continua") + "</div>";
     return C.pagina(V.pasi[3].t, corp, "valorile/p3");
   }
@@ -72,14 +72,13 @@
     var R = V.rezultat, top = S.ia("vp.top", ""), trei = ales(2);
     if (!top || trei.length < 3) return intro();
     var note = trei.map(function (v, i) { return { v: v, n: Number(S.ia("vp.nota.v" + i, 0)) }; });
-    var mici = note.filter(function (x) { return x.n && x.n <= 5; });
     var corp = '<section class="card stil-asertiv"><h2>' + esc(R.cea) + '</h2><p class="citat">' + esc(top) + "</p></section>" +
       '<section class="card"><h2>' + esc(R.top) + "</h2><ul>" + note.map(function (x) {
-        return "<li><strong>" + esc(x.v) + "</strong>" + (x.n ? " – nota " + x.n + " din 10" : "") + "</li>";
+        return "<li><strong>" + esc(x.v) + "</strong>" + (x.n ? " – contează " + x.n + " din 10" : "") + "</li>";
       }).join("") + "</ul></section>" +
-      (mici.length ? mici.map(function (x) { return "<p>" + esc(inl(R.mic, { v: x.v, n: x.n })) + "</p>"; }).join("") : "<p>" + esc(R.bine) + "</p>") +
+      "<p>" + esc(R.fara) + "</p>" +
       '<p class="termen">' + esc(C.eAdult() ? R.planAdult : R.planElev) + "</p>" +
-      '<div class="rand">' + C.buton(esc(R.refac), "valorile.refa") + (mici.length ? C.buton("Văd planul", "nav", "plan/hub") : "") + butonFinal("valori") + "</div>";
+      '<div class="rand">' + C.buton(esc(R.refac), "valorile.refa") + butonFinal("valori") + "</div>";
     return C.pagina(R.titlu, corp, C.acasa());
   }
 
