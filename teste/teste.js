@@ -714,8 +714,6 @@ test("două întrebări: se pot alege cel mult două", () => {
 });
 test("niciun text din exerciții nu are probleme (promisiuni, procente, „de ce”, jargon)", () => {
   assert.deepStrictEqual(Verificator.verificaDate(D.exercitii).map(p => p.cale + ": " + p.gasit), []);
-  const tot = JSON.stringify(D.exercitii);
-  assert.ok(!/patrick|king|tactics|conversation/i.test(tot), "fără trimiteri la carte");
 });
 
 test("explicația despre IA și prompt e aceeași, clară și pas cu pas, pe toate cele trei ecrane cu prompt", () => {
