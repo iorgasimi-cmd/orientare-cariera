@@ -65,6 +65,21 @@ window.DATE.sfaturi = {
     { id: "t11", t: "Pune-ți ordine în program: notează ce ai de făcut mâine și alege un singur lucru important." },
     { id: "t12", t: "Notează o convingere care te oprește („Nu sunt bun la așa ceva”) și scrie-o în alt fel, apoi un pas pe care îl poți face." }
   ],
+  /* Teme săptămânale pentru adulți: pași mici, despre muncă (curs, cap. 6.1–6.3, 7.3 „strategia pașilor mici”, 8.4). */
+  teme_adulti: [
+    { id: "a1", t: "Alege o secțiune din CV (de exemplu experiența) și adaugă un rezultat concret și adevărat." },
+    { id: "a2", t: "Caută 3 anunțuri care îți plac și notează ce cerințe se repetă." },
+    { id: "a3", t: "Scrie o poveste din experiența ta pentru interviu: context, ce ai făcut, ce s-a întâmplat." },
+    { id: "a4", t: "Scrie un mesaj scurt unui fost coleg sau unei cunoștințe din domeniul care te interesează." },
+    { id: "a5", t: "Învață un lucru nou pe calculator sau pe telefon, 15 minute, de exemplu o funcție dintr-un program de birou." },
+    { id: "a6", t: "Filmează-te câteva minute răspunzând la o întrebare de interviu și uită-te la filmare." },
+    { id: "a7", t: "Caută un curs gratuit sau ieftin care te-ar ajuta (de exemplu, prin agenția de ocupare a forței de muncă)." },
+    { id: "a8", t: "Fă o listă cu 10 firme la care ți-ar plăcea să lucrezi și intră pe pagina lor de cariere." },
+    { id: "a9", t: "Roagă pe cineva de încredere să-ți citească CV-ul și notează ce ți-a spus." },
+    { id: "a10", t: "Trimite o aplicare la un anunț care ți se potrivește, cu CV-ul potrivit pentru el." },
+    { id: "a11", t: "Află despre un târg de joburi, un atelier sau un eveniment din domeniul tău și notează data." },
+    { id: "a12", t: "Notează un gând care te oprește și scrie-l altfel, apoi un pas mic pe care îl poți face." }
+  ],
   /* Cele 5 obstacole psihologice din curs, cap. 4.3, formulate pentru elevi. Fiecare are o idee de răspuns, din curs. */
   obstacole: [
     { id: "o1", nume: "Gândesc prea mult", explicatie: "Citesc și caut tot mai mult, dar nu fac niciun pas.", idee: "Mai bine un pas imperfect astăzi decât un pas perfect peste o lună. Alege ceva mic și fă-l azi." },

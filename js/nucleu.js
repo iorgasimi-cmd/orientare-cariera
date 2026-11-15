@@ -78,8 +78,11 @@
         } else selecteaza();
       } catch (e) { selecteaza(); }
     },
+    /* Adult = 18–44 sau 45+. Exercițiile comune își aleg textele și drumul după asta. */
+    eAdult: function () { var v = g.Stocare.ia("varsta", ""); return !!v && v !== "sub18"; },
+    acasa: function () { return C.eAdult() ? "adult/meniu" : "elev/meniu"; },
     pagina: function (titlu, corp, inapoi) {
-      return { titlu: titlu, corp: corp, inapoi: inapoi === undefined ? "elev/meniu" : inapoi };
+      return { titlu: titlu, corp: corp, inapoi: inapoi === undefined ? C.acasa() : inapoi };
     }
   };
 

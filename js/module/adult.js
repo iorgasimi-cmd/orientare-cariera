@@ -10,13 +10,34 @@
   }
   function e45() { return S.ia("varsta", "") === "45+"; }
   /* Pașii deja construiți și ecranul lor; ceilalți apar „în pregătire”. */
-  var ECRANE = { cv: "cv/intro", scrisoare: "scrisoare/intro", interviu: "interviu/hub" };
+  var ECRANE = {
+    interese: function () { return S.ia("interese.top", null) ? "interese/rezultat" : "interese/intro"; },
+    forte: function () { return (S.ia("forte.valori", []) || []).length >= 3 ? "forte/rezumat" : "forte/intro"; },
+    competente: function () { return S.ia("competente.gata", false) ? "competente/concluzie" : "competente/intro"; },
+    cv: "cv/intro", scrisoare: "scrisoare/intro", asertiv: "asertiv/intro", interviu: "interviu/hub", plan: "plan/hub"
+  };
+  function ecranPas(p) { var e = ECRANE[p]; return typeof e === "function" ? e() : e; }
+  /* Ce scrie în dreptul fiecărui pas: făcut (cu bifă) sau de făcut (cu cerc). */
+  var GATA = {
+    interese: function () { return S.ia("interese.top", null) ? "✓ făcut" : ""; },
+    forte: function () { return (S.ia("forte.valori", []) || []).length >= 3 ? "✓ făcut" : ""; },
+    competente: function () { return S.ia("competente.gata", false) ? "✓ făcut" : ""; },
+    cv: function () { return S.ia("cv.verificat", false) ? "✓ verificat" : ""; },
+    scrisoare: function () { return S.ia("scrisoare.gata", false) ? "✓ schelet făcut" : ""; },
+    asertiv: function () { return S.ia("asertiv.gata", false) ? "✓ făcut" : ""; },
+    interviu: function () { return C.module.interviu && C.module.interviu.nrPovesti() >= 3 ? "✓ povești scrise" : ""; },
+    plan: function () { return S.ia("plan.start", null) ? "✓ început" : ""; }
+  };
   function stare(p) {
     if (!ECRANE[p]) return '<span class="stare">○ în pregătire</span>';
-    if (p === "cv" && S.ia("cv.verificat", false)) return '<span class="stare gata">✓ verificat</span>';
-    if (p === "scrisoare" && S.ia("scrisoare.gata", false)) return '<span class="stare gata">✓ schelet făcut</span>';
-    if (p === "interviu" && C.module.interviu && C.module.interviu.nrPovesti() >= 3) return '<span class="stare gata">✓ povești scrise</span>';
-    return '<span class="stare">○ de făcut</span>';
+    var t = GATA[p] ? GATA[p]() : "";
+    return t ? '<span class="stare gata">' + t + "</span>" : '<span class="stare">○ de făcut</span>';
+  }
+  /* Pasul de după `id` în traseul omului, ca exercițiile să ducă mai departe. */
+  function urmator(id) {
+    var s = situatia(); if (!s) return null;
+    var i = s.pasi.indexOf(id), nx = i >= 0 ? s.pasi[i + 1] : null;
+    return nx ? { id: nx, t: D.pasi[nx].t, ecran: ecranPas(nx) || "adult/pas/" + nx } : null;
   }
 
   function intrebare() {
@@ -43,7 +64,7 @@
     var s = situatia();
     if (!s) return intrebare();
     var corp = '<div class="meniu-lista">' + s.pasi.map(function (p, i) {
-      return C.buton("<strong>" + (i + 1) + ". " + esc(D.pasi[p].t) + "</strong>" + stare(p), "nav", ECRANE[p] || "adult/pas/" + p, "lista");
+      return C.buton("<strong>" + (i + 1) + ". " + esc(D.pasi[p].t) + "</strong>" + stare(p), "nav", ecranPas(p) || "adult/pas/" + p, "lista");
     }).join("") + "</div>" +
       '<p class="mic">Situația ta: <strong>' + esc(s.t) + "</strong></p>" +
       '<div class="rand">' + C.buton("Schimb situația", "nav", "adult/situatie") + "</div>";
@@ -74,6 +95,7 @@
         C.mergi("adult/bunvenit");
       }
     },
-    situatia: situatia
+    situatia: situatia,
+    urmator: urmator
   });
 })(typeof window !== "undefined" ? window : globalThis);

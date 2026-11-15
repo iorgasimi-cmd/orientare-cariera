@@ -10,22 +10,22 @@ window.DATE.adulti = {
     {
       id: "caut", t: "Caut un loc de muncă",
       bun: "Ne concentrăm pe CV, pe scrisoarea de intenție și pe interviu. Îți arăt și cum îți potrivești CV-ul pentru fiecare anunț.",
-      pasi: ["cv", "scrisoare", "interviu", "plan"]
+      pasi: ["cv", "scrisoare", "asertiv", "interviu", "plan"]
     },
     {
       id: "schimb", t: "Vreau să-mi schimb domeniul",
       bun: "Mai întâi aflăm ce îți place și ce știi să faci cu adevărat. Apoi vedem ce iei cu tine în noul domeniu și cum scrii asta în CV.",
-      pasi: ["interese", "forte", "competente", "cv", "interviu", "plan"]
+      pasi: ["interese", "forte", "competente", "cv", "asertiv", "interviu", "plan"]
     },
     {
       id: "pauza", t: "Revin după o pauză", d: "de exemplu, după concediul de creștere a copilului",
       bun: "Ce știi să faci nu s-a pierdut. Te ajut să vorbești simplu și sincer despre pauză, în CV și la interviu, și să scrii ce ai învățat în acest timp.",
-      pasi: ["cv", "scrisoare", "interviu", "plan"]
+      pasi: ["cv", "scrisoare", "asertiv", "interviu", "plan"]
     },
     {
       id: "nustiu", t: "Încă nu știu ce vreau",
       bun: "E normal să nu știi încă și nu e nevoie să hotărăști azi. Începem cu ce îți place, la ce ești bun(ă) și ce contează pentru tine. CV-ul îl lăsăm pentru mai târziu.",
-      pasi: ["interese", "forte", "plan"]
+      pasi: ["interese", "forte", "asertiv", "plan"]
     }
   ],
   /* Pentru 45 de ani sau mai mult: același traseu, cu acest accent în plus. Fără promisiuni despre vârstă. */
@@ -36,6 +36,7 @@ window.DATE.adulti = {
     competente: { t: "Ce iei cu tine în noul domeniu", d: "Ce știi să faci și se potrivește și în alt domeniu." },
     cv: { t: "CV-ul meu", d: "Îți verifici CV-ul după câteva reguli simple." },
     scrisoare: { t: "Scrisoarea de intenție", d: "O scrii pas cu pas, cu ajutorul unor întrebări." },
+    asertiv: { t: "Comunicarea asertivă", d: "Cum spui clar ce gândești și de ce ai nevoie, cu respect pentru tine și pentru ceilalți." },
     interviu: { t: "Pregătirea pentru interviu", d: "Întrebări de exersat și povești din experiența ta." },
     plan: { t: "Planul meu", d: "Un scop și o temă mică pe săptămână." }
   }

@@ -20,16 +20,22 @@
     return '<p class="mic">Pasul ' + i + " din " + (PASI.length - 1) + "</p>";
   }
 
+  /* Pentru adulți: butonul spre pasul următor din traseul lor (sau înapoi la meniu). */
+  function butonUrmator(id) {
+    var u = C.module.adult && C.module.adult.urmator(id);
+    return u ? C.buton("Continuă: " + esc(u.t), "nav", u.ecran, "continua") : C.buton("Înapoi la drumul meu", "nav", "adult/meniu", "continua");
+  }
+
   function intro() {
     var corp = "<p>Aici nu te întreb direct „care sunt calitățile tale”, pentru că așa ies adesea răspunsuri generale. Te rog să povestești câteva lucruri concrete, iar eu doar ți le arăt înapoi.</p>" +
       "<p>Sunt trei pași: momente în care ți-a ieșit ceva bine, patru întrebări despre ce îți place și la ce ești bun(ă), apoi alegerea a 3–5 lucruri care contează pentru tine într-o meserie.</p>" +
       '<p class="nota">Nu există răspunsuri greșite și poți lăsa câmpuri goale.</p>' + nav("intro", null, "m0", "Începem");
-    return C.pagina("Punctele mele forte și valorile", corp, "elev/meniu");
+    return C.pagina("Punctele mele forte și valorile", corp, C.acasa());
   }
 
   function moment(i, sub) {
     var p = pas(sub);
-    var corp = progres(sub) + C.camp("forte.m" + i, esc(D.momente[i]), "", 5) + nav(sub, p.inapoi, p.inainte);
+    var corp = progres(sub) + C.camp("forte.m" + i, esc((C.eAdult() ? D.momenteAdult : D.momente)[i]), "", 5) + nav(sub, p.inapoi, p.inainte);
     return C.pagina("Un moment în care ți-a ieșit bine", corp, "forte/intro");
   }
 
@@ -74,8 +80,8 @@
         return '<label class="opt"><input type="radio" name="recunosc" value="' + o[0] + '" data-camp="forte.recunosc"' + (rec === o[0] ? " checked" : "") + "><span>" + o[1] + "</span></label>";
       }).join("") + "</div></fieldset>" +
       C.camp("forte.schimb", "Ce ai schimba sau ai adăuga?", "", 3) +
-      '<div class="rand">' + C.buton("Înapoi", "nav", "forte/valori") + C.buton("Continuă: meserii", "nav", "meserii/lista", "continua") + "</div>";
-    return C.pagina("Ce ai spus despre tine", corp, "elev/meniu");
+      '<div class="rand">' + C.buton("Înapoi", "nav", "forte/valori") + (C.eAdult() ? butonUrmator("forte") : C.buton("Continuă: meserii", "nav", "meserii/lista", "continua")) + "</div>";
+    return C.pagina("Ce ai spus despre tine", corp, C.acasa());
   }
 
   C.reg("forte", {

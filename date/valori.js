@@ -25,6 +25,12 @@ window.DATE.valori = {
     "Ce anume ai făcut tu, în mod special, ca să-ți iasă bine?",
     "Cum te-ai simțit în acel moment? Ce activitate a fost aproape ca un joc pentru tine?"
   ],
+  /* Aceleași întrebări, pentru adulți (curs, cap. 3.2, metodele 1 și 2). */
+  momenteAdult: [
+    "Povestește o situație (la muncă, acasă, la un hobby sau la voluntariat) în care ți-a ieșit ceva foarte bine. Ce s-a întâmplat?",
+    "Ce anume ai făcut tu, în mod special, ca să-ți iasă bine?",
+    "Ce activități îți dau energie, în loc să te obosească? La ce sarcini uiți de timp?"
+  ],
   /* Cele 4 cercuri Ikigai, așa cum apar în curs, cap. 1.5. */
   ikigai: [
     { id: "place", t: "Ce îți place să faci?", ajutor: "Scrie 2–3 lucruri. Nu contează dacă par mici." },

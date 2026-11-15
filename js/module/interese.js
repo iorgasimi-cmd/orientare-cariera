@@ -30,7 +30,7 @@
   function intro() {
     var corp =
       '<p>Mai întâi, un exercițiu scurt de imaginație. Nu există răspuns greșit.</p>' +
-      '<p class="citat">Dacă nu ar conta notele, banii sau ce spun alții, ce ai vrea să faci?</p>' +
+      '<p class="citat">' + esc(C.eAdult() ? D.bagheta.adult : D.bagheta.elev) + "</p>" +
       C.camp("bagheta", "Scrie ce-ți vine în minte, cu cuvintele tale", "Poți scrie o meserie, o activitate sau doar o idee. Poți lăsa și gol.", 4) +
       '<p>Apoi urmează testul. Sunt 36 de afirmații. Pentru fiecare, alegi cât de mult ți-ar plăcea să faci acel lucru.</p>' +
       '<div class="rand">' + C.buton("Începem testul", "interese.start", null, "primar") + "</div>";
@@ -44,7 +44,7 @@
       '<p class="legenda-scala"><strong>1</strong> = deloc · <strong>2</strong> = puțin · <strong>3</strong> = așa și așa · <strong>4</strong> = destul de mult · <strong>5</strong> = foarte mult</p>';
     pg[p].forEach(function (q) {
       var cur = S.ia("interese.r." + q.id, null);
-      corp += '<fieldset class="intrebare"><legend>' + esc(q.t) + "</legend><div class=\"scala\">";
+      corp += '<fieldset class="intrebare"><legend>' + esc(C.eAdult() && q.tAdult ? q.tAdult : q.t) + "</legend><div class=\"scala\">";
       D.scala.forEach(function (o) {
         corp += '<label class="opt"><input type="radio" name="q-' + q.id + '" value="' + o.v + '" data-camp="interese.r.' + q.id + '" data-num="1"' +
           (cur === o.v ? " checked" : "") + "><span>" + o.v + '<i class="sr"> ' + esc(o.t) + "</i></span></label>";
@@ -69,7 +69,7 @@
     var b = S.ia("bagheta", "");
     if (b) corp += '<section class="card"><h2>Ce ai scris la început</h2><p class="citat">' + esc(b) + "</p></section>";
     corp += '<div class="rand">' + C.buton("Refac testul", "interese.refa") + C.buton("Continuă: punctele mele forte", "nav", "forte/intro", "continua") + "</div>";
-    return C.pagina("Rezultatul tău", corp, "elev/meniu");
+    return C.pagina("Rezultatul tău", corp, C.acasa());
   }
 
   var actiuni = {

@@ -5,6 +5,11 @@ window.DATE = window.DATE || {};
 window.DATE.interese = {
   verificat: "neverificat",
   scriere: "2026-11-11",
+  /* Bagheta magică (curs, cap. 2.3): o întrebare care scoate din calcul fricile, ca să apară dorința reală. */
+  bagheta: {
+    elev: "Dacă nu ar conta notele, banii sau ce spun alții, ce ai vrea să faci?",
+    adult: "Dacă banii sau lipsa de experiență nu ar fi o problemă, ce meserie ai alege mâine dimineață?"
+  },
   scala: [
     { v: 1, t: "Deloc" },
     { v: 2, t: "Puțin" },
@@ -67,10 +72,10 @@ window.DATE.interese = {
     { id: "a5", tip: "A", t: "Să inventez idei noi, diferite de ce se face de obicei." },
     { id: "a6", tip: "A", t: "Să aleg culorile și aranjarea unei camere sau a unei pagini." },
 
-    { id: "s1", tip: "S", t: "Să ajut un coleg să înțeleagă o lecție." },
+    { id: "s1", tip: "S", t: "Să ajut un coleg să înțeleagă o lecție.", tAdult: "Să ajut un coleg nou să învețe ce are de făcut." },
     { id: "s2", tip: "S", t: "Să ascult pe cineva care are o problemă și să-l susțin." },
     { id: "s3", tip: "S", t: "Să fac voluntariat pentru oameni sau pentru animale." },
-    { id: "s4", tip: "S", t: "Să explic lucruri unor copii mai mici." },
+    { id: "s4", tip: "S", t: "Să explic lucruri unor copii mai mici.", tAdult: "Să explic lucruri unor oameni care le aud prima dată." },
     { id: "s5", tip: "S", t: "Să lucrez într-o echipă în care toți se ajută." },
     { id: "s6", tip: "S", t: "Să organizez o activitate care strânge oameni împreună." },
 
@@ -78,7 +83,7 @@ window.DATE.interese = {
     { id: "e2", tip: "E", t: "Să conving oameni să încerce o idee a mea." },
     { id: "e3", tip: "E", t: "Să vând ceva sau să fac reclamă unui eveniment." },
     { id: "e4", tip: "E", t: "Să iau decizii și să-mi asum riscuri mici." },
-    { id: "e5", tip: "E", t: "Să particip la o dezbatere și să-mi susțin părerea." },
+    { id: "e5", tip: "E", t: "Să particip la o dezbatere și să-mi susțin părerea.", tAdult: "Să-mi susțin părerea într-o ședință." },
     { id: "e6", tip: "E", t: "Să pornesc o mică inițiativă sau afacere a mea." },
 
     { id: "c1", tip: "C", t: "Să țin în ordine acte, liste sau tabele." },

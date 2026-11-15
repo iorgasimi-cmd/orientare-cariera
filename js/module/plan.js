@@ -8,7 +8,8 @@
 
   var SCOP = [
     { c: "intentie", lit: "Intenția", exp: "Începem cu ce ți-ai dori, în cuvinte simple.",
-      q: "Ce ți-ai dori să se întâmple sau să începi, în următoarele luni, în legătură cu școala sau cariera?" },
+      q: "Ce ți-ai dori să se întâmple sau să începi, în următoarele luni, în legătură cu școala sau cariera?",
+      qAdult: "Ce ți-ai dori să se întâmple sau să începi, în următoarele luni, în legătură cu munca sau cariera ta?" },
     { c: "specific", lit: "S – specific", exp: "Un scop clar spune exact ce faci. „Un job mai bun” e vag; „Vorbesc cu două persoane care lucrează ca…” e clar.",
       q: "Spune într-o propoziție ce vrei să faci, cât mai clar." },
     { c: "masurabil", lit: "M – măsurabil", exp: "Ca să știi că ai reușit, ai nevoie de ceva ce poți număra sau bifa.",
@@ -22,7 +23,7 @@
 
   /* Trei teme pe săptămână, alese rotativ din bancă. Calcul pur. */
   function temeSaptamanii(idx) {
-    var b = D.teme_saptamanale, n = b.length, baza = (idx * 3) % n;
+    var b = C.eAdult() ? D.teme_adulti : D.teme_saptamanale, n = b.length, baza = (idx * 3) % n;
     return [0, 1, 2].map(function (k) { return b[(baza + k) % n]; });
   }
 
@@ -53,7 +54,7 @@
       var v = S.ia("plan.scop.termen", "");
       corp += '<div class="camp"><label for="c-termen">' + esc(s.q) + '</label><input id="c-termen" type="date" data-camp="plan.scop.termen" min="' + C.azi() + '" value="' + esc(v) + '"></div>';
     } else {
-      corp += C.camp("plan.scop." + s.c, esc(s.q), "", 4);
+      corp += C.camp("plan.scop." + s.c, esc(C.eAdult() && s.qAdult ? s.qAdult : s.q), "", 4);
     }
     corp += '<div class="rand">' + C.buton("Înapoi", "nav", i > 0 ? "plan/scop" + (i - 1) : "plan/hub") +
       (i < SCOP.length - 1 ? C.buton("Continuă", "nav", "plan/scop" + (i + 1), "continua") : C.buton("Gata", "plan.scop_gata", null, "primar")) + "</div>";
@@ -76,7 +77,7 @@
   function textTema(k) {
     var s = S.ia("plan.sapt.s" + k, {}) || {};
     if (s.aleasa === "proprie") return s.proprie || "Tema ta";
-    var t = D.teme_saptamanale.filter(function (x) { return x.id === s.aleasa; })[0];
+    var t = D.teme_saptamanale.concat(D.teme_adulti).filter(function (x) { return x.id === s.aleasa; })[0];
     return t ? t.t : "";
   }
   /* Săptămâni trecute în care omul a ales o temă și n-a făcut-o până la termen (și n-a închis-o). Calcul pur. */

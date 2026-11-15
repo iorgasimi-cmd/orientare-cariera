@@ -43,6 +43,8 @@ p { margin: 0 0 14px; }
 .felicitare::before { content: "★ "; color: var(--cald-contur); }
 .card.reamintire { border: 2px solid var(--cald-contur); background: var(--cald-moale); }
 .card.restanta { border: 2px solid var(--cald-contur); background: var(--cald-moale); }
+.card.stil-asertiv { border: 2px solid var(--principal); background: var(--principal-moale); }
+.card.varianta h2 { color: var(--text-slab); }
 .card.restanta h2 { color: var(--text); }
 .card.reamintire h2 { color: var(--text); }
 .card.reamintire h2::before { content: "★ "; color: var(--cald-contur); }
