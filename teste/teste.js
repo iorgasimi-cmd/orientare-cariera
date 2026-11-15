@@ -9,10 +9,10 @@ function fals() { const m = {}; return { getItem: k => (k in m ? m[k] : null), s
 globalThis.window = globalThis;
 globalThis.localStorage = fals();
 
-["date/interese.js", "date/valori.js", "date/meserii.js", "date/sfaturi.js", "date/adulti.js", "date/cv.js", "date/scrisoare.js", "date/interviu.js", "date/competente.js", "date/asertiv.js", "date/exercitii.js", "date/ia.js", "date/valori_personale.js",
+["date/interese.js", "date/valori.js", "date/meserii.js", "date/sfaturi.js", "date/adulti.js", "date/cv.js", "date/scrisoare.js", "date/interviu.js", "date/competente.js", "date/asertiv.js", "date/exercitii.js", "date/ia.js", "date/valori_personale.js", "date/negociere.js",
  "js/stocare.js", "js/verificator.js", "js/nucleu.js",
  "js/module/interese.js", "js/module/puncte-forte.js", "js/module/meserii.js",
- "js/module/plan.js", "js/module/sfaturi.js", "js/module/reamintiri.js", "js/module/sistem.js", "js/module/adult.js", "js/module/cv.js", "js/module/scrisoare.js", "js/module/interviu.js", "js/module/competente.js", "js/module/asertiv.js", "js/module/exercitii.js", "js/module/valorile.js"
+ "js/module/plan.js", "js/module/sfaturi.js", "js/module/reamintiri.js", "js/module/sistem.js", "js/module/adult.js", "js/module/cv.js", "js/module/scrisoare.js", "js/module/interviu.js", "js/module/competente.js", "js/module/asertiv.js", "js/module/exercitii.js", "js/module/valorile.js", "js/module/negociere.js"
 ].forEach(f => require(path.join(rad, f)));
 
 const C = Cariera, S = Stocare, D = DATE;
@@ -287,9 +287,9 @@ test("după vârsta de adult urmează întrebarea despre situație", () => {
   S.sterge();
 });
 test("fiecare situație are bun venit și pașii ei, în ordinea din prompt", () => {
-  const ordine = { caut: ["CV-ul meu", "Scrisoarea de intenție", "Comunicarea asertivă", "Pregătirea pentru interviu", "Cum mă văd eu", "Planul meu"],
-    schimb: ["Test de interese", "Puncte forte și valori", "Valorile mele", "Ce iei cu tine în noul domeniu", "CV-ul meu", "Comunicarea asertivă", "Pregătirea pentru interviu", "Cum mă văd eu", "Planul meu"],
-    pauza: ["CV-ul meu", "Scrisoarea de intenție", "Comunicarea asertivă", "Pregătirea pentru interviu", "Cum mă văd eu", "Planul meu"],
+  const ordine = { caut: ["CV-ul meu", "Scrisoarea de intenție", "Comunicarea asertivă", "Pregătirea pentru interviu", "Negocierea salariului", "Cum mă văd eu", "Planul meu"],
+    schimb: ["Test de interese", "Puncte forte și valori", "Valorile mele", "Ce iei cu tine în noul domeniu", "CV-ul meu", "Comunicarea asertivă", "Pregătirea pentru interviu", "Negocierea salariului", "Cum mă văd eu", "Planul meu"],
+    pauza: ["CV-ul meu", "Scrisoarea de intenție", "Comunicarea asertivă", "Pregătirea pentru interviu", "Negocierea salariului", "Cum mă văd eu", "Planul meu"],
     nustiu: ["Test de interese", "Puncte forte și valori", "Valorile mele", "Comunicarea asertivă", "Cum mă văd eu", "Planul meu"] };
   Object.keys(ordine).forEach(id => {
     S.sterge(); S.pune("varsta", "18-44"); S.pune("situatie", id);
@@ -914,10 +914,43 @@ test("stima de sine: două pagini, rezultat fără etichete, idei pe vârstă ș
   S.sterge();
 });
 
+console.log("Negocierea salariului");
+test("negocierea: doar la adulți care caută, schimbă domeniul sau revin; 7 pași; fără sume sau procente în texte", () => {
+  assert.strictEqual(D.negociere.pasi.length, 7);
+  const tot = JSON.stringify(D.negociere);
+  assert.ok(!/\d+\s*%|\d{3,}\s*lei|\bRON\b/.test(tot.replace(/\{min\}|\{max\}/g, "")), "fără sume sau procente");
+  assert.ok(D.adulti.situatii.find(s => s.id === "nustiu").pasi.indexOf("negociere") < 0);
+  S.sterge(); S.pune("varsta", "sub18"); S.pune("clasa", "12");
+  assert.ok(!C.module.elev.ecran("meniu").corp.includes("Negocierea"), "elevii nu au negocierea");
+  S.pune("varsta", "45+"); S.pune("situatie", "pauza");
+  const h = C.module.negociere.ecran("hub").corp;
+  assert.ok(h.includes(C.esc(D.negociere.situatii.pauza)) && h.includes(C.esc(D.negociere.situatii.accent45)) && h.includes("7. Exersează discuția"));
+  D.negociere.pasi.forEach(p => assert.deepStrictEqual(Verificator.verificaText(C.module.negociere.ecran(p.id).corp.replace(/<[^>]+>/g, " ")).map(x => x.gasit), [], p.id));
+  assert.ok(C.module.negociere.ecran("exercitiu").corp.includes("Continuă: Cum mă văd eu"));
+  S.sterge();
+});
+test("fișa de pregătire: verifică sumele între ele și scrie fraza cu intervalul", () => {
+  const f = C.module.negociere.verificaFisa, P = D.negociere.fisa.probleme;
+  assert.deepStrictEqual(f({ minim: "4000" }).probleme, [P.lipsa]);
+  const bun = f({ minim: "4.000", dorit: "5000", intMin: "4500 lei", intMax: "5500", arg1: "a", arg2: "b", arg3: "c" });
+  assert.ok(bun.ok); assert.strictEqual(bun.fraza, "„Mă gândesc la un salariu net între 4.500 și 5.500 lei, în funcție de responsabilități și beneficii.”");
+  const rau = f({ minim: "5000", dorit: "4000", intMin: "3000", intMax: "2000", arg1: "a" });
+  assert.deepStrictEqual(rau.probleme, [P.dorit, P.interval, P.ordine, P.argumente]);
+  S.sterge(); S.pune("varsta", "18-44"); S.pune("situatie", "caut");
+  ["minim", "dorit", "intMin", "intMax", "arg1", "arg2", "arg3"].forEach((k, i) => S.pune("neg.f." + k, ["4000", "5000", "4500", "5500", "x", "y", "z"][i]));
+  C.module.negociere.actiuni.verifica(); assert.strictEqual(C.deArata, "rezultat-fisa"); C.deArata = "";
+  assert.ok(C.module.negociere.ecran("fisa").corp.includes("4.500 și 5.500 lei") && C.module.adult.ecran("meniu").corp.includes("✓ fișă făcută"));
+  assert.ok(C.module.negociere.ecran("moment").corp.includes("între 4.500 și 5.500 lei"));
+  const pr = C.module.negociere.promptIA("Contabil.", S.ia("neg.f"));
+  assert.ok(pr.startsWith("Vreau să exersez o discuție despre salariu, în limba română, pentru postul de Contabil.") && pr.includes("între 4.500 și 5.500 lei") && pr.includes("Nu-mi spune ce sumă să cer"));
+  assert.ok(!/minim|dorit|5\.000/.test(pr.replace("Intervalul meu net", "")), "promptul nu conține minimul sau ce își dorește omul");
+  S.sterge();
+});
+
 console.log("Ecranele se desenează");
 test("fiecare ecran se desenează fără erori și fără „undefined”", () => {
   S.sterge(); S.pune("varsta", "sub18"); S.pune("clasa", "10");
-  const ecrane = ["start", "elev/clasa", "elev/bunvenit", "elev/meniu", "adult/situatie", "adult/bunvenit", "adult/meniu", "adult/pas/cv", "cv/intro", "cv/q0", "cv/q1", "cv/q2", "cv/q3", "cv/q4", "cv/rezultat", "cv/ia", "scrisoare/intro", "scrisoare/q0", "scrisoare/q1", "scrisoare/q2", "scrisoare/q3", "scrisoare/q4", "scrisoare/q5", "scrisoare/schelet", "scrisoare/ia", "interviu/hub", "interviu/povesti", "interviu/poveste/1", "interviu/poveste/5", "interviu/grup/tine", "interviu/grup/experienta", "interviu/grup/motivatie", "interviu/grup/dificile", "interviu/grup/special", "interviu/exersez", "competente/intro", "competente/a", "competente/b", "competente/tabel", "competente/concluzie", "asertiv/intro", "asertiv/exemplu/1", "asertiv/exemplu/5", "asertiv/exercitiu", "asertiv/ia", "exercitii/quiz/compliment", "exercitii/quiz/compliment/1", "exercitii/quiz/gluma/3", "exercitii/quiz/argumente", "exercitii/quiz/argumente/3", "exercitii/argumentez", "valorile/intro", "valorile/p0", "valorile/p1", "valorile/p2", "valorile/p3", "valorile/intrebari", "valorile/nota", "valorile/rezultat", "stima/intro", "stima/p0", "stima/p1", "stima/rezultat", "exercitii/cerere", "exercitii/pauza", "exercitii/voce", "exercitii/capete", "exercitii/cuvinte", "exercitii/intrebari",
+  const ecrane = ["start", "elev/clasa", "elev/bunvenit", "elev/meniu", "adult/situatie", "adult/bunvenit", "adult/meniu", "adult/pas/cv", "cv/intro", "cv/q0", "cv/q1", "cv/q2", "cv/q3", "cv/q4", "cv/rezultat", "cv/ia", "scrisoare/intro", "scrisoare/q0", "scrisoare/q1", "scrisoare/q2", "scrisoare/q3", "scrisoare/q4", "scrisoare/q5", "scrisoare/schelet", "scrisoare/ia", "interviu/hub", "interviu/povesti", "interviu/poveste/1", "interviu/poveste/5", "interviu/grup/tine", "interviu/grup/experienta", "interviu/grup/motivatie", "interviu/grup/dificile", "interviu/grup/special", "interviu/exersez", "competente/intro", "competente/a", "competente/b", "competente/tabel", "competente/concluzie", "asertiv/intro", "asertiv/exemplu/1", "asertiv/exemplu/5", "asertiv/exercitiu", "asertiv/ia", "exercitii/quiz/compliment", "exercitii/quiz/compliment/1", "exercitii/quiz/gluma/3", "exercitii/quiz/argumente", "exercitii/quiz/argumente/3", "exercitii/argumentez", "valorile/intro", "valorile/p0", "valorile/p1", "valorile/p2", "valorile/p3", "valorile/intrebari", "valorile/nota", "valorile/rezultat", "stima/intro", "stima/p0", "stima/p1", "stima/rezultat", "negociere/hub", "negociere/piata", "negociere/fisa", "negociere/moment", "negociere/interval", "negociere/ton", "negociere/oferta", "negociere/exercitiu", "exercitii/cerere", "exercitii/pauza", "exercitii/voce", "exercitii/capete", "exercitii/cuvinte", "exercitii/intrebari",
     "interese/intro", "interese/test", "interese/rezultat",
     "forte/intro", "forte/m0", "forte/m1", "forte/m2", "forte/ik0", "forte/ik1", "forte/ik2", "forte/ik3", "forte/valori", "forte/rezumat",
     "meserii/lista", "meserii/toate", "meserii/salvate",

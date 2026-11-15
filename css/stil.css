@@ -68,7 +68,7 @@ p { margin: 0 0 14px; }
   border: 2px solid var(--principal); background: var(--suprafata); color: var(--principal); cursor: pointer;
 }
 .btn:hover { background: var(--principal-moale); }
-.btn:focus-visible, textarea:focus-visible, input[type="date"]:focus-visible, input[type="time"]:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.btn:focus-visible, textarea:focus-visible, input[type="date"]:focus-visible, input[type="time"]:focus-visible, input[type="text"]:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
 .opt input:focus-visible + span, .val input:focus-visible + span { outline: 3px solid var(--focus); outline-offset: 2px; }
 .btn.primar { background: var(--principal); color: var(--principal-text); }
 .btn.primar:hover { background: var(--principal); filter: brightness(1.1); }
@@ -92,7 +92,7 @@ p { margin: 0 0 14px; }
 /* Câmpuri de scris */
 .camp { margin: 0 0 18px; }
 .camp label { display: block; font-weight: 600; margin-bottom: 6px; }
-textarea, input[type="date"], input[type="time"] {
+textarea, input[type="date"], input[type="time"], input[type="text"] {
   width: 100%; font: inherit; color: var(--text); background: var(--suprafata);
   border: 2px solid var(--contur); border-radius: 12px; padding: 10px 12px;
 }
