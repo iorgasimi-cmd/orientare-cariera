@@ -50,7 +50,6 @@ window.DATE.corp = {
 
   tinuta: {
     titlu: "Ținuta",
-    explica: "Studiile despre haine la interviu sunt puține.",
     bifeaza: "Bifează ce ai pregătit:",
     lista: [
       { id: "t1", t: "Hainele sunt curate și călcate." },

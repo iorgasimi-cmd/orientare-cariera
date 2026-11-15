@@ -47,7 +47,7 @@
   function toateBifate() { return D.tinuta.lista.every(function (x) { return S.ia("corp.b." + x.id, false); }); }
   function tinuta() {
     var T = D.tinuta;
-    var corp = "<p>" + esc(T.explica) + "</p><p><strong>" + esc(T.bifeaza) + "</strong></p>" + bife(T.lista) +
+    var corp = (T.explica ? "<p>" + esc(T.explica) + "</p>" : "") + "<p><strong>" + esc(T.bifeaza) + "</strong></p>" + bife(T.lista) +
       '<div id="corp-toate" role="status">' + (toateBifate() ? '<p class="felicitare">' + esc(T.toate) + "</p>" : "") + "</div>" +
       '<div class="rand">' + C.buton("Înapoi", "nav", "corp/intro") + C.buton("Continuă: Exersează", "nav", "corp/exercitiu", "continua") + "</div>";
     return C.pagina(T.titlu, corp, "corp/intro");
