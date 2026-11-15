@@ -95,8 +95,40 @@ window.DATE.asertiv = {
     titlu: "Încearcă tu",
     campuri: [
       { id: "situatie", t: "O situație în care ți-a fost greu să spui ce gândești", ajutor: "La muncă, la un interviu sau în altă parte.", randuri: 3 },
-      { id: "fraza", t: "Cum ai putea spune asertiv?", ajutor: "Folosește cei trei pași: ce vezi, ce ai nevoie, ce propui.", randuri: 4 },
       { id: "exersez", t: "Ce frază vrei să exersezi săptămâna asta?", ajutor: "Poți să o spui cu voce tare, în fața oglinzii.", randuri: 2 }
     ]
+  },
+
+  /* Modelul de frază asertivă în patru părți, completat de om, apoi verificat local, după câteva reguli simple. */
+  model: {
+    titlu: "Cum ai putea spune asertiv?",
+    explica: "Completează modelul de mai jos, pentru situația ta. Scrie doar ce urmează după cuvintele de început.",
+    exemplu: "Exemplu: Când primesc sarcini noi în ultima zi a săptămânii, mă simt copleșit(ă), pentru că vreau să le fac bine și am nevoie de timp. Propun să le aflu de luni, ca să le pot planifica.",
+    parti: [
+      { id: "cand", inceput: "Când", t: "Când… (ce se întâmplă)", ajutor: "Descrie faptul, ca o cameră de filmat: ce s-a întâmplat, fără să judeci omul." },
+      { id: "simt", inceput: "mă simt", t: "Mă simt… (ce simți)", ajutor: "Un cuvânt sau două despre ce simți, de exemplu: îngrijorat(ă), frustrat(ă), copleșit(ă), nedreptățit(ă)." },
+      { id: "motiv", inceput: "pentru că", t: "Pentru că… (motivul)", ajutor: "Ce anume e important pentru tine: ce nevoie ai sau ce îți dorești să meargă bine." },
+      { id: "vreau", inceput: "Propun să", t: "Propun să… (ce propui)", ajutor: "Ceva concret, pe care îl puteți face. De exemplu: „ne vedem luni dimineață și împărțim sarcinile”." }
+    ],
+    buton: "Văd fraza mea",
+    fraza: "Fraza ta",
+    gol: "Completează toate cele patru părți, ca să pot pune fraza laolaltă.",
+    bine: "✓ Ai respectat modelul și mesajul sună asertiv.",
+    aproape: "Ai respectat modelul. Câteva lucruri te-ar ajuta să sune și mai asertiv:",
+    incomplet: "Încă nu ai completat toate părțile modelului:",
+    lipsa: "Lipsește partea „{parte}”.",
+    reguli: {
+      eticheta: "La „Când…”, ai folosit un cuvânt care judecă omul ({gasit}). Spune doar ce s-a întâmplat, de exemplu „când raportul a ajuns joi”, nu „când ești neserios”.",
+      absolut: "La „Când…”, ai scris „{gasit}”. Cuvintele ca „mereu” sau „niciodată” sună a acuzație. Spune o situație anume, de exemplu „când săptămâna trecută…”.",
+      tuEsti: "La „Când…”, ai scris despre cum este celălalt („{gasit}”). Spune ce a făcut, nu ce fel de om este.",
+      simtCa: "La „Mă simt…”, ai scris „că…”. Asta e o părere despre celălalt, nu un sentiment. Încearcă un cuvânt ca „îngrijorat(ă)”, „frustrat(ă)” sau „nedreptățit(ă)”.",
+      simtTu: "La „Mă simt…”, vorbești despre celălalt. Aici spune doar ce simți tu.",
+      motivVina: "La „Pentru că…”, motivul pare să fie vina celuilalt ({gasit}). Spune ce e important pentru tine, de exemplu „pentru că vreau să termin la timp”.",
+      vreauVag: "La „Propun să…”, propunerea e prea generală ({gasit}). Spune ceva concret, de exemplu „ne spunem dinainte ce sarcini vin”.",
+      vreauAmenintare: "La „Propun să…”, apare o amenințare ({gasit}). Asertiv înseamnă să propui, nu să ameninți.",
+      vreauNegativ: "La „Propun să…”, spui doar ce să nu mai facă celălalt. Spune și ce ați putea face în loc, de exemplu „îmi spui cu o zi înainte”."
+    },
+    simtCunoscut: "Ai numit un sentiment. Celălalt înțelege ce simți.",
+    sfat: "Citește fraza cu voce tare. Sună ca tine? Dacă da, e gata de folosit."
   }
 };

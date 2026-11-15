@@ -645,11 +645,39 @@ test("5 exemple din viața profesională, fiecare cu situația și răspunsurile
 test("formula în trei pași, limbajul corpului, exercițiul și trecerea la pasul următor", () => {
   S.sterge(); S.pune("varsta", "18-44"); S.pune("situatie", "caut");
   const c = C.module.asertiv.ecran("exercitiu").corp;
-  assert.ok(c.includes("O frază asertivă, în trei pași") && c.includes("Și cum spui") && (c.match(/<textarea/g) || []).length === 3);
+  assert.ok(c.includes("O frază asertivă, în trei pași") && c.includes("Și cum spui") && (c.match(/<textarea/g) || []).length === 6);
   assert.ok(c.includes("Gata. Continuă: Pregătirea pentru interviu"));
   C.module.asertiv.actiuni.gata("interviu/hub");
   assert.strictEqual(C.ecran, "interviu/hub");
   assert.ok(C.module.adult.ecran("meniu").corp.includes("Comunicarea asertivă</strong><span class=\"stare gata\">✓ făcut"));
+  S.sterge();
+});
+
+test("modelul asertiv în patru părți: fraza întreagă și verificarea", () => {
+  const f = C.module.asertiv.verificaModel;
+  const bun = f({ cand: "primesc sarcini noi vineri după-amiază", simt: "copleșită", motiv: "vreau să le fac bine și am nevoie de timp", vreau: "le aflu de luni, ca să le pot planifica" });
+  assert.strictEqual(bun.fraza, "Când primesc sarcini noi vineri după-amiază, mă simt copleșită, pentru că vreau să le fac bine și am nevoie de timp. Propun să le aflu de luni, ca să le pot planifica.");
+  assert.ok(bun.asertiv && bun.bine.length === 1);
+  /* cuvintele de început scrise și de om nu se dublează */
+  const dublat = f({ cand: "Când ședința începe cu întârziere.", simt: "Mă simt frustrat", motiv: "pentru că am alte programări", vreau: "Propun să începem la ora fixă" });
+  assert.ok(dublat.fraza.startsWith("Când ședința începe cu întârziere, mă simt frustrat, pentru că am alte programări. Propun să începem la ora fixă."));
+  const rau = f({ cand: "tu ești mereu neserios", simt: "că tu nu mă respecți", motiv: "din cauza ta întârzii", vreau: "te schimbi, altfel mă plâng" });
+  assert.ok(!rau.asertiv);
+  ["judecă omul", "„mereu”", "ce fel de om este", "nu un sentiment", "vina celuilalt", "amenințare"].forEach(t => assert.ok(rau.sfaturi.some(x => x.includes(t)), t));
+  assert.ok(f({ cand: "x", simt: "", motiv: "y", vreau: "" }).lipsa.length === 2);
+  assert.ok(f({ cand: "raportul a întârziat", simt: "îngrijorat", motiv: "clientul așteaptă", vreau: "nu mai întârzii" }).sfaturi.some(x => x.includes("ce ați putea face în loc")));
+});
+test("ecranul „Încearcă tu” are modelul și arată fraza după verificare", () => {
+  S.sterge(); S.pune("varsta", "18-44"); S.pune("situatie", "caut");
+  let c = C.module.asertiv.ecran("exercitiu").corp;
+  ["Când… (ce se întâmplă)", "Mă simt… (ce simți)", "Pentru că… (motivul)", "Propun să… (ce propui)", "Văd fraza mea"].forEach(t => assert.ok(c.includes(t), t));
+  assert.ok(!c.includes("Aș vrea"));
+  S.pune("asertiv.model.cand", "ședința începe târziu"); S.pune("asertiv.model.simt", "frustrată"); S.pune("asertiv.model.motiv", "am alte programări"); S.pune("asertiv.model.vreau", "începem la ora fixă");
+  C.module.asertiv.actiuni.verifica();
+  assert.strictEqual(C.deArata, "rezultat-model"); C.deArata = "";
+  c = C.module.asertiv.ecran("exercitiu").corp;
+  assert.ok(c.includes("Fraza ta") && c.includes("Când ședința începe târziu, mă simt frustrată") && c.includes(D.asertiv.model.bine));
+  assert.deepStrictEqual(Verificator.verificaText(c.replace(/<[^>]+>/g, " ")).map(x => x.gasit), []);
   S.sterge();
 });
 

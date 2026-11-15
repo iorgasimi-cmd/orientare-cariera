@@ -45,7 +45,7 @@
       /* Răspunsul la un buton trebuie să se vadă imediat, chiar dacă e mai jos pe pagină. */
       var tinta = doc.getElementById(C.deArata);
       C.deArata = "";
-      if (tinta && tinta.firstChild && tinta.scrollIntoView) tinta.scrollIntoView({ block: "center" });
+      if (tinta && tinta.firstChild && tinta.scrollIntoView) tinta.scrollIntoView({ block: "start" });
     }
     if (C.eroare) {
       var e = doc.getElementById("eroare");
