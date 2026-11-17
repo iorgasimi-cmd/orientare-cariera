@@ -54,6 +54,7 @@
     corp += "<p>" + esc(Sk.final) + "</p>" +
       '<section class="card"><h2>' + esc(D.verificare.titlu) + '</h2><ul>' + D.verificare.lista.map(function (t) { return "<li>" + esc(t) + "</li>"; }).join("") + "</ul></section>" +
       '<section class="card"><h2>Vrei ajutor de la o IA?</h2><p>' + esc(D.ia.cartela) + '</p><div class="rand">' + C.buton("Văd cum", "nav", "scrisoare/ia", "primar") + "</div></section>" +
+      C.retine("scrisoare") +
       '<div class="rand">' + C.buton("Schimb răspunsurile", "nav", "scrisoare/q0") + C.buton("Înapoi la drumul meu", "nav", "adult/meniu", "primar") + "</div>";
     return C.pagina("Scheletul scrisorii", corp, "adult/meniu");
   }

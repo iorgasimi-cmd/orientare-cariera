@@ -68,6 +68,7 @@
     });
     var b = S.ia("bagheta", "");
     if (b) corp += '<section class="card"><h2>Ce ai scris la început</h2><p class="citat">' + esc(b) + "</p></section>";
+    corp += C.retine("interese");
     corp += '<div class="rand">' + C.buton("Refac testul", "interese.refa") + C.buton("Continuă: punctele mele forte", "nav", "forte/intro", "continua") + "</div>";
     return C.pagina("Rezultatul tău", corp, C.acasa());
   }

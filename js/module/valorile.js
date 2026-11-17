@@ -78,6 +78,7 @@
       }).join("") + "</ul></section>" +
       "<p>" + esc(R.fara) + "</p>" +
       '<p class="termen">' + esc(C.eAdult() ? R.planAdult : R.planElev) + "</p>" +
+      C.retine("valori") +
       '<div class="rand">' + C.buton(esc(R.refac), "valorile.refa") + butonFinal("valori") + "</div>";
     return C.pagina(R.titlu, corp, C.acasa());
   }
@@ -160,6 +161,7 @@
       "<p>" + esc(sus ? R.sus : R.jos) + "</p><p>" + esc(R.schimba) + "</p>" +
       '<section class="card"><h2>' + esc(R.ideiTitlu) + "</h2><ul>" + (adult ? R.ideiAdult : R.ideiElev).map(function (t) { return "<li>" + esc(t) + "</li>"; }).join("") + "</ul></section>" +
       (sus ? "" : '<p class="mic">' + esc(adult ? R.ajutorAdult : R.ajutorElev) + "</p>") +
+      C.retine("stima") +
       '<div class="rand">' + C.buton(esc(R.refac), "stima.refa") + butonFinal("stima") + "</div>";
     return C.pagina(R.titlu, corp, C.acasa());
   }

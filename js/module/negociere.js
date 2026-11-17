@@ -53,7 +53,7 @@
   function navigare(i) {
     var u = D.pasi[i + 1];
     var urm = C.module.adult && C.module.adult.urmator("negociere");
-    return '<div class="rand">' + C.buton("Înapoi", "nav", i === 0 ? "negociere/hub" : "negociere/" + D.pasi[i - 1].id) +
+    return (u ? "" : C.retine("negociere")) + '<div class="rand">' + C.buton("Înapoi", "nav", i === 0 ? "negociere/hub" : "negociere/" + D.pasi[i - 1].id) +
       (u ? C.buton("Continuă", "nav", "negociere/" + u.id, "continua")
         : (urm ? C.buton("Continuă: " + esc(urm.t), "nav", urm.ecran, "continua") : C.buton("Înapoi la drumul meu", "nav", "adult/meniu", "primar"))) + "</div>";
   }

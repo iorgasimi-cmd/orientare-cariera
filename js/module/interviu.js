@@ -87,6 +87,7 @@
       '<textarea id="c-prompt-interviu" rows="10" readonly>' + C.escSimplu(promptIA(S.ia("scrisoare.r.post", ""), S.ia("situatie", ""))) + "</textarea></div>" +
       '<div class="rand">' + C.buton("Copiază", "interviu.copiaza", null, "continua") + "</div>" +
       '<p id="stare-copiere-interviu" class="mic" role="status"></p></section>' +
+      C.retine("interviu") +
       '<div class="rand">' + C.buton("Înapoi la interviu", "nav", "interviu/hub", "primar") + "</div>";
     return C.pagina(E.titlu, corp, "interviu/hub");
   }

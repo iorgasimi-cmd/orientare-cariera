@@ -14,6 +14,7 @@
           '<p class="idee">' + esc(x.pas) + "</p>" +
           '<div class="rand">' + C.buton(esc(x.buton), "nav", x.link) + "</div></section>";
       }).join("") +
+      C.retine("cerinte") +
       '<div class="rand">' + C.buton(esc(D.gata), "cerinte.gata", null, "continua") + "</div>";
     return C.pagina(D.titlu, corp, C.acasa());
   }

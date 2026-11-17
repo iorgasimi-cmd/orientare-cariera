@@ -80,6 +80,7 @@
         return '<label class="opt"><input type="radio" name="recunosc" value="' + o[0] + '" data-camp="forte.recunosc"' + (rec === o[0] ? " checked" : "") + "><span>" + o[1] + "</span></label>";
       }).join("") + "</div></fieldset>" +
       C.camp("forte.schimb", "Ce ai schimba sau ai adăuga?", "", 3) +
+      C.retine("forte") +
       '<div class="rand">' + C.buton("Înapoi", "nav", "forte/valori") + (C.eAdult() ? butonUrmator("forte") : C.buton("Continuă: meserii", "nav", "meserii/lista", "continua")) + "</div>";
     return C.pagina("Ce ai spus despre tine", corp, C.acasa());
   }

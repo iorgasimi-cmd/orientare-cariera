@@ -76,6 +76,7 @@
     if (r.experienta) corp += "<p>" + esc(K.experienta) + "</p>";
     if (r.promovare) corp += "<p>" + esc(K.promovare) + "</p>";
     corp += '<p class="termen">' + esc(K.transfer) + "</p>";
+    corp += C.retine("competente");
     var u = C.module.adult && C.module.adult.urmator("competente");
     corp += '<div class="rand">' + C.buton("Schimb listele", "nav", "competente/a") +
       (u ? C.buton("Continuă: " + esc(u.t), "nav", u.ecran, "continua") : C.buton("Înapoi la drumul meu", "nav", "adult/meniu", "primar")) + "</div>";

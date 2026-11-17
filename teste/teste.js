@@ -9,10 +9,10 @@ function fals() { const m = {}; return { getItem: k => (k in m ? m[k] : null), s
 globalThis.window = globalThis;
 globalThis.localStorage = fals();
 
-["date/interese.js", "date/valori.js", "date/meserii.js", "date/sfaturi.js", "date/adulti.js", "date/cv.js", "date/scrisoare.js", "date/interviu.js", "date/competente.js", "date/asertiv.js", "date/exercitii.js", "date/ia.js", "date/valori_personale.js", "date/corp.js", "date/cerinte.js", "date/roata.js", "date/negociere.js",
+["date/interese.js", "date/valori.js", "date/meserii.js", "date/sfaturi.js", "date/adulti.js", "date/cv.js", "date/scrisoare.js", "date/interviu.js", "date/competente.js", "date/asertiv.js", "date/exercitii.js", "date/ia.js", "date/valori_personale.js", "date/corp.js", "date/cerinte.js", "date/roata.js", "date/retine.js", "date/negociere.js",
  "js/stocare.js", "js/verificator.js", "js/nucleu.js",
  "js/module/interese.js", "js/module/puncte-forte.js", "js/module/meserii.js",
- "js/module/plan.js", "js/module/sfaturi.js", "js/module/reamintiri.js", "js/module/sistem.js", "js/module/adult.js", "js/module/cv.js", "js/module/scrisoare.js", "js/module/interviu.js", "js/module/competente.js", "js/module/asertiv.js", "js/module/exercitii.js", "js/module/valorile.js", "js/module/corp.js", "js/module/cerinte.js", "js/module/roata.js", "js/module/negociere.js"
+ "js/module/plan.js", "js/module/sfaturi.js", "js/module/reamintiri.js", "js/module/sistem.js", "js/module/adult.js", "js/module/cv.js", "js/module/scrisoare.js", "js/module/interviu.js", "js/module/competente.js", "js/module/asertiv.js", "js/module/exercitii.js", "js/module/valorile.js", "js/module/corp.js", "js/module/cerinte.js", "js/module/roata.js", "js/module/retine.js", "js/module/negociere.js"
 ].forEach(f => require(path.join(rad, f)));
 
 const C = Cariera, S = Stocare, D = DATE;
@@ -645,7 +645,7 @@ test("5 exemple din viața profesională, fiecare cu situația și răspunsurile
 test("formula în trei pași, limbajul corpului, exercițiul și trecerea la pasul următor", () => {
   S.sterge(); S.pune("varsta", "18-44"); S.pune("situatie", "caut");
   const c = C.module.asertiv.ecran("exercitiu").corp;
-  assert.ok(c.includes("O frază asertivă, în trei pași") && c.includes("Și cum spui") && (c.match(/<textarea/g) || []).length === 6);
+  assert.ok(c.includes("O frază asertivă, în trei pași") && c.includes("Și cum spui") && (c.match(/<textarea/g) || []).length === 7);
   assert.ok(c.includes("Gata. Continuă: Pregătirea pentru interviu"));
   C.module.asertiv.actiuni.gata("interviu/hub");
   assert.strictEqual(C.ecran, "interviu/hub");
@@ -888,7 +888,7 @@ test("limbajul corpului pentru elevi: în meniu, cu exemple de la școală, făr
   S.sterge(); S.pune("varsta", "sub18"); S.pune("clasa", "10");
   const ecr = ["intro", "semne", "tinuta", "exercitiu", "gata"].map(x => C.module.corp.ecran(x).corp).join(" ");
   assert.ok(!/interviu|\bjob\b|angajator/i.test(ecr), "fără interviu la elevi");
-  assert.ok(!/ținut/i.test(ecr) && ecr.includes("Cum mă îmbrac") && C.module.corp.ecran("intro").titlu === "Limbajul corpului și cum mă îmbrac");
+  assert.ok(!/ținut/i.test(ecr.replace(/reținut/gi, "")) && ecr.includes("Cum mă îmbrac") && C.module.corp.ecran("intro").titlu === "Limbajul corpului și cum mă îmbrac");
   assert.ok(ecr.includes("prezentare în clasă") && !/2022|63 de studii|loc de muncă/.test(ecr));
   assert.strictEqual((C.module.corp.ecran("tinuta").corp.match(/type="checkbox"/g) || []).length, D.corp.elev.tinuta.lista.length);
   D.corp.elev.tinuta.lista.forEach(x => C.module.corp.actiuni.bifa(x.id, { checked: true }));
@@ -951,6 +951,31 @@ test("obiceiuri mici: o temă din fiecare nivel, plan cu când/unde/după ce, va
   C.module.plan.actiuni.nefacut("0");
   assert.ok(C.module.plan.ecran("saptamana").corp.includes("Citesc un singur rând"));
   assert.ok(C.module.plan.ecran("scopRez").corp.includes(D.sfaturi.identitate.q));
+  S.sterge();
+});
+
+test("ideea de reținut și pasul tău: la finalul fiecărei secțiuni; pasul devine temă doar dacă săptămâna e liberă", () => {
+  const fin = { interese: "interese/rezultat", forte: "forte/rezumat", valori: "valorile/rezultat", stima: "stima/rezultat", roata: "roata/rezultat",
+    competente: "competente/concluzie", cv: null, scrisoare: "scrisoare/schelet", interviu: "interviu/exersez", asertiv: "asertiv/exercitiu",
+    corp: "corp/gata", negociere: "negociere/exercitiu", cerinte: "cerinte/lista", meserii: "meserii/lista" };
+  S.sterge(); S.pune("varsta", "18-44"); S.pune("situatie", "schimb");
+  S.pune("interese.top", ["S", "I", "A"]); S.pune("vp.top", "familie"); S.pune("vp.ales.p2", ["familie", "curaj", "umor"]);
+  const r = {}; D.stima.itemi.forEach(it => { r[it.id] = 3; }); S.pune("stima.r", r);
+  D.roata.zone.forEach(z => S.pune("roata.n." + z.id, 6));
+  Object.keys(fin).forEach(id => {
+    if (!fin[id]) return; /* CV-ul: rezultatul cere text lipit; e verificat în codul ecranului */
+    const [m, ...rest] = fin[id].split("/"); const c = C.module[m].ecran(rest.join("/")).corp;
+    assert.ok(c.includes(C.esc(D.retine.sectiuni[id].idee)) && c.includes(D.retine.pasTitlu), id);
+  });
+  assert.ok(Object.keys(D.retine.sectiuni).every(id => id in fin), "fiecare idee are un ecran");
+  const a = C.module.retine.actiuni;
+  a.tema("cv"); const idx = C.saptamana();
+  assert.strictEqual(S.ia("plan.sapt.s" + idx + ".proprie"), D.retine.sectiuni.cv.pas);
+  assert.ok(C.retine("cv").includes("E tema ta pentru săptămâna asta"));
+  a.tema("roata"); assert.strictEqual(S.ia("plan.sapt.s" + idx + ".proprie"), D.retine.sectiuni.cv.pas, "nu înlocuiește tema");
+  assert.ok(C.retine("roata").includes("Ai deja o temă"));
+  S.sterge(); S.pune("varsta", "sub18"); S.pune("clasa", "10");
+  assert.ok(C.retine("cerinte").includes(C.esc(D.retine.sectiuni.cerinte.pasElev)));
   S.sterge();
 });
 

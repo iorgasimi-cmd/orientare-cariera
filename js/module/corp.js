@@ -67,6 +67,7 @@
     var corp = '<p class="felicitare">' + esc(F.felicitare) + "</p>" +
       (sch ? '<section class="card"><h2>' + esc(F.tau) + '</h2><p class="citat">' + C.escSimplu(sch) + "</p></section>" : "") +
       "<p>" + esc(F.repeta) + "</p>" +
+      C.retine("corp") +
       '<div class="rand">' + C.buton("Înapoi la secțiune", "nav", "corp/intro") + butonFinal() + "</div>";
     return C.pagina(F.titlu, corp, "corp/intro");
   }

@@ -73,6 +73,7 @@
       (a.fel !== "buna" ? "<p>" + esc(R.mici) + " <strong>" + a.mici.map(esc).join(", ") + "</strong>.</p>" : "") +
       R.intrebari.map(function (q) { return C.camp("roata.r." + q.id, esc(q.t), esc(q.ajutor), 3); }).join("") +
       "<p>" + esc(R.folos) + "</p>" +
+      C.retine("roata") +
       '<div class="rand">' + C.buton(esc(R.refac), "roata.refa") + butonFinal() + "</div>";
     return C.pagina(R.titlu, corp, C.acasa());
   }

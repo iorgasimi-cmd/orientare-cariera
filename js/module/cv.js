@@ -215,6 +215,7 @@
         C.buton("Văd cum", "nav", "cv/ia", "primar") + "</div></section>" +
       '<p class="nota">' + esc(M.nu_pot) + "</p>" +
       '<p class="mic">' + esc(mesaj(M.cuvinte, { n: r.cuvinte })) + "</p>" +
+      C.retine("cv") +
       '<div class="rand">' + C.buton("Verific din nou", "nav", "cv/intro") + C.buton("Înapoi la drumul meu", "nav", "adult/meniu", "primar") + "</div>";
     return C.pagina("Rezultatul verificării", corp, "adult/meniu");
   }

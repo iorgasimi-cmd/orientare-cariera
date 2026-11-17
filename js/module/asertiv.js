@@ -148,6 +148,7 @@
       modelHtml() +
       X.campuri.slice(1).map(function (c) { return C.camp("asertiv." + c.id, esc(c.t), esc(c.ajutor), c.randuri); }).join("") +
       cartelaIA() + (C.module.exercitii && !pentruElev() ? C.module.exercitii.cartela("asertiv") : "");
+    corp += C.retine("asertiv");
     var u = C.eAdult() && C.module.adult ? C.module.adult.urmator("asertiv") : null;
     corp += '<div class="rand">' + C.buton("Înapoi la exemple", "nav", "asertiv/exemplu/" + N) +
       C.buton(u ? "Gata. Continuă: " + esc(u.t) : "Gata", "asertiv.gata", u ? u.ecran : C.acasa(), "primar") + "</div>";
