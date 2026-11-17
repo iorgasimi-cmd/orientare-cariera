@@ -25,6 +25,13 @@
   }
   function inapoi() { return '<div class="rand">' + C.buton("Înapoi", "nav", "corp/intro") + "</div>"; }
 
+  /* Elevii: 3 sfaturi de liniștire, la începutul secțiunii. */
+  function calmElev() {
+    var K = !C.eAdult() && B.elev.calm; if (!K) return "";
+    return '<section class="card stil-asertiv"><h2>' + esc(K.titlu) + "</h2><p>" + esc(K.explica) + "</p>" +
+      K.sfaturi.map(function (x) { return '<h2 class="intrebare-titlu">' + esc(x.t) + "</h2><p>" + esc(x.d) + "</p>"; }).join("") + "</section>";
+  }
+
   function intro() {
     var corp = D.intro.map(function (p) { return "<p>" + esc(p) + "</p>"; }).join("") + lista(D.trei) +
       "<p>" + esc(D.dupa) + "</p>" +
@@ -32,6 +39,7 @@
         return C.buton("<strong>" + (i + 1) + ". " + esc(m.t) + '</strong><span class="stare">' + esc(m.d) + "</span>", "nav", "corp/" + m.id, "lista");
       }).join("") + "</div>" +
       (S.ia("corp.gata", false) ? '<div class="rand">' + butonFinal() + "</div>" : "");
+    corp = corp.replace('<div class="meniu-lista">', calmElev() + '<div class="meniu-lista">');
     return C.pagina(D.titlu, corp, C.acasa());
   }
 

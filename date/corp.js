@@ -82,6 +82,18 @@ window.DATE.corp = {
 
   /* Pentru elevi: aceleași idei, cu situații de la școală (fără „interviu”). Ce lipsește aici se ia din varianta de mai sus. */
   elev: {
+    /* 3 sfaturi de liniștire pentru elevi, aprobate de Simona (2026-11-17). Pentru autoare, sursele (nu apar în aplicație):
+       grijile scrise înainte de examen: Ramirez și Beilock, 2011 (elevi de liceu); respirația lentă: studii despre respirație și stres;
+       „inima bate tare = pregătire”: studiile lui Jeremy Jamieson despre reinterpretarea emoțiilor. */
+    calm: {
+      titlu: "Înainte de o prezentare sau de un răspuns oral: 3 sfaturi care te liniștesc",
+      explica: "**Emoțiile sunt normale.** Le au și actorii, și sportivii înainte de o competiție.",
+      sfaturi: [
+        { t: "1. Scrie-ți grijile pe o foaie.", d: "Cu câteva minute înainte, scrie tot ce te îngrijorează. **Așa le scoți din cap și te concentrezi mai ușor.**" },
+        { t: "2. Respiră încet.", d: "Inspiră pe nas cât numeri până la 4. Expiră pe gură cât numeri până la 6. Fă asta de 5 ori, chiar în bancă." },
+        { t: "3. Inima bate tare? E semn bun.", d: "Corpul tău se pregătește să dea tot ce e mai bun. **Spune-ți în gând: „Sunt pregătit(ă)!”**" }
+      ]
+    },
     titlu: "Limbajul corpului și cum mă îmbrac",
     intro: [
       "**Contează și ce spui fără cuvinte.** Adică felul în care privești, te miști și arăți.",

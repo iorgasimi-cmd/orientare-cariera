@@ -1118,6 +1118,16 @@ test("idei noi aprobate: un singur lucru, emoții, ce depinde de mine, cine te a
   S.sterge();
 });
 
+test("elevii au 3 sfaturi de liniștire la limbajul corpului; adulții nu le văd acolo", () => {
+  S.sterge(); S.pune("varsta", "sub18"); S.pune("clasa", "10");
+  const K = D.corp.elev.calm, c = C.module.corp.ecran("intro").corp;
+  assert.ok(K.sfaturi.length === 3 && K.sfaturi.every(x => c.includes(C.esc(x.t))) && c.indexOf(C.esc(K.titlu)) < c.indexOf('class="meniu-lista"'));
+  assert.ok(!/interviu|Ramirez|Beilock|Jamieson/i.test(c));
+  S.pune("varsta", "18-44"); S.pune("situatie", "caut");
+  assert.ok(!C.module.corp.ecran("intro").corp.includes(C.esc(K.titlu)));
+  S.sterge();
+});
+
 test("valorile: 10 → 5 → 3 → 1, cu limită la fiecare pas, întrebări, note și rezultat", () => {
   S.sterge(); S.pune("varsta", "sub18"); S.pune("clasa", "10");
   const a = C.module.valorile.actiuni, L = D.valoriPers.listaElev;
