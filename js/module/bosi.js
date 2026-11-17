@@ -20,6 +20,21 @@
     return '<div class="bosi">' + desen(fata) + '<p class="bula"><span class="sr">' + esc(D.nume) + ": </span>" + esc(text) + "</p></div>";
   };
 
+  /* Drumul cu stații: o listă de butoane legate printr-o linie. Stația făcută are ✓, stația de acum îl are pe Bosi și „Ești aici”.
+     Fiecare stație: { eticheta (HTML), ecran, gata, opt (opțională: nu poate fi „aici”) }. */
+  C.drum = function (statii) {
+    var aici = -1;
+    statii.forEach(function (s, i) { if (aici < 0 && !s.gata && !s.opt) aici = i; });
+    return '<ol class="drum">' + statii.map(function (s, i) {
+      var cls = s.gata ? "statie gata" : (i === aici ? "statie aici" : "statie");
+      var punct = s.gata ? '<span class="punct" aria-hidden="true">✓</span>'
+        : i === aici ? '<span class="punct" aria-hidden="true">' + desen("zambet") + "</span>"
+        : '<span class="punct" aria-hidden="true">' + (i + 1) + "</span>";
+      return '<li class="' + cls + '">' + punct + (i === aici ? '<span class="eticheta-aici">' + esc(D.aici) + "</span>" : "") +
+        C.buton(s.eticheta, "nav", s.ecran, "lista") + "</li>";
+    }).join("") + "</ol>";
+  };
+
   function inl(t, v) { Object.keys(v).forEach(function (k) { t = t.split("{" + k + "}").join(v[k]); }); return t; }
 
   /* Pașii elevului, în ordine, cu „făcut” sau nu (meniul elevului). */

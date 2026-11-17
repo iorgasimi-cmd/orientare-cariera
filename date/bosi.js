@@ -13,5 +13,6 @@ window.DATE.bosi = {
   urmator: "Bine ai revenit! Următorul pas: **{pas}**.",
   revenit: "Mă bucur să te revăd! **Ți-am păstrat locul.** Continuăm cu: **{pas}**?",
   tot: "**Ai parcurs tot drumul. Sunt mândră de tine!** Poți recapitula sau poți răsfoi caietul.",
-  final: "Bravo! **Ai ajuns la finalul secțiunii.**"
+  final: "Bravo! **Ai ajuns la finalul secțiunii.**",
+  aici: "Ești aici"
 };

@@ -1128,6 +1128,20 @@ test("elevii au 3 sfaturi de liniștire la limbajul corpului; adulții nu le vă
   S.sterge();
 });
 
+test("drumul cu stații: ✓ la stațiile făcute, „Ești aici” la prima nefăcută, o singură dată", () => {
+  S.sterge(); S.pune("varsta", "18-44"); S.pune("situatie", "caut");
+  let m = C.module.adult.ecran("meniu").corp;
+  assert.strictEqual((m.match(/Ești aici/g) || []).length, 1);
+  assert.ok(m.indexOf("Ești aici") < m.indexOf("1. Roata vieții profesionale"));
+  S.pune("roata.gata", true); m = C.module.adult.ecran("meniu").corp;
+  assert.ok(m.includes('class="statie gata"') && m.indexOf("Ești aici") > m.indexOf("1. Roata") && m.indexOf("Ești aici") < m.indexOf("2. CV-ul meu"));
+  S.sterge(); S.pune("varsta", "sub18"); S.pune("clasa", "10"); S.pune("interese.top", ["S", "I", "A"]);
+  m = C.module.elev.ecran("meniu").corp;
+  assert.ok(m.indexOf("Ești aici") > m.indexOf("1. Test de interese") && m.indexOf("Ești aici") < m.indexOf("2. Puncte forte"));
+  assert.strictEqual((m.match(/<li class="statie/g) || []).length, 10);
+  S.sterge();
+});
+
 test("valorile: 10 → 5 → 3 → 1, cu limită la fiecare pas, întrebări, note și rezultat", () => {
   S.sterge(); S.pune("varsta", "sub18"); S.pune("clasa", "10");
   const a = C.module.valorile.actiuni, L = D.valoriPers.listaElev;

@@ -52,18 +52,20 @@
     if (g.Cariera.module.bosi) corp += g.Cariera.module.bosi.salut();
     if (g.Cariera.module.reamintiri) corp += g.Cariera.module.reamintiri.banner();
     if (g.Cariera.module.retine) corp += g.Cariera.module.retine.banner();
-    corp += '<div class="meniu-lista">' +
-      C.buton("<strong>1. Test de interese</strong>" + pasStatus(test), "nav", test ? "interese/rezultat" : "interese/intro", "lista") +
-      C.buton("<strong>2. Puncte forte și valori</strong>" + pasStatus(forte), "nav", forte ? "forte/rezumat" : "forte/intro", "lista") +
-      C.buton("<strong>3. Meserii și domenii</strong><span class=\"stare\">" + (test ? "idei pentru tine" : "mai întâi testul") + "</span>", "nav", "meserii/lista", "lista") +
-      C.buton("<strong>4. Planul meu</strong>" + pasStatus(plan), "nav", "plan/hub", "lista") +
-      C.buton("<strong>5. Sfaturi</strong><span class=\"stare\">citire scurtă</span>", "nav", "sfaturi/lista", "lista") +
-      C.buton("<strong>6. Comunicarea asertivă</strong>" + pasStatus(!!S.ia("asertiv.gata", false)), "nav", "asertiv/intro", "lista") +
-      C.buton("<strong>7. Valorile mele</strong>" + pasStatus(!!S.ia("vp.gata", false)), "nav", S.ia("vp.gata", false) ? "valorile/rezultat" : "valorile/intro", "lista") +
-      C.buton("<strong>8. Cum mă văd eu</strong>" + pasStatus(!!S.ia("stima.gata", false)), "nav", S.ia("stima.gata", false) ? "stima/rezultat" : "stima/intro", "lista") +
-      C.buton("<strong>9. " + C.esc(g.DATE.corp.elev.titlu) + "</strong>" + pasStatus(!!S.ia("corp.gata", false)), "nav", "corp/intro", "lista") +
-      C.buton("<strong>10. " + C.esc(g.DATE.cerinte.titlu) + "</strong>" + pasStatus(!!S.ia("cerinte.gata", false)), "nav", "cerinte/lista", "lista") +
-      "</div>" + '<div class="rand">' + C.buton("Caietul meu", "nav", "caiet/tot") + "</div>";
+    var vp = !!S.ia("vp.gata", false), st = !!S.ia("stima.gata", false);
+    corp += C.drum([
+      { eticheta: "<strong>1. Test de interese</strong>" + pasStatus(test), ecran: test ? "interese/rezultat" : "interese/intro", gata: test },
+      { eticheta: "<strong>2. Puncte forte și valori</strong>" + pasStatus(forte), ecran: forte ? "forte/rezumat" : "forte/intro", gata: forte },
+      { eticheta: "<strong>3. Meserii și domenii</strong><span class=\"stare\">" + (test ? "idei pentru tine" : "mai întâi testul") + "</span>", ecran: "meserii/lista", gata: (S.ia("meserii.salvate", []) || []).length > 0, opt: !test },
+      { eticheta: "<strong>4. Planul meu</strong>" + pasStatus(plan), ecran: "plan/hub", gata: plan },
+      { eticheta: "<strong>5. Sfaturi</strong><span class=\"stare\">citire scurtă</span>", ecran: "sfaturi/lista", gata: false, opt: true },
+      { eticheta: "<strong>6. Comunicarea asertivă</strong>" + pasStatus(!!S.ia("asertiv.gata", false)), ecran: "asertiv/intro", gata: !!S.ia("asertiv.gata", false) },
+      { eticheta: "<strong>7. Valorile mele</strong>" + pasStatus(vp), ecran: vp ? "valorile/rezultat" : "valorile/intro", gata: vp },
+      { eticheta: "<strong>8. Cum mă văd eu</strong>" + pasStatus(st), ecran: st ? "stima/rezultat" : "stima/intro", gata: st },
+      { eticheta: "<strong>9. " + C.esc(g.DATE.corp.elev.titlu) + "</strong>" + pasStatus(!!S.ia("corp.gata", false)), ecran: "corp/intro", gata: !!S.ia("corp.gata", false) },
+      { eticheta: "<strong>10. " + C.esc(g.DATE.cerinte.titlu) + "</strong>" + pasStatus(!!S.ia("cerinte.gata", false)), ecran: "cerinte/lista", gata: !!S.ia("cerinte.gata", false) }
+    ]) +
+      '<div class="rand">' + C.buton("Caietul meu", "nav", "caiet/tot") + "</div>";
     return C.pagina("Drumul tău", corp, null);
   }
 

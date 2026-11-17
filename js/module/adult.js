@@ -79,9 +79,9 @@
   function meniu() {
     var s = situatia();
     if (!s) return intrebare();
-    var corp = (C.module.bosi ? C.module.bosi.salut() : "") + (C.module.retine ? C.module.retine.banner() : "") + '<div class="meniu-lista">' + s.pasi.map(function (p, i) {
-      return C.buton("<strong>" + (i + 1) + ". " + esc(D.pasi[p].t) + "</strong>" + stare(p), "nav", ecranPas(p) || "adult/pas/" + p, "lista");
-    }).join("") + "</div>" +
+    var corp = (C.module.bosi ? C.module.bosi.salut() : "") + (C.module.retine ? C.module.retine.banner() : "") + C.drum(s.pasi.map(function (p, i) {
+      return { eticheta: "<strong>" + (i + 1) + ". " + esc(D.pasi[p].t) + "</strong>" + stare(p), ecran: ecranPas(p) || "adult/pas/" + p, gata: !!(GATA[p] && GATA[p]()) };
+    })) +
       '<div class="rand">' + C.buton("Caietul meu", "nav", "caiet/tot") + "</div>" +
       '<p class="mic">Situația ta: <strong>' + esc(s.t) + "</strong></p>" +
       '<div class="rand">' + C.buton("Schimb situația", "nav", "adult/situatie") + "</div>";
