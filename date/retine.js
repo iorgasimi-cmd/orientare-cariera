@@ -37,6 +37,36 @@ window.DATE.retine = {
     copiat: "Am copiat caietul. Îl poți lipi unde vrei.",
     selectat: "Am selectat textul. Ține apăsat pe el și alege „Copiază”."
   },
+  /* Recapitulări: omul își amintește singur ideea, apoi o verifică. Revine la ea după 1 zi, 7 zile și 30 de zile.
+     Dacă nu și-a amintit, ideea revine a doua zi. Cel mult 3 idei pe zi. */
+  recap: {
+    zile: [1, 7, 30],
+    peZi: 3,
+    titlu: "Recapitulare",
+    banner: "**Ai {n} de reamintit.** Durează un minut.",
+    unaIdee: "o idee",
+    maiMulte: "{n} idei",
+    buton: "Încep recapitularea",
+    intro: "**Încearcă întâi să-ți amintești singur(ă).** Apoi verifică. Așa ții minte mai bine.",
+    intrebare: "Ce idee ai reținut de la „{t}”?",
+    scrie: "Scrie ce îți amintești",
+    scrieAjutor: "Nu e obligatoriu. Poți doar să te gândești.",
+    arata: "Arată ideea",
+    ideea: "Ideea",
+    tu: "Ce ai scris atunci:",
+    da: "Mi-am amintit",
+    nu: "Nu prea",
+    nuMesaj: "E în regulă. Ideea revine mâine, ca s-o fixezi.",
+    gata: "**Gata pentru azi.** Revino peste câteva zile pentru următoarea recapitulare.",
+    nimic: "Azi nu ai nimic de recapitulat. Revino peste câteva zile."
+  },
+  /* Numele secțiunilor, pentru întrebarea de recapitulare. */
+  titluri: {
+    interese: "Test de interese", forte: "Puncte forte", meserii: "Meserii și domenii", valori: "Valorile mele",
+    stima: "Cum mă văd eu", roata: "Roata vieții profesionale", competente: "Ce iei cu tine în noul domeniu",
+    cv: "CV-ul meu", scrisoare: "Scrisoarea de intenție", interviu: "Pregătirea pentru interviu",
+    asertiv: "Comunicarea asertivă", corp: "Limbajul corpului", negociere: "Negocierea salariului", cerinte: "Ce cer angajatorii acum"
+  },
   sectiuni: {
     interese: {
       idee: "**Interesele arată ce îți place să faci, nu cine trebuie să devii.** Folosește-le ca să explorezi.",

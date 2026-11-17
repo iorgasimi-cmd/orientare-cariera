@@ -74,7 +74,7 @@
   function meniu() {
     var s = situatia();
     if (!s) return intrebare();
-    var corp = '<div class="meniu-lista">' + s.pasi.map(function (p, i) {
+    var corp = (C.module.retine ? C.module.retine.banner() : "") + '<div class="meniu-lista">' + s.pasi.map(function (p, i) {
       return C.buton("<strong>" + (i + 1) + ". " + esc(D.pasi[p].t) + "</strong>" + stare(p), "nav", ecranPas(p) || "adult/pas/" + p, "lista");
     }).join("") + "</div>" +
       '<div class="rand">' + C.buton("Caietul meu", "nav", "caiet/tot") + "</div>" +

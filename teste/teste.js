@@ -999,6 +999,28 @@ test("caietul meu: gol la început, apoi doar părțile completate, cu text de c
   S.sterge();
 });
 
+test("recapitulări: după 1, 7 și 30 de zile; „nu prea” aduce ideea mâine; cel mult 3 pe zi", () => {
+  S.sterge(); S.pune("varsta", "18-44"); S.pune("situatie", "caut");
+  const azi = C.azi(), R = C.module.retine, A = R.actiuni;
+  C.retine("cv"); assert.strictEqual(S.ia("rec.cv.urm"), C.adauga(azi, 1));
+  assert.deepStrictEqual(R.scadente(azi), []); assert.strictEqual(R.banner(), "");
+  assert.deepStrictEqual(R.scadente(C.adauga(azi, 1)), ["cv"]);
+  /* ca să putem testa azi, mutăm termenul în trecut */
+  ["cv", "interviu", "corp", "cerinte"].forEach(id => { S.pune("rec." + id + ".urm", C.adauga(azi, -1)); S.pune("rec." + id + ".nivel", 0); });
+  assert.ok(R.banner().includes("3 idei") && C.module.adult.ecran("meniu").corp.includes("Încep recapitularea"));
+  let c = R.ecran("recap").corp;
+  assert.ok(c.includes("Ce idee ai reținut de la „CV-ul meu”") && c.includes("Arată ideea") && !c.includes(C.esc(D.retine.sectiuni.cv.idee)));
+  A.arata("cv"); c = R.ecran("recap").corp;
+  assert.ok(c.includes(C.esc(D.retine.sectiuni.cv.idee)) && c.includes("Mi-am amintit"));
+  A.raspuns("cv|da"); assert.strictEqual(S.ia("rec.cv.nivel"), 1); assert.strictEqual(S.ia("rec.cv.urm"), C.adauga(azi, 7));
+  A.arata("interviu"); A.raspuns("interviu|nu"); assert.strictEqual(S.ia("rec.interviu.nivel"), 0); assert.strictEqual(S.ia("rec.interviu.urm"), C.adauga(azi, 1));
+  assert.ok(R.ecran("recap").corp.includes("revine mâine"));
+  A.arata("corp"); A.raspuns("corp|da");
+  assert.ok(R.ecran("recap").corp.includes("Gata pentru azi") && R.banner() === "", "cel mult 3 pe zi");
+  S.pune("rec.cv.nivel", 3); assert.ok(R.scadente(C.adauga(azi, 100)).indexOf("cv") < 0, "după a treia recapitulare, gata");
+  S.sterge();
+});
+
 test("valorile: 10 → 5 → 3 → 1, cu limită la fiecare pas, întrebări, note și rezultat", () => {
   S.sterge(); S.pune("varsta", "sub18"); S.pune("clasa", "10");
   const a = C.module.valorile.actiuni, L = D.valoriPers.listaElev;
@@ -1087,7 +1109,7 @@ test("fișa de pregătire: verifică sumele între ele și scrie fraza cu interv
 console.log("Ecranele se desenează");
 test("fiecare ecran se desenează fără erori și fără „undefined”", () => {
   S.sterge(); S.pune("varsta", "sub18"); S.pune("clasa", "10");
-  const ecrane = ["caiet/tot", "roata/intro", "roata/note", "roata/rezultat", "cerinte/lista", "corp/intro", "corp/semne", "corp/tinuta", "corp/exercitiu", "corp/gata", "start", "elev/clasa", "elev/bunvenit", "elev/meniu", "adult/situatie", "adult/bunvenit", "adult/meniu", "adult/pas/cv", "cv/intro", "cv/q0", "cv/q1", "cv/q2", "cv/q3", "cv/q4", "cv/rezultat", "cv/ia", "scrisoare/intro", "scrisoare/q0", "scrisoare/q1", "scrisoare/q2", "scrisoare/q3", "scrisoare/q4", "scrisoare/q5", "scrisoare/schelet", "scrisoare/ia", "interviu/hub", "interviu/povesti", "interviu/poveste/1", "interviu/poveste/5", "interviu/grup/tine", "interviu/grup/experienta", "interviu/grup/motivatie", "interviu/grup/dificile", "interviu/grup/special", "interviu/exersez", "competente/intro", "competente/a", "competente/b", "competente/tabel", "competente/concluzie", "asertiv/intro", "asertiv/exemplu/1", "asertiv/exemplu/5", "asertiv/exercitiu", "asertiv/ia", "exercitii/quiz/compliment", "exercitii/quiz/compliment/1", "exercitii/quiz/gluma/3", "exercitii/quiz/argumente", "exercitii/quiz/argumente/3", "exercitii/argumentez", "valorile/intro", "valorile/p0", "valorile/p1", "valorile/p2", "valorile/p3", "valorile/intrebari", "valorile/nota", "valorile/rezultat", "stima/intro", "stima/p0", "stima/p1", "stima/rezultat", "negociere/hub", "negociere/piata", "negociere/fisa", "negociere/moment", "negociere/interval", "negociere/ton", "negociere/oferta", "negociere/exercitiu", "exercitii/cerere", "exercitii/pauza", "exercitii/voce", "exercitii/capete", "exercitii/cuvinte", "exercitii/intrebari",
+  const ecrane = ["retine/recap", "caiet/tot", "roata/intro", "roata/note", "roata/rezultat", "cerinte/lista", "corp/intro", "corp/semne", "corp/tinuta", "corp/exercitiu", "corp/gata", "start", "elev/clasa", "elev/bunvenit", "elev/meniu", "adult/situatie", "adult/bunvenit", "adult/meniu", "adult/pas/cv", "cv/intro", "cv/q0", "cv/q1", "cv/q2", "cv/q3", "cv/q4", "cv/rezultat", "cv/ia", "scrisoare/intro", "scrisoare/q0", "scrisoare/q1", "scrisoare/q2", "scrisoare/q3", "scrisoare/q4", "scrisoare/q5", "scrisoare/schelet", "scrisoare/ia", "interviu/hub", "interviu/povesti", "interviu/poveste/1", "interviu/poveste/5", "interviu/grup/tine", "interviu/grup/experienta", "interviu/grup/motivatie", "interviu/grup/dificile", "interviu/grup/special", "interviu/exersez", "competente/intro", "competente/a", "competente/b", "competente/tabel", "competente/concluzie", "asertiv/intro", "asertiv/exemplu/1", "asertiv/exemplu/5", "asertiv/exercitiu", "asertiv/ia", "exercitii/quiz/compliment", "exercitii/quiz/compliment/1", "exercitii/quiz/gluma/3", "exercitii/quiz/argumente", "exercitii/quiz/argumente/3", "exercitii/argumentez", "valorile/intro", "valorile/p0", "valorile/p1", "valorile/p2", "valorile/p3", "valorile/intrebari", "valorile/nota", "valorile/rezultat", "stima/intro", "stima/p0", "stima/p1", "stima/rezultat", "negociere/hub", "negociere/piata", "negociere/fisa", "negociere/moment", "negociere/interval", "negociere/ton", "negociere/oferta", "negociere/exercitiu", "exercitii/cerere", "exercitii/pauza", "exercitii/voce", "exercitii/capete", "exercitii/cuvinte", "exercitii/intrebari",
     "interese/intro", "interese/test", "interese/rezultat",
     "forte/intro", "forte/m0", "forte/m1", "forte/m2", "forte/ik0", "forte/ik1", "forte/ik2", "forte/ik3", "forte/valori", "forte/rezumat",
     "meserii/lista", "meserii/toate", "meserii/salvate",

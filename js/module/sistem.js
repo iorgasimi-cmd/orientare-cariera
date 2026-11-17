@@ -50,6 +50,7 @@
     var plan = !!S.ia("plan.start", null);
     var corp = "";
     if (g.Cariera.module.reamintiri) corp += g.Cariera.module.reamintiri.banner();
+    if (g.Cariera.module.retine) corp += g.Cariera.module.retine.banner();
     corp += '<div class="meniu-lista">' +
       C.buton("<strong>1. Test de interese</strong>" + pasStatus(test), "nav", test ? "interese/rezultat" : "interese/intro", "lista") +
       C.buton("<strong>2. Puncte forte și valori</strong>" + pasStatus(forte), "nav", forte ? "forte/rezumat" : "forte/intro", "lista") +
