@@ -18,7 +18,6 @@ window.DATE.corp = {
     "**mișcările capului**, de exemplu când dai din cap ca să arăți că asculți."
   ],
   dupa: "Nu există reguli exacte. **Fii atent(ă) la aceste semnale și rămâi tu însuți / însăți.**",
-  sursa: "Sursa: Martín-Raugh și colegii, Journal of Organizational Behavior.",
   meniu: [
     { id: "semne", t: "Cum folosești semnalele", d: "Privirea, capul, mâinile. Și la interviul online." },
     { id: "tinuta", t: "Ținuta", d: "O listă scurtă de bifat înainte de interviu." },

@@ -90,7 +90,6 @@ window.DATE.stima = {
     "**Află cum te vezi pe tine însuți / însăți.** Sunt 10 afirmații scurte, pe două ecrane.",
     "Alege răspunsul care ți se potrivește acum. Nu există răspunsuri bune sau greșite."
   ],
-  sursa: "Scala stimei de sine (Rosenberg).",
   optiuni: [["4", "Acord puternic"], ["3", "De acord"], ["2", "Dezacord"], ["1", "Dezacord puternic"]],
   /* inv: true = se punctează invers (afirmațiile 3, 5, 8, 9, 10). */
   itemi: [

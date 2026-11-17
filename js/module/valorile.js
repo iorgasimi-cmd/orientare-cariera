@@ -134,7 +134,6 @@
   }
   function stIntro() {
     var corp = T.intro.map(function (p) { return "<p>" + esc(p) + "</p>"; }).join("") +
-      '<p class="mic">' + esc(T.sursa) + "</p>" +
       '<div class="rand">' + C.buton("Începem", "nav", "stima/p0", "primar") +
       (S.ia("stima.gata", false) ? C.buton("Văd rezultatul", "nav", "stima/rezultat") : "") + "</div>";
     return C.pagina(T.titlu, corp, C.acasa());

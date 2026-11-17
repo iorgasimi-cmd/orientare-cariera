@@ -1016,6 +1016,11 @@ test("fiecare ecran se desenează fără erori și fără „undefined”", () =
       assert.ok(!/undefined|\[object|NaN/.test(p.titlu + p.corp), e + " conține text greșit");
       const t = Verificator.verificaText(p.titlu + " " + p.corp.replace(/<[^>]+>/g, " "));
       assert.deepStrictEqual(t.map(x => x.gasit), [], e);
+      /* Regula din prompt: pe ecran nu apar autori, studii, firme folosite ca sursă sau date calendaristice. */
+      /* Termenele temelor omului (zz.ll.aaaa) sunt ale lui, nu date despre surse: ele pot apărea. */
+      const vizibil = (p.titlu + " " + p.corp.replace(/<[^>]+>/g, " ")).replace(/\b\d\d\.\d\d\.\d{4}\b/g, "");
+      const interzis = /\b(19|20)\d\d\b|ianuarie|februarie|martie|aprilie|\bmai 20|iunie|iulie|august|septembrie|octombrie|noiembrie|decembrie|Holland|RIASEC|Schein|Dweck|Rosenberg|Martín|Raugh|Journal|eJobs|BestJobs|Hays|Manpower|PwC|SD Worx|\bINS\b|ANOFM|EURES|ILBAH|Galinsky|Mussweiler|Thorsteinson|Cullen|Ladders|Sursa:/i.exec(vizibil);
+      assert.ok(!interzis, e + " (" + stare + ") conține „" + (interzis && interzis[0]) + "”");
     });
   }
   treci("gol");
@@ -1025,6 +1030,7 @@ test("fiecare ecran se desenează fără erori și fără „undefined”", () =
   S.pune("plan.start", C.azi()); S.pune("plan.scop.specific", "Vorbesc cu <b>doi</b> oameni"); S.pune("plan.sapt.s0.aleasa", "t1"); S.pune("plan.sapt.s0.bifat", true);
   S.pune("meserii.salvate", ["sanatate"]);
   treci("complet");
+  ["18-44", "45+"].forEach(v => { S.pune("varsta", v); ["caut", "schimb", "pauza", "nustiu"].forEach(si => { S.pune("situatie", si); treci(v + " " + si); }); });
   /* textul scris de utilizator este protejat (nu se execută ca HTML) */
   const hub = C.module.plan.ecran("hub").corp;
   assert.ok(!hub.includes("<b>doi</b>") && hub.includes("&lt;b&gt;doi"));

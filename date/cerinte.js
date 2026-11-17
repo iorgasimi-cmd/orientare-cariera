@@ -1,4 +1,4 @@
-/* Date: „Ce cer angajatorii acum”. Tendințe din sondaje și rapoarte din 2026, fără procente.
+/* Date: „Ce cer angajatorii acum”. Tendințe din sondaje și rapoarte din 2026, fără procente, fără nume de surse și fără date calendaristice pe ecran (sursele rămân doar aici).
    Se actualizează doar când se publică o versiune nouă a aplicației (nu există server).
    Regula: „angajatorii caută tot mai des”, nu „e sigur că”. Fiecare tendință vine cu o acțiune mică.
    Surse (citite din articole de presă care le rezumă, nu din rapoartele complete):
@@ -12,15 +12,13 @@ window.DATE.cerinte = {
   verificat: "neverificat",
   scriere: "2026-11-15",
   titlu: "Ce cer angajatorii acum",
-  cand: "Informații adunate în noiembrie 2026. Se schimbă des.",
 
   adult: {
-    intro: "**Iată ce caută angajatorii tot mai des în 2026.** Pentru fiecare, ai un pas mic pe care îl poți face.",
+    intro: "**Iată ce caută angajatorii tot mai des.** Pentru fiecare, ai un pas mic pe care îl poți face.",
     lista: [
       {
         t: "Să te adaptezi la schimbări",
         ce: "Angajatorii din România caută tot mai des oameni care se adaptează repede și lucrează bine sub presiune.",
-        sursa: "Sondaj eJobs, aprilie–mai 2026",
         pas: "**Să te adaptezi se poate exersa.** Scrie o poveste despre o situație care nu a ieșit cum credeai și în care te-ai descurcat.",
         link: "interviu/povesti", buton: "Scriu povestea"
       },
@@ -33,21 +31,18 @@ window.DATE.cerinte = {
       {
         t: "Unelte digitale și inteligența artificială",
         ce: "Angajatorii caută tot mai des oameni care știu să folosească unelte digitale, inclusiv inteligența artificială.",
-        sursa: "Sondaj eJobs, 2026",
         pas: "**Nu trebuie să știi totul dintr-o dată.** Alege o temă mică pe săptămână: un lucru digital nou.",
         link: "plan/hub", buton: "Planul meu"
       },
       {
         t: "Ce știi să faci, nu doar titlul jobului",
         ce: "Tot mai mulți angajatori se uită la competențe, adică la ce știi să faci, nu doar la titlul jobului.",
-        sursa: "SD Worx, ianuarie–februarie 2026",
         pas: "**O pauză sau un alt domeniu nu șterg ce știi să faci.** Scrie în CV competențele tale, nu doar titlurile.",
         link: "cv/intro", buton: "CV-ul meu"
       },
       {
         t: "Angajări mai prudente",
-        ce: "În 2026, multe companii angajează mai prudent. Des, angajează ca să înlocuiască oameni care pleacă.",
-        sursa: "Sondaj eJobs, aprilie–mai 2026",
+        ce: "Acum, multe companii angajează mai prudent. Des, angajează ca să înlocuiască oameni care pleacă.",
         pas: "**Dacă nu primești răspuns, asta nu spune nimic despre tine.** Poate piața e lentă. Schimbă ceva în CV sau trimite mai multe cereri.",
         link: "plan/hub", buton: "Planul meu"
       }
@@ -66,7 +61,6 @@ window.DATE.cerinte = {
       {
         t: "Să te adaptezi la schimbări",
         ce: "Angajatorii caută tot mai des oameni care se descurcă atunci când se schimbă ceva.",
-        sursa: "Sondaj eJobs, 2026",
         pas: "**Să te adaptezi se poate exersa.** Amintește-ți o dată când ceva nu a ieșit cum credeai și te-ai descurcat.",
         link: "forte/intro", buton: "Punctele mele forte"
       },
@@ -79,7 +73,6 @@ window.DATE.cerinte = {
       {
         t: "Experiența începe mic",
         ce: "Chiar și pentru primul loc de muncă, angajatorii cer tot mai des lucruri învățate prin practică.",
-        sursa: "PwC, 2026",
         pas: "**Fiecare pas se numără.** Un voluntariat, un atelier sau un proiect la școală sunt deja experiență.",
         link: "plan/hub", buton: "Planul meu"
       }

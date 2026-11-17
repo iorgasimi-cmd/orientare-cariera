@@ -42,7 +42,7 @@ window.DATE.adulti = {
     negociere: { t: "Negocierea salariului", d: "Te pregătești pentru discuția despre bani." },
     interviu: { t: "Pregătirea pentru interviu", d: "Întrebări de exersat și povești din experiența ta." },
     corp: { t: "Limbajul corpului și ținuta", d: "Cum privești, cum te miști și cum te îmbraci la interviu." },
-    cerinte: { t: "Ce cer angajatorii acum", d: "Ce caută angajatorii în 2026 și ce poți exersa." },
+    cerinte: { t: "Ce cer angajatorii acum", d: "Ce caută angajatorii acum și ce poți exersa." },
     plan: { t: "Planul meu", d: "Un scop și o temă mică pe săptămână." }
   }
 };

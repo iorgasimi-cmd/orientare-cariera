@@ -26,9 +26,10 @@ window.DATE.negociere = {
         "Datele diferă de la o sursă la alta. **De aceea lucrezi cu un interval, nu cu un singur număr.**"
       ],
       surseTitlu: "Unde poți căuta",
-      surse: ["Institutul Național de Statistică (INS)", "Agenția Națională pentru Ocuparea Forței de Muncă (ANOFM)",
-        "Rapoartele salariale ale platformelor de joburi, de exemplu eJobs sau BestJobs",
-        "Studiile firmelor de recrutare, de exemplu Hays sau ManpowerGroup",
+      /* Pentru autoare: INS, ANOFM, eJobs, BestJobs, Hays, ManpowerGroup. Pe ecran nu apar nume de surse. */
+      surse: ["Statisticile oficiale despre salarii, de pe site-urile instituțiilor statului",
+        "Rapoartele salariale ale site-urilor cu locuri de muncă",
+        "Studiile salariale ale firmelor de recrutare",
         "Anunțurile pentru același post, care au salariul scris"],
       surseNota: "Notează data fiecărei surse. Datele vechi pot să nu mai fie valabile."
     },
