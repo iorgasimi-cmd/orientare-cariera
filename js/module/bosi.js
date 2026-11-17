@@ -46,15 +46,15 @@
   /* Pașii elevului, în ordine, cu „făcut” sau nu (meniul elevului). */
   function pasiElev() {
     return [
-      { t: "Test de interese", gata: !!S.ia("interese.top", null) },
-      { t: "Puncte forte și valori", gata: (S.ia("forte.valori", []) || []).length >= 3 },
-      { t: "Meserii și domenii", gata: (S.ia("meserii.salvate", []) || []).length > 0 },
-      { t: "Planul meu", gata: !!S.ia("plan.start", null) },
-      { t: "Comunicarea asertivă", gata: !!S.ia("asertiv.gata", false) },
-      { t: "Valorile mele", gata: !!S.ia("vp.gata", false) },
-      { t: "Cum mă văd eu", gata: !!S.ia("stima.gata", false) },
-      { t: g.DATE.corp ? g.DATE.corp.elev.titlu : "Limbajul corpului", gata: !!S.ia("corp.gata", false) },
-      { t: g.DATE.cerinte ? g.DATE.cerinte.titlu : "Ce cer angajatorii acum", gata: !!S.ia("cerinte.gata", false) }
+      { t: "Test de interese", gata: !!S.ia("interese.top", null), ecran: "interese/intro" },
+      { t: "Puncte forte și valori", gata: (S.ia("forte.valori", []) || []).length >= 3, ecran: "forte/intro" },
+      { t: "Meserii și domenii", gata: (S.ia("meserii.salvate", []) || []).length > 0, ecran: "meserii/lista" },
+      { t: "Planul meu", gata: !!S.ia("plan.start", null), ecran: "plan/hub" },
+      { t: "Comunicarea asertivă", gata: !!S.ia("asertiv.gata", false), ecran: "asertiv/intro" },
+      { t: "Valorile mele", gata: !!S.ia("vp.gata", false), ecran: "valorile/intro" },
+      { t: "Cum mă văd eu", gata: !!S.ia("stima.gata", false), ecran: "stima/intro" },
+      { t: g.DATE.corp ? g.DATE.corp.elev.titlu : "Limbajul corpului", gata: !!S.ia("corp.gata", false), ecran: "corp/intro" },
+      { t: g.DATE.cerinte ? g.DATE.cerinte.titlu : "Ce cer angajatorii acum", gata: !!S.ia("cerinte.gata", false), ecran: "cerinte/lista" }
     ];
   }
 
@@ -64,15 +64,32 @@
     if (ult && ult !== azi && C.zile(ult, azi) >= 2) S.pune("bosi.revenit", azi);
     S.pune("bosi.ultima", azi);
     var pasi = C.eAdult() ? (C.module.adult ? C.module.adult.pasiCuStare() : []) : pasiElev();
-    var facute = pasi.filter(function (p) { return p.gata; }).length, urm = pasi.filter(function (p) { return !p.gata; })[0];
-    if (!urm) return C.bosi(D.tot, "bucurie");
-    if (S.ia("bosi.revenit", "") === azi) return C.bosi(inl(D.revenit, { pas: urm.t }));
-    return C.bosi(inl(facute ? D.urmator : D.primul, { pas: urm.t }));
+    var urm = pasi.filter(function (p) { return !p.gata; })[0];
+    /* Întâi întrebarea „Cum te simți azi?”, o dată pe zi; apoi răspunsul potrivit. */
+    var T = D.stare, z = S.ia("stare.zi", {}) || {}, r = z.data === azi ? z.r : "";
+    if (!r) {
+      return '<div class="stare-zi">' + C.bosi(S.ia("bosi.revenit", "") === azi ? T.revenit : T.intrebare) +
+        '<div class="rand">' + T.optiuni.map(function (o) { return C.buton(esc(o[1]), "bosi.stare", o[0]); }).join("") + "</div></div>";
+    }
+    var schimb = '<div class="rand">' + C.buton(esc(T.schimb), "bosi.stare", "", "mic-btn") + "</div>";
+    if (r === "nu") {
+      return '<div class="stare-zi" id="stare-zi" role="status">' + C.bosi(T.nu) + '<p class="termen">' + esc(T.ajutor) + "</p>" + C.bosi(T.maine) + schimb + "</div>";
+    }
+    if (r === "asa") {
+      return '<div class="stare-zi" id="stare-zi" role="status">' + C.bosi(T.asa) + '<div class="rand">' +
+        C.buton(esc(T.butonMini), "nav", "plan/saptamana", "continua") + C.buton(esc(T.butonCaiet), "nav", "caiet/tot") + "</div>" + schimb + "</div>";
+    }
+    if (!urm) return '<div class="stare-zi" id="stare-zi">' + C.bosi(T.bineTot, "bucurie") + schimb + "</div>";
+    return '<div class="stare-zi" id="stare-zi" role="status">' + C.bosi(inl(T.bine, { pas: urm.t }), "bucurie") +
+      (urm.ecran ? '<div class="rand">' + C.buton(esc(T.butonBine), "nav", urm.ecran, "continua") + "</div>" : "") + schimb + "</div>";
   }
 
   C.reg("bosi", {
     ecran: function () { return C.pagina(D.nume, salut(), C.acasa()); },
-    actiuni: {},
+    actiuni: {
+      /* Răspunsul la „Cum te simți azi?”; gol = omul vrea să răspundă din nou. */
+      stare: function (r) { S.pune("stare.zi", r ? { data: C.azi(), r: r } : {}); C.deArata = r ? "stare-zi" : ""; }
+    },
     salut: salut,
     desen: desen
   });

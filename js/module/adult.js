@@ -47,7 +47,7 @@
   /* Pașii omului, în ordine, cu „făcut” sau nu (pentru salutul lui Bosi). */
   function pasiCuStare() {
     var s = situatia(); if (!s) return [];
-    return s.pasi.map(function (p) { return { t: D.pasi[p].t, gata: !!(GATA[p] && GATA[p]()) }; });
+    return s.pasi.map(function (p) { return { t: D.pasi[p].t, gata: !!(GATA[p] && GATA[p]()), ecran: ecranPas(p) || "adult/pas/" + p }; });
   }
   /* Pasul de după `id` în traseul omului, ca exercițiile să ducă mai departe. */
   function urmator(id) {

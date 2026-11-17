@@ -9,10 +9,23 @@ window.DATE.bosi = {
   nume: "Faro",
   start: "Bună! Sunt Faro. **Îți luminez drumul, ca să nu fii singur(ă) pe el.**",
   bunVenit: "Mă bucur că ești aici! **Mergem împreună, în ritmul tău.**",
-  primul: "Bună! Începem cu primul pas: **{pas}**?",
-  urmator: "Bine ai revenit! Următorul pas: **{pas}**.",
-  revenit: "Mă bucur să te revăd! **Ți-am păstrat locul.** Continuăm cu: **{pas}**?",
-  tot: "**Ai parcurs tot drumul. Mă bucur mult pentru tine!** Poți recapitula sau poți răsfoi caietul.",
   final: "Bravo! **Ai ajuns la finalul secțiunii.**",
-  aici: "Ești aici"
+  aici: "Ești aici",
+  /* „Cum te simți azi?” — o dată pe zi, pe ecranul principal. Texte aprobate de Simona (2026-11-17).
+     Răspunsul rămâne doar pe telefon și nu apare în caiet. Aplicația nu trage concluzii din el. */
+  stare: {
+    intrebare: "Bună! **Cum te simți azi?**",
+    revenit: "Mă bucur să te revăd! **Cum te simți azi?**",
+    optiuni: [["bine", "Bine"], ["asa", "Așa și așa"], ["nu", "Nu prea bine"]],
+    bine: "Mă bucur! **Hai să facem următorul pas: {pas}.**",
+    bineTot: "Mă bucur! **Ai parcurs tot drumul.** Poți recapitula sau poți răsfoi caietul.",
+    butonBine: "Merg la pasul următor",
+    asa: "Te înțeleg. **Azi poate fi o zi de pași mici.** Fă doar varianta de 2 minute a temei tale. Sau recitește ce ai scris în caiet.",
+    butonMini: "Varianta de 2 minute",
+    butonCaiet: "Caietul meu",
+    nu: "Îmi pare rău că azi nu te simți bine. **E în regulă să iei o pauză.** Respiră încet: inspiră cât numeri până la 4, expiră cât numeri până la 6.",
+    ajutor: "Dacă te simți rău sau ești îngrijorat(ă), vorbește cu un adult de încredere, cu consilierul școlii sau cu medicul de familie. Dacă tu sau altcineva sunteți în pericol acum, sună la 112.",
+    maine: "Mâine te întreb din nou.",
+    schimb: "Schimb răspunsul"
+  }
 };
