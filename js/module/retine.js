@@ -18,7 +18,7 @@
     var msg = stare === "pus" ? '<p class="felicitare">' + esc(D.pus) + "</p>" :
       stare === "ocupat" ? "<p>" + esc(D.ocupat) + "</p>" : "";
     if (msg) msg += '<div class="rand">' + C.buton("Planul meu", "nav", "plan/saptamana") + "</div>";
-    return (C.bosi ? C.bosi(g.DATE.bosi.final, "bucurie") : "") + '<section class="card stil-asertiv"><h2>' + esc(D.titlu) + '</h2><p class="idee">' + esc(x.idee) + "</p>" +
+    return (C.bosi ? C.bosi(C.faro("final"), "bucurie") : "") + '<section class="card stil-asertiv"><h2>' + esc(D.titlu) + '</h2><p class="idee">' + esc(x.idee) + "</p>" +
       C.camp("caiet." + id + ".text", esc(D.scrie), esc(D.scrieAjutor), 2) +
       '<h2 class="intrebare-titlu">' + esc(D.pasTitlu) + "</h2><p>" + esc(x.pas) + "</p>" +
       '<div class="rand">' + C.buton(esc(D.buton), "retine.tema", id) + "</div>" +

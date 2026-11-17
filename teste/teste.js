@@ -1168,6 +1168,39 @@ test("lecția scurtă despre CV: o întrebare pe ecran, răspuns imediat, varian
   S.sterge();
 });
 
+test("Faro își amintește: tema de săptămâna trecută cu cuvintele omului, rezumatul, valoarea; „dumneavoastră” la 45+", () => {
+  const B = C.module.bosi, start = C.adauga(C.azi(), -8);
+  /* adult 18–44 */
+  S.sterge(); S.pune("varsta", "18-44"); S.pune("situatie", "caut"); S.pune("plan.start", start);
+  S.pune("plan.sapt.s0.aleasa", "proprie"); S.pune("plan.sapt.s0.proprie", "Să trimit 3 cereri"); S.pune("plan.zile", [start]);
+  S.pune("rec.cv.urm", C.azi()); S.pune("rec.zi", { data: "x" }); S.pune("vp.top", "familie");
+  B.actiuni.stare("bine");
+  let m = C.module.adult.ecran("meniu").corp;
+  assert.ok(m.includes("Ți-ai propus: „Să trimit 3 cereri”") && m.includes("Am făcut o parte") && m.includes("N-am apucat"));
+  assert.ok(m.includes("o secțiune terminată, o zi de lucru") && m.includes("contează mult „familie”"));
+  B.actiuni.memorie("0|reusit"); m = C.module.adult.ecran("meniu").corp;
+  assert.ok(m.includes("Ai făcut exact ce ți-ai propus") && S.ia("plan.sapt.s0.bifat") === true && !m.includes("Cum a mers?"));
+  B.actiuni.stare("nu"); m = C.module.adult.ecran("meniu").corp;
+  assert.ok(!m.includes("Ai făcut exact") && !m.includes("Uite ce am parcurs"), "la „Nu prea bine” fără întrebări și rezumate");
+  /* 45+: „dumneavoastră” */
+  S.sterge(); S.pune("varsta", "45+"); S.pune("situatie", "caut"); S.pune("plan.start", start);
+  S.pune("plan.sapt.s0.aleasa", "proprie"); S.pune("plan.sapt.s0.proprie", "Să sun la două firme");
+  m = C.module.adult.ecran("meniu").corp;
+  assert.ok(m.includes("Cum vă simțiți azi?"));
+  B.actiuni.stare("nu"); m = C.module.adult.ecran("meniu").corp;
+  assert.ok(m.includes("nu vă simțiți bine") && m.includes("Mâine vă întreb din nou") && m.includes("sunați la 112"));
+  B.actiuni.stare("asa"); m = C.module.adult.ecran("meniu").corp;
+  assert.ok(m.includes("Vă înțeleg") && m.includes("Data trecută v-ați propus: „Să sun la două firme”"));
+  B.actiuni.memorie("0|nu"); assert.ok(C.module.adult.ecran("meniu").corp.includes("Mă bucur că ați revenit"));
+  assert.ok(C.module.adult.ecran("bunvenit").corp.includes("în ritmul dumneavoastră"));
+  /* elev */
+  S.sterge(); S.pune("varsta", "sub18"); S.pune("clasa", "10"); S.pune("plan.start", start);
+  S.pune("plan.sapt.s0.aleasa", "proprie"); S.pune("plan.sapt.s0.proprie", "Să întreb un profesor"); B.actiuni.stare("bine");
+  assert.ok(C.module.elev.ecran("meniu").corp.includes("Hei! Mi-am amintit ce mi-ai zis"));
+  B.actiuni.memorie("0|parte"); assert.ok(C.module.elev.ecran("meniu").corp.includes("Ce parte vrei să termini?"));
+  S.sterge();
+});
+
 test("valorile: 10 → 5 → 3 → 1, cu limită la fiecare pas, întrebări, note și rezultat", () => {
   S.sterge(); S.pune("varsta", "sub18"); S.pune("clasa", "10");
   const a = C.module.valorile.actiuni, L = D.valoriPers.listaElev;

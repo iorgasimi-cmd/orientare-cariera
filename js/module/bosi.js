@@ -41,6 +41,52 @@
     }).join("") + "</ol>";
   };
 
+  /* Grupa de vârstă pentru felul în care vorbește Faro. */
+  function grupa() { var v = S.ia("varsta", ""); return v === "45+" ? "a45" : (v && v !== "sub18" ? "adult" : "elev"); }
+  /* Un text al lui Faro: la 45+ varianta cu „dumneavoastră”, dacă există. */
+  C.faro = function (k) { return grupa() === "a45" && D.dvs[k] ? D.dvs[k] : D[k]; };
+  function stareT() { return grupa() === "a45" ? Object.assign({}, D.stare, D.dvs.stare) : D.stare; }
+
+  /* ---- „Faro își amintește” ---- */
+  function curata(t) { return String(t || "").replace(/\*\*/g, "").trim(); }
+  /* Săptămâna trecută a planului, dacă omul își alesese o temă și încă nu i-a spus lui Faro cum a mers. */
+  function temaDeIntrebat() {
+    if (!S.ia("plan.start", null) || !C.module.plan) return null;
+    var k = C.saptamana() - 1; if (k < 0) return null;
+    if (!S.ia("plan.sapt.s" + k + ".aleasa", "") || S.ia("mem.s" + k, "")) return null;
+    var t = curata(C.module.plan.textTema(k)); return t ? { k: k, t: t } : null;
+  }
+  function memorie() {
+    var M = D.memorie[grupa()], out = "", m = S.ia("mem.ultim", {}) || {};
+    /* răspunsul dat azi rămâne pe ecran */
+    if (m.data === C.azi() && m.r) {
+      out += C.bosi(M[m.r], m.r === "reusit" ? "bucurie" : "zambet");
+      if (m.r === "reusit") out += C.camp("mem.ajutat.s" + m.k, esc(M.ajutat), "", 2);
+    } else {
+      var q = temaDeIntrebat();
+      if (q) out += C.bosi(inl(M.intrebare, { tema: q.t })) + '<div class="rand">' +
+        M.optiuni.map(function (o) { return C.buton(esc(o[1]), "bosi.memorie", q.k + "|" + o[0]); }).join("") + "</div>";
+    }
+    /* rezumatul drumului, cel mult o dată la 7 zile */
+    var rz = S.ia("mem.rezumat", ""), azi = C.azi();
+    if (!rz || C.zile(rz, azi) >= 7 || rz === azi) {
+      var sec = Object.keys((S.ia("rec", {}) || {})).filter(function (k) { return g.DATE.retine && g.DATE.retine.sectiuni[k]; }).length, zile = (S.ia("plan.zile", []) || []).length, teme = 0, sp = S.ia("plan.sapt", {}) || {};
+      Object.keys(sp).forEach(function (k) { if (sp[k] && sp[k].bifat) teme++; });
+      var l = [];
+      if (sec) l.push(sec === 1 ? "o secțiune terminată" : sec + " secțiuni terminate");
+      if (zile) l.push(zile === 1 ? "o zi de lucru" : zile + " zile de lucru");
+      if (teme) l.push(teme === 1 ? "o temă reușită" : teme + " teme reușite");
+      if (l.length) {
+        if (rz !== azi) S.pune("mem.rezumat", azi);
+        out += C.bosi(inl(M.rezumat, { lista: l.join(", ") }), "bucurie");
+        var id = curata(S.ia("plan.identitate", "")), v = curata(S.ia("vp.top", ""));
+        if (id) { id = id.replace(/^[„"]|[”"]$/g, "").replace(/[.!]$/, ""); out += C.bosi(inl(M.identitate, { i: id.charAt(0).toLowerCase() + id.slice(1) })); }
+        else if (v) out += C.bosi(inl(M.valoare, { v: v }));
+      }
+    }
+    return out;
+  }
+
   function inl(t, v) { Object.keys(v).forEach(function (k) { t = t.split("{" + k + "}").join(v[k]); }); return t; }
 
   /* Pașii elevului, în ordine, cu „făcut” sau nu (meniul elevului). */
@@ -66,7 +112,7 @@
     var pasi = C.eAdult() ? (C.module.adult ? C.module.adult.pasiCuStare() : []) : pasiElev();
     var urm = pasi.filter(function (p) { return !p.gata; })[0];
     /* Întâi întrebarea „Cum te simți azi?”, o dată pe zi; apoi răspunsul potrivit. */
-    var T = D.stare, z = S.ia("stare.zi", {}) || {}, r = z.data === azi ? z.r : "";
+    var T = stareT(), z = S.ia("stare.zi", {}) || {}, r = z.data === azi ? z.r : "";
     if (!r) {
       return '<div class="stare-zi">' + C.bosi(S.ia("bosi.revenit", "") === azi ? T.revenit : T.intrebare) +
         '<div class="rand">' + T.optiuni.map(function (o) { return C.buton(esc(o[1]), "bosi.stare", o[0]); }).join("") + "</div></div>";
@@ -77,20 +123,27 @@
     }
     if (r === "asa") {
       return '<div class="stare-zi" id="stare-zi" role="status">' + C.bosi(T.asa) + '<div class="rand">' +
-        C.buton(esc(T.butonMini), "nav", "plan/saptamana", "continua") + C.buton(esc(T.butonCaiet), "nav", "caiet/tot") + "</div>" + schimb + "</div>";
+        C.buton(esc(T.butonMini), "nav", "plan/saptamana", "continua") + C.buton(esc(T.butonCaiet), "nav", "caiet/tot") + "</div>" + schimb + "</div>" + memorie();
     }
-    if (!urm) return '<div class="stare-zi" id="stare-zi">' + C.bosi(T.bineTot, "bucurie") + schimb + "</div>";
+    if (!urm) return '<div class="stare-zi" id="stare-zi">' + C.bosi(T.bineTot, "bucurie") + schimb + "</div>" + memorie();
     return '<div class="stare-zi" id="stare-zi" role="status">' + C.bosi(inl(T.bine, { pas: urm.t }), "bucurie") +
-      (urm.ecran ? '<div class="rand">' + C.buton(esc(T.butonBine), "nav", urm.ecran, "continua") + "</div>" : "") + schimb + "</div>";
+      (urm.ecran ? '<div class="rand">' + C.buton(esc(T.butonBine), "nav", urm.ecran, "continua") + "</div>" : "") + schimb + "</div>" + memorie();
   }
 
   C.reg("bosi", {
     ecran: function () { return C.pagina(D.nume, salut(), C.acasa()); },
     actiuni: {
       /* Răspunsul la „Cum te simți azi?”; gol = omul vrea să răspundă din nou. */
+      /* „Cum a mers?” pentru tema de săptămâna trecută. „Am reușit” bifează tema. */
+      memorie: function (arg) {
+        var p = String(arg).split("|"), k = Number(p[0]), r = p[1];
+        S.pune("mem.s" + k, r); S.pune("mem.ultim", { data: C.azi(), r: r, k: k });
+        if (r === "reusit") S.pune("plan.sapt.s" + k + ".bifat", true);
+      },
       stare: function (r) { S.pune("stare.zi", r ? { data: C.azi(), r: r } : {}); C.deArata = r ? "stare-zi" : ""; }
     },
     salut: salut,
+    grupa: grupa,
     desen: desen
   });
 })(typeof window !== "undefined" ? window : globalThis);

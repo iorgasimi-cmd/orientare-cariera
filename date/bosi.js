@@ -27,5 +27,59 @@ window.DATE.bosi = {
     ajutor: "Dacă te simți rău sau ești îngrijorat(ă), vorbește cu un adult de încredere, cu consilierul școlii sau cu medicul de familie. Dacă tu sau altcineva sunteți în pericol acum, sună la 112.",
     maine: "Mâine te întreb din nou.",
     schimb: "Schimb răspunsul"
+  },
+
+  /* „Faro își amintește ce i-ai spus”: reflectă cuvintele omului, apreciază efortul, întreabă deschis, lasă alegerea omului.
+     Trei variante: elev (sub 18), adult (18–44), a45 (45+, cu „dumneavoastră”). Texte aprobate de Simona (2026-11-17). */
+  memorie: {
+    elev: {
+      intrebare: "Hei! Mi-am amintit ce mi-ai zis data trecută: „{tema}”. **Cum a mers?**",
+      optiuni: [["reusit", "Am reușit"], ["parte", "Am făcut o parte"], ["nu", "N-am apucat"]],
+      reusit: "**Super, ai reușit!** Ce te-a ajutat?",
+      parte: "**Ai început, și asta contează!** Ce parte vrei să termini?",
+      nu: "**Nicio problemă! Mă bucur că ai revenit.** Vrei să alegi ceva mai mic? Tu decizi.",
+      ajutat: "Ce te-a ajutat?",
+      valoare: "Mi-ai zis că „{v}” contează mult pentru tine. Țin minte asta.",
+      identitate: "Mi-ai scris că vrei să fii „{i}”. **Azi ai mai făcut un pas spre asta.**",
+      rezumat: "Uite cât ai făcut deja: **{lista}.** **Sunt aici și pentru următorii pași!**"
+    },
+    adult: {
+      intrebare: "Mi-am amintit ce mi-ai spus data trecută. Ți-ai propus: „{tema}”. **Cum a mers?**",
+      optiuni: [["reusit", "Am reușit"], ["parte", "Am făcut o parte"], ["nu", "N-am apucat"]],
+      reusit: "**Ce frumos! Ai făcut exact ce ți-ai propus.** Ce te-a ajutat cel mai mult?",
+      parte: "**Ai început, și asta contează mult.** Fiecare bucată făcută rămâne a ta. Ce parte vrei să continui?",
+      nu: "**Se întâmplă, și e în regulă. Mă bucur că ești aici.** Ce ar face pasul mai ușor săptămâna asta? Tu alegi.",
+      ajutat: "Ce te-a ajutat cel mai mult?",
+      valoare: "Mi-ai spus că pentru tine contează mult „{v}”. Mă gândesc la asta când îți propun pașii.",
+      identitate: "Mi-ai scris că vrei să fii „{i}”. **Azi ai mai făcut un pas spre asta.**",
+      rezumat: "Uite ce am parcurs împreună: **{lista}.** **Sunt aici și pentru pașii următori.**"
+    },
+    a45: {
+      intrebare: "Mă bucur să vă reîntâlnesc pe drum. Data trecută v-ați propus: „{tema}”. **Cum a mers?**",
+      optiuni: [["reusit", "Am reușit"], ["parte", "Am făcut o parte"], ["nu", "N-am apucat"]],
+      reusit: "**Felicitări! Ați dus la capăt ce v-ați propus.** Ce v-a ajutat? Poate folosește și data viitoare.",
+      parte: "**Ați făcut deja o parte, și asta contează.** Experiența dumneavoastră vă ajută să continuați. Ce parte vreți să duceți mai departe?",
+      nu: "**Se întâmplă oricui, și e în regulă. Mă bucur că ați revenit.** Ce ar face pasul mai ușor? Alegeți în ritmul dumneavoastră.",
+      ajutat: "Ce v-a ajutat?",
+      valoare: "Mi-ați spus că pentru dumneavoastră contează „{v}”. O am în minte la fiecare pas.",
+      identitate: "Mi-ați scris că vreți să fiți „{i}”. **Azi ați mai făcut un pas spre asta.**",
+      rezumat: "Iată drumul parcurs până acum: **{lista}.** **Vă însoțesc și mai departe.**"
+    }
+  },
+
+  /* Pentru 45+: ce spune Faro, cu „dumneavoastră” (alegerea Simonei). Restul aplicației folosește încă „tu”. */
+  dvs: {
+    bunVenit: "Mă bucur că sunteți aici! **Mergem împreună, în ritmul dumneavoastră.**",
+    final: "Bravo! **Ați ajuns la finalul secțiunii.**",
+    stare: {
+      intrebare: "Bună ziua! **Cum vă simțiți azi?**",
+      revenit: "Mă bucur să vă revăd! **Cum vă simțiți azi?**",
+      bine: "Mă bucur! **Să facem următorul pas: {pas}.**",
+      bineTot: "Mă bucur! **Ați parcurs tot drumul.** Puteți recapitula sau puteți răsfoi caietul.",
+      asa: "Vă înțeleg. **Azi poate fi o zi de pași mici.** Faceți doar varianta de 2 minute a temei. Sau recitiți ce ați scris în caiet.",
+      nu: "Îmi pare rău că azi nu vă simțiți bine. **E în regulă să luați o pauză.** Respirați încet: inspirați cât numărați până la 4, expirați cât numărați până la 6.",
+      ajutor: "Dacă vă simțiți rău sau sunteți îngrijorat(ă), vorbiți cu un adult de încredere, cu consilierul școlii sau cu medicul de familie. Dacă dumneavoastră sau altcineva sunteți în pericol acum, sunați la 112.",
+      maine: "Mâine vă întreb din nou."
+    }
   }
 };

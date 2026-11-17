@@ -36,7 +36,7 @@
   }
 
   function bunVenit() {
-    var corp = (C.bosi ? C.bosi(g.DATE.bosi.bunVenit) : "") + "<p>Iată ce urmează. Poți face pașii în ordinea ta și te poți opri oricând.</p>" +
+    var corp = (C.bosi ? C.bosi(C.faro("bunVenit")) : "") + "<p>Iată ce urmează. Poți face pașii în ordinea ta și te poți opri oricând.</p>" +
       '<ol class="pasi"><li>Un test de interese: ce îți place să faci.</li><li>Punctele tale forte și ce contează pentru tine.</li><li>Idei de meserii și domenii.</li><li>Un plan mic, cu o temă pe săptămână.</li><li>Sfaturi scurte.</li><li>Cum spui clar ce vrei, inclusiv unui program de IA.</li><li>Ce valori contează pentru tine și cum te vezi.</li></ol>' +
       '<div class="rand">' + C.buton("Începem", "nav", "elev/meniu", "primar") + C.buton("Schimb răspunsurile", "nav", "start") + "</div>";
     return C.pagina("Bine ai venit!", corp, "elev/clasa");

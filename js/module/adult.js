@@ -69,7 +69,7 @@
   function bunVenit() {
     var s = situatia();
     if (!s) return intrebare();
-    var corp = (C.bosi ? C.bosi(g.DATE.bosi.bunVenit) : "") + "<p>" + esc(s.bun) + "</p>" + (e45() ? "<p>" + esc(D.accent45) + "</p>" : "") +
+    var corp = (C.bosi ? C.bosi(C.faro("bunVenit")) : "") + "<p>" + esc(s.bun) + "</p>" + (e45() ? "<p>" + esc(D.accent45) + "</p>" : "") +
       "<p>Iată pașii tăi. Îi poți face în ordinea ta și te poți opri oricând.</p>" +
       '<ol class="pasi">' + s.pasi.map(function (p) { return "<li>" + esc(D.pasi[p].t) + "</li>"; }).join("") + "</ol>" +
       '<div class="rand">' + C.buton("Începem", "nav", "adult/meniu", "primar") + C.buton("Schimb răspunsurile", "nav", "start") + "</div>";
