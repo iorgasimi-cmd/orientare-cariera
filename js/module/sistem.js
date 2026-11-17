@@ -61,7 +61,7 @@
       C.buton("<strong>8. Cum mă văd eu</strong>" + pasStatus(!!S.ia("stima.gata", false)), "nav", S.ia("stima.gata", false) ? "stima/rezultat" : "stima/intro", "lista") +
       C.buton("<strong>9. " + C.esc(g.DATE.corp.elev.titlu) + "</strong>" + pasStatus(!!S.ia("corp.gata", false)), "nav", "corp/intro", "lista") +
       C.buton("<strong>10. " + C.esc(g.DATE.cerinte.titlu) + "</strong>" + pasStatus(!!S.ia("cerinte.gata", false)), "nav", "cerinte/lista", "lista") +
-      "</div>";
+      "</div>" + '<div class="rand">' + C.buton("Caietul meu", "nav", "caiet/tot") + "</div>";
     return C.pagina("Drumul tău", corp, null);
   }
 

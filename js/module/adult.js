@@ -77,6 +77,7 @@
     var corp = '<div class="meniu-lista">' + s.pasi.map(function (p, i) {
       return C.buton("<strong>" + (i + 1) + ". " + esc(D.pasi[p].t) + "</strong>" + stare(p), "nav", ecranPas(p) || "adult/pas/" + p, "lista");
     }).join("") + "</div>" +
+      '<div class="rand">' + C.buton("Caietul meu", "nav", "caiet/tot") + "</div>" +
       '<p class="mic">Situația ta: <strong>' + esc(s.t) + "</strong></p>" +
       '<div class="rand">' + C.buton("Schimb situația", "nav", "adult/situatie") + "</div>";
     return C.pagina("Drumul tău", corp, null);

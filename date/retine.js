@@ -13,6 +13,30 @@ window.DATE.retine = {
   buton: "O fac tema săptămânii",
   pus: "**Gata. E tema ta pentru săptămâna asta.** O găsești în „Planul meu”.",
   ocupat: "Ai deja o temă săptămâna asta. O poți schimba din „Planul meu”.",
+  /* „Caietul meu”: tot ce a scris omul, la un loc. Apar doar părțile completate. */
+  caiet: {
+    titlu: "Caietul meu",
+    intro: "**Aici găsești, la un loc, tot ce ai scris.** Recitește din când în când: așa ții minte mai ușor.",
+    gol: "Caietul e încă gol. Ce scrii în secțiuni apare aici.",
+    idei: "Ideile pe care le-ai reținut",
+    interese: "Ce îți place să faci",
+    forte: "Momente în care ți-a ieșit bine",
+    valori: "Valorile mele",
+    roata: "Roata vieții profesionale",
+    roataZona: "Ce vreau să fie mai bun:",
+    roataCaut: "Ce o să caut:",
+    meserii: "Domeniile salvate",
+    povesti: "Poveștile mele pentru interviu",
+    corp: "Ce vreau să fac altfel când vorbesc",
+    plan: "Planul meu",
+    scop: "Scopul:",
+    identitate: "Ce fel de om vreau să devin:",
+    tema: "Tema săptămânii:",
+    copiaza: "Copiază tot caietul",
+    copiazaAjutor: "Îl poți lipi în notițele telefonului, ca să-l ai și în altă parte.",
+    copiat: "Am copiat caietul. Îl poți lipi unde vrei.",
+    selectat: "Am selectat textul. Ține apăsat pe el și alege „Copiază”."
+  },
   sectiuni: {
     interese: {
       idee: "**Interesele arată ce îți place să faci, nu cine trebuie să devii.** Folosește-le ca să explorezi.",
