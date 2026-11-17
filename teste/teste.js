@@ -1036,6 +1036,30 @@ test("ce vreau și ce m-ar putea opri: patru întrebări în ordine și planul �
   S.sterge();
 });
 
+test("progres: zile la rând, mesaj blând după o zi sărită, mesaj pentru prieten, „nu merge în linie dreaptă”", () => {
+  const azi = C.azi(), z = n => C.adauga(azi, n), P = C.module.plan;
+  assert.strictEqual(P.serie([], azi), 0);
+  assert.strictEqual(P.serie([z(-2), z(-1), azi], azi), 3);
+  assert.strictEqual(P.serie([z(-2), z(-1)], azi), 2, "azi încă nebifat: seria de ieri rămâne");
+  assert.strictEqual(P.serie([z(-3), z(-1)], azi), 1);
+  assert.ok(!P.aSarit([], azi) && !P.aSarit([z(-1)], azi) && P.aSarit([z(-3)], azi) && !P.aSarit([z(-3), azi], azi));
+  S.sterge(); S.pune("varsta", "18-44"); S.pune("situatie", "caut"); S.pune("plan.start", azi);
+  S.pune("plan.sapt.s0.aleasa", P.temeSaptamanii(0)[0].id);
+  let c = P.ecran("saptamana").corp;
+  assert.ok(c.includes("Azi am lucrat la temă") && (c.match(/class="zi[ "]/g) || []).length === 7 && c.includes("Spune-i unui prieten") && c.includes("Mă întrebi peste câteva zile"));
+  P.actiuni.azi(); c = P.ecran("saptamana").corp;
+  assert.ok(c.includes("Azi ai lucrat") && c.includes("O zi.") && c.includes("ai lucrat</span>"));
+  S.pune("plan.zile", [z(-4)]); S.pune("plan.sapt.s0.mini", "Citesc un rând");
+  c = P.ecran("saptamana").corp;
+  assert.ok(c.includes("Ai sărit o zi?") && c.includes("Citesc un rând") && c.includes("Ce te-ar ajuta să revii?") && !/certa|rușine|leneș/i.test(c));
+  c = P.ecran("privire").corp;
+  assert.ok(c.includes("Progresul nu merge în linie dreaptă") && c.includes("o zi de lucru"));
+  S.sterge(); S.pune("varsta", "18-44"); S.pune("plan.start", C.adauga(azi, -21));
+  S.pune("plan.sapt.s1.bifat", true); S.pune("plan.sapt.s2.bifat", true);
+  assert.ok(P.ecran("saptamana").corp.includes("Vrei o mică schimbare?"));
+  S.sterge();
+});
+
 test("valorile: 10 → 5 → 3 → 1, cu limită la fiecare pas, întrebări, note și rezultat", () => {
   S.sterge(); S.pune("varsta", "sub18"); S.pune("clasa", "10");
   const a = C.module.valorile.actiuni, L = D.valoriPers.listaElev;

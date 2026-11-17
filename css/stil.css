@@ -132,6 +132,12 @@ fieldset.intrebare legend + * { clear: both; }
 .progres::-webkit-progress-value { background: var(--principal); }
 .progres::-moz-progress-bar { background: var(--principal); }
 
+/* Zilele de lucru din săptămână: bifa și cercul se văd, nu doar culoarea */
+.zile { list-style: none; padding: 0; margin: 8px 0 12px; display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+.zile .zi { text-align: center; border: 2px solid var(--contur); border-radius: 10px; padding: 4px 0; font-weight: 700; background: var(--suprafata); }
+.zile .zi.bif { background: var(--principal); color: var(--principal-text); border-color: var(--principal); }
+.zile .zi.azi { outline: 3px solid var(--cald-contur); outline-offset: 1px; }
+
 /* Roata vieții profesionale */
 .roata { display: block; width: 100%; max-width: 20rem; height: auto; margin: 0 auto 8px; }
 .roata .cerc { fill: none; stroke: var(--linie); stroke-width: 1.5; }

@@ -39,6 +39,52 @@
     return O.fraza + (p.length ? " " + p.join(", ") : "") + (dupa ? (p.length ? ", " : " ") + "după ce " + dupa.replace(/^după ce\s+/i, "") : "") + ".";
   }
 
+  /* ---- Progresul zilnic ---- */
+  function zileLucru() { return (S.ia("plan.zile", []) || []).slice().sort(); }
+  /* Calcul pur: câte zile la rând, până azi (sau până ieri, dacă azi încă nu a bifat). */
+  function serie(zile, azi) {
+    var set = {}; zile.forEach(function (z) { set[z] = true; });
+    var d = set[azi] ? azi : C.adauga(azi, -1), n = 0;
+    while (set[d]) { n++; d = C.adauga(d, -1); }
+    return n;
+  }
+  /* Calcul pur: a lucrat înainte, dar nici ieri, nici azi. */
+  function aSarit(zile, azi) {
+    if (!zile.length || zile.indexOf(azi) >= 0) return false;
+    return zile[zile.length - 1] < C.adauga(azi, -1);
+  }
+  function cardProgres(idx) {
+    var P = D.progres, z = zileLucru(), azi = C.azi(), st = S.ia("plan.start", azi), facutAzi = z.indexOf(azi) >= 0;
+    var zi0 = C.adauga(st, idx * 7), rand = "";
+    for (var k = 0; k < 7; k++) {
+      var d = C.adauga(zi0, k), zs = (new Date(d + "T12:00:00Z").getUTCDay() + 6) % 7, bif = z.indexOf(d) >= 0;
+      rand += '<li class="' + (bif ? "zi bif" : "zi") + (d === azi ? " azi" : "") + '"><span class="sr">' + esc(P.numeZile[zs]) + (bif ? ", ai lucrat" : "") + '</span><span aria-hidden="true">' + esc(P.zile[zs]) + "<br>" + (bif ? "✓" : "○") + "</span></li>";
+    }
+    var n = serie(z, azi);
+    var corp = '<section class="card" id="progres"><h2>' + esc(P.titlu) + "</h2><p>" + esc(P.explica) + "</p>" +
+      '<ul class="zile">' + rand + "</ul>" +
+      (n ? "<p>" + esc(n === 1 ? P.serieUna : P.serie.replace("{n}", n)) + "</p>" : "") +
+      '<div class="rand">' + C.buton(facutAzi ? P.butonFacut : esc(P.buton), "plan.azi", null, facutAzi ? "salvat" : "continua") + "</div>" +
+      (facutAzi ? '<p class="felicitare" role="status">' + esc(P.felicitari[z.length % P.felicitari.length]) + "</p>" : "");
+    if (aSarit(z, azi)) {
+      var mini = String(S.ia("plan.sapt.s" + idx + ".mini", "") || "").trim();
+      corp += '<div class="termen" role="status"><p>' + esc(P.sarit) + "</p>" + (mini ? "<p><strong>" + C.escSimplu(mini) + "</strong></p>" : "") + "</div>" +
+        C.camp("plan.ajuta", esc(P.ajuta), esc(P.ajutaEx), 2);
+    }
+    return corp + "</section>";
+  }
+  function cardPrieten(idx) {
+    var P = D.progres, tema = String(textTema(idx) || "").replace(/\*\*/g, "").trim();
+    if (!tema) return "";
+    var fr = frazaObicei("plan.sapt.s" + idx);
+    var txt = P.prietenText.replace("{tema}", tema).replace("{obicei}", fr ? fr + " " : "");
+    return '<section class="card"><h2>' + esc(P.prietenTitlu) + "</h2><p>" + esc(P.prietenExplica) + "</p>" +
+      '<div class="camp"><label for="c-prieten">Mesajul</label><textarea id="c-prieten" rows="4" readonly>' + C.escSimplu(txt) + "</textarea></div>" +
+      '<div class="rand">' + C.buton(esc(P.copiaza), "plan.copiaza_prieten") + '</div><p id="stare-prieten" class="mic" role="status"></p></section>';
+  }
+  /* Săptămânile terminate la rând, înainte de cea de acum. Calcul pur. */
+  function saptLaRand(idx) { var n = 0; for (var k = idx - 1; k >= 0 && S.ia("plan.sapt.s" + k + ".bifat", false); k--) n++; return n; }
+
   /* „Dacă [obstacol], atunci [plan].” din răspunsurile omului. Calcul pur. */
   function frazaWoop() {
     var W = D.woop, o = String(S.ia("plan.woop.obstacol", "") || "").trim(), p = String(S.ia("plan.woop.plan", "") || "").trim();
@@ -143,6 +189,7 @@
     var maiTarziu = !!aleasa && S.ia(cale + ".mai_tarziu", "") === aleasa && !bifat;
     var sf = dataSf(idx);
     var corp = cardRestanta() + '<p class="mic">Săptămâna ' + (idx + 1) + " a planului tău." + (sf ? " Termen: " + esc(C.format(sf)) + "." : "") + "</p>" +
+      (saptLaRand(idx) >= 2 && !aleasa ? '<p class="termen">' + esc(D.progres.provocare) + "</p>" : "") +
       '<fieldset class="intrebare"><legend>Alege o temă (sau scrie-ți propria temă mai jos)</legend>';
     teme.forEach(function (t) {
       corp += '<label class="val"><input type="radio" name="tema" value="' + esc(t.id) + '" data-camp="' + cale + '.aleasa" data-rerand="1"' + (aleasa === t.id ? " checked" : "") + "><span>" + esc(t.t) + "<small>" + esc(D.niveluri[t.nivel] || "") + "</small></span></label>";
@@ -175,6 +222,7 @@
       raspuns += '<p class="felicitare" role="status">' + esc(f[idx % f.length]) + "</p>";
     }
     corp += '<div id="mesaj-tema">' + raspuns + "</div>";
+    if (aleasa) corp += cardProgres(idx);
     if (aleasa && !bifat) {
       var O = D.obicei, fr = frazaObicei(cale);
       corp += '<section class="card"><h2>' + esc(O.titlu) + "</h2><p>" + esc(O.explica) + "</p>" +
@@ -186,6 +234,7 @@
         C.camp(cale + ".bucurie", esc(O.bucurie), esc(O.bucurieEx), 1) +
         (frazaWoop() ? '<p class="mic">' + esc(D.woop.fraza) + '</p><p class="citat">' + C.escSimplu(frazaWoop()) + "</p>" : "") + "</section>";
     }
+    if (aleasa && !bifat) corp += cardPrieten(idx);
     if (aleasa && !bifat && sf) {
       var oraRem = S.ia("rem.ora", "18:00");
       corp += '<section class="card"><h2>Reamintire în calendar</h2>' +
@@ -232,6 +281,8 @@
     Object.keys(sapt).forEach(function (k) { if (sapt[k] && sapt[k].bifat) nr++; });
     var corp = "<p>Din când în când e bine să te oprești și să te uiți înapoi. Nu e un test: e doar pentru tine.</p>" +
       (total ? '<p class="citat">Ai ales teme în ' + total + (total === 1 ? " săptămână" : " săptămâni") + " și ai terminat " + nr + ".</p>" : "") +
+      '<section class="card stil-asertiv"><h2>' + esc(D.progres.linieTitlu) + "</h2><p>" + esc(D.progres.linie) + "</p>" +
+        (nr || zileLucru().length ? "<p>" + esc(D.progres.facut.replace("{t}", nr === 1 ? "o temă terminată" : nr + " teme terminate").replace("{z}", zileLucru().length === 1 ? "o zi de lucru" : zileLucru().length + " zile de lucru")) + "</p>" : "") + "</section>" +
       C.camp("plan.privire.mers", "Ce a mers bine?", "", 3) +
       C.camp("plan.privire.ramas", "Ce a rămas nefăcut sau ți-a fost greu?", "", 3) +
       C.camp("plan.privire.schimb", "Ce schimbi începând de acum?", "", 3) +
@@ -254,6 +305,12 @@
     },
     actiuni: {
       woop_gata: function () { C.deArata = "woop-fraza"; },
+      azi: function () {
+        var z = zileLucru(), a = C.azi(), i = z.indexOf(a);
+        if (i >= 0) z.splice(i, 1); else z.push(a);
+        S.pune("plan.zile", z); C.deArata = "progres";
+      },
+      copiaza_prieten: function () { C.copiaza("c-prieten", "stare-prieten", D.progres.copiat, D.progres.selectat); return false; },
       scop_gata: function () {
         if (!S.ia("plan.start", null)) S.pune("plan.start", C.azi());
         C.mergi("plan/scopRez");
@@ -295,6 +352,8 @@
     temeSaptamanii: temeSaptamanii,
     frazaObicei: frazaObicei,
     frazaWoop: frazaWoop,
+    serie: serie,
+    aSarit: aSarit,
     restante: restante,
     textTema: textTema,
     dataSf: dataSf

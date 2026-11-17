@@ -88,6 +88,35 @@ window.DATE.sfaturi = {
     daca: "Dacă",
     atunci: "atunci"
   },
+  /* Progresul zilnic: zilele în care omul a lucrat la temă, câte zile la rând, mesaj blând după o zi sărită, mesaj pentru un prieten. */
+  progres: {
+    titlu: "Zilele tale",
+    explica: "Bifează în fiecare zi în care lucrezi puțin la temă. Și două minute se pun.",
+    buton: "Azi am lucrat la temă",
+    butonFacut: "✓ Azi ai lucrat (apasă ca să scoți)",
+    zile: ["L", "Ma", "Mi", "J", "V", "S", "D"],
+    numeZile: ["luni", "marți", "miercuri", "joi", "vineri", "sâmbătă", "duminică"],
+    serie: "**{n} zile la rând.**",
+    serieUna: "**O zi.** Fiecare început contează.",
+    felicitari: [
+      "Bravo! Încă o zi pusă deoparte.",
+      "Foarte bine. Pașii mici se adună.",
+      "Ai lucrat și azi. Așa se construiește un obicei."
+    ],
+    sarit: "**Ai sărit o zi? Se întâmplă.** Nu trebuie să recuperezi tot. Fă azi doar varianta de 2 minute.",
+    ajuta: "Ce te-ar ajuta să revii?",
+    ajutaEx: "De exemplu: o reamintire, o oră mai potrivită, o temă mai ușoară.",
+    provocare: "**Ai făcut temele câteva săptămâni la rând.** Vrei o mică schimbare? Încearcă tema „Mai grea”.",
+    prietenTitlu: "Spune-i unui prieten",
+    prietenExplica: "**E mai ușor când nu ești singur(ă).** Trimite-i cuiva apropiat ce ți-ai propus.",
+    prietenText: "Săptămâna asta mi-am propus o temă: „{tema}” {obicei}Mă întrebi peste câteva zile cum a mers?",
+    copiaza: "Copiază mesajul",
+    copiat: "Am copiat mesajul. Îl poți trimite cui vrei.",
+    selectat: "Am selectat textul. Ține apăsat pe el și alege „Copiază”.",
+    linieTitlu: "Progresul nu merge în linie dreaptă",
+    linie: "**La început, munca poate să nu se vadă.** E normal: efortul se adună, iar schimbarea apare mai târziu.",
+    facut: "Iată ce ai făcut deja: {t} și {z}."
+  },
   identitate: {
     q: "Ce fel de om vrei să devii, prin acești pași mici?",
     exElev: "De exemplu: „Sunt un elev care află, puțin câte puțin, ce i se potrivește.”",
