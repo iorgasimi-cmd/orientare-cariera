@@ -67,7 +67,7 @@ window.DATE.bosi = {
     }
   },
 
-  /* Pentru 45+: ce spune Faro, cu „dumneavoastră” (alegerea Simonei). Restul aplicației folosește încă „tu”. */
+  /* Pentru 45+: doar Faro vorbește cu „dumneavoastră”. Restul aplicației rămâne cu „tu” pentru toate vârstele (decizia Simonei, 2026-11-17). */
   dvs: {
     bunVenit: "Mă bucur că sunteți aici! **Mergem împreună, în ritmul dumneavoastră.**",
     final: "Bravo! **Ați ajuns la finalul secțiunii.**",
