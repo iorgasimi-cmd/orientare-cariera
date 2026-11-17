@@ -18,6 +18,7 @@
     stima: function () { return S.ia("stima.gata", false) ? "stima/rezultat" : "stima/intro"; },
     corp: "corp/intro",
     cerinte: "cerinte/lista",
+    roata: function () { return S.ia("roata.gata", false) ? "roata/rezultat" : "roata/intro"; },
     cv: "cv/intro", scrisoare: "scrisoare/intro", asertiv: "asertiv/intro", interviu: "interviu/hub", negociere: "negociere/hub", plan: "plan/hub"
   };
   function ecranPas(p) { var e = ECRANE[p]; return typeof e === "function" ? e() : e; }
@@ -32,6 +33,7 @@
     valori: function () { return S.ia("vp.gata", false) ? "✓ făcut" : ""; },
     stima: function () { return S.ia("stima.gata", false) ? "✓ făcut" : ""; },
     corp: function () { return S.ia("corp.gata", false) ? "✓ exersat" : ""; },
+    roata: function () { return S.ia("roata.gata", false) ? "✓ făcut" : ""; },
     cerinte: function () { return S.ia("cerinte.gata", false) ? "✓ citit" : ""; },
     negociere: function () { return S.ia("neg.gata", false) ? "✓ fișă făcută" : ""; },
     interviu: function () { return C.module.interviu && C.module.interviu.nrPovesti() >= 3 ? "✓ povești scrise" : ""; },

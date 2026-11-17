@@ -132,6 +132,13 @@ fieldset.intrebare legend + * { clear: both; }
 .progres::-webkit-progress-value { background: var(--principal); }
 .progres::-moz-progress-bar { background: var(--principal); }
 
+/* Roata vieții profesionale */
+.roata { display: block; width: 100%; max-width: 20rem; height: auto; margin: 0 auto 8px; }
+.roata .cerc { fill: none; stroke: var(--linie); stroke-width: 1.5; }
+.roata .ax { stroke: var(--linie); stroke-width: 1.5; }
+.roata .felie { fill: var(--principal); fill-opacity: .8; stroke: var(--suprafata); stroke-width: 2; }
+.roata .nr { fill: var(--text); font-size: 18px; font-weight: 700; }
+
 .fara-js { padding: 16px; font-weight: 600; }
 
 @media (max-width: 359px) { .nume-app { display: none; } }

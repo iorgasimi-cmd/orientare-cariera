@@ -10,17 +10,17 @@ window.DATE.adulti = {
     {
       id: "caut", t: "Caut un loc de muncă",
       bun: "Ne concentrăm pe CV, pe scrisoarea de intenție și pe interviu. Îți arăt și cum îți potrivești CV-ul pentru fiecare anunț.",
-      pasi: ["cv", "scrisoare", "asertiv", "interviu", "corp", "negociere", "stima", "cerinte", "plan"]
+      pasi: ["roata", "cv", "scrisoare", "asertiv", "interviu", "corp", "negociere", "stima", "cerinte", "plan"]
     },
     {
       id: "schimb", t: "Vreau să-mi schimb domeniul",
       bun: "Mai întâi aflăm ce îți place și ce știi să faci cu adevărat. Apoi vedem ce iei cu tine în noul domeniu și cum scrii asta în CV.",
-      pasi: ["interese", "forte", "valori", "competente", "cv", "asertiv", "interviu", "corp", "negociere", "stima", "cerinte", "plan"]
+      pasi: ["roata", "interese", "forte", "valori", "competente", "cv", "asertiv", "interviu", "corp", "negociere", "stima", "cerinte", "plan"]
     },
     {
       id: "pauza", t: "Revin după o pauză", d: "de exemplu, după concediul de creștere a copilului",
       bun: "**Ce știi să faci nu s-a pierdut.** Te ajut să vorbești simplu despre pauză, în CV și la interviu. Scrii și ce ai învățat în acest timp.",
-      pasi: ["cv", "scrisoare", "asertiv", "interviu", "corp", "negociere", "stima", "cerinte", "plan"]
+      pasi: ["roata", "cv", "scrisoare", "asertiv", "interviu", "corp", "negociere", "stima", "cerinte", "plan"]
     },
     {
       id: "nustiu", t: "Încă nu știu ce vreau",
@@ -42,6 +42,7 @@ window.DATE.adulti = {
     negociere: { t: "Negocierea salariului", d: "Te pregătești pentru discuția despre bani." },
     interviu: { t: "Pregătirea pentru interviu", d: "Întrebări de exersat și povești din experiența ta." },
     corp: { t: "Limbajul corpului și ținuta", d: "Cum privești, cum te miști și cum te îmbraci la interviu." },
+    roata: { t: "Roata vieții profesionale", d: "Cât de mulțumit(ă) ești de opt lucruri la muncă." },
     cerinte: { t: "Ce cer angajatorii acum", d: "Ce caută angajatorii acum și ce poți exersa." },
     plan: { t: "Planul meu", d: "Un scop și o temă mică pe săptămână." }
   }
