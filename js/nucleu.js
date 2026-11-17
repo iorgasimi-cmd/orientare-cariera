@@ -95,6 +95,13 @@
         "<h2>" + esc(A.pasiTitlu) + '</h2><ol class="pasi">' + li(A.pasi) + "</ol>" +
         '<p class="mic"><strong>Bine de știut:</strong></p><ul>' + li(A.binedestiut) + "</ul></section>";
     },
+    /* Cum să folosești și cum să nu folosești un chat cu IA (date/ia.js), sub avertizarea despre date personale. */
+    folosireIA: function () {
+      var F = g.DATE && g.DATE.ia && g.DATE.ia.folosire; if (!F) return "";
+      var li = function (x, s) { return x.map(function (t) { return "<li>" + s + " " + esc(t) + "</li>"; }).join(""); };
+      return '<p><strong>' + esc(F.da) + '</strong></p><ul class="fara-buline">' + li(F.daLista, "✓") + "</ul>" +
+        '<p><strong>' + esc(F.nu) + '</strong></p><ul class="fara-buline">' + li(F.nuLista, "✗") + "</ul>";
+    },
     pagina: function (titlu, corp, inapoi) {
       return { titlu: titlu, corp: corp, inapoi: inapoi === undefined ? C.acasa() : inapoi };
     }

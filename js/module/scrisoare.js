@@ -76,7 +76,7 @@
     var I = D.ia, raspunsuri = {};
     D.intrebari.forEach(function (q) { raspunsuri[q.id] = r(q.id); });
     var corp = C.ghidIA() +
-      '<p class="alerta"><strong>Atenție:</strong> ' + esc(I.atentie) + "</p>" +
+      '<p class="alerta"><strong>Atenție:</strong> ' + esc(I.atentie) + "</p>" + C.folosireIA() +
       '<h2>Cum faci</h2><ol class="pasi">' + I.sfaturi.map(function (t) { return "<li>" + esc(t) + "</li>"; }).join("") + "</ol>" +
       '<div class="camp"><label for="c-prompt-scrisoare">Promptul de copiat</label>' +
       '<textarea id="c-prompt-scrisoare" rows="14" readonly>' + C.escSimplu(promptIA(raspunsuri, S.ia("situatie", ""))) + "</textarea></div>" +

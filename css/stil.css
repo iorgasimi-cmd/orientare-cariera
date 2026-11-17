@@ -87,6 +87,8 @@ p { margin: 0 0 14px; }
 .stare { display: inline-block; font-size: .9rem; font-weight: 400; color: var(--text-slab); }
 .stare.gata { font-weight: 700; color: var(--text); background: var(--cald-moale); border: 2px solid var(--cald-contur); border-radius: 999px; padding: 0 10px; }
 .pasi { padding-left: 22px; }
+.fara-buline { list-style: none; padding-left: 0; }
+.fara-buline li { margin-bottom: 8px; }
 .pasi li { margin-bottom: 6px; }
 
 /* Câmpuri de scris */

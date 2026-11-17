@@ -1069,6 +1069,18 @@ test("exersarea interviului începe cu 3 sfaturi de liniștire, fără „poziț
   S.sterge();
 });
 
+test("sub avertizarea despre CNP: cum să folosești și cum să nu folosești un chat cu IA (3 + 3)", () => {
+  S.sterge(); S.pune("varsta", "18-44"); S.pune("situatie", "caut");
+  S.pune("cv.pastreaza", true); S.pune("cv.text", "Ion Popescu\nExperiență\nVânzător, 2020 – 2024\nEducație\nLiceu"); S.pune("scrisoare.r.post", "vânzător");
+  const F = D.ia.folosire; assert.ok(F.daLista.length === 3 && F.nuLista.length === 3);
+  ["interviu/exersez", "scrisoare/ia", "cv/ia"].forEach(e => {
+    const [m, r] = e.split("/"), c = C.module[m].ecran(r).corp;
+    const k = c.indexOf("Atenție:");
+    assert.ok(k > 0 && c.indexOf(F.da) > k && c.indexOf(F.nu) > c.indexOf(F.da) && c.includes("Corectează-mi greșelile din text"), e);
+  });
+  S.sterge();
+});
+
 test("valorile: 10 → 5 → 3 → 1, cu limită la fiecare pas, întrebări, note și rezultat", () => {
   S.sterge(); S.pune("varsta", "sub18"); S.pune("clasa", "10");
   const a = C.module.valorile.actiuni, L = D.valoriPers.listaElev;
