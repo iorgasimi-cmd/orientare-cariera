@@ -66,6 +66,21 @@ window.DATE.interviu = {
 
   exersez: {
     titlu: "Exersează",
+    /* 3 sfaturi de liniștire, folosite și de actori înainte de scenă. Pentru autoare, sursele (nu apar în aplicație):
+       respirația lentă, cu expirația mai lungă: studii despre respirație și stres (de exemplu Balban și colegii, 2023);
+       „Sunt entuziasmat(ă)”: Alison Wood Brooks, 2014 (vorbit în public, cântat);
+       repetiția în minte și cu voce tare: analize despre exersarea mentală (Driskell, Copper și Moran, 1994).
+       NU folosim „pozițiile de putere”: efectul lor nu s-a confirmat în studiile repetate. */
+    calm: {
+      titlu: "Înainte să intri: 3 sfaturi care te liniștesc",
+      explica: "**Emoțiile înainte de interviu sunt normale.** Și actorii le simt înainte să intre pe scenă. Iată ce fac ei.",
+      sfaturi: [
+        { t: "1. Respiră încet, cu expirația mai lungă", d: "Inspiră pe nas cât numeri până la 4. Expiră pe gură cât numeri până la 6. Repetă de 5 ori. **Respirația lentă îți liniștește corpul.**" },
+        { t: "2. Spune: „Sunt entuziasmat(ă)!”", d: "Inima care bate tare nu e un semn rău. Înseamnă că îți pasă. **Spune cu voce tare „Sunt entuziasmat(ă)!”**, nu „Calmează-te”." },
+        { t: "3. Repetă intrarea, ca la teatru", d: "Imaginează-ți cum intri, saluți și te așezi. **Spune cu voce tare primele două propoziții despre tine.** Un început sigur îți dă încredere." }
+      ],
+      incearca: "Încearcă acum, înainte să te filmezi."
+    },
     filmare: {
       titlu: "Filmează-te cu telefonul",
       text: [

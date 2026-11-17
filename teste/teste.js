@@ -1060,6 +1060,15 @@ test("progres: zile la rând, mesaj blând după o zi sărită, mesaj pentru pri
   S.sterge();
 });
 
+test("exersarea interviului începe cu 3 sfaturi de liniștire, fără „poziții de putere”", () => {
+  S.sterge(); S.pune("varsta", "18-44"); S.pune("situatie", "caut");
+  const c = C.module.interviu.ecran("exersez").corp, K = D.interviu.exersez.calm;
+  assert.strictEqual(K.sfaturi.length, 3);
+  assert.ok(c.indexOf(C.esc(K.titlu)) >= 0 && c.indexOf(C.esc(K.titlu)) < c.indexOf(C.esc(D.interviu.exersez.filmare.titlu)));
+  assert.ok(K.sfaturi.every(x => c.includes(C.esc(x.t))) && !/putere|Brooks|Balban|Driskell/i.test(c));
+  S.sterge();
+});
+
 test("valorile: 10 → 5 → 3 → 1, cu limită la fiecare pas, întrebări, note și rezultat", () => {
   S.sterge(); S.pune("varsta", "sub18"); S.pune("clasa", "10");
   const a = C.module.valorile.actiuni, L = D.valoriPers.listaElev;
