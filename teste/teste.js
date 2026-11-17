@@ -1081,9 +1081,9 @@ test("sub avertizarea despre CNP: cum să folosești și cum să nu folosești u
   S.sterge();
 });
 
-test("JobPsi (busola): salută pe ecranul de început, propune pasul următor, păstrează locul după o pauză, fără presiune", () => {
+test("Faro (farul): salută pe ecranul de început, propune pasul următor, păstrează locul după o pauză, fără presiune", () => {
   S.sterge();
-  assert.ok(C.module.sistem.ecran("start").corp.includes("Sunt JobPsi") && C.module.sistem.ecran("start").corp.includes('class="bosi"'));
+  assert.ok(C.module.sistem.ecran("start").corp.includes("Sunt Faro") && C.module.sistem.ecran("start").corp.includes('class="bosi"'));
   S.pune("varsta", "18-44"); S.pune("situatie", "caut");
   let m = C.module.adult.ecran("meniu").corp;
   assert.ok(m.includes("Începem cu primul pas") && m.includes("Roata vieții profesionale"));
@@ -1267,7 +1267,7 @@ test("fiecare ecran se desenează fără erori și fără „undefined”", () =
       /* Regula din prompt: pe ecran nu apar autori, studii, firme folosite ca sursă sau date calendaristice. */
       /* Termenele temelor omului (zz.ll.aaaa) sunt ale lui, nu date despre surse: ele pot apărea. */
       const vizibil = (p.titlu + " " + p.corp.replace(/<[^>]+>/g, " ")).replace(/\b\d\d\.\d\d\.\d{4}\b/g, "");
-      const interzis = /\b(19|20)\d\d\b|ianuarie|februarie|martie|aprilie|\bmai 20|iunie|iulie|august|septembrie|octombrie|noiembrie|decembrie|Holland|RIASEC|Schein|Dweck|Rosenberg|Martín|Raugh|Journal|eJobs|BestJobs|Hays|Manpower|PwC|SD Worx|\bINS\b|ANOFM|EURES|ILBAH|Galinsky|Mussweiler|Thorsteinson|Cullen|Ladders|Sursa:|Ikigai|\bmoai\b|wabi|Morita|ichi-go|hachi|yuimaaru|Okinawa|Frankl|\bBosi\b/i.exec(vizibil);
+      const interzis = /\b(19|20)\d\d\b|ianuarie|februarie|martie|aprilie|\bmai 20|iunie|iulie|august|septembrie|octombrie|noiembrie|decembrie|Holland|RIASEC|Schein|Dweck|Rosenberg|Martín|Raugh|Journal|eJobs|BestJobs|Hays|Manpower|PwC|SD Worx|\bINS\b|ANOFM|EURES|ILBAH|Galinsky|Mussweiler|Thorsteinson|Cullen|Ladders|Sursa:|Ikigai|\bmoai\b|wabi|Morita|ichi-go|hachi|yuimaaru|Okinawa|Frankl|\bBosi\b|JobPsi|busola ta/i.exec(vizibil);
       assert.ok(!interzis, e + " (" + stare + ") conține „" + (interzis && interzis[0]) + "”");
     });
   }

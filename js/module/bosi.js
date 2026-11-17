@@ -1,18 +1,24 @@
-/* Bosi, busola prietenoasă: un desen mic (SVG, cu culorile din css/culori.css) și o bulă cu text, ca într-o conversație.
+/* Faro, farul prietenos (în cod încă „bosi”, numele vechi): un desen mic (SVG, cu culorile din css/culori.css) și o bulă cu text, ca într-o conversație.
    Două fețe: „zambet” (de obicei) și „bucurie” (la felicitări). Fără animații. */
 (function (g) {
   "use strict";
   var C = g.Cariera, S = g.Stocare, esc = C.esc, D = g.DATE.bosi;
 
+  /* Faro: un far mic, cu fața pe turn și lumina aprinsă. */
   function desen(fata) {
     var ochi = fata === "bucurie"
-      ? '<path class="b-trasatura" d="M23 30 q3 -4 6 0 M35 30 q3 -4 6 0"/>'
-      : '<circle class="b-ochi" cx="26" cy="29" r="2.6"/><circle class="b-ochi" cx="38" cy="29" r="2.6"/>';
+      ? '<path class="b-trasatura" d="M26 34 q2.5 -3.5 5 0 M33 34 q2.5 -3.5 5 0"/>'
+      : '<circle class="b-ochi" cx="28.5" cy="33" r="2.3"/><circle class="b-ochi" cx="35.5" cy="33" r="2.3"/>';
     return '<svg class="bosi-desen" viewBox="0 0 64 64" aria-hidden="true" focusable="false">' +
-      '<circle class="b-inel" cx="32" cy="32" r="30"/><circle class="b-fata" cx="32" cy="32" r="25.5"/>' +
-      '<path class="b-ac" d="M32 5 L36 13 L28 13 Z"/><path class="b-ac-sud" d="M32 59 L36 51 L28 51 Z"/>' +
-      ochi + '<path class="b-trasatura" d="' + (fata === "bucurie" ? "M24 38 q8 9 16 0" : "M25 38 q7 6 14 0") + '"/>' +
-      '<circle class="b-obraz" cx="21" cy="36" r="2.5"/><circle class="b-obraz" cx="43" cy="36" r="2.5"/></svg>';
+      '<path class="f-raza" d="M25 15 L6 9 L6 23 L25 20 Z M39 15 L58 9 L58 23 L39 20 Z"/>' +
+      '<path class="f-acoperis" d="M23 14 L32 5 L41 14 Z"/>' +
+      '<rect class="f-lumina" x="25" y="14" width="14" height="8" rx="1.5"/>' +
+      '<rect class="f-acoperis" x="21.5" y="22" width="21" height="3.2" rx="1"/>' +
+      '<path class="f-turn" d="M24 25.2 L40 25.2 L44 57 L20 57 Z"/>' +
+      '<path class="f-dunga" d="M21.9 45 L42.1 45 L42.9 51 L21.1 51 Z"/>' +
+      '<rect class="f-acoperis" x="16" y="57" width="32" height="3.5" rx="1.5"/>' +
+      ochi + '<path class="b-trasatura" d="' + (fata === "bucurie" ? "M27 38 q5 6 10 0" : "M28 38.5 q4 4 8 0") + '"/>' +
+      '<circle class="b-obraz" cx="25.5" cy="37" r="1.8"/><circle class="b-obraz" cx="38.5" cy="37" r="1.8"/></svg>';
   }
 
   /* Bosi spune un text. Textul poate avea **îngroșat**. */
