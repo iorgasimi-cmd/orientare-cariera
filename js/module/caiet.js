@@ -45,6 +45,7 @@
     var pl = [], scop = t(S.ia("plan.scop.specific", "")) || t(S.ia("plan.scop.intentie", ""));
     if (scop) pl.push(K.scop + " " + scop);
     if (t(S.ia("plan.identitate", ""))) pl.push(K.identitate + " " + t(S.ia("plan.identitate", "")));
+    if (C.module.plan && C.module.plan.frazaWoop()) pl.push(C.module.plan.frazaWoop());
     if (S.ia("plan.start", null) && C.module.plan) {
       var tema = C.module.plan.textTema(C.saptamana());
       if (tema) pl.push(K.tema + " " + tema.replace(/\*\*/g, ""));

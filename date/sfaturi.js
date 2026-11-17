@@ -69,6 +69,25 @@ window.DATE.sfaturi = {
     fraza: "Voi face tema",
     miniMesaj: "Ai o zi grea? Fă doar varianta ta de 2 minute:"
   },
+  /* Exercițiul „Ce vreau, ce m-ar putea opri, ce fac atunci”: dorința, cel mai bun rezultat, obstacolul din tine, planul „Dacă…, atunci…”.
+     Ordinea contează: întâi îți imaginezi rezultatul, apoi obstacolul, apoi planul. */
+  woop: {
+    titlu: "Ce vreau și ce m-ar putea opri",
+    hub: "Patru întrebări scurte. La final ai un plan: „Dacă…, atunci…”.",
+    intro: "**Răspunde pe rând, în ordine.** Ia-ți câteva clipe la fiecare întrebare.",
+    dorinta: "1. Ce îți dorești cel mai mult în următoarele săptămâni?",
+    dorintaElev: "Ceva legat de școală sau de ce vrei să faci mai târziu. Să fie greu, dar posibil.",
+    dorintaAdult: "Ceva legat de muncă sau de cariera ta. Să fie greu, dar posibil.",
+    rezultat: "2. Care ar fi cel mai bun lucru, dacă reușești?",
+    rezultatAjutor: "Închide ochii câteva clipe și imaginează-ți-l. Apoi scrie.",
+    obstacol: "3. Ce anume, din tine, te-ar putea opri?",
+    obstacolAjutor: "De exemplu: amân, mă tem de un refuz, sunt obosit(ă) seara.",
+    plan: "4. Ce faci atunci când apare acest obstacol?",
+    planAjutor: "Un lucru mic și clar. De exemplu: pun telefonul în altă cameră și lucrez 10 minute.",
+    fraza: "Planul tău:",
+    daca: "Dacă",
+    atunci: "atunci"
+  },
   identitate: {
     q: "Ce fel de om vrei să devii, prin acești pași mici?",
     exElev: "De exemplu: „Sunt un elev care află, puțin câte puțin, ce i se potrivește.”",

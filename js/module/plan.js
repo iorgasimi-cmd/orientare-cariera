@@ -1,7 +1,7 @@
 /* Subagent 3: plan și teme săptămânale.
    Scop în stil SMART, trei teme pe săptămână (ușoară, potrivită, mai grea) din care omul alege una,
    obiceiuri mici (când, unde, după ce, varianta de 2 minute, o mică bucurie), întrebarea „ce fel de om”,
-   cele 5 obstacole (4.3), convingeri limitative (5.1), recadrare (5.3), privire înapoi (7.1).
+   cele 5 obstacole (4.3), exercițiul „ce vreau, ce m-ar putea opri, ce fac atunci” (planul „Dacă…, atunci…”), convingeri limitative (5.1), recadrare (5.3), privire înapoi (7.1).
    Cele trei nevoi de motivație: autonomie, competență, relaționare. */
 (function (g) {
   "use strict";
@@ -39,6 +39,26 @@
     return O.fraza + (p.length ? " " + p.join(", ") : "") + (dupa ? (p.length ? ", " : " ") + "după ce " + dupa.replace(/^după ce\s+/i, "") : "") + ".";
   }
 
+  /* „Dacă [obstacol], atunci [plan].” din răspunsurile omului. Calcul pur. */
+  function frazaWoop() {
+    var W = D.woop, o = String(S.ia("plan.woop.obstacol", "") || "").trim(), p = String(S.ia("plan.woop.plan", "") || "").trim();
+    if (!o || !p) return "";
+    o = o.replace(/^dac[ăa]\s+/i, "").replace(/[.!]+$/, ""); p = p.replace(/^atunci\s+/i, "").replace(/[.!]+$/, "");
+    return W.daca + " " + o.charAt(0).toLowerCase() + o.slice(1) + ", " + W.atunci + " " + p.charAt(0).toLowerCase() + p.slice(1) + ".";
+  }
+  function woop() {
+    var W = D.woop, fr = frazaWoop();
+    var corp = "<p>" + esc(W.intro) + "</p>" +
+      C.camp("plan.woop.dorinta", esc(W.dorinta), esc(C.eAdult() ? W.dorintaAdult : W.dorintaElev), 2) +
+      C.camp("plan.woop.rezultat", esc(W.rezultat), esc(W.rezultatAjutor), 2) +
+      C.camp("plan.woop.obstacol", esc(W.obstacol), esc(W.obstacolAjutor), 2) +
+      C.camp("plan.woop.plan", esc(W.plan), esc(W.planAjutor), 2) +
+      '<div class="rand">' + C.buton("Văd planul meu", "plan.woop_gata", null, "primar") + "</div>" +
+      '<div id="woop-fraza" role="status">' + (fr ? '<section class="card stil-asertiv"><h2>' + esc(W.fraza) + '</h2><p class="citat">' + C.escSimplu(fr) + "</p></section>" : "") + "</div>" +
+      '<div class="rand">' + C.buton("Înapoi la plan", "nav", "plan/hub") + "</div>";
+    return C.pagina(W.titlu, corp, "plan/hub");
+  }
+
   function hub() {
     var scop = S.ia("plan.scop.specific", "") || S.ia("plan.scop.intentie", "");
     var corp = "";
@@ -52,6 +72,8 @@
         : "<p>Încă nu ți-ai pus un scop. Te ajut eu, o întrebare pe rând.</p><div class=\"rand\">" + C.buton("Îmi pun un scop", "nav", "plan/scop0", "primar") + "</div>") +
       "</section>" +
       '<section class="card"><h2>Tema săptămânii</h2><p>Alegi tu una din trei teme mici: una ușoară, una potrivită și una mai grea. Sau îți scrii propria temă.</p><div class="rand">' + C.buton("Văd temele", "nav", "plan/saptamana", "primar") + "</div></section>" +
+      '<section class="card"><h2>' + esc(D.woop.titlu) + "</h2><p>" + esc(D.woop.hub) + "</p>" + (frazaWoop() ? '<p class="citat">' + C.escSimplu(frazaWoop()) + "</p>" : "") +
+        '<div class="rand">' + C.buton(frazaWoop() ? "Îl schimb" : "Încep", "nav", "plan/woop", frazaWoop() ? "" : "primar") + "</div></section>" +
       '<section class="card"><h2>Ce m-ar putea opri</h2><p>Cele mai frecvente obstacole, și o idee pentru fiecare.</p><div class="rand">' + C.buton("Văd obstacolele", "nav", "plan/obstacole") + C.buton("Un gând care mă oprește", "nav", "plan/convingere") + "</div></section>" +
       '<section class="card"><h2>Privire înapoi</h2><p>Ce a mers, ce a rămas, ce schimb.</p><div class="rand">' + C.buton("Mă uit înapoi", "nav", "plan/privire") + "</div></section>" +
       '<p class="nota">Tu alegi scopul, pașii și ritmul. Aici propun, nu hotărăsc eu.</p>';
@@ -161,7 +183,8 @@
         C.camp(cale + ".dupa", esc(O.dupa), esc(C.eAdult() ? O.dupaAdult : O.dupaElev), 1) +
         (fr ? '<p class="citat">' + C.escSimplu(fr) + "</p>" : "") +
         C.camp(cale + ".mini", esc(O.mini), esc(O.miniEx), 2) +
-        C.camp(cale + ".bucurie", esc(O.bucurie), esc(O.bucurieEx), 1) + "</section>";
+        C.camp(cale + ".bucurie", esc(O.bucurie), esc(O.bucurieEx), 1) +
+        (frazaWoop() ? '<p class="mic">' + esc(D.woop.fraza) + '</p><p class="citat">' + C.escSimplu(frazaWoop()) + "</p>" : "") + "</section>";
     }
     if (aleasa && !bifat && sf) {
       var oraRem = S.ia("rem.ora", "18:00");
@@ -183,7 +206,7 @@
       corp += '<section class="card"><h2>' + esc(o.nume) + "</h2><p>" + esc(o.explicatie) + "</p>" +
         '<label class="val"><input type="checkbox" data-chg="plan.obstacol" value="' + o.id + '"' + (bif ? " checked" : "") + "><span>Mi se potrivește uneori</span></label>" +
         '<p class="idee"><strong>O idee:</strong> ' + esc(o.idee) + "</p>" +
-        C.camp("plan.obst." + o.id + ".raspuns", "Ce pot face eu, concret?", "", 2) + "</section>";
+        C.camp("plan.obst." + o.id + ".raspuns", "Dacă se întâmplă asta, ce faci?", "Scrie așa: „Dacă…, atunci…”.", 2) + "</section>";
     });
     corp += '<div class="rand">' + C.buton("Înapoi la plan", "nav", "plan/hub") + C.buton("Un gând care mă oprește", "nav", "plan/convingere", "primar") + "</div>";
     return C.pagina("Ce m-ar putea opri", corp, "plan/hub");
@@ -224,11 +247,13 @@
       if (sub === "scopRez") return scopRez();
       if (sub === "saptamana") return saptamana();
       if (sub === "obstacole") return obstacole();
+      if (sub === "woop") return woop();
       if (sub === "convingere") return convingere();
       if (sub === "privire") return privire();
       return hub();
     },
     actiuni: {
+      woop_gata: function () { C.deArata = "woop-fraza"; },
       scop_gata: function () {
         if (!S.ia("plan.start", null)) S.pune("plan.start", C.azi());
         C.mergi("plan/scopRez");
@@ -269,6 +294,7 @@
     },
     temeSaptamanii: temeSaptamanii,
     frazaObicei: frazaObicei,
+    frazaWoop: frazaWoop,
     restante: restante,
     textTema: textTema,
     dataSf: dataSf
