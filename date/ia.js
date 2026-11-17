@@ -2,6 +2,7 @@
    Apare la fel pe toate ecranele cu prompt (CV, scrisoare, simularea de interviu).
    Ultima verificare de către Simona: NEVERIFICAT (ciornă scrisă la 2026-11-15). */
 window.DATE = window.DATE || {};
+/* Numele programelor (Claude, ChatGPT, Gemini) rămân pe ecran: sunt exemple ca omul să știe ce să caute, nu surse. Decizia Simonei, 2026-11-17. */
 window.DATE.ia = {
   /* Cum să folosești și cum să nu folosești un chat cu IA. Text aprobat de Simona (2026-11-17). Apare sub avertizarea despre CNP. */
   folosire: {
