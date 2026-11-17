@@ -167,6 +167,11 @@ fieldset.intrebare legend + * { clear: both; }
 .drum .aici .btn.lista { border-width: 3px; border-color: var(--cald-contur); }
 .eticheta-aici { display: inline-block; font-size: .9rem; font-weight: 700; color: var(--text); background: var(--cald-moale); border: 2px solid var(--cald-contur); border-radius: 999px; padding: 0 10px; margin-bottom: 6px; }
 
+/* Lecțiile scurte: după răspuns, variantele rămân pe ecran cu ✓ (corect) și ✗ (alegerea greșită), nu doar culoare */
+.optiune { border: 2px solid var(--contur); border-radius: 12px; padding: 12px 14px; margin: 0; font-weight: 600; background: var(--suprafata); }
+.optiune.corect { border-color: var(--principal); background: var(--principal-moale); }
+.optiune.gresit { border-style: dashed; }
+
 /* Roata vieții profesionale */
 .roata { display: block; width: 100%; max-width: 20rem; height: auto; margin: 0 auto 8px; }
 .roata .cerc { fill: none; stroke: var(--linie); stroke-width: 1.5; }
