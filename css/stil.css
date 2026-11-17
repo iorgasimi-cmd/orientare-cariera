@@ -140,6 +140,19 @@ fieldset.intrebare legend + * { clear: both; }
 .zile .zi.bif { background: var(--principal); color: var(--principal-text); border-color: var(--principal); }
 .zile .zi.azi { outline: 3px solid var(--cald-contur); outline-offset: 1px; }
 
+/* Bosi, busola prietenoasă: desenul și bula de vorbă (forma bulei arată cine vorbește, nu doar culoarea) */
+.bosi { display: flex; align-items: flex-start; gap: 10px; margin: 4px 0 16px; }
+.bosi-desen { flex: 0 0 4.2rem; width: 4.2rem; height: 4.2rem; }
+.bosi .bula { position: relative; flex: 1; margin: 6px 0 0; background: var(--suprafata); border: 2px solid var(--principal); border-radius: 14px; padding: 10px 12px; }
+.bosi .bula::before { content: ""; position: absolute; left: -9px; top: 14px; border-width: 8px 9px 8px 0; border-style: solid; border-color: transparent var(--principal) transparent transparent; }
+.b-inel { fill: var(--principal); }
+.b-fata { fill: var(--suprafata); }
+.b-ac { fill: var(--cald); }
+.b-ac-sud { fill: var(--principal-moale); }
+.b-ochi { fill: var(--text); }
+.b-trasatura { fill: none; stroke: var(--text); stroke-width: 2.6; stroke-linecap: round; }
+.b-obraz { fill: var(--cald-moale); }
+
 /* Roata vieții profesionale */
 .roata { display: block; width: 100%; max-width: 20rem; height: auto; margin: 0 auto 8px; }
 .roata .cerc { fill: none; stroke: var(--linie); stroke-width: 1.5; }

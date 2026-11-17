@@ -9,10 +9,10 @@ function fals() { const m = {}; return { getItem: k => (k in m ? m[k] : null), s
 globalThis.window = globalThis;
 globalThis.localStorage = fals();
 
-["date/interese.js", "date/valori.js", "date/meserii.js", "date/sfaturi.js", "date/adulti.js", "date/cv.js", "date/scrisoare.js", "date/interviu.js", "date/competente.js", "date/asertiv.js", "date/exercitii.js", "date/ia.js", "date/valori_personale.js", "date/corp.js", "date/cerinte.js", "date/roata.js", "date/retine.js", "date/negociere.js",
+["date/interese.js", "date/valori.js", "date/meserii.js", "date/sfaturi.js", "date/adulti.js", "date/cv.js", "date/scrisoare.js", "date/interviu.js", "date/competente.js", "date/asertiv.js", "date/exercitii.js", "date/ia.js", "date/valori_personale.js", "date/corp.js", "date/cerinte.js", "date/roata.js", "date/retine.js", "date/bosi.js", "date/negociere.js",
  "js/stocare.js", "js/verificator.js", "js/nucleu.js",
  "js/module/interese.js", "js/module/puncte-forte.js", "js/module/meserii.js",
- "js/module/plan.js", "js/module/sfaturi.js", "js/module/reamintiri.js", "js/module/sistem.js", "js/module/adult.js", "js/module/cv.js", "js/module/scrisoare.js", "js/module/interviu.js", "js/module/competente.js", "js/module/asertiv.js", "js/module/exercitii.js", "js/module/valorile.js", "js/module/corp.js", "js/module/cerinte.js", "js/module/roata.js", "js/module/retine.js", "js/module/caiet.js", "js/module/negociere.js"
+ "js/module/plan.js", "js/module/sfaturi.js", "js/module/reamintiri.js", "js/module/sistem.js", "js/module/adult.js", "js/module/cv.js", "js/module/scrisoare.js", "js/module/interviu.js", "js/module/competente.js", "js/module/asertiv.js", "js/module/exercitii.js", "js/module/valorile.js", "js/module/corp.js", "js/module/cerinte.js", "js/module/roata.js", "js/module/retine.js", "js/module/caiet.js", "js/module/bosi.js", "js/module/negociere.js"
 ].forEach(f => require(path.join(rad, f)));
 
 const C = Cariera, S = Stocare, D = DATE;
@@ -926,7 +926,7 @@ test("roata: doar la adulții cu loc de muncă, 8 zone, roata desenată și inte
   D.roata.zone.forEach((z, i) => S.pune("roata.n." + z.id, [7, 3, 8, 8, 6, 9, 7, 5][i]));
   R.actiuni.gata(); assert.strictEqual(C.ecran, "roata/rezultat");
   const r = R.ecran("rezultat").corp;
-  assert.ok(r.includes("<svg") && (r.match(/<path/g) || []).length === 8 && r.includes("Locul de muncă</strong> – 3 din 10") && r.includes("nu e rotundă"));
+  assert.ok(r.includes("<svg") && (r.match(/class="felie"/g) || []).length === 8 && r.includes("Locul de muncă</strong> – 3 din 10") && r.includes("nu e rotundă"));
   assert.ok(r.includes("Continuă: " + D.adulti.pasi.interese.t));
   assert.ok(C.module.adult.ecran("meniu").corp.includes("1. Roata vieții profesionale"));
   S.sterge();
@@ -1078,6 +1078,23 @@ test("sub avertizarea despre CNP: cum să folosești și cum să nu folosești u
     const k = c.indexOf("Atenție:");
     assert.ok(k > 0 && c.indexOf(F.da) > k && c.indexOf(F.nu) > c.indexOf(F.da) && c.includes("Corectează-mi greșelile din text"), e);
   });
+  S.sterge();
+});
+
+test("Bosi: salută pe ecranul de început, propune pasul următor, păstrează locul după o pauză, fără presiune", () => {
+  S.sterge();
+  assert.ok(C.module.sistem.ecran("start").corp.includes("Sunt Bosi") && C.module.sistem.ecran("start").corp.includes('class="bosi"'));
+  S.pune("varsta", "18-44"); S.pune("situatie", "caut");
+  let m = C.module.adult.ecran("meniu").corp;
+  assert.ok(m.includes("Începem cu primul pas") && m.includes("Roata vieții profesionale"));
+  S.pune("roata.gata", true); m = C.module.adult.ecran("meniu").corp;
+  assert.ok(m.includes("Următorul pas") && m.includes("CV-ul meu"));
+  S.pune("bosi.ultima", C.adauga(C.azi(), -5)); S.pune("bosi.revenit", "");
+  m = C.module.adult.ecran("meniu").corp;
+  assert.ok(m.includes("Ți-am păstrat locul"));
+  assert.ok(!/de ce n-ai|ai lipsit|ai ratat|dezamăg|trist/i.test(JSON.stringify(D.bosi)), "fără vinovăție");
+  S.sterge(); S.pune("varsta", "sub18"); S.pune("clasa", "10");
+  assert.ok(C.module.elev.ecran("meniu").corp.includes("Test de interese</strong>?"));
   S.sterge();
 });
 

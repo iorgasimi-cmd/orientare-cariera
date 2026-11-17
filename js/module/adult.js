@@ -44,6 +44,11 @@
     var t = GATA[p] ? GATA[p]() : "";
     return t ? '<span class="stare gata">' + t + "</span>" : '<span class="stare">○ de făcut</span>';
   }
+  /* Pașii omului, în ordine, cu „făcut” sau nu (pentru salutul lui Bosi). */
+  function pasiCuStare() {
+    var s = situatia(); if (!s) return [];
+    return s.pasi.map(function (p) { return { t: D.pasi[p].t, gata: !!(GATA[p] && GATA[p]()) }; });
+  }
   /* Pasul de după `id` în traseul omului, ca exercițiile să ducă mai departe. */
   function urmator(id) {
     var s = situatia(); if (!s) return null;
@@ -64,7 +69,7 @@
   function bunVenit() {
     var s = situatia();
     if (!s) return intrebare();
-    var corp = "<p>" + esc(s.bun) + "</p>" + (e45() ? "<p>" + esc(D.accent45) + "</p>" : "") +
+    var corp = (C.bosi ? C.bosi(g.DATE.bosi.bunVenit) : "") + "<p>" + esc(s.bun) + "</p>" + (e45() ? "<p>" + esc(D.accent45) + "</p>" : "") +
       "<p>Iată pașii tăi. Îi poți face în ordinea ta și te poți opri oricând.</p>" +
       '<ol class="pasi">' + s.pasi.map(function (p) { return "<li>" + esc(D.pasi[p].t) + "</li>"; }).join("") + "</ol>" +
       '<div class="rand">' + C.buton("Începem", "nav", "adult/meniu", "primar") + C.buton("Schimb răspunsurile", "nav", "start") + "</div>";
@@ -74,7 +79,7 @@
   function meniu() {
     var s = situatia();
     if (!s) return intrebare();
-    var corp = (C.module.retine ? C.module.retine.banner() : "") + '<div class="meniu-lista">' + s.pasi.map(function (p, i) {
+    var corp = (C.module.bosi ? C.module.bosi.salut() : "") + (C.module.retine ? C.module.retine.banner() : "") + '<div class="meniu-lista">' + s.pasi.map(function (p, i) {
       return C.buton("<strong>" + (i + 1) + ". " + esc(D.pasi[p].t) + "</strong>" + stare(p), "nav", ecranPas(p) || "adult/pas/" + p, "lista");
     }).join("") + "</div>" +
       '<div class="rand">' + C.buton("Caietul meu", "nav", "caiet/tot") + "</div>" +
@@ -108,6 +113,7 @@
       }
     },
     situatia: situatia,
-    urmator: urmator
+    urmator: urmator,
+    pasiCuStare: pasiCuStare
   });
 })(typeof window !== "undefined" ? window : globalThis);

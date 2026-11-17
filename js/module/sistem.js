@@ -23,7 +23,7 @@
   }
 
   function start() {
-    var corp = "<p>Bună! <strong>Găsește-ți drumul, pas cu pas.</strong> Afli ce îți place, la ce ești bun(ă) și ce poți face mai departe.</p>" +
+    var corp = (C.bosi ? C.bosi(g.DATE.bosi.start) : "") + "<p>Afli ce îți place, la ce ești bun(ă) și ce poți face mai departe.</p>" +
       '<h2 class="intrebare-titlu">Câți ani ai?</h2><div class="meniu-lista">' +
       VARSTE.map(function (v) { return C.buton(esc(v.t), "sistem.varsta", v.id, "lista mare"); }).join("") + "</div>";
     return C.pagina("Orientare în carieră", corp, null);
@@ -36,7 +36,7 @@
   }
 
   function bunVenit() {
-    var corp = "<p>Iată ce urmează. Poți face pașii în ordinea ta și te poți opri oricând.</p>" +
+    var corp = (C.bosi ? C.bosi(g.DATE.bosi.bunVenit) : "") + "<p>Iată ce urmează. Poți face pașii în ordinea ta și te poți opri oricând.</p>" +
       '<ol class="pasi"><li>Un test de interese: ce îți place să faci.</li><li>Punctele tale forte și ce contează pentru tine.</li><li>Idei de meserii și domenii.</li><li>Un plan mic, cu o temă pe săptămână.</li><li>Sfaturi scurte.</li><li>Cum spui clar ce vrei, inclusiv unui program de IA.</li><li>Ce valori contează pentru tine și cum te vezi.</li></ol>' +
       '<div class="rand">' + C.buton("Începem", "nav", "elev/meniu", "primar") + C.buton("Schimb răspunsurile", "nav", "start") + "</div>";
     return C.pagina("Bine ai venit!", corp, "elev/clasa");
@@ -49,6 +49,7 @@
     var forte = (S.ia("forte.valori", []) || []).length >= 3;
     var plan = !!S.ia("plan.start", null);
     var corp = "";
+    if (g.Cariera.module.bosi) corp += g.Cariera.module.bosi.salut();
     if (g.Cariera.module.reamintiri) corp += g.Cariera.module.reamintiri.banner();
     if (g.Cariera.module.retine) corp += g.Cariera.module.retine.banner();
     corp += '<div class="meniu-lista">' +
