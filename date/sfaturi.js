@@ -50,35 +50,59 @@ window.DATE.sfaturi = {
     digital: "Poate ieși o temă mică pe săptămână: un lucru nou pe care îl înveți azi. Nu trebuie să știi totul dintr-o dată.",
     refuz: "Dacă ai primit un „nu”, asta înseamnă că mai ai de lucrat la ceva anume. Nu înseamnă că nu ești bun(ă)."
   },
-  /* Teme săptămânale: fiecare săptămână primește trei, alese rotativ. Elevul alege una sau își scrie propria temă. */
+  /* Obiceiuri mici: cum faci tema mai ușor de început. Nivelurile temelor: 1 = ușoară, 2 = potrivită, 3 = mai grea. */
+  niveluri: ["", "Ușoară", "Potrivită", "Mai grea"],
+  obicei: {
+    titlu: "Cum îți faci tema mai ușoară",
+    explica: "**Un plan mic te ajută să începi.** Scrie când, unde și după ce faci tema.",
+    cand: "La ce oră sau în ce zi?",
+    candEx: "De exemplu: marți, la ora 18.",
+    unde: "În ce loc?",
+    undeEx: "De exemplu: la birou, acasă, la masa din bucătărie.",
+    dupa: "După ce lucru pe care îl faci deja?",
+    dupaElev: "De exemplu: după ce îți termini temele pentru școală.",
+    dupaAdult: "De exemplu: după ce bei cafeaua de dimineață.",
+    mini: "Varianta de 2 minute, pentru o zi grea",
+    miniEx: "De exemplu: deschid pagina și scriu un singur rând.",
+    bucurie: "Ce mică bucurie îți pregătești după?",
+    bucurieEx: "De exemplu: un ceai bun, o plimbare sau muzica preferată.",
+    fraza: "Voi face tema",
+    miniMesaj: "Ai o zi grea? Fă doar varianta ta de 2 minute:"
+  },
+  identitate: {
+    q: "Ce fel de om vrei să devii, prin acești pași mici?",
+    exElev: "De exemplu: „Sunt un elev care află, puțin câte puțin, ce i se potrivește.”",
+    exAdult: "De exemplu: „Sunt un om care își pune CV-ul la punct puțin câte puțin.”"
+  },
+  /* Teme săptămânale: fiecare săptămână primește trei, alese rotativ. Câte una din fiecare nivel. Elevul alege una sau își scrie propria temă. */
   teme_saptamanale: [
-    { id: "t1", t: "Vorbește zece minute cu un adult care lucrează într-o meserie care te interesează. Întreabă-l ce face într-o zi obișnuită." },
-    { id: "t2", t: "Citește despre o meserie salvată la Meserii. Notează o întrebare pe care ai vrea s-o pui cuiva." },
-    { id: "t3", t: "Scrie trei lucruri pe care le-ai făcut bine în ultimele luni, chiar dacă par mici." },
-    { id: "t4", t: "Întreabă un coleg sau un prieten la ce te vede bun(ă). Notează ce a spus." },
-    { id: "t5", t: "Caută o activitate de voluntariat sau un atelier în orașul tău. Notează unde se desfășoară și cum te poți înscrie." },
-    { id: "t6", t: "Încearcă o activitate nouă, legată de unul dintre interesele tale din test: o oră sau mai puțin." },
-    { id: "t7", t: "Alege o materie care îți place și o materie care îți e mai grea. Notează un lucru mic pe care îl poți face pentru fiecare." },
-    { id: "t8", t: "Scrie un paragraf despre cum ți-ai dori să arate o zi de lucru bună pentru tine." },
-    { id: "t9", t: "Caută pe site-ul unui liceu sau al unei facultăți care te interesează ce se învață acolo. Notează ce ți-a plăcut." },
-    { id: "t10", t: "Învață un lucru nou, de pe un site sau dintr-un clip: zece minute, apoi povestește-l cuiva." },
-    { id: "t11", t: "Pune-ți ordine în program: notează ce ai de făcut mâine și alege un singur lucru important." },
-    { id: "t12", t: "Notează un gând care te oprește, de exemplu „Nu sunt bun la așa ceva”. Scrie-l în alt fel și alege un pas mic." }
+    { id: "t1", nivel: 3, t: "Vorbește zece minute cu un adult care lucrează într-o meserie care te interesează. Întreabă-l ce face într-o zi obișnuită." },
+    { id: "t2", nivel: 2, t: "Citește despre o meserie salvată la Meserii. Notează o întrebare pe care ai vrea s-o pui cuiva." },
+    { id: "t3", nivel: 1, t: "Scrie trei lucruri pe care le-ai făcut bine în ultimele luni, chiar dacă par mici." },
+    { id: "t4", nivel: 1, t: "Întreabă un coleg sau un prieten la ce te vede bun(ă). Notează ce a spus." },
+    { id: "t5", nivel: 3, t: "Caută o activitate de voluntariat sau un atelier în orașul tău. Notează unde se desfășoară și cum te poți înscrie." },
+    { id: "t6", nivel: 3, t: "Încearcă o activitate nouă, legată de unul dintre interesele tale din test: o oră sau mai puțin." },
+    { id: "t7", nivel: 3, t: "Alege o materie care îți place și o materie care îți e mai grea. Notează un lucru mic pe care îl poți face pentru fiecare." },
+    { id: "t8", nivel: 2, t: "Scrie un paragraf despre cum ți-ai dori să arate o zi de lucru bună pentru tine." },
+    { id: "t9", nivel: 2, t: "Caută pe site-ul unui liceu sau al unei facultăți care te interesează ce se învață acolo. Notează ce ți-a plăcut." },
+    { id: "t10", nivel: 2, t: "Învață un lucru nou, de pe un site sau dintr-un clip: zece minute, apoi povestește-l cuiva." },
+    { id: "t11", nivel: 1, t: "Pune-ți ordine în program: notează ce ai de făcut mâine și alege un singur lucru important." },
+    { id: "t12", nivel: 1, t: "Notează un gând care te oprește, de exemplu „Nu sunt bun la așa ceva”. Scrie-l în alt fel și alege un pas mic." }
   ],
   /* Teme săptămânale pentru adulți: pași mici, despre muncă. */
   teme_adulti: [
-    { id: "a1", t: "Alege o secțiune din CV (de exemplu experiența) și adaugă un rezultat concret și adevărat." },
-    { id: "a2", t: "Caută 3 anunțuri care îți plac și notează ce cerințe se repetă." },
-    { id: "a3", t: "Scrie o poveste din experiența ta pentru interviu: context, ce ai făcut, ce s-a întâmplat." },
-    { id: "a4", t: "Scrie un mesaj scurt unui fost coleg sau unei cunoștințe din domeniul care te interesează." },
-    { id: "a5", t: "Învață un lucru nou pe calculator sau pe telefon, 15 minute, de exemplu o funcție dintr-un program de birou." },
-    { id: "a6", t: "Filmează-te câteva minute răspunzând la o întrebare de interviu și uită-te la filmare." },
-    { id: "a7", t: "Caută un curs gratuit sau ieftin care te-ar ajuta (de exemplu, prin agenția de ocupare a forței de muncă)." },
-    { id: "a8", t: "Fă o listă cu 10 firme la care ți-ar plăcea să lucrezi și intră pe pagina lor de cariere." },
-    { id: "a9", t: "Roagă pe cineva de încredere să-ți citească CV-ul și notează ce ți-a spus." },
-    { id: "a10", t: "Trimite o aplicare la un anunț care ți se potrivește, cu CV-ul potrivit pentru el." },
-    { id: "a11", t: "Află despre un târg de joburi, un atelier sau un eveniment din domeniul tău și notează data." },
-    { id: "a12", t: "Notează un gând care te oprește și scrie-l altfel, apoi un pas mic pe care îl poți face." }
+    { id: "a1", nivel: 2, t: "Alege o secțiune din CV (de exemplu experiența) și adaugă un rezultat concret și adevărat." },
+    { id: "a2", nivel: 1, t: "Caută 3 anunțuri care îți plac și notează ce cerințe se repetă." },
+    { id: "a3", nivel: 2, t: "Scrie o poveste din experiența ta pentru interviu: context, ce ai făcut, ce s-a întâmplat." },
+    { id: "a4", nivel: 3, t: "Scrie un mesaj scurt unui fost coleg sau unei cunoștințe din domeniul care te interesează." },
+    { id: "a5", nivel: 1, t: "Învață un lucru nou pe calculator sau pe telefon, 15 minute, de exemplu o funcție dintr-un program de birou." },
+    { id: "a6", nivel: 3, t: "Filmează-te câteva minute răspunzând la o întrebare de interviu și uită-te la filmare." },
+    { id: "a7", nivel: 2, t: "Caută un curs gratuit sau ieftin care te-ar ajuta (de exemplu, prin agenția de ocupare a forței de muncă)." },
+    { id: "a8", nivel: 2, t: "Fă o listă cu 10 firme la care ți-ar plăcea să lucrezi și intră pe pagina lor de cariere." },
+    { id: "a9", nivel: 3, t: "Roagă pe cineva de încredere să-ți citească CV-ul și notează ce ți-a spus." },
+    { id: "a10", nivel: 3, t: "Trimite o aplicare la un anunț care ți se potrivește, cu CV-ul potrivit pentru el." },
+    { id: "a11", nivel: 1, t: "Află despre un târg de joburi, un atelier sau un eveniment din domeniul tău și notează data." },
+    { id: "a12", nivel: 1, t: "Notează un gând care te oprește și scrie-l altfel, apoi un pas mic pe care îl poți face." }
   ],
   /* Cele 5 obstacole psihologice, formulate pentru elevi. Fiecare are o idee de răspuns. */
   obstacole: [

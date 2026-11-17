@@ -594,7 +594,7 @@ test("testul de interese și punctele forte au texte pentru adulți, iar elevii 
 test("planul pentru adulți are teme despre muncă, nu despre școală", () => {
   S.sterge(); S.pune("varsta", "18-44"); S.pune("situatie", "caut"); S.pune("plan.start", C.azi());
   const c = C.module.plan.ecran("saptamana").corp;
-  assert.ok(D.sfaturi.teme_adulti.slice(0, 3).every(t => c.includes(C.esc(t.t))));
+  assert.ok(C.module.plan.temeSaptamanii(0).every(t => D.sfaturi.teme_adulti.indexOf(t) >= 0 && c.includes(C.esc(t.t))));
   assert.ok(!/liceu|facultăți|materie/.test(c));
   assert.ok(C.module.plan.ecran("scop0").corp.includes("munca sau cariera ta"));
   S.pune("plan.sapt.s0.aleasa", "a1");
@@ -929,6 +929,28 @@ test("roata: doar la adulții cu loc de muncă, 8 zone, roata desenată și inte
   assert.ok(r.includes("<svg") && (r.match(/<path/g) || []).length === 8 && r.includes("Locul de muncă</strong> – 3 din 10") && r.includes("nu e rotundă"));
   assert.ok(r.includes("Continuă: " + D.adulti.pasi.interese.t));
   assert.ok(C.module.adult.ecran("meniu").corp.includes("1. Roata vieții profesionale"));
+  S.sterge();
+});
+
+test("obiceiuri mici: o temă din fiecare nivel, plan cu când/unde/după ce, varianta de 2 minute și „ce fel de om”", () => {
+  ["sub18", "18-44"].forEach(v => {
+    S.sterge(); S.pune("varsta", v); S.pune("situatie", "caut");
+    for (let i = 0; i < 6; i++) assert.deepStrictEqual(C.module.plan.temeSaptamanii(i).map(t => t.nivel), [1, 2, 3], v + " săpt. " + i);
+    assert.notDeepStrictEqual(C.module.plan.temeSaptamanii(0), C.module.plan.temeSaptamanii(1));
+  });
+  S.sterge(); S.pune("varsta", "sub18"); S.pune("clasa", "10"); S.pune("plan.start", C.azi());
+  let c = C.module.plan.ecran("saptamana").corp;
+  assert.ok(c.includes("Ușoară") && c.includes("Potrivită") && c.includes("Mai grea") && !c.includes(D.sfaturi.obicei.titlu));
+  const t = C.module.plan.temeSaptamanii(0)[0].id;
+  S.pune("plan.sapt.s0.aleasa", t);
+  S.pune("plan.sapt.s0.cand", "marți, la ora 18"); S.pune("plan.sapt.s0.unde", "acasă"); S.pune("plan.sapt.s0.dupa", "după ce îmi termin temele");
+  assert.strictEqual(C.module.plan.frazaObicei("plan.sapt.s0"), "Voi face tema marți, la ora 18, acasă, după ce îmi termin temele.");
+  c = C.module.plan.ecran("saptamana").corp;
+  assert.ok(c.includes(D.sfaturi.obicei.titlu) && c.includes("Voi face tema marți") && c.includes(D.sfaturi.obicei.dupaElev));
+  S.pune("plan.sapt.s0.mini", "Citesc un singur rând");
+  C.module.plan.actiuni.nefacut("0");
+  assert.ok(C.module.plan.ecran("saptamana").corp.includes("Citesc un singur rând"));
+  assert.ok(C.module.plan.ecran("scopRez").corp.includes(D.sfaturi.identitate.q));
   S.sterge();
 });
 

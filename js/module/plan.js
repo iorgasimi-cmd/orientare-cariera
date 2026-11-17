@@ -1,5 +1,6 @@
 /* Subagent 3: plan și teme săptămânale.
-   Scop în stil SMART, trei teme pe săptămână din care elevul alege una,
+   Scop în stil SMART, trei teme pe săptămână (ușoară, potrivită, mai grea) din care omul alege una,
+   obiceiuri mici (când, unde, după ce, varianta de 2 minute, o mică bucurie), întrebarea „ce fel de om”,
    cele 5 obstacole (4.3), convingeri limitative (5.1), recadrare (5.3), privire înapoi (7.1).
    Cele trei nevoi de motivație: autonomie, competență, relaționare. */
 (function (g) {
@@ -22,10 +23,20 @@
     { c: "termen", lit: "T – cu termen", exp: "O dată anume te ajută să începi.", q: "Până când vrei să ajungi aici?", data: true }
   ];
 
-  /* Trei teme pe săptămână, alese rotativ din bancă. Calcul pur. */
+  /* Trei teme pe săptămână: una ușoară, una potrivită, una mai grea, alese rotativ din bancă. Calcul pur. */
   function temeSaptamanii(idx) {
-    var b = C.eAdult() ? D.teme_adulti : D.teme_saptamanale, n = b.length, baza = (idx * 3) % n;
-    return [0, 1, 2].map(function (k) { return b[(baza + k) % n]; });
+    var b = C.eAdult() ? D.teme_adulti : D.teme_saptamanale;
+    return [1, 2, 3].map(function (nv) {
+      var l = b.filter(function (t) { return t.nivel === nv; });
+      return l[idx % l.length];
+    });
+  }
+  /* Fraza „Voi face tema marți, la ora 18, la birou, după ce beau cafeaua.” din ce a scris omul. */
+  function frazaObicei(cale) {
+    var O = D.obicei, p = [S.ia(cale + ".cand", ""), S.ia(cale + ".unde", "")].map(function (x) { return String(x || "").trim(); }).filter(Boolean);
+    var dupa = String(S.ia(cale + ".dupa", "") || "").trim();
+    if (!p.length && !dupa) return "";
+    return O.fraza + (p.length ? " " + p.join(", ") : "") + (dupa ? (p.length ? ", " : " ") + "după ce " + dupa.replace(/^după ce\s+/i, "") : "") + ".";
   }
 
   function hub() {
@@ -40,7 +51,7 @@
         '<div class="rand">' + C.buton("Văd tot scopul", "nav", "plan/scopRez") + C.buton("Îl schimb", "nav", "plan/scop0") + "</div>"
         : "<p>Încă nu ți-ai pus un scop. Te ajut eu, o întrebare pe rând.</p><div class=\"rand\">" + C.buton("Îmi pun un scop", "nav", "plan/scop0", "primar") + "</div>") +
       "</section>" +
-      '<section class="card"><h2>Tema săptămânii</h2><p>Alegi tu una din trei teme mici sau îți scrii propria temă.</p><div class="rand">' + C.buton("Văd temele", "nav", "plan/saptamana", "primar") + "</div></section>" +
+      '<section class="card"><h2>Tema săptămânii</h2><p>Alegi tu una din trei teme mici: una ușoară, una potrivită și una mai grea. Sau îți scrii propria temă.</p><div class="rand">' + C.buton("Văd temele", "nav", "plan/saptamana", "primar") + "</div></section>" +
       '<section class="card"><h2>Ce m-ar putea opri</h2><p>Cele mai frecvente obstacole, și o idee pentru fiecare.</p><div class="rand">' + C.buton("Văd obstacolele", "nav", "plan/obstacole") + C.buton("Un gând care mă oprește", "nav", "plan/convingere") + "</div></section>" +
       '<section class="card"><h2>Privire înapoi</h2><p>Ce a mers, ce a rămas, ce schimb.</p><div class="rand">' + C.buton("Mă uit înapoi", "nav", "plan/privire") + "</div></section>" +
       '<p class="nota">Tu alegi scopul, pașii și ritmul. Aici propun, nu hotărăsc eu.</p>';
@@ -68,6 +79,8 @@
       var v = S.ia("plan.scop." + s.c, "");
       if (v) corp += '<section class="card"><h2>' + esc(s.lit) + "</h2><p>" + esc(v) + "</p></section>";
     });
+    var I = D.identitate;
+    corp += C.camp("plan.identitate", esc(I.q), esc(C.eAdult() ? I.exAdult : I.exElev), 2);
     corp += "<p>Dacă ți se pare prea mult, poți alege un scop mai mic. Un singur scop mare e de ajuns pentru început.</p>" +
       '<div class="rand">' + C.buton("Îl las așa", "nav", "plan/hub", "primar") + C.buton("Vreau să-l schimb", "nav", "plan/scop0") + "</div>";
     return C.pagina("Scopul tău", corp, "plan/hub");
@@ -110,7 +123,7 @@
     var corp = cardRestanta() + '<p class="mic">Săptămâna ' + (idx + 1) + " a planului tău." + (sf ? " Termen: " + esc(C.format(sf)) + "." : "") + "</p>" +
       '<fieldset class="intrebare"><legend>Alege o temă (sau scrie-ți propria temă mai jos)</legend>';
     teme.forEach(function (t) {
-      corp += '<label class="val"><input type="radio" name="tema" value="' + esc(t.id) + '" data-camp="' + cale + '.aleasa" data-rerand="1"' + (aleasa === t.id ? " checked" : "") + "><span>" + esc(t.t) + "</span></label>";
+      corp += '<label class="val"><input type="radio" name="tema" value="' + esc(t.id) + '" data-camp="' + cale + '.aleasa" data-rerand="1"' + (aleasa === t.id ? " checked" : "") + "><span>" + esc(t.t) + "<small>" + esc(D.niveluri[t.nivel] || "") + "</small></span></label>";
     });
     corp += '<label class="val"><input type="radio" name="tema" value="proprie" data-camp="' + cale + '.aleasa" data-rerand="1"' + (aleasa === "proprie" ? " checked" : "") + "><span>Îmi scriu propria temă (poate un pas mai mic)</span></label></fieldset>";
     if (aleasa === "proprie") corp += C.camp(cale + ".proprie", "Tema mea", "", 3);
@@ -130,7 +143,9 @@
         ". Revino când ești gata și apasă „Am făcut tema”.</p></section>";
     }
     if (nefacut) {
-      raspuns += '<section class="card" role="status"><p>' + esc(D.mesaje.fara_tema) + '</p><div class="rand">' +
+      var mini = String(S.ia(cale + ".mini", "") || "").trim();
+      raspuns += '<section class="card" role="status"><p>' + esc(D.mesaje.fara_tema) + "</p>" +
+        (mini ? "<p>" + esc(D.obicei.miniMesaj) + ' <strong>' + C.escSimplu(mini) + "</strong></p>" : "") + '<div class="rand">' +
         C.buton("Aleg altă temă", "plan.alta", String(idx)) + "</div></section>";
     }
     if (bifat) {
@@ -138,6 +153,16 @@
       raspuns += '<p class="felicitare" role="status">' + esc(f[idx % f.length]) + "</p>";
     }
     corp += '<div id="mesaj-tema">' + raspuns + "</div>";
+    if (aleasa && !bifat) {
+      var O = D.obicei, fr = frazaObicei(cale);
+      corp += '<section class="card"><h2>' + esc(O.titlu) + "</h2><p>" + esc(O.explica) + "</p>" +
+        C.camp(cale + ".cand", esc(O.cand), esc(O.candEx), 1) +
+        C.camp(cale + ".unde", esc(O.unde), esc(O.undeEx), 1) +
+        C.camp(cale + ".dupa", esc(O.dupa), esc(C.eAdult() ? O.dupaAdult : O.dupaElev), 1) +
+        (fr ? '<p class="citat">' + C.escSimplu(fr) + "</p>" : "") +
+        C.camp(cale + ".mini", esc(O.mini), esc(O.miniEx), 2) +
+        C.camp(cale + ".bucurie", esc(O.bucurie), esc(O.bucurieEx), 1) + "</section>";
+    }
     if (aleasa && !bifat && sf) {
       var oraRem = S.ia("rem.ora", "18:00");
       corp += '<section class="card"><h2>Reamintire în calendar</h2>' +
@@ -243,6 +268,7 @@
       obstacol: function (id, el) { S.pune("plan.obst." + id + ".da", !!el.checked); return false; }
     },
     temeSaptamanii: temeSaptamanii,
+    frazaObicei: frazaObicei,
     restante: restante,
     textTema: textTema,
     dataSf: dataSf
