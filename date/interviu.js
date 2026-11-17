@@ -79,6 +79,7 @@ window.DATE.interviu = {
         { t: "2. Spune: „Sunt entuziasmat(ă)!”", d: "Inima care bate tare nu e un semn rău. Înseamnă că îți pasă. **Spune cu voce tare „Sunt entuziasmat(ă)!”**, nu „Calmează-te”." },
         { t: "3. Repetă intrarea, ca la teatru", d: "Imaginează-ți cum intri, saluți și te așezi. **Spune cu voce tare primele două propoziții despre tine.** Un început sigur îți dă încredere." }
       ],
+      miscare: "**În plus:** o plimbare de 10 minute înainte te poate liniști.",
       incearca: "Încearcă acum, înainte să te filmezi."
     },
     filmare: {

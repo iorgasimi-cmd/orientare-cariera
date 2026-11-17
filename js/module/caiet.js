@@ -46,6 +46,9 @@
     if (scop) pl.push(K.scop + " " + scop);
     if (t(S.ia("plan.identitate", ""))) pl.push(K.identitate + " " + t(S.ia("plan.identitate", "")));
     if (C.module.plan && C.module.plan.frazaWoop()) pl.push(C.module.plan.frazaWoop());
+    if (t(S.ia("plan.planB", ""))) pl.push(K.planB + " " + t(S.ia("plan.planB", "")));
+    if (t(S.ia("plan.ajutor", ""))) pl.push(K.ajutor + " " + t(S.ia("plan.ajutor", "")));
+    if (t(S.ia("plan.control.da", ""))) pl.push(K.control + " " + t(S.ia("plan.control.da", "")));
     if (S.ia("plan.start", null) && C.module.plan) {
       var tema = C.module.plan.textTema(C.saptamana());
       if (tema) pl.push(K.tema + " " + tema.replace(/\*\*/g, ""));

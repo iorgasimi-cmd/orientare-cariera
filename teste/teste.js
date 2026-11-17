@@ -1098,6 +1098,26 @@ test("Bosi: salută pe ecranul de început, propune pasul următor, păstrează 
   S.sterge();
 });
 
+test("idei noi aprobate: un singur lucru, emoții, ce depinde de mine, cine te ajută, imperfect, plan B, plimbarea", () => {
+  S.sterge(); S.pune("varsta", "18-44"); S.pune("situatie", "caut"); S.pune("plan.start", C.azi());
+  const P = C.module.plan, I = D.sfaturi.idei;
+  S.pune("plan.sapt.s0.aleasa", P.temeSaptamanii(0)[0].id);
+  const sapt = P.ecran("saptamana").corp;
+  assert.ok(sapt.includes(C.esc(I.unSingurLucru)) && sapt.includes(I.ajutor) && sapt.includes(C.esc(I.imperfect)));
+  assert.ok(P.ecran("obstacole").corp.includes(C.esc(I.emotii)));
+  const conv = P.ecran("convingere").corp;
+  assert.ok(conv.includes(I.depinde) && conv.includes(I.nuDepinde) && conv.includes(I.depindeEx));
+  assert.ok(P.ecran("scopRez").corp.includes(I.planB));
+  assert.ok(C.module.cv.ecran("intro").corp.includes(C.esc(I.imperfectCV)));
+  assert.ok(C.module.interviu.ecran("exersez").corp.includes("plimbare de 10 minute"));
+  assert.strictEqual(C.module.forte.ecran("ik0").titlu, "Cele 4 cercuri");
+  S.pune("plan.planB", "Un curs de contabilitate"); S.pune("plan.ajutor", "Ana");
+  assert.ok(C.module.caiet.parti().some(x => x.randuri.includes("Planul B: Un curs de contabilitate")));
+  S.sterge(); S.pune("varsta", "sub18"); S.pune("clasa", "10");
+  assert.ok(C.module.plan.ecran("convingere").corp.includes(I.depindeElev) && D.valori.momente[2].includes("uitat ultima dată de timp"));
+  S.sterge();
+});
+
 test("valorile: 10 → 5 → 3 → 1, cu limită la fiecare pas, întrebări, note și rezultat", () => {
   S.sterge(); S.pune("varsta", "sub18"); S.pune("clasa", "10");
   const a = C.module.valorile.actiuni, L = D.valoriPers.listaElev;
@@ -1204,7 +1224,7 @@ test("fiecare ecran se desenează fără erori și fără „undefined”", () =
       /* Regula din prompt: pe ecran nu apar autori, studii, firme folosite ca sursă sau date calendaristice. */
       /* Termenele temelor omului (zz.ll.aaaa) sunt ale lui, nu date despre surse: ele pot apărea. */
       const vizibil = (p.titlu + " " + p.corp.replace(/<[^>]+>/g, " ")).replace(/\b\d\d\.\d\d\.\d{4}\b/g, "");
-      const interzis = /\b(19|20)\d\d\b|ianuarie|februarie|martie|aprilie|\bmai 20|iunie|iulie|august|septembrie|octombrie|noiembrie|decembrie|Holland|RIASEC|Schein|Dweck|Rosenberg|Martín|Raugh|Journal|eJobs|BestJobs|Hays|Manpower|PwC|SD Worx|\bINS\b|ANOFM|EURES|ILBAH|Galinsky|Mussweiler|Thorsteinson|Cullen|Ladders|Sursa:/i.exec(vizibil);
+      const interzis = /\b(19|20)\d\d\b|ianuarie|februarie|martie|aprilie|\bmai 20|iunie|iulie|august|septembrie|octombrie|noiembrie|decembrie|Holland|RIASEC|Schein|Dweck|Rosenberg|Martín|Raugh|Journal|eJobs|BestJobs|Hays|Manpower|PwC|SD Worx|\bINS\b|ANOFM|EURES|ILBAH|Galinsky|Mussweiler|Thorsteinson|Cullen|Ladders|Sursa:|Ikigai|\bmoai\b|wabi|Morita|ichi-go|hachi|yuimaaru|Okinawa|Frankl/i.exec(vizibil);
       assert.ok(!interzis, e + " (" + stare + ") conține „" + (interzis && interzis[0]) + "”");
     });
   }

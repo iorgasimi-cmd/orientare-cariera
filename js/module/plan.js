@@ -80,7 +80,8 @@
     var txt = P.prietenText.replace("{tema}", tema).replace("{obicei}", fr ? fr + " " : "");
     return '<section class="card"><h2>' + esc(P.prietenTitlu) + "</h2><p>" + esc(P.prietenExplica) + "</p>" +
       '<div class="camp"><label for="c-prieten">Mesajul</label><textarea id="c-prieten" rows="4" readonly>' + C.escSimplu(txt) + "</textarea></div>" +
-      '<div class="rand">' + C.buton(esc(P.copiaza), "plan.copiaza_prieten") + '</div><p id="stare-prieten" class="mic" role="status"></p></section>';
+      '<div class="rand">' + C.buton(esc(P.copiaza), "plan.copiaza_prieten") + '</div><p id="stare-prieten" class="mic" role="status"></p>' +
+      C.camp("plan.ajutor", esc(D.idei.ajutor), esc(D.idei.ajutorEx), 2) + "</section>";
   }
   /* Săptămânile terminate la rând, înainte de cea de acum. Calcul pur. */
   function saptLaRand(idx) { var n = 0; for (var k = idx - 1; k >= 0 && S.ia("plan.sapt.s" + k + ".bifat", false); k--) n++; return n; }
@@ -149,6 +150,7 @@
     });
     var I = D.identitate;
     corp += C.camp("plan.identitate", esc(I.q), esc(C.eAdult() ? I.exAdult : I.exElev), 2);
+    corp += C.camp("plan.planB", esc(D.idei.planB), esc(D.idei.planBEx), 2);
     corp += "<p>Dacă ți se pare prea mult, poți alege un scop mai mic. Un singur scop mare e de ajuns pentru început.</p>" +
       '<div class="rand">' + C.buton("Îl las așa", "nav", "plan/hub", "primar") + C.buton("Vreau să-l schimb", "nav", "plan/scop0") + "</div>";
     return C.pagina("Scopul tău", corp, "plan/hub");
@@ -188,7 +190,7 @@
     var nefacut = !!aleasa && S.ia(cale + ".nefacut", "") === aleasa && !bifat;
     var maiTarziu = !!aleasa && S.ia(cale + ".mai_tarziu", "") === aleasa && !bifat;
     var sf = dataSf(idx);
-    var corp = cardRestanta() + '<p class="mic">Săptămâna ' + (idx + 1) + " a planului tău." + (sf ? " Termen: " + esc(C.format(sf)) + "." : "") + "</p>" +
+    var corp = (C.bosi ? C.bosi(D.idei.imperfect) : "") + cardRestanta() + '<p class="mic">Săptămâna ' + (idx + 1) + " a planului tău." + (sf ? " Termen: " + esc(C.format(sf)) + "." : "") + "</p>" +
       (saptLaRand(idx) >= 2 && !aleasa ? '<p class="termen">' + esc(D.progres.provocare) + "</p>" : "") +
       '<fieldset class="intrebare"><legend>Alege o temă (sau scrie-ți propria temă mai jos)</legend>';
     teme.forEach(function (t) {
@@ -225,7 +227,7 @@
     if (aleasa) corp += cardProgres(idx);
     if (aleasa && !bifat) {
       var O = D.obicei, fr = frazaObicei(cale);
-      corp += '<section class="card"><h2>' + esc(O.titlu) + "</h2><p>" + esc(O.explica) + "</p>" +
+      corp += '<section class="card"><h2>' + esc(O.titlu) + "</h2><p>" + esc(O.explica) + "</p>" + '<p class="idee">' + esc(D.idei.unSingurLucru) + "</p>" +
         C.camp(cale + ".cand", esc(O.cand), esc(O.candEx), 1) +
         C.camp(cale + ".unde", esc(O.unde), esc(O.undeEx), 1) +
         C.camp(cale + ".dupa", esc(O.dupa), esc(C.eAdult() ? O.dupaAdult : O.dupaElev), 1) +
@@ -249,7 +251,7 @@
   }
 
   function obstacole() {
-    var corp = "<p>Orice plan întâlnește obstacole. Dacă le cunoști dinainte, îți e mai ușor. Bifează cele care ți se potrivesc.</p>";
+    var corp = "<p>Orice plan întâlnește obstacole. Dacă le cunoști dinainte, îți e mai ușor. Bifează cele care ți se potrivesc.</p>" + '<p class="termen">' + esc(D.idei.emotii) + "</p>";
     D.obstacole.forEach(function (o) {
       var bif = S.ia("plan.obst." + o.id + ".da", false);
       corp += '<section class="card"><h2>' + esc(o.nume) + "</h2><p>" + esc(o.explicatie) + "</p>" +
@@ -266,6 +268,9 @@
       C.camp("plan.conv.veche", "Gândul care mă oprește", "", 2) +
       C.camp("plan.conv.noua", "Cum aș putea să-l scriu astfel încât să mă ajute?", "De exemplu: „Încă învăț, iar fiecare încercare mă ajută.”", 3) +
       C.camp("plan.conv.actiune", "Ce pas mic pot face în săptămâna asta?", "", 2) +
+      "<h2>" + esc(D.idei.controlTitlu) + "</h2><p>" + esc(D.idei.controlExplica) + "</p>" +
+      C.camp("plan.control.da", esc(D.idei.depinde), esc(C.eAdult() ? D.idei.depindeEx : D.idei.depindeElev), 3) +
+      C.camp("plan.control.nu", esc(D.idei.nuDepinde), esc(C.eAdult() ? D.idei.nuDepindeEx : D.idei.nuDepindeElev), 3) +
       "<h2>Aceeași întâmplare, privită altfel</h2>" +
       "<p>O situație se poate vedea în mai multe feluri. De exemplu, " +
         (C.eAdult() ? "„Am pierdut trei luni cu interviuri” poate deveni „Am avut trei luni de antrenament la interviuri”."

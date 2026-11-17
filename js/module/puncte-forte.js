@@ -1,5 +1,5 @@
 /* Subagent 2: puncte forte și valori.
-   Momente de succes, cele 4 cercuri Ikigai, valori de carieră (ancore Schein).
+   Momente de succes, cele 4 cercuri (pe ecran fără cuvinte japoneze, la cererea autoarei), valori de carieră (ancore Schein).
    Aplicația nu dă note: arată ce a scris omul și întreabă dacă se recunoaște. */
 (function (g) {
   "use strict";
@@ -41,9 +41,9 @@
 
   function ikigai(i, sub) {
     var q = D.ikigai[i], p = pas(sub);
-    var corp = progres(sub) + (i === 0 ? "<p>Ikigai are patru întrebări. Mai departe vei vedea unde se întâlnesc răspunsurile tale.</p>" : "") +
+    var corp = progres(sub) + (i === 0 ? "<p>Sunt patru întrebări, ca patru cercuri. Mai departe vei vedea unde se întâlnesc răspunsurile tale.</p>" : "") +
       C.camp("forte.ik." + q.id, esc(q.t), esc(q.ajutor), 4) + nav(sub, p.inapoi, p.inainte);
-    return C.pagina("Ikigai", corp, "forte/intro");
+    return C.pagina("Cele 4 cercuri", corp, "forte/intro");
   }
 
   function valori() {
@@ -65,7 +65,7 @@
     var mom = [0, 1, 2].map(function (i) { return S.ia("forte.m" + i, ""); }).filter(Boolean);
     if (mom.length) corp += '<section class="card"><h2>Momente în care ți-a ieșit bine</h2>' + mom.map(function (m) { return "<p>" + esc(m) + "</p>"; }).join("") + "</section>";
     var ik = D.ikigai.filter(function (q) { return S.ia("forte.ik." + q.id, ""); });
-    if (ik.length) corp += '<section class="card"><h2>Ikigai</h2>' + ik.map(function (q) {
+    if (ik.length) corp += '<section class="card"><h2>Cele 4 cercuri</h2>' + ik.map(function (q) {
       return "<p><strong>" + esc(q.t) + "</strong><br>" + esc(S.ia("forte.ik." + q.id, "")) + "</p>";
     }).join("") + "</section>";
     var vs = S.ia("forte.valori", []);

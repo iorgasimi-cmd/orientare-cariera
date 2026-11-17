@@ -117,6 +117,25 @@ window.DATE.sfaturi = {
     linie: "**La început, munca poate să nu se vadă.** E normal: efortul se adună, iar schimbarea apare mai târziu.",
     facut: "Iată ce ai făcut deja: {t} și {z}."
   },
+  /* Idei noi, aprobate de Simona (2026-11-17). Pe ecran nu apar cuvinte japoneze și nici surse. */
+  idei: {
+    unSingurLucru: "**Câte un singur lucru.** Lasă telefonul în altă cameră 10 minute. Așa termini mai repede.",
+    emotii: "**Poți avea emoții și să faci totuși pasul.** Nu trebuie să aștepți să dispară.",
+    controlTitlu: "Ce depinde de mine și ce nu",
+    controlExplica: "**Pune-ți energia în ce depinde de tine.** Restul îl poți lăsa deoparte.",
+    depinde: "Ce depinde de mine?",
+    depindeEx: "De exemplu: cum îmi pregătesc CV-ul, câte cereri trimit.",
+    depindeElev: "De exemplu: cât învăț, pe cine întreb.",
+    nuDepinde: "Ce nu depinde de mine?",
+    nuDepindeEx: "De exemplu: câți oameni mai aplică, când răspunde firma.",
+    nuDepindeElev: "De exemplu: ce subiecte pică la test, ce cred alții.",
+    ajutor: "Cine te poate ajuta? Scrie 2 oameni.",
+    ajutorEx: "De exemplu: un prieten, un profesor, un fost coleg, cineva din familie.",
+    imperfect: "**Nu trebuie să fie perfect ca să fie bun.** Un pas făcut pe jumătate e tot un pas.",
+    imperfectCV: "**Nu trebuie să fie perfect ca să fie bun.** Un CV terminat e mai bun decât unul perfect, neînceput.",
+    planB: "Dacă drumul ăsta nu merge, ce altă variantă ai?",
+    planBEx: "Un plan B nu înseamnă că renunți. Te ajută să fii mai liniștit(ă)."
+  },
   identitate: {
     q: "Ce fel de om vrei să devii, prin acești pași mici?",
     exElev: "De exemplu: „Sunt un elev care află, puțin câte puțin, ce i se potrivește.”",

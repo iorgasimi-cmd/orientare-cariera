@@ -23,7 +23,7 @@ window.DATE.valori = {
   momente: [
     "Povestește o situație (la școală, acasă, la un hobby sau la voluntariat) în care ți-a ieșit ceva foarte bine. Ce s-a întâmplat?",
     "Ce anume ai făcut tu, în mod special, ca să-ți iasă bine?",
-    "Cum te-ai simțit în acel moment? Ce activitate a fost aproape ca un joc pentru tine?"
+    "Cum te-ai simțit în acel moment? Când ai uitat ultima dată de timp făcând ceva?"
   ],
   /* Aceleași întrebări, pentru adulți. */
   momenteAdult: [
@@ -31,7 +31,7 @@ window.DATE.valori = {
     "Ce anume ai făcut tu, în mod special, ca să-ți iasă bine?",
     "Ce activități îți dau energie, în loc să te obosească? La ce sarcini uiți de timp?"
   ],
-  /* Cele 4 cercuri Ikigai. */
+  /* Cele 4 cercuri (pe ecran nu apare cuvântul japonez). */
   ikigai: [
     { id: "place", t: "Ce îți place să faci?", ajutor: "Scrie 2–3 lucruri. **Nu contează dacă par mici.**" },
     { id: "bun", t: "La ce ești bun(ă)?", ajutor: "Ce spun alții că faci bine? La ce te cheamă colegii să-i ajuți?" },

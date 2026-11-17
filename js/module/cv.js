@@ -176,7 +176,7 @@
   function intro() {
     var pastreaza = S.ia("cv.pastreaza", false);
     var val = textCV || (pastreaza ? S.ia("cv.text", "") : "");
-    var corp = D.intro.map(function (p) { return "<p>" + esc(p) + "</p>"; }).join("") +
+    var corp = (C.bosi ? C.bosi(g.DATE.sfaturi.idei.imperfectCV) : "") + D.intro.map(function (p) { return "<p>" + esc(p) + "</p>"; }).join("") +
       '<div class="camp"><label for="c-cv-text">Textul CV-ului</label>' +
       '<textarea id="c-cv-text" rows="12" spellcheck="false">' + C.escSimplu(val) + "</textarea></div>" +
       '<label class="val"><input type="checkbox" data-chg="cv.pastreaza" value="1"' + (pastreaza ? " checked" : "") + "><span>" + esc(D.pastreaza) + "</span></label>" +

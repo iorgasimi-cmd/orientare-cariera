@@ -79,7 +79,7 @@
     var K = E.calm;
     var corp = '<section class="card stil-asertiv"><h2>' + esc(K.titlu) + "</h2><p>" + esc(K.explica) + "</p>" +
       K.sfaturi.map(function (x) { return '<h2 class="intrebare-titlu">' + esc(x.t) + "</h2><p>" + esc(x.d) + "</p>"; }).join("") +
-      '<p class="mic">' + esc(K.incearca) + "</p></section>" +
+      "<p>" + esc(K.miscare) + '</p><p class="mic">' + esc(K.incearca) + "</p></section>" +
       (C.module.exercitii ? C.module.exercitii.cartela("interviu") : "") +
       '<section class="card"><h2>' + esc(E.filmare.titlu) + "</h2>" + E.filmare.text.map(function (t) { return "<p>" + esc(t) + "</p>"; }).join("") + "</section>" +
       '<section class="card"><h2>' + esc(E.tipuri.titlu) + "</h2>" + lista(E.tipuri.lista) + "</section>" +
