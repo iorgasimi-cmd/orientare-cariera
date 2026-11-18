@@ -1358,7 +1358,7 @@ test("microfonul: legătură lângă sfat, telefonul recunoscut, pașii lui înt
   assert.ok(C.module.plan.ecran("convingere").corp.includes("Nu vezi microfonul?"));
   M.actiuni.deschide(); assert.strictEqual(C.ecran, "microfon/tot");
   const c = M.ecran("tot").corp;
-  assert.ok(c.includes("Activează dictarea") && c.includes("Tastare vocală") && c.includes("Gestionare generală") && c.includes('data-arg="plan/convingere"'));
+  assert.ok(c.includes("Activează dictarea") && c.includes("Tastare vocală") && c.includes("cele trei puncte „…”") && c.includes('data-arg="plan/convingere"'));
   assert.ok(c.includes("Vocea ta e transformată în text de tastatura telefonului"));
   S.sterge();
 });

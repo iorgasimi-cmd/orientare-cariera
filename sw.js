@@ -1,6 +1,6 @@
 /* Service worker: păstrează fișierele aplicației pe telefon, ca să meargă fără internet.
    Nu face cereri către alte site-uri și nu salvează date personale. */
-var VERSIUNE = "cariera-v55";
+var VERSIUNE = "cariera-v56";
 var FISIERE = [
   "./", "index.html", "manifest.webmanifest", "css/culori.css", "css/stil.css",
   "date/interese.js", "date/valori.js", "date/meserii.js", "date/sfaturi.js", "date/adulti.js", "date/cv.js", "date/scrisoare.js", "date/interviu.js", "date/competente.js", "date/asertiv.js", "date/exercitii.js", "date/ia.js", "date/valori_personale.js", "date/corp.js", "date/cerinte.js", "date/roata.js", "date/retine.js", "date/bosi.js", "date/lectii.js", "date/glosar.js", "date/datele.js", "date/cauta.js", "date/detectiv.js", "date/microfon.js", "date/negociere.js",
