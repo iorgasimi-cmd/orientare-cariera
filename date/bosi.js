@@ -15,9 +15,9 @@ window.DATE.bosi = {
   continua: "Continuă de unde ai rămas",
   totGata: "Răsfoiește caietul tău",
   ghid: {
-    elev: ["Bună! **Apasă pe butoanele mari.**", "Cu „**Înapoi**” te întorci oricând.", "**Tot ce scrii se salvează singur.**"],
-    adult: ["Bună! **Apasă pe butoanele mari.**", "Cu „**Înapoi**” te întorci oricând.", "**Tot ce scrii se salvează singur.**"],
-    a45: ["Bună ziua! **Apăsați pe butoanele mari.**", "Cu „**Înapoi**” vă întoarceți oricând.", "**Tot ce scrieți se salvează singur.**"],
+    elev: ["Bună! **Ca să mergi mai departe, atinge butonul galben „Continuă de unde ai rămas”.**", "Cu „**Înapoi**” te întorci oricând.", "**Tot ce scrii se salvează singur.**"],
+    adult: ["Bună! **Ca să mergi mai departe, atinge butonul galben „Continuă de unde ai rămas”.**", "Cu „**Înapoi**” te întorci oricând.", "**Tot ce scrii se salvează singur.**"],
+    a45: ["Bună ziua! **Ca să mergeți mai departe, atingeți butonul galben „Continuă de unde ai rămas”.**", "Cu „**Înapoi**” vă întoarceți oricând.", "**Tot ce scrieți se salvează singur.**"],
     buton: "Am înțeles"
   },
   /* „Cum te simți azi?” — o dată pe zi, pe ecranul principal. Texte aprobate de Simona (2026-11-17).
