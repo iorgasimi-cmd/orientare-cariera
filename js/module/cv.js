@@ -181,7 +181,7 @@
       '<textarea id="c-cv-text" rows="12" spellcheck="false">' + C.escSimplu(val) + "</textarea></div>" +
       '<label class="val"><input type="checkbox" data-chg="cv.pastreaza" value="1"' + (pastreaza ? " checked" : "") + "><span>" + esc(D.pastreaza) + "</span></label>" +
       (pastreaza ? "" : '<p class="mic">' + esc(D.nesalvat) + "</p>") +
-      '<div class="rand">' + C.buton("Continuă", "cv.continua", null, "continua") + "</div>";
+      '<div class="rand">' + C.buton("Continuă", "cv.continua", null, "continua") + "</div>" + (C.butonDatele ? C.butonDatele() : "");
     return C.pagina("CV-ul meu", corp, "adult/meniu");
   }
 

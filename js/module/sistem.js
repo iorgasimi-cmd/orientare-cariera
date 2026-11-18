@@ -95,6 +95,7 @@
       "<p><strong>Dacă schimbi telefonul</strong> sau ștergi datele browserului, progresul se pierde.</p>" +
       "<p>Nu îți cerem nume, e-mail, telefon sau adresă. Vârsta o alegi dintr-un interval.</p>" +
       (S.disponibil() ? "" : '<p class="nota"><strong>Atenție:</strong> acest browser nu lasă aplicația să salveze (poate e o fereastră privată). Progresul se pierde când închizi pagina.</p>') +
+      (C.butonDatele ? C.butonDatele() : "") +
       '<div class="rand">' + C.buton("Înapoi", "nav", "sistem/setari", "primar") + "</div>";
     return C.pagina("Despre date", corp, "sistem/setari");
   }

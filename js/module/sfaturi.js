@@ -18,7 +18,7 @@
     D.teme.forEach(function (t) {
       corp += C.buton("<strong>" + esc(t.titlu) + "</strong>", "nav", "sfaturi/" + t.id, "lista");
     });
-    corp += "</div>";
+    corp += "</div>" + (C.butonDatele ? C.butonDatele() : "");
     return C.pagina("Sfaturi", corp);
   }
 
