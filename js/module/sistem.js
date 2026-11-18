@@ -63,7 +63,8 @@
       { eticheta: "<strong>7. Valorile mele</strong>" + pasStatus(vp), ecran: vp ? "valorile/rezultat" : "valorile/intro", gata: vp },
       { eticheta: "<strong>8. Cum mă văd eu</strong>" + pasStatus(st), ecran: st ? "stima/rezultat" : "stima/intro", gata: st },
       { eticheta: "<strong>9. " + C.esc(g.DATE.corp.elev.titlu) + "</strong>" + pasStatus(!!S.ia("corp.gata", false)), ecran: "corp/intro", gata: !!S.ia("corp.gata", false) },
-      { eticheta: "<strong>10. " + C.esc(g.DATE.cerinte.titlu) + "</strong>" + pasStatus(!!S.ia("cerinte.gata", false)), ecran: "cerinte/lista", gata: !!S.ia("cerinte.gata", false) }
+      { eticheta: "<strong>10. " + C.esc(g.DATE.cerinte.titlu) + "</strong>" + pasStatus(!!S.ia("cerinte.gata", false)), ecran: "cerinte/lista", gata: !!S.ia("cerinte.gata", false) },
+      { eticheta: "<strong>11. " + C.esc(g.DATE.cauta.titlu) + "</strong>" + pasStatus(!!S.ia("cauta.gata", false)), ecran: "cauta/intro", gata: !!S.ia("cauta.gata", false) }
     ]) +
       '<div class="rand">' + C.buton("Caietul meu", "nav", "caiet/tot") + "</div>";
     return C.pagina("Drumul tău", corp, null);

@@ -18,6 +18,7 @@
     stima: function () { return S.ia("stima.gata", false) ? "stima/rezultat" : "stima/intro"; },
     corp: "corp/intro",
     cerinte: "cerinte/lista",
+    cauta: "cauta/intro",
     roata: function () { return S.ia("roata.gata", false) ? "roata/rezultat" : "roata/intro"; },
     cv: "cv/intro", scrisoare: "scrisoare/intro", asertiv: "asertiv/intro", interviu: "interviu/hub", negociere: "negociere/hub", plan: "plan/hub"
   };
@@ -35,6 +36,7 @@
     corp: function () { return S.ia("corp.gata", false) ? "✓ exersat" : ""; },
     roata: function () { return S.ia("roata.gata", false) ? "✓ făcut" : ""; },
     cerinte: function () { return S.ia("cerinte.gata", false) ? "✓ citit" : ""; },
+    cauta: function () { return S.ia("cauta.gata", false) ? "✓ misiune făcută" : ""; },
     negociere: function () { return S.ia("neg.gata", false) ? "✓ fișă făcută" : ""; },
     interviu: function () { return C.module.interviu && C.module.interviu.nrPovesti() >= 3 ? "✓ povești scrise" : ""; },
     plan: function () { return S.ia("plan.start", null) ? "✓ început" : ""; }

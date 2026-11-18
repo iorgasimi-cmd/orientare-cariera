@@ -69,7 +69,7 @@ window.DATE.retine = {
     interese: "Test de interese", forte: "Puncte forte", meserii: "Meserii și domenii", valori: "Valorile mele",
     stima: "Cum mă văd eu", roata: "Roata vieții profesionale", competente: "Ce iei cu tine în noul domeniu",
     cv: "CV-ul meu", scrisoare: "Scrisoarea de intenție", interviu: "Pregătirea pentru interviu",
-    asertiv: "Comunicarea asertivă", corp: "Limbajul corpului", negociere: "Negocierea salariului", cerinte: "Ce cer angajatorii acum"
+    asertiv: "Comunicarea asertivă", corp: "Limbajul corpului", negociere: "Negocierea salariului", cerinte: "Ce cer angajatorii acum", cauta: "Cum găsești informații sigure"
   },
   sectiuni: {
     interese: {
@@ -125,6 +125,10 @@ window.DATE.retine = {
     negociere: {
       idee: "**Lucrezi cu un interval realist, nu cu un singur număr.**",
       pas: "Completează fișa: minimul tău, ce ți-ai dori și trei argumente."
+    },
+    cauta: {
+      idee: "**Nu știi încă? Caută pe un site oficial.** Dacă nu înțelegi, cere o explicație simplă.",
+      pas: "Săptămâna asta, caută pe un site oficial un singur lucru care te interesează."
     },
     cerinte: {
       idee: "**Ce caută angajatorii se poate exersa, pas cu pas.**",

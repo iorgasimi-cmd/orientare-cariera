@@ -60,6 +60,7 @@
     if (zile.length >= 7) r.push("zile7");
     var lc = S.ia("lectie", {}) || {};
     if (Object.keys(lc).some(function (k) { return lc[k] && lc[k].gata; })) r.push("lectie1");
+    if (S.ia("cauta.gata", false)) r.push("cauta1");
     var pasi = C.eAdult() ? (C.module.adult ? C.module.adult.pasiCuStare() : []) : pasiElev();
     if (pasi.length && pasi.filter(function (p) { return p.gata; }).length >= Math.ceil(pasi.length / 2)) r.push("jumatate");
     return r;
@@ -134,7 +135,8 @@
       { t: "Valorile mele", gata: !!S.ia("vp.gata", false), ecran: "valorile/intro" },
       { t: "Cum mă văd eu", gata: !!S.ia("stima.gata", false), ecran: "stima/intro" },
       { t: g.DATE.corp ? g.DATE.corp.elev.titlu : "Limbajul corpului", gata: !!S.ia("corp.gata", false), ecran: "corp/intro" },
-      { t: g.DATE.cerinte ? g.DATE.cerinte.titlu : "Ce cer angajatorii acum", gata: !!S.ia("cerinte.gata", false), ecran: "cerinte/lista" }
+      { t: g.DATE.cerinte ? g.DATE.cerinte.titlu : "Ce cer angajatorii acum", gata: !!S.ia("cerinte.gata", false), ecran: "cerinte/lista" },
+      { t: g.DATE.cauta ? g.DATE.cauta.titlu : "Cum găsești informații sigure", gata: !!S.ia("cauta.gata", false), ecran: "cauta/intro" }
     ];
   }
 

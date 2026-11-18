@@ -18,7 +18,8 @@
   function cartela(l) {
     if (!l.length) return "";
     return '<section class="card glosar"><h2>' + esc(D.titlu) + "</h2><ul>" +
-      l.map(function (w) { return "<li><strong>" + esc(w.t) + "</strong> – " + esc(w.d) + "</li>"; }).join("") + "</ul></section>";
+      l.map(function (w) { return "<li><strong>" + esc(w.t) + "</strong> – " + esc(w.d) + "</li>"; }).join("") + "</ul>" +
+      (C.module.cauta && C.ecran.indexOf("cauta/") !== 0 ? '<div class="rand">' + C.buton(esc(D.afla), "nav", "cauta/intro", "mic-btn") + "</div>" : "") + "</section>";
   }
 
   /* Fiecare pagină primește, la final, cartela cu cuvintele ei. */

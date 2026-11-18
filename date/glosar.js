@@ -4,6 +4,7 @@
 window.DATE = window.DATE || {};
 window.DATE.glosar = {
   titlu: "Cuvinte de știut",
+  afla: "Nu înțelegi un cuvânt? Vezi cum afli singur(ă)",
   cuvinte: [
     { t: "IA", p: "IA\\b", s: true, d: "Inteligență artificială: un program cu care poți vorbi în scris, ca într-o conversație." },
     { t: "Prompt", p: "prompt", d: "Mesajul pe care i-l scrii programului de IA, ca să știe ce vrei." },
