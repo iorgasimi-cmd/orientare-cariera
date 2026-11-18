@@ -36,7 +36,8 @@
       return '<div class="camp"><label for="' + id + '">' + eticheta + "</label>" +
         (ajutor ? '<p class="ajutor" id="' + id + '-a">' + ajutor + "</p>" : "") +
         '<textarea id="' + id + '" data-camp="' + esc(cale) + '" data-text="1" rows="' + (rows || 4) + '"' +
-        (ajutor ? ' aria-describedby="' + id + '-a"' : "") + ">" + escSimplu(val) + "</textarea></div>";
+        (ajutor ? ' aria-describedby="' + id + '-a"' : "") + ">" + escSimplu(val) + "</textarea>" +
+        '<p class="salvat-camp" aria-live="polite"></p></div>';
     },
 
     /* Data de azi, în ora locală, ca AAAA-LL-ZZ. */

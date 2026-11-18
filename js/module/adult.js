@@ -81,7 +81,7 @@
   function meniu() {
     var s = situatia();
     if (!s) return intrebare();
-    var corp = (C.module.bosi ? C.module.bosi.salut() : "") + (C.module.retine ? C.module.retine.banner() : "") + C.drum(s.pasi.map(function (p, i) {
+    var corp = (C.module.bosi ? C.module.bosi.inceput() + C.module.bosi.salut() : "") + (C.module.retine ? C.module.retine.banner() : "") + C.drum(s.pasi.map(function (p, i) {
       return { eticheta: "<strong>" + (i + 1) + ". " + esc(D.pasi[p].t) + "</strong>" + stare(p), ecran: ecranPas(p) || "adult/pas/" + p, gata: !!(GATA[p] && GATA[p]()) };
     })) +
       '<div class="rand">' + C.buton("Caietul meu", "nav", "caiet/tot") + "</div>" +

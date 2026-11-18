@@ -11,6 +11,15 @@ window.DATE.bosi = {
   bunVenit: "Mă bucur că ești aici! **Mergem împreună, în ritmul tău.**",
   final: "Bravo! **Ai ajuns la finalul secțiunii.**",
   aici: "Ești aici",
+  /* Pentru oamenii care se descurcă greu cu tehnologia (aprobat de Simona, 2026-11-18). */
+  continua: "Continuă de unde ai rămas",
+  totGata: "Răsfoiește caietul tău",
+  ghid: {
+    elev: ["Bună! **Apasă pe butoanele mari.**", "Cu „**Înapoi**” te întorci oricând.", "**Tot ce scrii se salvează singur.**"],
+    adult: ["Bună! **Apasă pe butoanele mari.**", "Cu „**Înapoi**” te întorci oricând.", "**Tot ce scrii se salvează singur.**"],
+    a45: ["Bună ziua! **Apăsați pe butoanele mari.**", "Cu „**Înapoi**” vă întoarceți oricând.", "**Tot ce scrieți se salvează singur.**"],
+    buton: "Am înțeles"
+  },
   /* „Cum te simți azi?” — o dată pe zi, pe ecranul principal. Texte aprobate de Simona (2026-11-17).
      Răspunsul rămâne doar pe telefon și nu apare în caiet. Aplicația nu trage concluzii din el. */
   stare: {

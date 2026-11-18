@@ -165,6 +165,22 @@
     ];
   }
 
+  /* Primul lucru de pe ecranul principal: ghidul (o singură dată), apoi butonul mare „Continuă de unde ai rămas”. */
+  function inceput() {
+    var out = "";
+    if (!S.ia("ghid.vazut", false)) {
+      var G = D.ghid;
+      out += '<div class="ghid">' + G[grupa()].map(function (t) { return C.bosi(t); }).join("") +
+        '<div class="rand">' + C.buton(esc(G.buton), "bosi.ghid", null, "primar") + "</div></div>";
+    }
+    var pasi = C.eAdult() ? (C.module.adult ? C.module.adult.pasiCuStare() : []) : pasiElev();
+    var urm = pasi.filter(function (p) { return !p.gata; })[0];
+    out += '<div class="rand continua-mare">' + (urm
+      ? C.buton("<strong>" + esc(D.continua) + '</strong><span class="stare">' + esc(urm.t) + "</span>", "nav", urm.ecran, "continua lista mare")
+      : C.buton("<strong>" + esc(D.totGata) + "</strong>", "nav", "caiet/tot", "continua lista mare")) + "</div>";
+    return out;
+  }
+
   /* Salutul de pe ecranul principal: primul pas, pasul următor sau „ți-am păstrat locul” după câteva zile de pauză. */
   function salut() {
     var azi = C.azi(), ult = S.ia("bosi.ultima", "");
@@ -209,9 +225,11 @@
         S.pune("mem.s" + k, r); S.pune("mem.ultim", { data: C.azi(), r: r, k: k });
         if (r === "reusit") S.pune("plan.sapt.s" + k + ".bifat", true);
       },
+      ghid: function () { S.pune("ghid.vazut", true); },
       stare: function (r) { S.pune("stare.zi", r ? { data: C.azi(), r: r } : {}); C.deArata = r ? "stare-zi" : ""; }
     },
     salut: salut,
+    inceput: inceput,
     grupa: grupa,
     atinse: atinse,
     momenteleMele: momenteleMele,

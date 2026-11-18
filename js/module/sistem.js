@@ -49,7 +49,7 @@
     var forte = (S.ia("forte.valori", []) || []).length >= 3;
     var plan = !!S.ia("plan.start", null);
     var corp = "";
-    if (g.Cariera.module.bosi) corp += g.Cariera.module.bosi.salut();
+    if (g.Cariera.module.bosi) corp += g.Cariera.module.bosi.inceput() + g.Cariera.module.bosi.salut();
     if (g.Cariera.module.reamintiri) corp += g.Cariera.module.reamintiri.banner();
     if (g.Cariera.module.retine) corp += g.Cariera.module.retine.banner();
     var vp = !!S.ia("vp.gata", false), st = !!S.ia("stima.gata", false);

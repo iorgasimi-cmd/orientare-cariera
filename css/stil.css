@@ -177,6 +177,13 @@ fieldset.intrebare legend + * { clear: both; }
 .sarbatoare .bula { border-color: var(--cald-contur); background: var(--cald-moale); }
 .sarbatoare .bula::before { border-right-color: var(--cald-contur); }
 
+/* Pentru oamenii care se descurcă greu cu tehnologia */
+.salvat-camp { min-height: 1.4em; margin: 4px 0 0; font-size: .9rem; font-weight: 700; color: var(--text); }
+.vorbeste { font-size: .9rem; background: var(--principal-moale); border-radius: 10px; padding: 8px 12px; }
+.continua-mare .btn { min-height: 4.2rem; }
+.btn.continua .stare { color: var(--cald-text); }
+.ghid { border: 2px solid var(--principal); border-radius: 14px; padding: 10px; margin-bottom: 14px; background: var(--suprafata); }
+
 /* Roata vieții profesionale */
 .roata { display: block; width: 100%; max-width: 20rem; height: auto; margin: 0 auto 8px; }
 .roata .cerc { fill: none; stroke: var(--linie); stroke-width: 1.5; }

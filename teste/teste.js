@@ -1329,6 +1329,24 @@ test("lecțiile scurte: asertiv (pe vârste), interviu, valori; butoanele în se
   S.sterge();
 });
 
+test("ușor de folosit: ghid la prima folosire, „Continuă de unde ai rămas”, microfonul, „✓ Salvat”", () => {
+  S.sterge(); S.pune("varsta", "45+"); S.pune("situatie", "caut");
+  let m = C.module.adult.ecran("meniu").corp;
+  assert.ok(m.includes("Apăsați pe butoanele mari") && m.includes("Am înțeles"));
+  assert.ok(m.indexOf("Continuă de unde ai rămas") > 0 && m.indexOf("Continuă de unde ai rămas") < m.indexOf("Cum vă simțiți azi?") && m.includes("roata/intro"));
+  C.module.bosi.actiuni.ghid(); m = C.module.adult.ecran("meniu").corp;
+  assert.ok(!m.includes("Am înțeles") && m.includes("Continuă de unde ai rămas"));
+  S.pune("roata.gata", true); assert.ok(C.module.adult.ecran("meniu").corp.includes('data-arg="cv/intro"'));
+  D.roata.zone.forEach(z => S.pune("roata.n." + z.id, 6));
+  const c = C.module.roata.ecran("rezultat").corp;
+  assert.ok(c.includes("Poți vorbi în loc să scrii") && c.includes('class="salvat-camp"'));
+  assert.strictEqual((c.match(/Poți vorbi în loc să scrii/g) || []).length, 1, "o singură dată pe ecran");
+  assert.ok(!C.module.adult.ecran("meniu").corp.includes("Poți vorbi în loc"), "nu pe ecranele fără câmpuri de scris");
+  S.sterge(); S.pune("varsta", "sub18"); S.pune("clasa", "10");
+  assert.ok(C.module.elev.ecran("meniu").corp.includes("Apasă pe butoanele mari") && C.module.elev.ecran("meniu").corp.includes("interese/intro"));
+  S.sterge();
+});
+
 test("valorile: 10 → 5 → 3 → 1, cu limită la fiecare pas, întrebări, note și rezultat", () => {
   S.sterge(); S.pune("varsta", "sub18"); S.pune("clasa", "10");
   const a = C.module.valorile.actiuni, L = D.valoriPers.listaElev;

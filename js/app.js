@@ -93,7 +93,12 @@
   /* Salvăm și în timpul scrierii, ca să nu se piardă textul dacă se închide pagina. */
   doc.addEventListener("input", function (ev) {
     var el = ev.target;
-    if (el && el.getAttribute && el.getAttribute("data-text")) S.pune(el.getAttribute("data-camp"), el.value);
+    if (el && el.getAttribute && el.getAttribute("data-text")) {
+      S.pune(el.getAttribute("data-camp"), el.value);
+      /* Omul vede că ce a scris nu se pierde. */
+      var st = el.parentNode && el.parentNode.querySelector && el.parentNode.querySelector(".salvat-camp");
+      if (st) st.textContent = "✓ Salvat";
+    }
   });
 
   C.mergi(ecranInitial());

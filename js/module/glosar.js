@@ -24,7 +24,11 @@
 
   /* Fiecare pagină primește, la final, cartela cu cuvintele ei. */
   var pagina = C.pagina;
-  C.pagina = function (titlu, corp, inapoi) { return pagina(titlu, corp + cartela(gasite(titlu + " " + corp)), inapoi); };
+  C.pagina = function (titlu, corp, inapoi) {
+    var k = corp.indexOf('<div class="camp">');
+    if (k >= 0 && corp.indexOf('data-text="1"', k) > 0) corp = corp.slice(0, k) + '<p class="vorbeste">' + esc(D.vorbeste) + "</p>" + corp.slice(k);
+    return pagina(titlu, corp + cartela(gasite(titlu + " " + corp)), inapoi);
+  };
 
   C.reg("glosar", { ecran: function () { return C.pagina(D.titlu, "", C.acasa()); }, actiuni: {}, gasite: gasite });
 })(typeof window !== "undefined" ? window : globalThis);
