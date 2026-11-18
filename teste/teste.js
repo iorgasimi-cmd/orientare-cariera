@@ -1346,6 +1346,16 @@ test("ușor de folosit: ghid la prima folosire, „Continuă de unde ai rămas�
   S.sterge();
 });
 
+test("ecranul pentru momente grele: elevii — un adult de încredere; adulții — cineva de încredere; 112 la toți", () => {
+  S.sterge(); S.pune("varsta", "sub18");
+  let c = C.module.sistem.ecran("criza").corp;
+  assert.ok(c.includes("un adult în care ai încredere") && c.includes("consilierul școlii") && c.includes("112"));
+  S.sterge(); S.pune("varsta", "45+");
+  c = C.module.sistem.ecran("criza").corp;
+  assert.ok(c.includes("cineva în care ai încredere") && !c.includes("un adult") && !c.includes("consilierul școlii") && c.includes("112"));
+  S.sterge();
+});
+
 test("valorile: 10 → 5 → 3 → 1, cu limită la fiecare pas, întrebări, note și rezultat", () => {
   S.sterge(); S.pune("varsta", "sub18"); S.pune("clasa", "10");
   const a = C.module.valorile.actiuni, L = D.valoriPers.listaElev;

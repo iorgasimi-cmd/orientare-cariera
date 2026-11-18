@@ -109,7 +109,9 @@
 
   function criza() {
     var corp = "<p>Mulțumesc că ai scris asta. Se pare că poate treci printr-un moment greu. Nu ești singur(ă) și nu trebuie să rămâi singur(ă) cu asta.</p>" +
-      "<p><strong>Te rog să vorbești cât mai curând cu un adult în care ai încredere.</strong> De exemplu: un părinte sau o rudă, un profesor, consilierul școlii sau medicul de familie.</p>" +
+      (C.eAdult()
+        ? "<p><strong>Te rog să vorbești cât mai curând cu cineva în care ai încredere.</strong> De exemplu: cineva din familie, un prieten apropiat, medicul de familie sau un specialist.</p>"
+        : "<p><strong>Te rog să vorbești cât mai curând cu un adult în care ai încredere.</strong> De exemplu: un părinte sau o rudă, un profesor, consilierul școlii sau medicul de familie.</p>") +
       '<p class="alerta"><strong>Dacă tu sau altcineva sunteți în pericol acum, sună la 112.</strong></p>' +
       '<div class="rand">' + C.buton("Mă întorc la aplicație", "sistem.inapoi", null, "primar") + "</div>";
     return C.pagina("Ești important(ă)", corp, null);
