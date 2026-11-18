@@ -33,7 +33,7 @@
   }
 
   function intro() {
-    var corp = D.intro.map(function (p) { return "<p>" + esc(p) + "</p>"; }).join("") + lista(D.trei) +
+    var corp = (C.butonLectie ? C.butonLectie("corp") : "") + D.intro.map(function (p) { return "<p>" + esc(p) + "</p>"; }).join("") + lista(D.trei) +
       "<p>" + esc(D.dupa) + "</p>" +
       '<div class="meniu-lista">' + D.meniu.map(function (m, i) {
         return C.buton("<strong>" + (i + 1) + ". " + esc(m.t) + '</strong><span class="stare">' + esc(m.d) + "</span>", "nav", "corp/" + m.id, "lista");

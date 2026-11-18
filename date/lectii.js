@@ -71,6 +71,67 @@ window.DATE.lectii = {
     final: "**Ai terminat lecția!** Acum alege-ți valorile.",
     dupa: { t: "Încep exercițiul", ecran: "valorile/p0" }
   },
+  /* Aprobate de Simona, 2026-11-18. */
+  scrisoare: {
+    titlu: "Lecția scurtă: scrisoarea de intenție",
+    intrebari: [
+      { q: "Cum începi scrisoarea?",
+        opt: [{ t: "„Vă scriu pentru postul de…”" }, { t: "Cu ce te atrage la firmă: „Am aflat că firma voastră…”", ok: true }],
+        bine: "**Exact!** Recrutorul știe deja de ce îi scrii. Începi cu ce ai aflat despre firmă.",
+        gresit: "**Aproape!** Recrutorul știe deja de ce îi scrii. Începe cu ce te atrage la firmă." },
+      { q: "Cine scrie scrisoarea?",
+        opt: [{ t: "O scrie o IA și o trimit așa." }, { t: "O scriu eu, cu cuvintele mele.", ok: true }],
+        bine: "**Bravo!** Scrisoarea trebuie să sune ca tine.",
+        gresit: "**Aproape!** O IA te poate ajuta, dar scrisoarea trebuie să sune ca tine și să fie adevărată." },
+      { q: "Ce pui în paragraful din mijloc?",
+        opt: [{ t: "O listă cu toate locurile mele de muncă." }, { t: "Ce știu să fac, legat de post, cu un exemplu concret.", ok: true }],
+        bine: "**Exact!** Un exemplu concret spune mai mult decât o listă.",
+        gresit: "**Aproape!** Alege ce se potrivește cu postul și dă un exemplu concret." }
+    ],
+    final: "**Ai terminat lecția!** Acum răspunde la întrebările pentru scrisoarea ta.",
+    dupa: { t: "Încep scrisoarea", ecran: "scrisoare/q0" }
+  },
+  negociere: {
+    titlu: "Lecția scurtă: negocierea salariului",
+    intrebari: [
+      { q: "Ce salariu te ajută să înțelegi piața?",
+        opt: [{ t: "Media." }, { t: "Mediana, adică salariul din mijloc.", ok: true }],
+        bine: "**Exact!** Media poate fi trasă în sus de câteva salarii foarte mari.",
+        gresit: "**Aproape!** Media poate fi trasă în sus de câteva salarii foarte mari. Uită-te la mediană." },
+      { q: "Când vorbești despre salariu la interviu?",
+        opt: [{ t: "În primele minute." }, { t: "După ce ai arătat ce poți face.", ok: true }],
+        bine: "**Bravo!** Întâi arăți ce poți face.",
+        gresit: "**Aproape!** Nu deschide tu discuția despre bani în primele minute. Întâi arată ce poți face." },
+      { q: "Ai primit o ofertă. Ce faci întâi?",
+        opt: [{ t: "O accept imediat." }, { t: "Mulțumesc, cer timp să mă gândesc și cer oferta în scris.", ok: true }],
+        bine: "**Foarte bine!** Așa ai timp să te gândești liniștit(ă).",
+        gresit: "**Aproape!** Să accepți imediat e una dintre capcane. Mulțumește, cere timp și cere oferta în scris." }
+    ],
+    final: "**Ai terminat lecția!** Acum pregătește-te pas cu pas.",
+    dupa: { t: "Încep cu primul pas", ecran: "negociere/piata" }
+  },
+  corp: {
+    titlu: "Lecția scurtă: limbajul corpului",
+    intrebari: [
+      { q: "Ce semnale contează cel mai mult, după studii?",
+        opt: [{ t: "Să stai nemișcat(ă) și foarte serios(oasă)." }, { t: "Privirea, mișcările capului și hainele îngrijite.", ok: true }],
+        bine: "**Exact!** Pe toate trei le poți exersa.",
+        gresit: "**Aproape!** Cele trei semnale sunt privirea, mișcările capului și hainele îngrijite." },
+      { q: "Cum privești omul care îți vorbește?",
+        opt: [{ t: "Îl fixez cu privirea, fără pauză." }, { t: "Îl privesc, iar din când în când mă uit și în altă parte.", ok: true }],
+        bine: "**Bravo!** Nu e nevoie să fixezi.",
+        gresit: "**Aproape!** Nu e nevoie să fixezi. Poți privi din când în când și în altă parte." },
+      { qElev: "La o prezentare în fața clasei, unde privești?", qAdult: "La un interviu online, unde privești când vorbești?",
+        optElev: [{ t: "Doar în foaie." }, { t: "Pe rând, spre mai mulți colegi.", ok: true }],
+        optAdult: [{ t: "La fața omului de pe ecran." }, { t: "În cameră.", ok: true }],
+        bineElev: "**Bravo!** Așa vorbești cu toată clasa, nu cu foaia.",
+        gresitElev: "**Aproape!** Privește pe rând spre mai mulți colegi, nu doar spre foaie.",
+        bineAdult: "**Exact!** Pentru omul de pe ecran, asta arată ca o privire în ochi.",
+        gresitAdult: "**Aproape!** Privește camera. Pentru omul de pe ecran, asta arată ca o privire în ochi." }
+    ],
+    final: "**Ai terminat lecția!** Acum vezi cum folosești semnalele.",
+    dupa: { t: "Cum folosești semnalele", ecran: "corp/semne" }
+  },
   cv: {
     /* Aprobată de Simona, 2026-11-17. */
     titlu: "Lecția scurtă: CV-ul",

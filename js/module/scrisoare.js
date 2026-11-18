@@ -12,7 +12,7 @@
   }
 
   function intro() {
-    var corp = D.intro.map(function (p) { return "<p>" + esc(p) + "</p>"; }).join("") +
+    var corp = (C.butonLectie ? C.butonLectie("scrisoare") : "") + D.intro.map(function (p) { return "<p>" + esc(p) + "</p>"; }).join("") +
       '<div class="rand">' + C.buton("Începem", "nav", "scrisoare/q0", "primar") +
       (r("post") || r("atrage") ? C.buton("Văd scheletul", "nav", "scrisoare/schelet") : "") + "</div>";
     return C.pagina(D.titlu, corp, "adult/meniu");

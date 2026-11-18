@@ -40,7 +40,7 @@
   }
 
   function hub() {
-    var corp = D.intro.map(function (p) { return "<p>" + esc(p) + "</p>"; }).join("") +
+    var corp = (C.butonLectie ? C.butonLectie("negociere") : "") + D.intro.map(function (p) { return "<p>" + esc(p) + "</p>"; }).join("") +
       situatie().map(function (t) { return '<p class="termen">' + esc(t) + "</p>"; }).join("") +
       '<div class="meniu-lista">' + D.pasi.map(function (p) {
         var gata = p.id === "fisa" && S.ia("neg.gata", false);
