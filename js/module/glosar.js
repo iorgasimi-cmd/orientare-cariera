@@ -26,7 +26,11 @@
   var pagina = C.pagina;
   C.pagina = function (titlu, corp, inapoi) {
     var k = corp.indexOf('<div class="camp">');
-    if (k >= 0 && corp.indexOf('data-text="1"', k) > 0) corp = corp.slice(0, k) + '<p class="vorbeste">' + esc(D.vorbeste) + "</p>" + corp.slice(k);
+    if (k >= 0 && corp.indexOf('data-text="1"', k) > 0) {
+      var M = g.DATE.microfon;
+      corp = corp.slice(0, k) + '<div class="vorbeste"><p>' + esc(D.vorbeste) + "</p>" +
+        (M && C.module.microfon ? C.buton(esc(M.link), "microfon.deschide", null, "mic-btn") : "") + "</div>" + corp.slice(k);
+    }
     return pagina(titlu, corp + cartela(gasite(titlu + " " + corp)), inapoi);
   };
 
