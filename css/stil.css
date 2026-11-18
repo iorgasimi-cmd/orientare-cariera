@@ -173,6 +173,10 @@ fieldset.intrebare legend + * { clear: both; }
 .optiune.corect { border-color: var(--principal); background: var(--principal-moale); }
 .optiune.gresit { border-style: dashed; }
 
+/* Sărbătorile lui Faro: bula are chenar chihlimbar (plus steluța ★ din text) */
+.sarbatoare .bula { border-color: var(--cald-contur); background: var(--cald-moale); }
+.sarbatoare .bula::before { border-right-color: var(--cald-contur); }
+
 /* Roata vieții profesionale */
 .roata { display: block; width: 100%; max-width: 20rem; height: auto; margin: 0 auto 8px; }
 .roata .cerc { fill: none; stroke: var(--linie); stroke-width: 1.5; }

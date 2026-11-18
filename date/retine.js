@@ -19,6 +19,7 @@ window.DATE.retine = {
     intro: "**Aici găsești, la un loc, tot ce ai scris.** Recitește din când în când: așa ții minte mai ușor.",
     gol: "Caietul e încă gol. Ce scrii în secțiuni apare aici.",
     idei: "Ideile pe care le-ai reținut",
+    momente: "Momentele mele",
     interese: "Ce îți place să faci",
     forte: "Momente în care ți-a ieșit bine",
     valori: "Valorile mele",

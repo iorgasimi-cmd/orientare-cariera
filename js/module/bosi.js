@@ -47,6 +47,40 @@
   C.faro = function (k) { return grupa() === "a45" && D.dvs[k] ? D.dvs[k] : D[k]; };
   function stareT() { return grupa() === "a45" ? Object.assign({}, D.stare, D.dvs.stare) : D.stare; }
 
+  /* ---- Momentele importante ---- */
+  /* Calcul pur, din ce e salvat: momentele atinse până acum (id-uri). */
+  function atinse() {
+    var r = [], azi = C.azi(), Dt = g.DATE;
+    var rec = S.ia("rec", {}) || {};
+    if (Object.keys(rec).some(function (k) { return Dt.retine && Dt.retine.sectiuni[k]; })) r.push("sectiune1");
+    var sp = S.ia("plan.sapt", {}) || {};
+    if (Object.keys(sp).some(function (k) { return sp[k] && sp[k].bifat; })) r.push("tema1");
+    var zile = (S.ia("plan.zile", []) || []).slice().sort();
+    if (C.module.plan && C.module.plan.serie(zile, azi) >= 3) r.push("zile3");
+    if (zile.length >= 7) r.push("zile7");
+    var lc = S.ia("lectie", {}) || {};
+    if (Object.keys(lc).some(function (k) { return lc[k] && lc[k].gata; })) r.push("lectie1");
+    var pasi = C.eAdult() ? (C.module.adult ? C.module.adult.pasiCuStare() : []) : pasiElev();
+    if (pasi.length && pasi.filter(function (p) { return p.gata; }).length >= Math.ceil(pasi.length / 2)) r.push("jumatate");
+    return r;
+  }
+  function textMoment(m) { return m[grupa()] || m.adult; }
+  /* Sărbătorile de azi: momentele noi primesc data de azi și apar toată ziua; cele vechi nu mai apar. */
+  function sarbatori() {
+    var azi = C.azi(), out = "";
+    atinse().forEach(function (id) { if (!S.ia("mom." + id, "")) S.pune("mom." + id, azi); });
+    D.momente.forEach(function (m) {
+      if (S.ia("mom." + m.id, "") === azi) out += '<div class="sarbatoare">' + C.bosi("★ " + textMoment(m), "bucurie") + "</div>";
+    });
+    return out;
+  }
+  /* Pentru „Caietul meu”: momentele atinse, cu data lor. */
+  function momenteleMele() {
+    return D.momente.filter(function (m) { return S.ia("mom." + m.id, ""); }).map(function (m) {
+      return "★ " + textMoment(m).replace(/\*\*/g, "") + " (" + C.format(S.ia("mom." + m.id, "")) + ")";
+    });
+  }
+
   /* ---- „Faro își amintește” ---- */
   function curata(t) { return String(t || "").replace(/\*\*/g, "").trim(); }
   /* Săptămâna trecută a planului, dacă omul își alesese o temă și încă nu i-a spus lui Faro cum a mers. */
@@ -123,11 +157,11 @@
     }
     if (r === "asa") {
       return '<div class="stare-zi" id="stare-zi" role="status">' + C.bosi(T.asa) + '<div class="rand">' +
-        C.buton(esc(T.butonMini), "nav", "plan/saptamana", "continua") + C.buton(esc(T.butonCaiet), "nav", "caiet/tot") + "</div>" + schimb + "</div>" + memorie();
+        C.buton(esc(T.butonMini), "nav", "plan/saptamana", "continua") + C.buton(esc(T.butonCaiet), "nav", "caiet/tot") + "</div>" + schimb + "</div>" + sarbatori() + memorie();
     }
-    if (!urm) return '<div class="stare-zi" id="stare-zi">' + C.bosi(T.bineTot, "bucurie") + schimb + "</div>" + memorie();
+    if (!urm) return '<div class="stare-zi" id="stare-zi">' + C.bosi(T.bineTot, "bucurie") + schimb + "</div>" + sarbatori() + memorie();
     return '<div class="stare-zi" id="stare-zi" role="status">' + C.bosi(inl(T.bine, { pas: urm.t }), "bucurie") +
-      (urm.ecran ? '<div class="rand">' + C.buton(esc(T.butonBine), "nav", urm.ecran, "continua") + "</div>" : "") + schimb + "</div>" + memorie();
+      (urm.ecran ? '<div class="rand">' + C.buton(esc(T.butonBine), "nav", urm.ecran, "continua") + "</div>" : "") + schimb + "</div>" + sarbatori() + memorie();
   }
 
   C.reg("bosi", {
@@ -144,6 +178,8 @@
     },
     salut: salut,
     grupa: grupa,
+    atinse: atinse,
+    momenteleMele: momenteleMele,
     desen: desen
   });
 })(typeof window !== "undefined" ? window : globalThis);

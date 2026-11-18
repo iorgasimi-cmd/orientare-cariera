@@ -67,6 +67,35 @@ window.DATE.bosi = {
     }
   },
 
+  /* Momentele importante: Faro le sărbătorește o singură dată; rămân în „Caietul meu”, la „Momentele mele”.
+     Laudă efortul și felul în care omul a lucrat, nu „cât de deștept” e. Texte aprobate de Simona (2026-11-17). */
+  momente: [
+    { id: "sectiune1",
+      elev: "**Prima secțiune e gata!** Ai început drumul. Primul pas e cel mai important.",
+      adult: "**Ai terminat prima secțiune!** Primul pas e mereu cel mai important, și l-ai făcut.",
+      a45: "**Ați terminat prima secțiune!** Ați făcut primul pas, iar el contează cel mai mult." },
+    { id: "tema1",
+      elev: "**Prima ta temă e făcută!** Ți-ai ținut promisiunea față de tine.",
+      adult: "**Prima temă reușită!** Ai făcut ce ți-ai propus. Așa se construiește încrederea în tine.",
+      a45: "**Prima temă dusă la capăt!** V-ați ținut de cuvânt față de dumneavoastră." },
+    { id: "zile3",
+      elev: "**3 zile la rând!** Asta înseamnă că nu renunți ușor.",
+      adult: "**3 zile la rând!** Așa începe un obicei.",
+      a45: "**3 zile la rând!** Constanța dumneavoastră face diferența." },
+    { id: "zile7",
+      elev: "**7 zile de lucru!** Pas cu pas, ai făcut deja o săptămână întreagă.",
+      adult: "**7 zile de lucru!** Fiecare zi s-a adunat. Uite cât ai construit.",
+      a45: "**7 zile de lucru!** Fiecare zi s-a adunat. Ați construit deja mult." },
+    { id: "lectie1",
+      elev: "**Prima lecție terminată!** Ai învățat ceva nou azi.",
+      adult: "**Prima lecție terminată!** Ai învățat ceva util azi.",
+      a45: "**Prima lecție terminată!** Ați învățat ceva util azi." },
+    { id: "jumatate",
+      elev: "**Ai ajuns la jumătatea drumului!** Uită-te în urmă: ai făcut deja multe.",
+      adult: "**Ești la jumătatea drumului!** Uită-te cât ai parcurs deja.",
+      a45: "**Sunteți la jumătatea drumului!** Priviți cât ați parcurs deja." }
+  ],
+
   /* Pentru 45+: doar Faro vorbește cu „dumneavoastră”. Restul aplicației rămâne cu „tu” pentru toate vârstele (decizia Simonei, 2026-11-17). */
   dvs: {
     bunVenit: "Mă bucur că sunteți aici! **Mergem împreună, în ritmul dumneavoastră.**",

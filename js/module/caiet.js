@@ -12,6 +12,8 @@
     var idei = Object.keys(R.sectiuni).filter(function (id) { return t(S.ia("caiet." + id + ".text", "")); }).map(function (id) {
       return C.module.retine.date(id).idee.replace(/\*\*/g, "") + " — " + t(S.ia("caiet." + id + ".text", ""));
     });
+    var mom = C.module.bosi ? C.module.bosi.momenteleMele() : [];
+    if (mom.length) P.push({ titlu: K.momente, randuri: mom });
     if (idei.length) P.push({ titlu: K.idei, randuri: idei });
     var top = S.ia("interese.top", null);
     if (top && D.interese) P.push({ titlu: K.interese, randuri: top.map(function (x) { return D.interese.tipuri[x] ? D.interese.tipuri[x].nume : ""; }).filter(Boolean) });

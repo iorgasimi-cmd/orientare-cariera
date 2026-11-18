@@ -1201,6 +1201,28 @@ test("Faro își amintește: tema de săptămâna trecută cu cuvintele omului, 
   S.sterge();
 });
 
+test("Faro sărbătorește momentele importante o singură dată; ele rămân în caiet; nimic la „Nu prea bine”", () => {
+  const B = C.module.bosi, azi = C.azi();
+  S.sterge(); S.pune("varsta", "18-44"); S.pune("situatie", "caut");
+  assert.deepStrictEqual(B.atinse(), []);
+  S.pune("rec.cv.urm", azi); S.pune("plan.zile", [C.adauga(azi, -2), C.adauga(azi, -1), azi]); S.pune("lectie.cv.gata", true);
+  assert.deepStrictEqual(B.atinse().sort(), ["lectie1", "sectiune1", "zile3"]);
+  B.actiuni.stare("nu");
+  let m = C.module.adult.ecran("meniu").corp;
+  assert.ok(!m.includes("★") && !S.ia("mom.sectiune1", ""), "la „Nu prea bine” nu sărbătorim și nu consumăm momentul");
+  B.actiuni.stare("bine"); m = C.module.adult.ecran("meniu").corp;
+  assert.ok(m.includes("Ai terminat prima secțiune!") && m.includes("3 zile la rând!") && m.includes("Prima lecție terminată!") && m.includes('class="sarbatoare"'));
+  assert.ok(C.module.caiet.parti()[0].titlu === D.retine.caiet.momente && C.module.caiet.parti()[0].randuri.length === 3);
+  /* a doua zi nu mai apar */
+  ["sectiune1", "zile3", "lectie1"].forEach(id => S.pune("mom." + id, C.adauga(azi, -1)));
+  S.pune("stare.zi", { data: azi, r: "bine" });
+  assert.ok(!C.module.adult.ecran("meniu").corp.includes("★"));
+  /* 45+: „dumneavoastră” */
+  S.sterge(); S.pune("varsta", "45+"); S.pune("situatie", "caut"); S.pune("plan.sapt.s0.bifat", true); S.pune("plan.start", azi); B.actiuni.stare("bine");
+  assert.ok(C.module.adult.ecran("meniu").corp.includes("V-ați ținut de cuvânt"));
+  S.sterge();
+});
+
 test("valorile: 10 → 5 → 3 → 1, cu limită la fiecare pas, întrebări, note și rezultat", () => {
   S.sterge(); S.pune("varsta", "sub18"); S.pune("clasa", "10");
   const a = C.module.valorile.actiuni, L = D.valoriPers.listaElev;
