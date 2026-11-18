@@ -9,7 +9,7 @@ function fals() { const m = {}; return { getItem: k => (k in m ? m[k] : null), s
 globalThis.window = globalThis;
 globalThis.localStorage = fals();
 
-["date/interese.js", "date/valori.js", "date/meserii.js", "date/sfaturi.js", "date/adulti.js", "date/cv.js", "date/scrisoare.js", "date/interviu.js", "date/competente.js", "date/asertiv.js", "date/exercitii.js", "date/ia.js", "date/valori_personale.js", "date/corp.js", "date/cerinte.js", "date/roata.js", "date/retine.js", "date/bosi.js", "date/lectii.js", "date/glosar.js", "date/datele.js", "date/cauta.js", "date/negociere.js",
+["date/interese.js", "date/valori.js", "date/meserii.js", "date/sfaturi.js", "date/adulti.js", "date/cv.js", "date/scrisoare.js", "date/interviu.js", "date/competente.js", "date/asertiv.js", "date/exercitii.js", "date/ia.js", "date/valori_personale.js", "date/corp.js", "date/cerinte.js", "date/roata.js", "date/retine.js", "date/bosi.js", "date/lectii.js", "date/glosar.js", "date/datele.js", "date/cauta.js", "date/detectiv.js", "date/negociere.js",
  "js/stocare.js", "js/verificator.js", "js/nucleu.js", "js/module/glosar.js",
  "js/module/interese.js", "js/module/puncte-forte.js", "js/module/meserii.js",
  "js/module/plan.js", "js/module/sfaturi.js", "js/module/reamintiri.js", "js/module/sistem.js", "js/module/adult.js", "js/module/cv.js", "js/module/scrisoare.js", "js/module/interviu.js", "js/module/competente.js", "js/module/asertiv.js", "js/module/exercitii.js", "js/module/valorile.js", "js/module/corp.js", "js/module/cerinte.js", "js/module/roata.js", "js/module/retine.js", "js/module/caiet.js", "js/module/bosi.js", "js/module/lectie.js", "js/module/datele.js", "js/module/cauta.js", "js/module/negociere.js"
@@ -1273,6 +1273,33 @@ test("cum găsești informații sigure: 5 pași, site-uri pe vârste, mesaj pent
   s = K.ecran("siteuri").corp;
   assert.ok(s.includes("admitere.edu.ro") && !s.includes("anofm.ro") && C.module.elev.ecran("meniu").corp.includes("11. Cum găsești informații sigure"));
   assert.ok(K.ecran("misiune").corp.includes("calendarul admiterii") && K.ecran("pacaleli").corp.includes("Regula de aur"));
+  S.sterge();
+});
+
+test("detectivul de 5 secunde: o întrebare pe zi după „Bine”, răspuns imediat, „Altă dată”, sărbătoare la 5", () => {
+  const B = C.module.bosi, Q = D.detectiv.intrebari;
+  assert.strictEqual(Q.length, 12);
+  Q.forEach(q => ["opt", "optAdult", "optElev"].forEach(k => { if (q[k]) assert.strictEqual(q[k].filter(o => o.ok).length, 1, q.id + " " + k); }));
+  S.sterge(); S.pune("varsta", "18-44"); S.pune("situatie", "caut");
+  B.actiuni.stare("nu"); assert.ok(!C.module.adult.ecran("meniu").corp.includes("Joc rapid"), "nu la „Nu prea bine”");
+  B.actiuni.stare("asa"); assert.ok(!C.module.adult.ecran("meniu").corp.includes("Joc rapid"), "nu la „Așa și așa”");
+  B.actiuni.stare("bine");
+  let m = C.module.adult.ecran("meniu").corp;
+  assert.ok(m.includes("Joc rapid!") && m.includes("anofm.ro") && m.includes("anofm-ro.com") && m.includes("Altă dată"));
+  B.actiuni.detectiv("1"); m = C.module.adult.ecran("meniu").corp;
+  assert.ok(m.includes("Aproape!") && m.includes("o mică diferență") && !m.includes("Altă dată"));
+  B.actiuni.detectiv("0"); assert.strictEqual(S.ia("det.corecte", 0), 0, "răspunsul nu se mai schimbă azi");
+  /* a doua zi: următoarea întrebare */
+  S.pune("det.zi", { data: C.adauga(C.azi(), -1), id: "d1", r: 1 });
+  assert.ok(C.module.adult.ecran("meniu").corp.includes("taxa de înscriere"));
+  B.actiuni.detectiv("sari"); assert.ok(!C.module.adult.ecran("meniu").corp.includes("taxa de înscriere"));
+  S.pune("det.corecte", 5); assert.ok(B.atinse().indexOf("detectiv5") >= 0);
+  /* 45+ și elevi */
+  S.sterge(); S.pune("varsta", "45+"); S.pune("situatie", "caut"); S.pune("det.n", 3); B.actiuni.stare("bine");
+  assert.ok(C.module.adult.ecran("meniu").corp.includes("Unde căutați o lege?"));
+  B.actiuni.detectiv("0"); assert.ok(C.module.adult.ecran("meniu").corp.includes("Legile, la zi"));
+  S.sterge(); S.pune("varsta", "sub18"); S.pune("clasa", "10"); B.actiuni.stare("bine");
+  assert.ok(C.module.elev.ecran("meniu").corp.includes("admitere.edu.ro"));
   S.sterge();
 });
 

@@ -61,6 +61,7 @@
     var lc = S.ia("lectie", {}) || {};
     if (Object.keys(lc).some(function (k) { return lc[k] && lc[k].gata; })) r.push("lectie1");
     if (S.ia("cauta.gata", false)) r.push("cauta1");
+    if ((Number(S.ia("det.corecte", 0)) || 0) >= 5) r.push("detectiv5");
     var pasi = C.eAdult() ? (C.module.adult ? C.module.adult.pasiCuStare() : []) : pasiElev();
     if (pasi.length && pasi.filter(function (p) { return p.gata; }).length >= Math.ceil(pasi.length / 2)) r.push("jumatate");
     return r;
@@ -80,6 +81,30 @@
     return D.momente.filter(function (m) { return S.ia("mom." + m.id, ""); }).map(function (m) {
       return "★ " + textMoment(m).replace(/\*\*/g, "") + " (" + C.format(S.ia("mom." + m.id, "")) + ")";
     });
+  }
+
+  /* ---- „Detectivul de 5 secunde” ---- */
+  function detText(x, k) { var a45 = grupa() === "a45", elev = grupa() === "elev";
+    if (k === "q") return (a45 && x.q45) || (elev && x.qElev) || (!elev && x.qAdult) || x.q;
+    if (k === "opt") return x.opt || (elev ? x.optElev : x.optAdult);
+    return (a45 && x[k + "45"]) || x[k];
+  }
+  /* Întrebarea de azi: aceeași toată ziua; a doua zi, următoarea din listă. */
+  function detAzi() {
+    var Dt = g.DATE.detectiv, azi = C.azi(), z = S.ia("det.zi", {}) || {};
+    if (z.data !== azi) { var n = Number(S.ia("det.n", 0)) || 0; z = { data: azi, id: Dt.intrebari[n % Dt.intrebari.length].id }; S.pune("det.zi", z); }
+    return { z: z, x: Dt.intrebari.filter(function (q) { return q.id === z.id; })[0] };
+  }
+  function detectiv() {
+    var Dt = g.DATE.detectiv; if (!Dt) return "";
+    var a = detAzi(), z = a.z, x = a.x; if (!x || z.r === "sarit") return "";
+    if (z.r === undefined || z.r === null || z.r === "") {
+      return '<div class="detectiv">' + C.bosi("**" + Dt.titlu + "** " + detText(x, "q")) + '<div class="meniu-lista optiuni">' +
+        detText(x, "opt").map(function (o, k) { return C.buton(esc(o.t), "bosi.detectiv", String(k), "lista"); }).join("") + "</div>" +
+        '<div class="rand">' + C.buton(esc(Dt.sari), "bosi.detectiv", "sari", "mic-btn") + "</div></div>";
+    }
+    var o = detText(x, "opt")[Number(z.r)], ok = o && o.ok;
+    return '<div class="detectiv" id="detectiv" role="status">' + C.bosi(ok ? detText(x, "bine") : Dt.aproape + " " + detText(x, "exp"), ok ? "bucurie" : "zambet") + "</div>";
   }
 
   /* ---- „Faro își amintește” ---- */
@@ -161,15 +186,23 @@
       return '<div class="stare-zi" id="stare-zi" role="status">' + C.bosi(T.asa) + '<div class="rand">' +
         C.buton(esc(T.butonMini), "nav", "plan/saptamana", "continua") + C.buton(esc(T.butonCaiet), "nav", "caiet/tot") + "</div>" + schimb + "</div>" + sarbatori() + memorie();
     }
-    if (!urm) return '<div class="stare-zi" id="stare-zi">' + C.bosi(T.bineTot, "bucurie") + schimb + "</div>" + sarbatori() + memorie();
+    if (!urm) return '<div class="stare-zi" id="stare-zi">' + C.bosi(T.bineTot, "bucurie") + schimb + "</div>" + sarbatori() + detectiv() + memorie();
     return '<div class="stare-zi" id="stare-zi" role="status">' + C.bosi(inl(T.bine, { pas: urm.t }), "bucurie") +
-      (urm.ecran ? '<div class="rand">' + C.buton(esc(T.butonBine), "nav", urm.ecran, "continua") + "</div>" : "") + schimb + "</div>" + sarbatori() + memorie();
+      (urm.ecran ? '<div class="rand">' + C.buton(esc(T.butonBine), "nav", urm.ecran, "continua") + "</div>" : "") + schimb + "</div>" + sarbatori() + detectiv() + memorie();
   }
 
   C.reg("bosi", {
     ecran: function () { return C.pagina(D.nume, salut(), C.acasa()); },
     actiuni: {
       /* Răspunsul la „Cum te simți azi?”; gol = omul vrea să răspundă din nou. */
+      /* Răspunsul la „Detectivul de 5 secunde”, sau „Altă dată”. */
+      detectiv: function (arg) {
+        var a = detAzi(), z = a.z; if (z.r !== undefined && z.r !== null && z.r !== "") return;
+        if (arg === "sari") { z.r = "sarit"; S.pune("det.zi", z); return; }
+        z.r = Number(arg); S.pune("det.zi", z); S.pune("det.n", (Number(S.ia("det.n", 0)) || 0) + 1);
+        var o = detText(a.x, "opt")[z.r]; if (o && o.ok) S.pune("det.corecte", (Number(S.ia("det.corecte", 0)) || 0) + 1);
+        C.deArata = "detectiv";
+      },
       /* „Cum a mers?” pentru tema de săptămâna trecută. „Am reușit” bifează tema. */
       memorie: function (arg) {
         var p = String(arg).split("|"), k = Number(p[0]), r = p[1];
