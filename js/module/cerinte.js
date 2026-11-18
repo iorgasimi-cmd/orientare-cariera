@@ -8,7 +8,7 @@
 
   function ecran() {
     var V = C.eAdult() ? D.adult : D.elev;
-    var corp = "<p>" + esc(V.intro) + "</p>" +
+    var corp = (C.butonLectie ? C.butonLectie("cerinte") : "") + "<p>" + esc(V.intro) + "</p>" +
       V.lista.map(function (x) {
         return '<section class="card"><h2>' + esc(x.t) + "</h2><p>" + esc(x.ce) + '</p>' +
           '<p class="idee">' + esc(x.pas) + "</p>" +

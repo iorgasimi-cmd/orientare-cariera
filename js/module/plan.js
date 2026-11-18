@@ -111,6 +111,7 @@
     var corp = "";
     var rem = C.module.reamintiri;
     if (rem) corp += rem.banner();
+    if (C.butonLectie) corp += C.butonLectie("plan");
     corp += cardRestanta();
     corp += '<section class="card"><h2>Scopul meu</h2>' +
       (scop ? '<p class="citat">' + esc(scop) + "</p>" +

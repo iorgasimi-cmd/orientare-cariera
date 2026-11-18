@@ -39,7 +39,7 @@
 
   function intro() {
     var pauza = S.ia("situatie", "") === "pauza";
-    var corp = D.intro.map(function (p) { return "<p>" + esc(p) + "</p>"; }).join("") +
+    var corp = (C.butonLectie ? C.butonLectie("roata") : "") + D.intro.map(function (p) { return "<p>" + esc(p) + "</p>"; }).join("") +
       '<p class="mic">' + esc(pauza ? D.introPauza : D.introAltii) + "</p>" +
       '<ol class="pasi">' + D.zone.map(function (z) { return "<li><strong>" + esc(z.t) + "</strong> – " + esc(z.d) + "</li>"; }).join("") + "</ol>" +
       '<div class="rand">' + C.buton("Începem", "nav", "roata/note", "primar") +

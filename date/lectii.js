@@ -132,6 +132,68 @@ window.DATE.lectii = {
     final: "**Ai terminat lecția!** Acum vezi cum folosești semnalele.",
     dupa: { t: "Cum folosești semnalele", ecran: "corp/semne" }
   },
+  /* Aprobate de Simona, 2026-11-18. */
+  roata: {
+    titlu: "Lecția scurtă: roata vieții profesionale",
+    intrebari: [
+      { q: "Ce îți arată o roată „strâmbă”?",
+        opt: [{ t: "Că ai greșit exercițiul." }, { t: "Că unele zone merg bine, altele mai puțin.", ok: true }],
+        bine: "**Exact!** Zonele cu note mici arată unde e loc de schimbare.",
+        gresit: "**Aproape!** Aici nu există răspunsuri greșite. O roată strâmbă arată că unele zone merg bine, altele mai puțin." },
+      { q: "O roată mică, cu multe note mici, poate însemna:",
+        opt: [{ t: "Că o singură zonă merge prost." }, { t: "Că acum nu ești mulțumit(ă) de muncă, în general.", ok: true }],
+        bine: "**Exact!** E un semn despre locul de muncă, nu despre tine.",
+        gresit: "**Aproape!** Când multe zone au note mici, poate acum nu ești mulțumit(ă) de muncă, în general." },
+      { q: "Cum folosești roata?",
+        opt: [{ t: "O fac o dată și o uit." }, { t: "Mă uit la zonele cu note mici când citesc anunțuri și la interviu.", ok: true }],
+        bine: "**Bravo!** La interviu poți întreba despre zonele care contează pentru tine.",
+        gresit: "**Aproape!** Folosește-o când citești anunțuri și la interviu." }
+    ],
+    final: "**Ai terminat lecția!** Acum desenează-ți roata.",
+    dupa: { t: "Încep roata", ecran: "roata/note" }
+  },
+  plan: {
+    titlu: "Lecția scurtă: planul",
+    intrebari: [
+      { q: "Care scop e mai clar?",
+        optElev: [{ t: "„Să aflu ce mi se potrivește.”" }, { t: "„Vorbesc cu două persoane care lucrează ca…”", ok: true }],
+        optAdult: [{ t: "„Un loc de muncă mai bun.”" }, { t: "„Vorbesc cu două persoane care lucrează ca…”", ok: true }],
+        bine: "**Exact!** Un scop clar spune exact ce faci.",
+        gresit: "**Aproape!** E prea general. Un scop clar spune exact ce faci." },
+      { q: "Ai o zi grea. Ce faci cu tema?",
+        opt: [{ t: "O las toată săptămâna." }, { t: "Fac doar varianta de 2 minute.", ok: true }],
+        bine: "**Foarte bine!** Un pas mic e tot un pas.",
+        gresit: "**Aproape!** În zilele grele, varianta de 2 minute te ține pe drum." },
+      { q: "La ce te ajută un plan „Dacă…, atunci…”?",
+        opt: [{ t: "Îmi promite că reușesc sigur." }, { t: "Știu dinainte ce fac când apare un obstacol.", ok: true }],
+        bine: "**Exact!** Așa obstacolul nu te mai prinde nepregătit(ă).",
+        gresit: "**Aproape!** Nimic nu promite reușita. Planul te ajută să știi dinainte ce faci." }
+    ],
+    final: "**Ai terminat lecția!** Acum alege-ți tema săptămânii.",
+    dupa: { t: "Văd temele", ecran: "plan/saptamana" }
+  },
+  cerinte: {
+    titlu: "Lecția scurtă: ce cer angajatorii",
+    intrebari: [
+      { q: "Ce caută angajatorii cel mai des?",
+        opt: [{ t: "Doar diplome." }, { t: "Comunicare și lucru în echipă.", ok: true }],
+        bine: "**Exact!** Ce faci împreună cu alții contează.",
+        gresit: "**Aproape!** Comunicarea și lucrul în echipă sunt căutate cel mai des." },
+      { q: "Să te adaptezi la schimbări…",
+        opt: [{ t: "e un talent: îl ai sau nu-l ai." }, { t: "se poate exersa.", ok: true }],
+        bine: "**Bravo!** Se exersează pas cu pas.",
+        gresit: "**Aproape!** Să te adaptezi se poate exersa, pas cu pas." },
+      { qElev: "Cum începi să ai experiență?", qAdult: "Trimiți cereri, dar nu primești răspuns. Ce înseamnă?",
+        optElev: [{ t: "Aștept să termin școala." }, { t: "Cu un voluntariat, un atelier sau un proiect la școală.", ok: true }],
+        optAdult: [{ t: "Că n-am nicio șansă." }, { t: "Poate piața e lentă. Pot schimba ceva în CV sau pot trimite mai multe cereri.", ok: true }],
+        bineElev: "**Exact!** Experiența începe mic.",
+        gresitElev: "**Aproape!** Experiența începe mic: voluntariat, ateliere, proiecte la școală.",
+        bineAdult: "**Exact!** Lipsa unui răspuns nu spune nimic despre tine.",
+        gresitAdult: "**Aproape!** Lipsa unui răspuns nu spune nimic despre tine. Poate piața e lentă." }
+    ],
+    final: "**Ai terminat lecția!** Acum vezi ce poți exersa.",
+    dupa: { t: "Ce cer angajatorii", ecran: "cerinte/lista" }
+  },
   cv: {
     /* Aprobată de Simona, 2026-11-17. */
     titlu: "Lecția scurtă: CV-ul",
