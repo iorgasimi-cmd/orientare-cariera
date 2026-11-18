@@ -31,8 +31,17 @@
     var corp = "<p>" + esc(D.ia.explica) + "</p>" + C.ghidIA() + '<section class="card">' + C.folosireIA() +
       '<div class="camp"><label for="c-prompt-cauta">Mesajul de copiat</label><textarea id="c-prompt-cauta" rows="7" readonly>' + C.escSimplu(D.ia.prompt) + "</textarea></div>" +
       '<div class="rand">' + C.buton("Copiază", "cauta.copiaza", null, "continua") + '</div><p id="stare-cauta" class="mic" role="status"></p></section>' +
-      inapoi("misiune", D.meniu[3].t);
+      inapoi("pacaleli", D.meniu[3].t);
     return C.pagina(D.meniu[2].t, corp, "cauta/intro");
+  }
+  function pacaleli() {
+    var P = D.pacaleli, adult = C.eAdult();
+    var corp = "<p>" + esc(P.intro) + "</p>" + P.parti.map(function (p) {
+      return '<section class="card"><h2>' + esc(p.t) + "</h2>" + p.r.map(function (r) {
+        return typeof r === "object" ? (adult ? "" : '<p class="termen">' + esc(r.elev) + "</p>") : "<p>" + esc(r) + "</p>";
+      }).join("") + "</section>";
+    }).join("") + inapoi("misiune", D.meniu[4].t);
+    return C.pagina(D.meniu[3].t, corp, "cauta/intro");
   }
   function misiune() {
     var M = D.misiune, X = C.eAdult() ? M.adult : M.elev, gata = S.ia("cauta.gata", false);
@@ -41,12 +50,13 @@
       (gata ? '<div id="cauta-raspuns" role="status">' + C.bosi(e45() && X.raspuns45 ? X.raspuns45 : X.raspuns, "bucurie") + "</div>" + C.retine("cauta")
         : '<div class="rand">' + C.buton(esc(M.buton), "cauta.gata", null, "primar") + "</div>") +
       '<div class="rand">' + C.buton("Înapoi", "nav", "cauta/intro") + "</div>";
-    return C.pagina(D.meniu[3].t, corp, "cauta/intro");
+    return C.pagina(D.meniu[4].t, corp, "cauta/intro");
   }
 
   C.reg("cauta", {
     ecran: function (sub) {
-      return ({ pasi: pasi, siteuri: siteuri, ia: ia, misiune: misiune })[sub] ? ({ pasi: pasi, siteuri: siteuri, ia: ia, misiune: misiune })[sub]() : intro();
+      var E = { pasi: pasi, siteuri: siteuri, ia: ia, pacaleli: pacaleli, misiune: misiune };
+      return E[sub] ? E[sub]() : intro();
     },
     actiuni: {
       copiaza: function () { C.copiaza("c-prompt-cauta", "stare-cauta", D.ia.copiat, D.ia.selectat); return false; },

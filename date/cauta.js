@@ -17,6 +17,7 @@ window.DATE.cauta = {
     { id: "pasi", t: "Metoda în 5 pași", d: "Cum cauți, ca să găsești ceva sigur." },
     { id: "siteuri", t: "Site-uri oficiale utile", d: "Unde cauți legi, cursuri, locuri de muncă." },
     { id: "ia", t: "Nu înțelegi? Cere o explicație simplă", d: "Un mesaj gata scris pentru un program de IA." },
+    { id: "pacaleli", t: "Cum verifici dacă un site e o păcăleală", d: "Semnele unui site fals și ce faci dacă ai dat date." },
     { id: "misiune", t: "Misiunea ta", d: "Caută singur(ă) o informație adevărată." }
   ],
   pasi: [
@@ -45,6 +46,32 @@ window.DATE.cauta = {
     prompt: "Explică-mi foarte simplu, ca pentru un copil de 12 ani, textul de mai jos. Spune-mi ce înseamnă pentru mine și ce trebuie să fac. Dacă nu ești sigur de ceva, spune-mi.\n\nTextul:\n[lipește aici textul]",
     copiat: "Am copiat mesajul. Acum lipește-l în chat, apoi adaugă textul.",
     selectat: "Am selectat mesajul. Ține apăsat pe el și alege „Copiază”."
+  },
+  /* Site-uri false. Pentru autoare: lacătul (HTTPS) nu garantează că un site e sigur; sfatul „scrie singur adresa”
+     vine de la bănci și de la Directoratul Național de Securitate Cibernetică (DNSC). 1911 și mfinante.gov.ro: de verificat pe telefon. */
+  pacaleli: {
+    intro: "**Unele site-uri arată ca cele adevărate, dar sunt false.** Vor bani sau datele tale. Cu câțiva pași le recunoști.",
+    parti: [
+      { t: "1. Uită-te atent la adresă.", r: [
+        "Păcălelile schimbă o literă sau adaugă cuvinte. De exemplu: **anofm-ro.com** în loc de **anofm.ro**.",
+        "**Cel mai sigur:** scrie tu adresa, nu apăsa pe linkuri primite prin SMS, e-mail sau WhatsApp."] },
+      { t: "2. Lacătul nu înseamnă „sigur”.", r: [
+        "Lacătul de lângă adresă arată doar că legătura e protejată. **Și site-urile false pot avea lacăt.**"] },
+      { t: "3. Semne de păcăleală", r: [
+        "✗ îți cere bani ca să te angajeze sau ca să te înscrie;",
+        "✗ îți cere parola, codul cardului sau CNP-ul de la început;",
+        "✗ te grăbește: „doar azi”, „ultimele locuri”;",
+        "✗ îți promite bani mulți, ușor și repede;",
+        "✗ are multe greșeli de scriere;",
+        "✗ nu are o adresă reală sau un telefon de contact."] },
+      { t: "4. Verifică firma.", r: [
+        "Orice firmă din România are un **cod fiscal (CUI)**. Caută-l pe **mfinante.gov.ro**, ca să vezi dacă firma există.",
+        "Caută pe internet numele site-ului și cuvântul „**păreri**”. Vezi ce spun alții."] },
+      { t: "5. Ai dat deja date sau bani?", r: [
+        "**Sună imediat la bancă**, la numărul de pe spatele cardului.",
+        "Poți raporta păcăleala la **1911**, numărul de telefon pentru probleme de securitate pe internet.",
+        { elev: "**Nu ești sigur(ă)? Întreabă un adult de încredere, înainte să scrii ceva.**" }] }
+    ]
   },
   misiune: {
     adult: {
