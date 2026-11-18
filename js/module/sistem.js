@@ -102,7 +102,7 @@
   }
 
   function despre() {
-    var corp = "<p>Aplicația te ajută să te gândești la drumul tău în carieră.</p>" +
+    var corp = "<p><strong>Aplicația te ajută să te gândești la drumul tău în carieră.</strong></p>" +
       "<p>Dacă te simți rău sau ești îngrijorat(ă), vorbește cu un adult de încredere, cu consilierul școlii sau cu medicul de familie. Dacă tu sau altcineva sunteți în pericol acum, sună la 112.</p>" +
       '<div class="rand">' + C.buton("Înapoi", "nav", "sistem/setari", "primar") + "</div>";
     return C.pagina("Despre aplicație", corp, "sistem/setari");
@@ -110,7 +110,7 @@
 
   function criza() {
     var corp = "<p>Mulțumesc că ai scris asta. Se pare că poate treci printr-un moment greu. Nu ești singur(ă) și nu trebuie să rămâi singur(ă) cu asta.</p>" +
-      "<p>Te rog să vorbești cât mai curând cu un adult în care ai încredere: un părinte sau o rudă, un profesor, consilierul școlii sau medicul de familie.</p>" +
+      "<p><strong>Te rog să vorbești cât mai curând cu un adult în care ai încredere.</strong> De exemplu: un părinte sau o rudă, un profesor, consilierul școlii sau medicul de familie.</p>" +
       '<p class="alerta"><strong>Dacă tu sau altcineva sunteți în pericol acum, sună la 112.</strong></p>' +
       '<div class="rand">' + C.buton("Mă întorc la aplicație", "sistem.inapoi", null, "primar") + "</div>";
     return C.pagina("Ești important(ă)", corp, null);

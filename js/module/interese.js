@@ -29,7 +29,7 @@
 
   function intro() {
     var corp =
-      '<p>Mai întâi, un exercițiu scurt de imaginație. Nu există răspuns greșit.</p>' +
+      '<p>Mai întâi, un exercițiu scurt de imaginație. <strong>Nu există răspuns greșit.</strong></p>' +
       '<p class="citat">' + esc(C.eAdult() ? D.bagheta.adult : D.bagheta.elev) + "</p>" +
       C.camp("bagheta", "Scrie ce-ți vine în minte, cu cuvintele tale", "Poți scrie o meserie, o activitate sau doar o idee. Poți lăsa și gol.", 4) +
       '<p>Apoi urmează testul. Sunt 36 de afirmații. Pentru fiecare, alegi cât de mult ți-ar plăcea să faci acel lucru.</p>' +
@@ -60,7 +60,7 @@
   function rezultat() {
     var r = S.ia("interese.top", null);
     if (!r) return intro();
-    var corp = "<p>Răspunsurile tale arată cel mai mult interes pentru aceste trei zone:</p>";
+    var corp = "<p>Răspunsurile tale arată <strong>cel mai mult interes</strong> pentru aceste trei zone:</p>";
     r.forEach(function (t, i) {
       var tip = D.tipuri[t];
       corp += '<section class="card"><h2>' + (i + 1) + ". " + esc(tip.nume) + "</h2><p>" + esc(tip.explicatie) +

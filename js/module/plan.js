@@ -124,7 +124,7 @@
         '<div class="rand">' + C.buton(frazaWoop() ? "Îl schimb" : "Încep", "nav", "plan/woop", frazaWoop() ? "" : "primar") + "</div></section>" +
       '<section class="card"><h2>Ce m-ar putea opri</h2><p>Cele mai frecvente obstacole, și o idee pentru fiecare.</p><div class="rand">' + C.buton("Văd obstacolele", "nav", "plan/obstacole") + C.buton("Un gând care mă oprește", "nav", "plan/convingere") + "</div></section>" +
       '<section class="card"><h2>Privire înapoi</h2><p>Ce a mers, ce a rămas, ce schimb.</p><div class="rand">' + C.buton("Mă uit înapoi", "nav", "plan/privire") + "</div></section>" +
-      '<p class="nota">Tu alegi scopul, pașii și ritmul. Aici propun, nu hotărăsc eu.</p>';
+      '<p class="nota"><strong>Tu alegi scopul, pașii și ritmul.</strong> Aici propun, nu hotărăsc eu.</p>';
     return C.pagina("Planul meu", corp);
   }
 
@@ -144,7 +144,7 @@
   }
 
   function scopRez() {
-    var corp = "<p>Iată scopul tău, scris cu cuvintele tale. Citește-l și vezi dacă ți se pare potrivit.</p>";
+    var corp = "<p><strong>Iată scopul tău, scris cu cuvintele tale.</strong> Citește-l și vezi dacă ți se pare potrivit.</p>";
     SCOP.forEach(function (s) {
       var v = S.ia("plan.scop." + s.c, "");
       if (v) corp += '<section class="card"><h2>' + esc(s.lit) + "</h2><p>" + esc(v) + "</p></section>";

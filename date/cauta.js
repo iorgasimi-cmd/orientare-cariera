@@ -40,7 +40,7 @@ window.DATE.cauta = {
     { t: "Locuri de muncă în Uniunea Europeană", a: "eures.europa.eu", adult: true },
     { t: "Drepturile tale în orice țară din Uniunea Europeană", a: "europa.eu/youreurope" }
   ],
-  siteuriNota: "Scrie adresa în browser, exact așa. Așa ești sigur(ă) că ajungi pe site-ul adevărat.",
+  siteuriNota: "**Scrie adresa exact așa, literă cu literă.** Așa ești sigur(ă) că ajungi pe site-ul adevărat.",
   ia: {
     explica: "Ai găsit un text oficial, dar e greu? **Copiază bucata pe care nu o înțelegi.** Lipește-o într-un program de IA, după mesajul de mai jos.",
     prompt: "Explică-mi foarte simplu, ca pentru un copil de 12 ani, textul de mai jos. Spune-mi ce înseamnă pentru mine și ce trebuie să fac. Dacă nu ești sigur de ceva, spune-mi.\n\nTextul:\n[lipește aici textul]",
