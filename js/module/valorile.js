@@ -19,7 +19,7 @@
   /* ---- Valorile mele ---- */
   function intro() {
     var corp = V.intro.map(function (p) { return "<p>" + esc(p) + "</p>"; }).join("") +
-      '<p class="mic">' + esc(C.eAdult() ? V.introAdult : V.introElev) + "</p>" +
+      '<p class="mic">' + esc(C.eAdult() ? V.introAdult : V.introElev) + "</p>" + (C.butonLectie ? C.butonLectie("valori") : "") +
       '<ol class="pasi">' + V.pasi.map(function (p) { return "<li>" + esc(p.t) + "</li>"; }).join("") + "</ol>" +
       '<div class="rand">' + C.buton("Începem", "nav", "valorile/p0", "primar") +
       (S.ia("vp.gata", false) ? C.buton("Văd valorile mele", "nav", "valorile/rezultat") : "") + "</div>";

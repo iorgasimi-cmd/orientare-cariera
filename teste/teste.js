@@ -1303,6 +1303,24 @@ test("detectivul de 5 secunde: o întrebare pe zi după „Bine”, răspuns ime
   S.sterge();
 });
 
+test("lecțiile scurte: asertiv (pe vârste), interviu, valori; butoanele în secțiuni; o singură variantă corectă", () => {
+  ["asertiv", "interviu", "valori", "cv"].forEach(id => D.lectii[id].intrebari.forEach((q, i) => ["opt", "optElev", "optAdult"].forEach(k => {
+    if (q[k]) assert.strictEqual(q[k].filter(o => o.ok).length, 1, id + " " + i + " " + k); })));
+  const L = C.module.lectie;
+  S.sterge(); S.pune("varsta", "sub18"); S.pune("clasa", "10");
+  assert.ok(C.module.asertiv.ecran("intro").corp.includes("lectie/asertiv/0") && C.module.valorile.ecran("intro").corp.includes("lectie/valori/0"));
+  let c = L.ecran("asertiv/1").corp;
+  assert.ok(c.includes("copieze tema") && !c.includes("Șeful"));
+  L.actiuni.alege("asertiv|1|1"); assert.ok(L.ecran("asertiv/1").corp.includes("Spui „nu” clar"));
+  L.actiuni.alege("asertiv|2|0"); assert.ok(L.ecran("asertiv/2").corp.includes("Cuvântul acela judecă omul"));
+  S.sterge(); S.pune("varsta", "18-44"); S.pune("situatie", "caut");
+  c = L.ecran("asertiv/1").corp; assert.ok(c.includes("Șeful") && c.includes("Raportul e gata joi"));
+  assert.ok(C.module.interviu.ecran("hub").corp.includes("lectie/interviu/0"));
+  L.actiuni.alege("interviu|0|1"); L.actiuni.alege("interviu|1|1"); L.actiuni.alege("interviu|2|1");
+  assert.strictEqual(L.corecte("interviu"), 3); assert.ok(L.ecran("interviu/final").corp.includes("interviu/povesti"));
+  S.sterge();
+});
+
 test("valorile: 10 → 5 → 3 → 1, cu limită la fiecare pas, întrebări, note și rezultat", () => {
   S.sterge(); S.pune("varsta", "sub18"); S.pune("clasa", "10");
   const a = C.module.valorile.actiuni, L = D.valoriPers.listaElev;
@@ -1391,7 +1409,7 @@ test("fișa de pregătire: verifică sumele între ele și scrie fraza cu interv
 console.log("Ecranele se desenează");
 test("fiecare ecran se desenează fără erori și fără „undefined”", () => {
   S.sterge(); S.pune("varsta", "sub18"); S.pune("clasa", "10");
-  const ecrane = ["cauta/intro", "cauta/pasi", "cauta/siteuri", "cauta/ia", "cauta/pacaleli", "cauta/misiune", "datele/tot", "lectie/cv/0", "lectie/cv/2", "lectie/cv/final", "plan/woop", "retine/recap", "caiet/tot", "roata/intro", "roata/note", "roata/rezultat", "cerinte/lista", "corp/intro", "corp/semne", "corp/tinuta", "corp/exercitiu", "corp/gata", "start", "elev/clasa", "elev/bunvenit", "elev/meniu", "adult/situatie", "adult/bunvenit", "adult/meniu", "adult/pas/cv", "cv/intro", "cv/q0", "cv/q1", "cv/q2", "cv/q3", "cv/q4", "cv/rezultat", "cv/ia", "scrisoare/intro", "scrisoare/q0", "scrisoare/q1", "scrisoare/q2", "scrisoare/q3", "scrisoare/q4", "scrisoare/q5", "scrisoare/schelet", "scrisoare/ia", "interviu/hub", "interviu/povesti", "interviu/poveste/1", "interviu/poveste/5", "interviu/grup/tine", "interviu/grup/experienta", "interviu/grup/motivatie", "interviu/grup/dificile", "interviu/grup/special", "interviu/exersez", "competente/intro", "competente/a", "competente/b", "competente/tabel", "competente/concluzie", "asertiv/intro", "asertiv/exemplu/1", "asertiv/exemplu/5", "asertiv/exercitiu", "asertiv/ia", "exercitii/quiz/compliment", "exercitii/quiz/compliment/1", "exercitii/quiz/gluma/3", "exercitii/quiz/argumente", "exercitii/quiz/argumente/3", "exercitii/argumentez", "valorile/intro", "valorile/p0", "valorile/p1", "valorile/p2", "valorile/p3", "valorile/intrebari", "valorile/nota", "valorile/rezultat", "stima/intro", "stima/p0", "stima/p1", "stima/rezultat", "negociere/hub", "negociere/piata", "negociere/fisa", "negociere/moment", "negociere/interval", "negociere/ton", "negociere/oferta", "negociere/exercitiu", "exercitii/cerere", "exercitii/pauza", "exercitii/voce", "exercitii/capete", "exercitii/cuvinte", "exercitii/intrebari",
+  const ecrane = ["lectie/asertiv/0", "lectie/asertiv/1", "lectie/asertiv/2", "lectie/interviu/1", "lectie/valori/2", "cauta/intro", "cauta/pasi", "cauta/siteuri", "cauta/ia", "cauta/pacaleli", "cauta/misiune", "datele/tot", "lectie/cv/0", "lectie/cv/2", "lectie/cv/final", "plan/woop", "retine/recap", "caiet/tot", "roata/intro", "roata/note", "roata/rezultat", "cerinte/lista", "corp/intro", "corp/semne", "corp/tinuta", "corp/exercitiu", "corp/gata", "start", "elev/clasa", "elev/bunvenit", "elev/meniu", "adult/situatie", "adult/bunvenit", "adult/meniu", "adult/pas/cv", "cv/intro", "cv/q0", "cv/q1", "cv/q2", "cv/q3", "cv/q4", "cv/rezultat", "cv/ia", "scrisoare/intro", "scrisoare/q0", "scrisoare/q1", "scrisoare/q2", "scrisoare/q3", "scrisoare/q4", "scrisoare/q5", "scrisoare/schelet", "scrisoare/ia", "interviu/hub", "interviu/povesti", "interviu/poveste/1", "interviu/poveste/5", "interviu/grup/tine", "interviu/grup/experienta", "interviu/grup/motivatie", "interviu/grup/dificile", "interviu/grup/special", "interviu/exersez", "competente/intro", "competente/a", "competente/b", "competente/tabel", "competente/concluzie", "asertiv/intro", "asertiv/exemplu/1", "asertiv/exemplu/5", "asertiv/exercitiu", "asertiv/ia", "exercitii/quiz/compliment", "exercitii/quiz/compliment/1", "exercitii/quiz/gluma/3", "exercitii/quiz/argumente", "exercitii/quiz/argumente/3", "exercitii/argumentez", "valorile/intro", "valorile/p0", "valorile/p1", "valorile/p2", "valorile/p3", "valorile/intrebari", "valorile/nota", "valorile/rezultat", "stima/intro", "stima/p0", "stima/p1", "stima/rezultat", "negociere/hub", "negociere/piata", "negociere/fisa", "negociere/moment", "negociere/interval", "negociere/ton", "negociere/oferta", "negociere/exercitiu", "exercitii/cerere", "exercitii/pauza", "exercitii/voce", "exercitii/capete", "exercitii/cuvinte", "exercitii/intrebari",
     "interese/intro", "interese/test", "interese/rezultat",
     "forte/intro", "forte/m0", "forte/m1", "forte/m2", "forte/ik0", "forte/ik1", "forte/ik2", "forte/ik3", "forte/valori", "forte/rezumat",
     "meserii/lista", "meserii/toate", "meserii/salvate",

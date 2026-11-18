@@ -5,16 +5,18 @@
   var C = g.Cariera, S = g.Stocare, esc = C.esc, D = g.DATE.lectii;
 
   function inl(t, v) { Object.keys(v).forEach(function (k) { t = t.split("{" + k + "}").join(v[k]); }); return t; }
+  /* Câmpul potrivit vârstei: întâi varianta „Elev”/„Adult”, apoi cea comună. */
+  function v(q, k) { var e = C.eAdult() ? "Adult" : "Elev"; return q[k + e] !== undefined ? q[k + e] : q[k]; }
   function ales(id, i) { var v = S.ia("lectie." + id + ".r" + i, null); return v === null || v === "" ? -1 : Number(v); }
   function corecte(id) {
-    var L = D[id]; return L.intrebari.filter(function (q, i) { var a = ales(id, i); return a >= 0 && q.opt[a] && q.opt[a].ok; }).length;
+    var L = D[id]; return L.intrebari.filter(function (q, i) { var a = ales(id, i), o = v(q, "opt"); return a >= 0 && o[a] && o[a].ok; }).length;
   }
 
   function intrebare(id, i) {
     var L = D[id], q = L.intrebari[i], n = L.intrebari.length, a = ales(id, i), raspuns = a >= 0;
     var corp = '<progress class="progres" max="' + n + '" value="' + (i + (raspuns ? 1 : 0)) + '" aria-label="Progres"></progress>' +
       '<p class="mic">' + esc(inl(D.progres, { i: i + 1, n: n })) + "</p>" +
-      C.bosi(q.q) + '<div class="meniu-lista optiuni">' + q.opt.map(function (o, k) {
+      C.bosi(v(q, "q")) + '<div class="meniu-lista optiuni">' + v(q, "opt").map(function (o, k) {
         var cls = "lista mare";
         var semn = "";
         if (raspuns) {
@@ -24,8 +26,8 @@
           : C.buton(esc(o.t), "lectie.alege", id + "|" + i + "|" + k, cls);
       }).join("") + "</div>";
     if (raspuns) {
-      var ok = q.opt[a] && q.opt[a].ok;
-      corp += '<div id="lectie-raspuns" role="status">' + C.bosi(ok ? q.bine : q.gresit, ok ? "bucurie" : "zambet") + "</div>" +
+      var ok = v(q, "opt")[a] && v(q, "opt")[a].ok;
+      corp += '<div id="lectie-raspuns" role="status">' + C.bosi(ok ? v(q, "bine") : v(q, "gresit"), ok ? "bucurie" : "zambet") + "</div>" +
         '<div class="rand">' + C.buton(esc(D.continua), "nav", "lectie/" + id + "/" + (i + 1 < n ? i + 1 : "final"), "continua") + "</div>";
     }
     return C.pagina(L.titlu, corp, C.acasa());

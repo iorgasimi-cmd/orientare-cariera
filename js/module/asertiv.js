@@ -12,7 +12,7 @@
 
   function intro() {
     var ce = pentruElev() ? D.elev.ce : D.ce, castig = pentruElev() ? D.elev.castig : D.castig;
-    var corp = '<p class="citat">' + esc(ce) + "</p>" +
+    var corp = (C.butonLectie ? C.butonLectie("asertiv") : "") + '<p class="citat">' + esc(ce) + "</p>" +
       '<section class="card"><h2>' + esc(castig.titlu) + "</h2>" + lista(castig.lista) + "</section>" +
       "<h2>" + esc(D.stiluri.titlu) + "</h2>" +
       D.stiluri.lista.map(function (s) {

@@ -19,7 +19,7 @@
 
   function hub() {
     var n = nrPovesti(), sp = speciale();
-    var corp = "<p>" + esc(D.intro) + "</p>" +
+    var corp = "<p>" + esc(D.intro) + "</p>" + (C.butonLectie ? C.butonLectie("interviu") : "") +
       '<div class="meniu-lista">' +
       C.buton("<strong>1. " + esc(D.povesti.titlu) + '</strong><span class="stare' + (n >= 3 ? ' gata">✓ ' : '">○ ') + n + " din " + D.povesti.maxim + " scrise</span>", "nav", "interviu/povesti", "lista") +
       D.grupe.map(function (gr, i) {
