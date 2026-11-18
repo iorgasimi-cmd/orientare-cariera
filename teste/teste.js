@@ -1261,7 +1261,7 @@ test("cum găsești informații sigure: 5 pași, site-uri pe vârste, mesaj pent
   assert.ok(s.includes("legislatie.just.ro") && s.includes("anofm.ro") && !s.includes("admitere.edu.ro"));
   assert.ok(K.ecran("ia").corp.includes("ca pentru un copil de 12 ani") && K.ecran("ia").corp.includes("Cum să nu-l folosești"));
   let pc = K.ecran("pacaleli").corp;
-  assert.ok(pc.includes("Și site-urile false pot avea lacăt") && pc.includes("1911") && pc.includes("„<strong>păreri</strong>”") && !/țeap/i.test(pc) && !pc.includes("Întreabă un adult de încredere, înainte"));
+  assert.ok(pc.includes("ca un om care poartă o mască") && pc.includes("Regula de aur") && pc.includes("Nu e vina ta") && pc.includes("1911") && !/țeap|\bCUI\b|cod fiscal|linkuri/i.test(pc));
   assert.ok(K.ecran("ia").corp.includes("cauta/pacaleli") && pc.includes("cauta/misiune"));
   let m = K.ecran("misiune").corp;
   assert.ok(m.includes(C.esc(D2.misiune.adult.q)) && !m.includes("20 de zile"));
@@ -1272,7 +1272,7 @@ test("cum găsești informații sigure: 5 pași, site-uri pe vârste, mesaj pent
   S.sterge(); S.pune("varsta", "sub18"); S.pune("clasa", "10");
   s = K.ecran("siteuri").corp;
   assert.ok(s.includes("admitere.edu.ro") && !s.includes("anofm.ro") && C.module.elev.ecran("meniu").corp.includes("11. Cum găsești informații sigure"));
-  assert.ok(K.ecran("misiune").corp.includes("calendarul admiterii") && K.ecran("pacaleli").corp.includes("Întreabă un adult de încredere, înainte"));
+  assert.ok(K.ecran("misiune").corp.includes("calendarul admiterii") && K.ecran("pacaleli").corp.includes("Regula de aur"));
   S.sterge();
 });
 
