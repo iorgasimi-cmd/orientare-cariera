@@ -196,7 +196,7 @@
     }
     var schimb = '<div class="rand">' + C.buton(esc(T.schimb), "bosi.stare", "", "mic-btn") + "</div>";
     if (r === "nu") {
-      return '<div class="stare-zi" id="stare-zi" role="status">' + C.bosi(T.nu) + '<p class="termen">' + esc(T.ajutor) + "</p>" + C.bosi(T.maine) + schimb + "</div>";
+      return '<div class="stare-zi" id="stare-zi" role="status">' + C.bosi(T.nu) + C.bosi(T.maine) + schimb + "</div>";
     }
     if (r === "asa") {
       return '<div class="stare-zi" id="stare-zi" role="status">' + C.bosi(T.asa) + '<div class="rand">' +

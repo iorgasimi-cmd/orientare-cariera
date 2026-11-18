@@ -1093,8 +1093,9 @@ test("Faro: salută la început; o dată pe zi întreabă „Cum te simți azi?�
   B.actiuni.stare("asa"); m = C.module.adult.ecran("meniu").corp;
   assert.ok(m.includes("zi de pași mici") && m.includes("plan/saptamana") && m.includes("caiet/tot"));
   B.actiuni.stare("nu"); m = C.module.adult.ecran("meniu").corp;
-  assert.ok(m.includes("nu te simți bine") && m.includes(C.esc(T.ajutor)) && m.includes("112") && m.includes("Mâine te întreb din nou") && !m.includes("Merg la pasul următor"));
-  assert.ok(C.module.sistem.ecran("despre").corp.includes(C.esc(T.ajutor)), "același mesaj de ajutor ca pe pagina Despre");
+  assert.ok(m.includes("nu te simți bine") && !m.includes("ești îngrijorat") && m.includes("Mâine te întreb din nou") && !m.includes("Merg la pasul următor"));
+  assert.ok(!C.module.sistem.ecran("despre").corp.includes("ești îngrijorat"), "mesajul de ajutor scos la cererea autoarei");
+  assert.ok(C.module.sistem.ecran("criza").corp.includes("112"), "ecranul pentru momente grele rămâne");
   B.actiuni.stare(""); assert.ok(C.module.adult.ecran("meniu").corp.includes("Cum te simți azi?"));
   S.pune("stare.zi", { data: C.adauga(C.azi(), -1), r: "nu" }); assert.ok(C.module.adult.ecran("meniu").corp.includes("Cum te simți azi?"), "a doua zi întreabă din nou");
   S.pune("bosi.ultima", C.adauga(C.azi(), -5)); S.pune("bosi.revenit", "");
@@ -1188,7 +1189,7 @@ test("Faro își amintește: tema de săptămâna trecută cu cuvintele omului, 
   m = C.module.adult.ecran("meniu").corp;
   assert.ok(m.includes("Cum vă simțiți azi?"));
   B.actiuni.stare("nu"); m = C.module.adult.ecran("meniu").corp;
-  assert.ok(m.includes("nu vă simțiți bine") && m.includes("Mâine vă întreb din nou") && m.includes("sunați la 112"));
+  assert.ok(m.includes("nu vă simțiți bine") && m.includes("Mâine vă întreb din nou") && !m.includes("sunați la 112"));
   B.actiuni.stare("asa"); m = C.module.adult.ecran("meniu").corp;
   assert.ok(m.includes("Vă înțeleg") && m.includes("Data trecută v-ați propus: „Să sun la două firme”"));
   B.actiuni.memorie("0|nu"); assert.ok(C.module.adult.ecran("meniu").corp.includes("Mă bucur că ați revenit"));

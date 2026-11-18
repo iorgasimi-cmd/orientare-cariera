@@ -33,7 +33,6 @@ window.DATE.bosi = {
     butonMini: "Varianta de 2 minute",
     butonCaiet: "Caietul meu",
     nu: "Îmi pare rău că azi nu te simți bine. **E în regulă să iei o pauză.** Respiră încet: inspiră cât numeri până la 4, expiră cât numeri până la 6.",
-    ajutor: "Dacă te simți rău sau ești îngrijorat(ă), vorbește cu un adult de încredere, cu consilierul școlii sau cu medicul de familie. Dacă tu sau altcineva sunteți în pericol acum, sună la 112.",
     maine: "Mâine te întreb din nou.",
     schimb: "Schimb răspunsul"
   },
@@ -124,7 +123,6 @@ window.DATE.bosi = {
       bineTot: "Mă bucur! **Ați parcurs tot drumul.** Puteți recapitula sau puteți răsfoi caietul.",
       asa: "Vă înțeleg. **Azi poate fi o zi de pași mici.** Faceți doar varianta de 2 minute a temei. Sau recitiți ce ați scris în caiet.",
       nu: "Îmi pare rău că azi nu vă simțiți bine. **E în regulă să luați o pauză.** Respirați încet: inspirați cât numărați până la 4, expirați cât numărați până la 6.",
-      ajutor: "Dacă vă simțiți rău sau sunteți îngrijorat(ă), vorbiți cu un adult de încredere, cu consilierul școlii sau cu medicul de familie. Dacă dumneavoastră sau altcineva sunteți în pericol acum, sunați la 112.",
       maine: "Mâine vă întreb din nou."
     }
   }

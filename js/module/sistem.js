@@ -103,7 +103,6 @@
 
   function despre() {
     var corp = "<p><strong>Aplicația te ajută să te gândești la drumul tău în carieră.</strong></p>" +
-      "<p>Dacă te simți rău sau ești îngrijorat(ă), vorbește cu un adult de încredere, cu consilierul școlii sau cu medicul de familie. Dacă tu sau altcineva sunteți în pericol acum, sună la 112.</p>" +
       '<div class="rand">' + C.buton("Înapoi", "nav", "sistem/setari", "primar") + "</div>";
     return C.pagina("Despre aplicație", corp, "sistem/setari");
   }
