@@ -28,7 +28,7 @@ window.DATE.competente = {
     explica: "Bifează cerințele pe care le îndeplinești deja. Cele care apar în mai multe anunțuri sunt primele.",
     am: "Am asta",
     apare: "apare în {n} anunțuri",
-    gol: "Nu ai lipit încă nicio cerință. Întoarce-te la pasul 2."
+    gol: "Încă n-am cerințe de comparat. **Întoarce-te la pasul 2** și lipește câteva."
   },
   concluzie: {
     titlu: "Ce reiese",

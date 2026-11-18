@@ -97,7 +97,7 @@
       valoare: function (val, el) {
         var alese = S.ia("forte.valori", []).slice(), i = alese.indexOf(val);
         if (el.checked) {
-          if (alese.length >= MAX) { el.checked = false; C.eroare = "Poți alege cel mult " + MAX + ". Scoate una dintre cele alese ca să adaugi alta."; return; }
+          if (alese.length >= MAX) { el.checked = false; C.eroare = "Ai ales deja " + MAX + ", cât e nevoie. Dacă vrei alta, scoate una."; return; }
           if (i < 0) alese.push(val);
         } else if (i >= 0) alese.splice(i, 1);
         S.pune("forte.valori", alese);
@@ -109,7 +109,7 @@
         return false; /* nu redesenăm: păstrăm poziția pe ecran */
       },
       valori_gata: function () {
-        if (S.ia("forte.valori", []).length < MIN) { C.eroare = "Alege cel puțin " + MIN + " lucruri, ca să te pot ajuta mai departe."; return; }
+        if (S.ia("forte.valori", []).length < MIN) { C.eroare = "Mai alege câteva, cel puțin " + MIN + ". Așa te pot ajuta mai bine."; return; }
         C.mergi("forte/rezumat");
       }
     }

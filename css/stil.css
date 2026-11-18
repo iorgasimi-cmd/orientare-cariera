@@ -50,9 +50,9 @@ p { margin: 0 0 14px; }
 .card.reamintire h2::before { content: "★ "; color: var(--cald-contur); }
 
 /* Atenționări și erori: roșu moale, doar când e nevoie */
-.eroare { color: var(--eroare-text); font-weight: 600; }
-.eroare:not(:empty) { background: var(--eroare-fundal); border: 2px solid var(--eroare-contur); padding: 10px 12px; border-radius: 10px; margin-bottom: 14px; }
-.eroare:not(:empty)::before { content: "Atenție: "; }
+.eroare { color: var(--text); font-weight: 600; }
+.eroare:not(:empty) { background: var(--cald-moale); border: 2px solid var(--cald-contur); padding: 10px 12px; border-radius: 10px; margin-bottom: 14px; }
+.eroare:not(:empty)::before { content: "Încă un pas: "; }
 .alerta { background: var(--eroare-fundal); border: 2px solid var(--eroare-contur); color: var(--eroare-text); padding: 12px; border-radius: 12px; }
 
 /* Cartele */

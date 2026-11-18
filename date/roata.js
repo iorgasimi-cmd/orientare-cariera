@@ -27,7 +27,7 @@ window.DATE.roata = {
   note: {
     titlu: "Cât de mulțumit(ă) ești?",
     explica: "Dă o notă fiecărei zone. **1 = deloc mulțumit(ă), 10 = foarte mulțumit(ă).**",
-    lipsa: "Mai ai zone fără notă. Alege câte o notă pentru fiecare."
+    lipsa: "Mai ai câteva zone fără notă. **Dă-le câte o notă** și desenăm roata."
   },
   rezultat: {
     titlu: "Roata ta",

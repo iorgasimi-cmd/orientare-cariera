@@ -239,11 +239,12 @@
     if (aleasa && !bifat) corp += cardPrieten(idx);
     if (aleasa && !bifat && sf) {
       var oraRem = S.ia("rem.ora", "18:00");
-      corp += '<section class="card"><h2>Reamintire în calendar</h2>' +
-        "<p>Telefonul tău îți poate aminti în fiecare zi, până la termen. Nu pot ști când bifezi tema: când o termini, șterge evenimentul din calendar.</p>" +
-        '<div class="camp"><label for="c-rem-ora">La ce oră vrei reamintirea?</label><input id="c-rem-ora" type="time" data-camp="rem.ora" value="' + esc(oraRem) + '"></div>' +
-        '<div class="rand">' + C.buton("Pune reamintirea în calendar", "reamintiri.calendar", String(idx)) + "</div>" +
-        (S.ia(cale + ".calendar", false) ? '<p class="mic" role="status">Am pregătit fișierul. Deschide-l din descărcările telefonului sau din notificare și alege Calendar. Dacă nu s-a deschis nimic, spune-mi.</p>' : "") +
+      corp += '<section class="card"><h2>Reamintire în calendarul telefonului</h2>' +
+        "<p><strong>Telefonul îți poate aminti de temă în fiecare zi</strong>, până la termen. Merge chiar și când aplicația e închisă.</p>" +
+        '<div class="camp"><label for="c-rem-ora">La ce oră să-ți amintească?</label><input id="c-rem-ora" type="time" data-camp="rem.ora" value="' + esc(oraRem) + '"></div>' +
+        '<div class="rand">' + C.buton("Adaug reamintirea în calendar", "reamintiri.calendar", String(idx)) + "</div>" +
+        (S.ia(cale + ".calendar", false) ? '<p role="status"><strong>Gata, am pregătit reamintirea.</strong> Acum deschide fișierul descărcat. Îl găsești sus, în bara telefonului, sau în „Descărcări”. Apoi apasă „<strong>Adaugă</strong>” sau „<strong>Salvează</strong>”.</p>' : "") +
+        '<p class="mic">Când termini tema, <strong>șterge reamintirea din calendar</strong>. Aplicația nu o poate șterge singură.</p>' +
         "</section>";
     }
     corp += '<p class="nota">Poți schimba tema oricând. Dacă una ți se pare grea, alege alta sau un pas mai mic.</p>';

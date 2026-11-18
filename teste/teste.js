@@ -9,8 +9,8 @@ function fals() { const m = {}; return { getItem: k => (k in m ? m[k] : null), s
 globalThis.window = globalThis;
 globalThis.localStorage = fals();
 
-["date/interese.js", "date/valori.js", "date/meserii.js", "date/sfaturi.js", "date/adulti.js", "date/cv.js", "date/scrisoare.js", "date/interviu.js", "date/competente.js", "date/asertiv.js", "date/exercitii.js", "date/ia.js", "date/valori_personale.js", "date/corp.js", "date/cerinte.js", "date/roata.js", "date/retine.js", "date/bosi.js", "date/lectii.js", "date/negociere.js",
- "js/stocare.js", "js/verificator.js", "js/nucleu.js",
+["date/interese.js", "date/valori.js", "date/meserii.js", "date/sfaturi.js", "date/adulti.js", "date/cv.js", "date/scrisoare.js", "date/interviu.js", "date/competente.js", "date/asertiv.js", "date/exercitii.js", "date/ia.js", "date/valori_personale.js", "date/corp.js", "date/cerinte.js", "date/roata.js", "date/retine.js", "date/bosi.js", "date/lectii.js", "date/glosar.js", "date/negociere.js",
+ "js/stocare.js", "js/verificator.js", "js/nucleu.js", "js/module/glosar.js",
  "js/module/interese.js", "js/module/puncte-forte.js", "js/module/meserii.js",
  "js/module/plan.js", "js/module/sfaturi.js", "js/module/reamintiri.js", "js/module/sistem.js", "js/module/adult.js", "js/module/cv.js", "js/module/scrisoare.js", "js/module/interviu.js", "js/module/competente.js", "js/module/asertiv.js", "js/module/exercitii.js", "js/module/valorile.js", "js/module/corp.js", "js/module/cerinte.js", "js/module/roata.js", "js/module/retine.js", "js/module/caiet.js", "js/module/bosi.js", "js/module/lectie.js", "js/module/negociere.js"
 ].forEach(f => require(path.join(rad, f)));
@@ -213,12 +213,12 @@ test("fișierul de calendar: format corect, alarmă zilnică până la termen", 
 });
 test("butonul de calendar apare doar cât timp tema nu e bifată", () => {
   S.sterge(); S.pune("plan.start", C.azi());
-  assert.ok(!C.module.plan.ecran("saptamana").corp.includes("Pune reamintirea în calendar"));
+  assert.ok(!C.module.plan.ecran("saptamana").corp.includes("Adaug reamintirea în calendar"));
   S.pune("plan.sapt.s0.aleasa", "t1");
   const c = C.module.plan.ecran("saptamana").corp;
-  assert.ok(c.includes("Pune reamintirea în calendar") && c.includes('type="time"') && c.includes('value="18:00"'));
+  assert.ok(c.includes("Adaug reamintirea în calendar") && c.includes('type="time"') && c.includes('value="18:00"'));
   S.pune("plan.sapt.s0.bifat", true);
-  assert.ok(!C.module.plan.ecran("saptamana").corp.includes("Pune reamintirea în calendar"));
+  assert.ok(!C.module.plan.ecran("saptamana").corp.includes("Adaug reamintirea în calendar"));
   S.sterge();
 });
 test("ecranul cu valorile nu mai arată nota despre sursă (scoasă la cererea autoarei)", () => {
@@ -420,7 +420,7 @@ test("ecranul cu rezultatul și meniul adulților", () => {
   assert.deepStrictEqual(Verificator.verificaText(p.corp.replace(/<[^>]+>/g, " ")).map(x => x.gasit), []);
   assert.ok(C.module.adult.ecran("meniu").corp.includes("✓ verificat"));
   C.module.cv._seteazaText("");
-  assert.ok(C.module.cv.ecran("rezultat").corp.includes(D.cv.pierdut), "după reîncărcare, fără text păstrat, cere lipirea din nou");
+  assert.ok(C.module.cv.ecran("rezultat").corp.includes(C.esc(D.cv.pierdut)), "după reîncărcare, fără text păstrat, cere lipirea din nou");
   S.sterge();
 });
 test("textul lipit este afișat în siguranță (nu se execută ca HTML)", () => {
@@ -464,7 +464,7 @@ test("ecranul ghidului: avertisment despre date, 5 sfaturi și buton „Copiază
   assert.ok(p.corp.includes('id="c-prompt-ia"') && p.corp.includes("readonly"));
   assert.deepStrictEqual(Verificator.verificaText(p.corp.replace(/<[^>]+>/g, " ")).map(x => x.gasit), []);
   C.module.cv._seteazaText("");
-  assert.ok(C.module.cv.ecran("ia").corp.includes(D.cv.pierdut), "fără text cere lipirea din nou");
+  assert.ok(C.module.cv.ecran("ia").corp.includes(C.esc(D.cv.pierdut)), "fără text cere lipirea din nou");
   S.sterge();
 });
 
@@ -1223,13 +1223,30 @@ test("Faro sărbătorește momentele importante o singură dată; ele rămân î
   S.sterge();
 });
 
+test("cuvinte de știut: apar doar cuvintele tehnice de pe ecran; mesajele de pas sunt calde; calendarul e explicat simplu", () => {
+  const G = C.module.glosar;
+  assert.deepStrictEqual(G.gasite("<p>Salariul net și brut, cu un interval.</p>").map(w => w.t), ["Interval", "Brut", "Net"]);
+  assert.deepStrictEqual(G.gasite("<p>Internetul e lent.</p><textarea>prompt ATS</textarea>").map(w => w.t), [], "fără potriviri false și fără casetele de copiat");
+  assert.deepStrictEqual(G.gasite("<p>Ia o pauză.</p>").map(w => w.t), [], "„Ia” (verbul) nu e „IA”");
+  S.sterge(); S.pune("varsta", "18-44"); S.pune("situatie", "caut");
+  const c = C.module.negociere.ecran("piata").corp;
+  assert.ok(c.includes("Cuvinte de știut") && c.includes("Banii pe care îi primești") === false && c.includes("Salariul din mijloc"));
+  assert.ok(!C.module.sistem.ecran("start").corp.includes("Cuvinte de știut"));
+  /* mesajele „Încă un pas” */
+  assert.ok(!/Lipsește|Completează toate|Alege exact/.test(JSON.stringify(D.asertiv) + JSON.stringify(D.valoriPers) + JSON.stringify(D.exercitii)));
+  S.pune("plan.start", C.azi()); S.pune("plan.sapt.s0.aleasa", C.module.plan.temeSaptamanii(0)[0].id);
+  const p = C.module.plan.ecran("saptamana").corp;
+  assert.ok(p.includes("Reamintire în calendarul telefonului") && p.includes("La ce oră să-ți amintească?") && !/spune-mi|browser/i.test(p.slice(p.indexOf("Reamintire"), p.indexOf("Cuvinte de știut") > 0 ? p.indexOf("Cuvinte de știut") : undefined)));
+  S.sterge();
+});
+
 test("valorile: 10 → 5 → 3 → 1, cu limită la fiecare pas, întrebări, note și rezultat", () => {
   S.sterge(); S.pune("varsta", "sub18"); S.pune("clasa", "10");
   const a = C.module.valorile.actiuni, L = D.valoriPers.listaElev;
   L.slice(0, 10).forEach(v => a.comuta("0|" + v, { checked: true }));
   const el = { checked: true }; a.comuta("0|" + L[10], el);
   assert.strictEqual(el.checked, false, "nu se pot alege mai mult de 10"); C.eroare = "";
-  a.continua("1"); assert.ok(C.eroare.includes("exact 5")); C.eroare = "";
+  a.continua("1"); assert.ok(C.eroare.includes("până ajungi la 5")); C.eroare = "";
   a.continua("0"); assert.strictEqual(C.ecran, "valorile/p1");
   assert.strictEqual((C.module.valorile.ecran("p1").corp.match(/type="checkbox"/g) || []).length, 10, "la pasul 2 apar doar cele 10 alese");
   L.slice(0, 5).forEach(v => a.comuta("1|" + v, { checked: true })); a.continua("1");

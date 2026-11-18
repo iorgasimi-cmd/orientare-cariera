@@ -14,8 +14,8 @@ window.DATE.cv = {
   ],
   pastreaza: "Păstrez textul pe acest telefon, ca să nu-l lipesc din nou",
   nesalvat: "Textul nu se salvează dacă nu bifezi mai sus.",
-  gol: "Lipește mai întâi textul CV-ului în căsuța de mai sus.",
-  pierdut: "Textul CV-ului nu mai este aici, pentru că nu l-ai păstrat pe telefon. Lipește-l din nou.",
+  gol: "Căsuța e încă goală. **Lipește aici textul CV-ului** și mă uit imediat pe el.",
+  pierdut: "Textul CV-ului nu mai e aici, pentru că n-a fost păstrat pe telefon. **Nicio grijă:** lipește-l din nou și continuăm.",
 
   /* ATS explicat simplu */
   ats: "Unele firme folosesc un program care citește CV-urile înainte să le vadă un om. **Se numește ATS.** Programul caută în CV cuvinte din anunț și poate citi greșit tabelele, coloanele, imaginile sau ce e scris în antet.",

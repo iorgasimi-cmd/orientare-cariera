@@ -111,11 +111,11 @@ window.DATE.asertiv = {
     ],
     buton: "Văd fraza mea",
     fraza: "Fraza ta",
-    gol: "Completează toate cele patru părți, ca să pot pune fraza laolaltă.",
+    gol: "Mai ai câteva părți de scris. **Când sunt toate patru, pun fraza laolaltă.**",
     bine: "✓ Ai respectat modelul și mesajul sună asertiv.",
     aproape: "Ai respectat modelul. Câteva lucruri te-ar ajuta să sune și mai asertiv:",
     incomplet: "Încă nu ai completat toate părțile modelului:",
-    lipsa: "Lipsește partea „{parte}”.",
+    lipsa: "**Mai ai de scris partea „{parte}”.**",
     reguli: {
       eticheta: "La „Când…”, ai folosit un cuvânt care judecă omul ({gasit}). Spune doar ce s-a întâmplat, de exemplu „când raportul a ajuns joi”, nu „când ești neserios”.",
       absolut: "La „Când…”, ai scris „{gasit}”. Cuvintele ca „mereu” sau „niciodată” sună a acuzație. Spune o situație anume, de exemplu „când săptămâna trecută…”.",
@@ -196,7 +196,7 @@ window.DATE.asertiv = {
         { id: "cum", inceput: "Te rog", t: "Te rog… (cum vrei răspunsul)", ajutor: "De exemplu: „explică-mi simplu, cu un exemplu”." }
       ],
       buton: "Văd întrebarea mea",
-      gol: "Completează toate cele trei părți.",
+      gol: "Mai ai câteva părți de scris. **Când sunt toate trei, îți arăt întrebarea.**",
       gata: "Întrebarea ta",
       sfat: "Copiaz-o într-un program de IA. **Apoi verifică răspunsul** în manual sau cu un profesor.",
       copiat: "Am copiat întrebarea.",

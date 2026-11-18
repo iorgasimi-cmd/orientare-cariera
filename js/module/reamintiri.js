@@ -95,7 +95,7 @@
       calendar: function (idx) {
         try {
           var pl = C.module.plan, i = Number(idx), sf = pl.dataSf(i);
-          if (!sf) { C.eroare = "Mai întâi alege o temă, ca să existe un termen."; return; }
+          if (!sf) { C.eroare = "Alege întâi o temă. Reamintirea are nevoie de o temă și de un termen."; return; }
           var d = new Date(), p2 = function (n) { return ("0" + n).slice(-2); };
           var ics = construiesteIcs({
             text: pl.textTema(i), ora: S.ia("rem.ora", "18:00"), azi: C.azi(), acum: p2(d.getHours()) + ":" + p2(d.getMinutes()),
@@ -108,11 +108,11 @@
           S.pune("plan.sapt.s" + i + ".calendar", true);
           C.eroare = "";
         } catch (e) {
-          C.eroare = "Telefonul sau browserul nu a lăsat să pregătesc fișierul de calendar.";
+          C.eroare = "Nu am reușit să pregătesc reamintirea pe acest telefon. Poți încerca din nou. Sau scrie singur(ă) tema în calendarul telefonului.";
         }
       },
       notificari: function () {
-        if (!g.Notification) { C.eroare = "Telefonul sau browserul tău nu permite notificări."; return; }
+        if (!g.Notification) { C.eroare = "Telefonul tău nu permite notificări de aici. Nu-i nimic: îți arăt tema când deschizi aplicația."; return; }
         if (S.ia("rem.notif", false)) { S.pune("rem.notif", false); return; }
         g.Notification.requestPermission().then(function (p) {
           S.pune("rem.notif", p === "granted");

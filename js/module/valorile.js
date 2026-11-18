@@ -97,7 +97,7 @@
         var i = String(arg).indexOf("|"), k = Number(String(arg).slice(0, i)), v = String(arg).slice(i + 1), P = V.pasi[k];
         var l = ales(k), j = l.indexOf(v), zona = g.document && g.document.getElementById("eroare");
         if (el.checked) {
-          if (l.length >= P.n) { el.checked = false; C.eroare = inl(V.preaMulte, { total: P.n }); if (zona) zona.textContent = C.eroare; return false; }
+          if (l.length >= P.n) { el.checked = false; C.eroare = inl(V.preaMulte, { total: P.n }); if (zona) zona.innerHTML = esc(C.eroare); return false; }
           if (j < 0) l.push(v);
         } else if (j >= 0) l.splice(j, 1);
         S.pune("vp.ales.p" + k, l); C.eroare = ""; if (zona) zona.textContent = "";

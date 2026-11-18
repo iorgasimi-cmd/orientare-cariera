@@ -93,7 +93,7 @@ window.DATE.negociere = {
     buton: "Verific fișa",
     bine: "✓ Fișa ta se potrivește. Iată fraza pe care o poți spune:",
     probleme: {
-      lipsa: "Completează minimul, ce ți-ai dori și intervalul, ca să verific fișa.",
+      lipsa: "Mai completează minimul, ce ți-ai dori și intervalul. **Apoi verific fișa.**",
       dorit: "Ce ți-ai dori e mai mic decât minimul acceptabil. Verifică cele două sume.",
       interval: "Intervalul începe sub minimul tău acceptabil. **Limita de jos ar trebui să fie o sumă cu care ești împăcat(ă).**",
       ordine: "Limita de sus a intervalului e mai mică decât cea de jos. Verifică cele două sume.",

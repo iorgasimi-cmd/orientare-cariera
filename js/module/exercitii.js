@@ -274,7 +274,7 @@
         var l = (S.ia("ex.intrebari.alese", []) || []).slice(), k = Number(v), i = l.indexOf(k);
         var zona = g.document && g.document.getElementById("eroare");
         if (el.checked) {
-          if (l.length >= D.intrebari.maxim) { el.checked = false; C.eroare = D.intrebari.prea_multe; if (zona) zona.textContent = C.eroare; return false; }
+          if (l.length >= D.intrebari.maxim) { el.checked = false; C.eroare = D.intrebari.prea_multe; if (zona) zona.innerHTML = esc(C.eroare); return false; }
           if (i < 0) l.push(k);
         } else if (i >= 0) l.splice(i, 1);
         S.pune("ex.intrebari.alese", l); C.eroare = ""; if (zona) zona.textContent = "";

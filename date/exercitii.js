@@ -114,7 +114,7 @@ window.DATE.exercitii = {
     camp: "Scrie o cerere către un coleg sau către șef",
     ajutor: "De exemplu: să te ajute cu o sarcină, să schimbi o tură, să primești o zi liberă.",
     buton: "Verific cererea",
-    gol: "Scrie mai întâi cererea în căsuța de mai sus.",
+    gol: "Scrie cererea ta în căsuța de mai sus și **o verificăm împreună**.",
     mesaje: {
       intrebare_ok: "E formulată ca o întrebare. Sună respectuos.",
       intrebare_nu: "Încearcă să o scrii ca o întrebare, de exemplu cu „Poți…?” sau „Ați putea…?”.",
@@ -181,7 +181,7 @@ window.DATE.exercitii = {
     buton: "Văd cuvintele",
     rezultat: "Cuvintele care apar cel mai des",
     sfat: "**Folosește-le firesc, unde se potrivesc**, de exemplu când vorbești despre experiența ta. Nu le înșira pe toate: s-ar simți forțat.",
-    gol: "Lipește mai întâi un text în căsuța de mai sus.",
+    gol: "Lipește un text în căsuța de mai sus și **ne uităm împreună la el**.",
     putine: "Textul e prea scurt ca să văd ce se repetă. Lipește mai mult.",
     /* Cuvinte de legătură care nu se numără (fără diacritice, cu litere mici). */
     ignorate: ["pentru", "care", "este", "sunt", "sau", "din", "prin", "unei", "unui", "acest", "aceasta", "aceste", "acestea", "fost", "fiind", "avea", "avem", "aveti", "vreti", "doriti", "dorim", "suntem", "noastra", "nostru", "noastre", "nostri", "voastra", "vostru", "dumneavoastra", "despre", "catre", "dupa", "inainte", "intre", "printre", "astfel", "foarte", "toate", "toti", "fiecare", "orice", "alte", "altor", "mult", "multe", "multi", "putin", "precum", "inclusiv", "precum", "acolo", "aici", "cand", "unde", "cum", "daca", "insa", "deci", "doar", "chiar", "cele", "celor", "cel", "cea", "lor", "sale", "sau", "lui", "mai", "ale", "ori", "nici", "spre", "fara", "peste", "sub", "asupra", "candidat", "candidatul", "candidata", "post", "postul", "jobul", "aplica", "aplicati", "cautam", "oferim", "beneficii", "cerinte", "responsabilitati"],
@@ -202,7 +202,7 @@ window.DATE.exercitii = {
       "Ce calități apreciați la colegii noi?"
     ],
     maxim: 2,
-    prea_multe: "Alege doar două. Scoate una ca să adaugi alta.",
+    prea_multe: "Ai ales deja două, cât e nevoie. Dacă vrei alta, scoate una.",
     poveste: "Și o poveste scurtă despre tine, de 2–3 propoziții",
     povesteAjutor: "Ceva ce ai făcut și ți-a plăcut, legat de domeniu. Poți folosi una dintre poveștile tale de la interviu.",
     sfat: "La discuție: pune o întrebare, ascultă, fă pauza de două secunde, pune a doua întrebare, apoi spune povestea ta când se potrivește."
@@ -239,8 +239,8 @@ window.DATE.exercitii = {
       ],
       buton: "Văd argumentul meu",
       argument: "Argumentul tău",
-      gol: "Încă nu ai completat toți pașii:",
-      lipsa: "Lipsește pasul „{parte}”.",
+      gol: "Mai ai câțiva pași de scris:",
+      lipsa: "**Mai ai de scris pasul „{parte}”.**",
       bine: "✓ Argumentul tău are toți cei patru pași și sună clar și calm.",
       aproape: "Argumentul tău are toți cei patru pași. Câteva lucruri l-ar face mai convingător:",
       laude: {

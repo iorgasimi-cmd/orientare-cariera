@@ -23,8 +23,8 @@ window.DATE.valoriPers = {
     { n: 1, t: "Valoarea ta cea mai importantă", ajutor: "Din cele 3, alege una singură." }
   ],
   contor: "Ai ales {n} din {total}.",
-  preaMulte: "Ai ales deja {total}. Scoate una ca să adaugi alta.",
-  preaPutine: "Alege exact {total}, ca să mergi mai departe.",
+  preaMulte: "Ai ales deja {total}. Dacă vrei alta, scoate una. **Tu decizi care rămân.**",
+  preaPutine: "**Mai alege câteva**, până ajungi la {total}. Apoi mergem mai departe.",
 
   intrebari: {
     /* {v} = valoarea aleasă. Întrebări scurte, câte o idee. */
@@ -105,7 +105,7 @@ window.DATE.stima = {
     { id: "s10", t: "Uneori cred că nu sunt bun(ă) de nimic.", inv: true }
   ],
   peEcran: 5,
-  lipsa: "Mai ai afirmații fără răspuns. Alege câte o variantă pentru fiecare.",
+  lipsa: "Mai ai câteva afirmații fără răspuns. **Alege-le pe rând**, apoi mergem mai departe.",
   rezultat: {
     titlu: "Rezultatul tău",
     scor: "Scorul tău: **{n} din 40**.",
