@@ -81,12 +81,11 @@
   function meniu() {
     var s = situatia();
     if (!s) return intrebare();
-    var corp = (C.module.bosi ? C.module.bosi.inceput() + C.module.bosi.salut() : "") + (C.module.retine ? C.module.retine.banner() : "") + C.drum(s.pasi.map(function (p, i) {
-      return { eticheta: "<strong>" + (i + 1) + ". " + esc(D.pasi[p].t) + "</strong>" + stare(p), ecran: ecranPas(p) || "adult/pas/" + p, gata: !!(GATA[p] && GATA[p]()) };
-    })) +
-      '<div class="rand">' + C.buton("Caietul meu", "nav", "caiet/tot") + "</div>" +
-      '<p class="mic">Situația ta: <strong>' + esc(s.t) + "</strong></p>" +
-      '<div class="rand">' + C.buton("Schimb situația", "nav", "adult/situatie") + "</div>";
+    var corp = (C.module.bosi ? C.module.bosi.inceput() + C.module.bosi.salut() : "") + (C.module.retine ? C.module.retine.banner() : "") + (C.module.bosi ? C.module.bosi.carduri(s.pasi.map(function (p, i) {
+      return { nume: D.pasi[p].t, ecran: ecranPas(p) || "adult/pas/" + p, gata: !!(GATA[p] && GATA[p]()), detaliu: GATA[p] ? GATA[p]() : "" };
+    })) : "") +
+      '<div class="rand rand-mic">' + C.buton("Caietul meu", "nav", "caiet/tot", "mic-btn") + C.buton("Schimb situația", "nav", "adult/situatie", "mic-btn") + "</div>";
+    corp += C.module.bosi ? C.module.bosi.bara() : "";
     return C.pagina("Drumul tău", corp, null);
   }
 

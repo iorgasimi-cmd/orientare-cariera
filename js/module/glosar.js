@@ -25,7 +25,8 @@
   /* Fiecare pagină primește, la final, cartela cu cuvintele ei. */
   var pagina = C.pagina;
   C.pagina = function (titlu, corp, inapoi) {
-    return pagina(titlu, corp + cartela(gasite(titlu + " " + corp)), inapoi);
+    /* Pe ecranul principal nu apare: acolo sunt doar cardurile și bara lui Faro. */
+    return pagina(titlu, corp + (titlu === "Drumul tău" ? "" : cartela(gasite(titlu + " " + corp))), inapoi);
   };
 
   C.reg("glosar", { ecran: function () { return C.pagina(D.titlu, "", C.acasa()); }, actiuni: {}, gasite: gasite });

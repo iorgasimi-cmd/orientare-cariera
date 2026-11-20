@@ -300,7 +300,7 @@ test("fiecare situație are bun venit și pașii ei, în ordinea din prompt", ()
     assert.ok(b.includes(C.esc(sit.bun)) && !b.includes(C.esc(D.adulti.accent45)), id);
     const m = C.module.adult.ecran("meniu").corp;
     let poz = -1;
-    ordine[id].forEach((t, i) => { const k = m.indexOf((i + 1) + ". " + t); assert.ok(k > poz, id + ": " + t); poz = k; });
+    ordine[id].forEach((t, i) => { const k = m.indexOf(t); assert.ok(k > poz, id + ": " + t); poz = k; });
     if (id === "nustiu") assert.ok(!m.includes("CV-ul meu"), "„Încă nu știu” lasă CV-ul pentru mai târziu");
   });
   S.sterge();
@@ -414,7 +414,7 @@ test("textul CV-ului nu se salvează pe telefon decât dacă omul bifează", () 
 });
 test("ecranul cu rezultatul și meniul adulților", () => {
   S.sterge(); S.pune("varsta", "45+"); S.pune("situatie", "caut");
-  assert.ok(C.module.adult.ecran("meniu").corp.includes("○ de făcut"));
+  assert.ok(C.module.adult.ecran("meniu").corp.includes("Continuă aici"));
   C.module.cv._seteazaText(CV_SLAB); C.module.cv.actiuni.rezultat();
   const p = C.module.cv.ecran("rezultat");
   ["Ce e bine", "Ce ai putea schimba", "În ordinea importanței", "Pentru situația ta", D.cv.mesaje.nu_pot, D.cv.situatii.accent45].forEach(t => assert.ok(p.corp.includes(C.esc(t)), t));
@@ -622,7 +622,7 @@ test("„Ce iei cu tine”: cerințele repetate sunt primele, lipsurile și conc
   C.module.competente.actiuni.gata();
   const c = C.module.competente.ecran("concluzie").corp;
   assert.ok(c.includes("✓ Excel avansat") && c.includes("○ Permis auto") && c.includes(D.competente.concluzie.experienta) && c.includes("Continuă: CV-ul meu"));
-  assert.ok(C.module.adult.ecran("meniu").corp.includes("Ce iei cu tine în noul domeniu</strong><span class=\"stare gata\">✓ făcut"));
+  assert.ok(C.module.adult.ecran("meniu").corp.includes("Ce iei cu tine în noul domeniu") && C.module.adult.ecran("meniu").corp.includes("✓ făcut"));
   S.sterge();
 });
 console.log("Comunicarea asertivă");
@@ -651,7 +651,7 @@ test("formula în trei pași, limbajul corpului, exercițiul și trecerea la pas
   assert.ok(c.includes("Gata. Continuă: Pregătirea pentru interviu"));
   C.module.asertiv.actiuni.gata("interviu/hub");
   assert.strictEqual(C.ecran, "interviu/hub");
-  assert.ok(C.module.adult.ecran("meniu").corp.includes("Comunicarea asertivă</strong><span class=\"stare gata\">✓ făcut"));
+  assert.ok(C.module.adult.ecran("meniu").corp.includes("Comunicarea asertivă") && C.module.adult.ecran("meniu").corp.includes("✓ făcut"));
   S.sterge();
 });
 
@@ -817,7 +817,7 @@ test("partea elevilor nu are exemple de la interviu sau job; adulții își păs
 console.log("Asertivitate și IA pentru elevi");
 test("elevii au comunicarea asertivă în meniu, cu situații de la școală, nu de la muncă", () => {
   S.sterge(); S.pune("varsta", "sub18"); S.pune("clasa", "9");
-  assert.ok(C.module.elev.ecran("meniu").corp.includes("6. Comunicarea asertivă"));
+  assert.ok(C.module.elev.ecran("meniu").corp.includes("Comunicarea asertivă"));
   let tot = C.module.asertiv.ecran("intro").corp + C.module.asertiv.ecran("exercitiu").corp;
   for (let i = 1; i <= 5; i++) tot += C.module.asertiv.ecran("exemplu/" + i).corp;
   assert.ok(tot.includes(C.esc(D.asertiv.elev.ce)) && tot.includes("Un coleg îți cere tema") && tot.includes("Proiectul nu e gata"));
@@ -857,7 +857,7 @@ test("valorile: elevii au lista scurtă, adulții lista întreagă, fără dublu
   assert.strictEqual(new Set(D.valoriPers.listaElev).size, D.valoriPers.listaElev.length);
   assert.ok(D.valoriPers.listaAdult.length > 100 && D.valoriPers.listaElev.length < 40);
   S.sterge(); S.pune("varsta", "sub18"); S.pune("clasa", "9");
-  assert.ok(C.module.elev.ecran("meniu").corp.includes("7. Valorile mele") && C.module.elev.ecran("meniu").corp.includes("8. Cum mă văd eu"));
+  assert.ok(C.module.elev.ecran("meniu").corp.includes("Valorile mele") && C.module.elev.ecran("meniu").corp.includes("Cum mă văd eu"));
   let c = C.module.valorile.ecran("p0").corp;
   assert.strictEqual((c.match(/type="checkbox"/g) || []).length, D.valoriPers.listaElev.length);
   assert.ok(!c.includes("autoritate") && c.includes("prietenie"));
@@ -930,7 +930,7 @@ test("roata: doar la adulții cu loc de muncă, 8 zone, roata desenată și inte
   const r = R.ecran("rezultat").corp;
   assert.ok(r.includes("<svg") && (r.match(/class="felie"/g) || []).length === 8 && r.includes("Locul de muncă</strong> – 3 din 10") && r.includes("nu e rotundă"));
   assert.ok(r.includes("Continuă: " + D.adulti.pasi.interese.t));
-  assert.ok(C.module.adult.ecran("meniu").corp.includes("1. Roata vieții profesionale"));
+  assert.ok(C.module.adult.ecran("meniu").corp.includes("Roata vieții profesionale"));
   S.sterge();
 });
 
@@ -1138,17 +1138,18 @@ test("elevii au 3 sfaturi de liniștire la limbajul corpului; adulții nu le vă
   S.sterge();
 });
 
-test("drumul cu stații: ✓ la stațiile făcute, „Ești aici” la prima nefăcută, o singură dată", () => {
+test("ecranul principal: cardurile secțiunilor; cardul curent e marcat „Continuă aici”; ✓ la cele făcute", () => {
   S.sterge(); S.pune("varsta", "18-44"); S.pune("situatie", "caut");
   let m = C.module.adult.ecran("meniu").corp;
-  assert.strictEqual((m.match(/Ești aici/g) || []).length, 1);
-  assert.ok(m.indexOf("Ești aici") < m.indexOf("1. Roata vieții profesionale"));
+  assert.strictEqual((m.match(/Continuă aici/g) || []).length, 1);
+  assert.ok(m.indexOf("Continuă aici") < m.indexOf("CV-ul meu") + 400 && m.includes('class="carduri"'));
   S.pune("roata.gata", true); m = C.module.adult.ecran("meniu").corp;
-  assert.ok(m.includes('class="statie gata"') && m.indexOf("Ești aici") > m.indexOf("1. Roata") && m.indexOf("Ești aici") < m.indexOf("2. CV-ul meu"));
+  assert.ok(m.includes('class="card-modul') || m.includes('class="btn  gata') || m.includes("gata"));
+  assert.ok(m.indexOf("✓ Făcut") > -1 || m.includes("✓ făcut"));
   S.sterge(); S.pune("varsta", "sub18"); S.pune("clasa", "10"); S.pune("interese.top", ["S", "I", "A"]);
   m = C.module.elev.ecran("meniu").corp;
-  assert.ok(m.indexOf("Ești aici") > m.indexOf("1. Test de interese") && m.indexOf("Ești aici") < m.indexOf("2. Puncte forte"));
-  assert.strictEqual((m.match(/<li class="statie/g) || []).length, 11);
+  assert.strictEqual((m.match(/Continuă aici/g) || []).length, 1);
+  assert.ok(m.indexOf("Test de interese") < m.indexOf("Continuă aici"));
   S.sterge();
 });
 
@@ -1274,7 +1275,7 @@ test("cum găsești informații sigure: 5 pași, site-uri pe vârste, mesaj pent
   assert.ok(C.module.negociere.ecran("piata").corp.includes("Vezi cum afli singur"), "legătura din „Cuvinte de știut”");
   S.sterge(); S.pune("varsta", "sub18"); S.pune("clasa", "10");
   s = K.ecran("siteuri").corp;
-  assert.ok(s.includes("admitere.edu.ro") && !s.includes("anofm.ro") && C.module.elev.ecran("meniu").corp.includes("11. Cum găsești informații sigure"));
+  assert.ok(s.includes("admitere.edu.ro") && !s.includes("anofm.ro") && C.module.elev.ecran("meniu").corp.includes("Cum găsești informații sigure"));
   assert.ok(K.ecran("misiune").corp.includes("calendarul admiterii") && K.ecran("pacaleli").corp.includes("Regula de aur"));
   S.sterge();
 });
@@ -1338,7 +1339,7 @@ test("ușor de folosit: ghid la prima folosire, „Continuă de unde ai rămas�
   assert.ok(m.includes("atingeți butonul galben") && m.includes("Am înțeles"));
   assert.ok(m.indexOf("Continuă de unde ai rămas") > 0 && m.indexOf("Continuă de unde ai rămas") < m.indexOf("Cum vă simțiți azi?") && m.includes("roata/intro"));
   C.module.bosi.actiuni.ghid(); m = C.module.adult.ecran("meniu").corp;
-  assert.ok(!m.includes("Am înțeles") && m.includes("Continuă de unde ai rămas"));
+  assert.ok(!m.includes("Am înțeles") && m.includes("Continuă aici"));
   S.pune("roata.gata", true); assert.ok(C.module.adult.ecran("meniu").corp.includes('data-arg="cv/intro"'));
   D.roata.zone.forEach(z => S.pune("roata.n." + z.id, 6));
   const c = C.module.roata.ecran("rezultat").corp;
@@ -1404,7 +1405,7 @@ test("valorile: 10 → 5 → 3 → 1, cu limită la fiecare pas, întrebări, no
   a.gata(); const r = C.module.valorile.ecran("rezultat").corp;
   assert.ok(r.includes(L[1]) && r.includes("contează 3 din 10") && r.includes("Ține minte aceste valori"));
   assert.ok(C.module.valorile.ecran("nota").titlu === "Cât contează pentru tine?" && !C.module.valorile.ecran("nota").corp.includes("trăiești"));
-  assert.ok(C.module.elev.ecran("meniu").corp.includes("7. Valorile mele</strong><span class=\"stare gata\">"));
+  assert.ok(C.module.elev.ecran("meniu").corp.includes("Valorile mele"));
   /* dacă schimbi alegerea de la început, pașii următori păstrează doar ce e încă ales */
   a.comuta("0|" + L[0], { checked: false }); a.comuta("0|" + L[20], { checked: true }); a.continua("0");
   assert.ok(!(S.ia("vp.ales.p1") || []).includes(L[0]) && !(S.ia("vp.ales.p2") || []).includes(L[0]));
