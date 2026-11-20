@@ -1368,9 +1368,11 @@ test("semnale: „înainte” și „înapoi” pe butoanele de navigare; legăt
   assert.ok(B("Înapoi la drumul meu", "nav", "adult/meniu", "primar").includes("semn-inapoi"));
   S.sterge(); S.pune("varsta", "18-44"); S.pune("situatie", "caut");
   const link = "https://iorgasimi-cmd.github.io/colorpsi/#servicii";
-  ["asertiv", "corp", "cerinte", "forte", "cv"].forEach(id => assert.ok(C.retine(id).includes(link) && C.retine(id).includes('target="_blank"'), id));
-  assert.ok(!C.retine("stima").includes(link) && !C.retine("roata").includes(link), "doar la comunicare și CV");
-  assert.ok(C.retine("asertiv").includes("Vrei să exersezi mai mult") && !C.retine("asertiv").includes("Se deschide un site separat"));
+  ["asertiv", "corp", "cerinte", "forte", "cv"].forEach(id => assert.ok(C.retine(id).includes('data-arg="servicii/tot"'), id));
+  assert.ok(!C.retine("stima").includes("servicii/tot") && !C.retine("roata").includes("servicii/tot"), "doar la comunicare și CV");
+  const pg = C.module.servicii.ecran("tot").corp;
+  assert.ok(pg.includes(link) && pg.includes("Vrei să exersezi mai mult") && !C.module.servicii.ecran("tot").corp.includes("Retine"), "pagina separată, cu linkul");
+  assert.strictEqual((pg.match(/<section/g) || []).length, 1, "un singur card pe pagină");
   S.sterge();
 });
 
