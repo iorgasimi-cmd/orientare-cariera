@@ -3,6 +3,8 @@
 (function (g) {
   "use strict";
   var C = g.Cariera, S = g.Stocare, esc = C.esc, D = g.DATE.retine;
+  /* Secțiunile la finalul cărora apare legătura către serviciile ColorPsi. */
+  var LEAGA_COLORPSI = ["asertiv", "corp", "cerinte", "forte", "cv"];
 
   function date(id) {
     var x = D.sectiuni[id]; if (!x) return null;
@@ -22,7 +24,9 @@
       C.camp("caiet." + id + ".text", esc(D.scrie), esc(D.scrieAjutor), 2) +
       '<h2 class="intrebare-titlu">' + esc(D.pasTitlu) + "</h2><p>" + esc(x.pas) + "</p>" +
       '<div class="rand">' + C.buton(esc(D.buton), "retine.tema", id) + "</div>" +
-      '<div id="retine-' + id + '" role="status">' + msg + "</div></section>";
+      '<div id="retine-' + id + '" role="status">' + msg + "</div></section>" +
+      /* Legătura către serviciile ColorPsi, la finalul secțiunilor de comunicare și la CV-ul pentru adulți. */
+      (LEAGA_COLORPSI.indexOf(id) >= 0 && C.servicii ? C.servicii.card() : "");
   };
 
   /* ---- Recapitulări (repetare la distanță) ---- */

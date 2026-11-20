@@ -25,8 +25,18 @@
 
     /* Buton: act = "modul.actiune" sau "nav" (schimbă ecranul). */
     buton: function (text, act, arg, clasa) {
-      return '<button type="button" class="btn ' + (clasa || "") + '" data-act="' + esc(act) + '"' +
-        (arg != null ? ' data-arg="' + esc(arg) + '"' : "") + ">" + text + "</button>";
+      var t = String(text), cl = clasa || "";
+      /* Semnalizare, ca la mașină: „înainte” clipește chihlimbar, „înapoi” clipește verde. Doar butoanele de navigare. */
+      if (cl.indexOf("continua") >= 0 && (act === "nav" || /Continuă|Mai departe/.test(t))) {
+        cl += " semn-inainte";
+        t += ' <span class="flecha" aria-hidden="true">→</span>';
+      }
+      if (/^(<[^>]+>)*Înapoi/.test(t)) {
+        cl += " semn-inapoi";
+        t = '<span class="flecha" aria-hidden="true">←</span> ' + t;
+      }
+      return '<button type="button" class="btn ' + cl + '" data-act="' + esc(act) + '"' +
+        (arg != null ? ' data-arg="' + esc(arg) + '"' : "") + ">" + t + "</button>";
     },
 
     /* Câmp de text legat de o cale din starea salvată. */

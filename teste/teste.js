@@ -9,10 +9,10 @@ function fals() { const m = {}; return { getItem: k => (k in m ? m[k] : null), s
 globalThis.window = globalThis;
 globalThis.localStorage = fals();
 
-["date/interese.js", "date/valori.js", "date/meserii.js", "date/sfaturi.js", "date/adulti.js", "date/cv.js", "date/scrisoare.js", "date/interviu.js", "date/competente.js", "date/asertiv.js", "date/exercitii.js", "date/ia.js", "date/valori_personale.js", "date/corp.js", "date/cerinte.js", "date/roata.js", "date/retine.js", "date/bosi.js", "date/lectii.js", "date/glosar.js", "date/datele.js", "date/cauta.js", "date/detectiv.js", "date/negociere.js",
+["date/interese.js", "date/valori.js", "date/meserii.js", "date/sfaturi.js", "date/adulti.js", "date/cv.js", "date/scrisoare.js", "date/interviu.js", "date/competente.js", "date/asertiv.js", "date/exercitii.js", "date/ia.js", "date/valori_personale.js", "date/corp.js", "date/cerinte.js", "date/roata.js", "date/retine.js", "date/bosi.js", "date/lectii.js", "date/glosar.js", "date/datele.js", "date/servicii.js", "date/cauta.js", "date/detectiv.js", "date/negociere.js",
  "js/stocare.js", "js/verificator.js", "js/nucleu.js", "js/module/glosar.js",
  "js/module/interese.js", "js/module/puncte-forte.js", "js/module/meserii.js",
- "js/module/plan.js", "js/module/sfaturi.js", "js/module/reamintiri.js", "js/module/sistem.js", "js/module/adult.js", "js/module/cv.js", "js/module/scrisoare.js", "js/module/interviu.js", "js/module/competente.js", "js/module/asertiv.js", "js/module/exercitii.js", "js/module/valorile.js", "js/module/corp.js", "js/module/cerinte.js", "js/module/roata.js", "js/module/retine.js", "js/module/caiet.js", "js/module/bosi.js", "js/module/lectie.js", "js/module/datele.js", "js/module/cauta.js", "js/module/negociere.js"
+ "js/module/plan.js", "js/module/sfaturi.js", "js/module/reamintiri.js", "js/module/sistem.js", "js/module/adult.js", "js/module/cv.js", "js/module/scrisoare.js", "js/module/interviu.js", "js/module/competente.js", "js/module/asertiv.js", "js/module/exercitii.js", "js/module/valorile.js", "js/module/corp.js", "js/module/cerinte.js", "js/module/roata.js", "js/module/retine.js", "js/module/servicii.js", "js/module/caiet.js", "js/module/bosi.js", "js/module/lectie.js", "js/module/datele.js", "js/module/cauta.js", "js/module/negociere.js"
 ].forEach(f => require(path.join(rad, f)));
 
 const C = Cariera, S = Stocare, D = DATE;
@@ -88,7 +88,9 @@ test("nu se trimite nimic în rețea: niciun fișier nu apelează fetch, XMLHttp
   const dosare = ["js", "js/module", "date"];
   dosare.forEach(d => fs.readdirSync(path.join(rad, d)).filter(f => f.endsWith(".js")).forEach(f => {
     const t = fs.readFileSync(path.join(rad, d, f), "utf8");
-    assert.ok(!/XMLHttpRequest|\bfetch\(|sendBeacon|WebSocket|https?:\/\//.test(t), d + "/" + f);
+    /* Singura adresă externă permisă: legătura către serviciile ColorPsi, cerută de autoare. */
+    const fara = t.split("https://iorgasimi-cmd.github.io/colorpsi/#servicii").join("");
+    assert.ok(!/XMLHttpRequest|\bfetch\(|sendBeacon|WebSocket|https?:\/\//.test(fara), d + "/" + f);
   }));
   const html = fs.readFileSync(path.join(rad, "index.html"), "utf8");
   assert.ok(!/(src|href)="https?:\/\//.test(html));
@@ -1353,6 +1355,21 @@ test("ecranul pentru momente grele: elevii — un adult de încredere; adulții 
   S.sterge(); S.pune("varsta", "45+");
   c = C.module.sistem.ecran("criza").corp;
   assert.ok(c.includes("cineva în care ai încredere") && !c.includes("un adult") && !c.includes("consilierul școlii") && c.includes("112"));
+  S.sterge();
+});
+
+test("semnale: „înainte” și „înapoi” pe butoanele de navigare; legătura ColorPsi la comunicare și la CV-ul adulților", () => {
+  const B = (t, act, arg, cl) => C.buton(t, act, arg, cl);
+  assert.ok(B("Continuă", "nav", "x", "continua").includes("semn-inainte"));
+  assert.ok(B("Înapoi", "nav", "y").includes("semn-inapoi") && B("Înapoi", "nav", "y").includes("←"));
+  assert.ok(!B("Copiază", "cauta.copiaza", null, "continua").includes("semn-inainte"), "copierea nu clipește ca navigare");
+  assert.ok(!B("Gata", "asertiv.gata", null, "primar").includes("semn"), "butoanele de acțiune nu clipesc");
+  assert.ok(B("Înapoi la drumul meu", "nav", "adult/meniu", "primar").includes("semn-inapoi"));
+  S.sterge(); S.pune("varsta", "18-44"); S.pune("situatie", "caut");
+  const link = "https://iorgasimi-cmd.github.io/colorpsi/#servicii";
+  ["asertiv", "corp", "cerinte", "forte", "cv"].forEach(id => assert.ok(C.retine(id).includes(link) && C.retine(id).includes('target="_blank"'), id));
+  assert.ok(!C.retine("stima").includes(link) && !C.retine("roata").includes(link), "doar la comunicare și CV");
+  assert.ok(C.retine("asertiv").includes("Vrei să exersezi mai mult") && C.retine("asertiv").includes("Din aplicație nu se trimite nimic"));
   S.sterge();
 });
 
