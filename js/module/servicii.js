@@ -7,7 +7,7 @@
       return '<section class="card servicii"><h2>' + esc(D.titlu) + "</h2><p>" + esc(C.eAdult() ? D.text : D.textElev) + "</p>" +
         '<div class="rand"><a class="btn primar" href="' + esc(D.url) + '" target="_blank" rel="noopener noreferrer">' + esc(D.buton) +
         ' <span class="sr">(se deschide un site separat)</span></a></div>' +
-        '<p class="mic">' + esc(D.nota) + "</p></section>";
+        "</section>";
     }
   };
 })(typeof window !== "undefined" ? window : globalThis);

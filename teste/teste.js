@@ -1369,7 +1369,7 @@ test("semnale: „înainte” și „înapoi” pe butoanele de navigare; legăt
   const link = "https://iorgasimi-cmd.github.io/colorpsi/#servicii";
   ["asertiv", "corp", "cerinte", "forte", "cv"].forEach(id => assert.ok(C.retine(id).includes(link) && C.retine(id).includes('target="_blank"'), id));
   assert.ok(!C.retine("stima").includes(link) && !C.retine("roata").includes(link), "doar la comunicare și CV");
-  assert.ok(C.retine("asertiv").includes("Vrei să exersezi mai mult") && C.retine("asertiv").includes("Din aplicație nu se trimite nimic"));
+  assert.ok(C.retine("asertiv").includes("Vrei să exersezi mai mult") && !C.retine("asertiv").includes("Se deschide un site separat"));
   S.sterge();
 });
 
