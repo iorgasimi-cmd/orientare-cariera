@@ -13,16 +13,17 @@
   --text: #1F2937;              /* gri închis, nu negru pur */
   --text-slab: #4B5563;         /* texte secundare, încă lizibile */
 
-  /* Culoarea principală: albastru de încredere, ales de Simona pentru încredere și siguranță (titluri, bara de progres, butoanele importante) */
-  --principal: #1E4E8C;
+  /* Culoarea principală: albastru de încredere, ales de Simona pentru încredere și siguranță (titluri, bara de progres, butoanele importante).
+     Mai viu decât varianta inițială, ca la Mimo, dar tot albastru — nu schimbăm identitatea culorii. */
+  --principal: #1D5FE0;
   --principal-text: #FFFFFF;    /* text pe butonul principal */
-  --principal-moale: #E2EBF6;   /* fundal discret, cu text închis deasupra */
+  --principal-moale: #DCE8FB;   /* fundal discret, cu text închis deasupra */
 
-  /* Accent cald: chihlimbar (felicitări, pași făcuți, butonul „Continuă”) */
-  --cald: #F59E0B;
+  /* Accent cald: chihlimbar (felicitări, pași făcuți, butonul „Continuă”), mai saturat */
+  --cald: #FF9E00;
   --cald-text: #1F2937;         /* text pe chihlimbar: mereu închis, niciodată alb */
-  --cald-moale: #FEF1CF;        /* fundal discret pentru felicitări */
-  --cald-contur: #B45309;       /* marginea elementelor chihlimbar */
+  --cald-moale: #FFEDCC;        /* fundal discret pentru felicitări */
+  --cald-contur: #A35600;       /* marginea elementelor chihlimbar */
 
   /* Linii și margini */
   --contur: #6B7280;            /* margini de butoane și câmpuri (contrast cel puțin 3) */
@@ -36,14 +37,14 @@
   --focus: #1F2937;             /* conturul când navighezi cu tastatura */
   --umbra: rgba(31, 41, 55, .10);
   --verde: #15803D;             /* semnalul „înapoi” (verde, ca la mașină) */
-  --principal-sombra: #123A6B;  /* marginea de jos a butoanelor, ca un buton apăsabil */
+  --principal-sombra: #123F8C;  /* marginea de jos a butoanelor, ca un buton apăsabil */
 }
 
-/* Traseul pentru adulți (18+ și 45+): accent mai liniștit */
+/* Traseul pentru adulți (18+ și 45+): tot viu, dar o nuanță de chihlimbar mai adâncă */
 body[data-traseu="adult"] {
-  --cald: #EBBB62;
-  --cald-moale: #FAF0DA;
-  --cald-contur: #96661A;
+  --cald: #E2790A;
+  --cald-moale: #FCE4C2;
+  --cald-contur: #8A4600;
 }
 
 /* Modul întunecat al telefonului (se aplică automat) */
@@ -53,13 +54,13 @@ body[data-traseu="adult"] {
     --suprafata: #18212D;
     --text: #F1F5F9;
     --text-slab: #B8C3D0;
-    --principal: #8FB6EC;
+    --principal: #6FA8F0;
     --principal-text: #0B1626;
     --principal-moale: #233450;
-    --cald: #F59E0B;
+    --cald: #FFA726;
     --cald-text: #1F2937;
     --cald-moale: #3A3220;
-    --cald-contur: #F5B94B;
+    --cald-contur: #FFC266;
     --contur: #94A3B8;
     --linie: #2D394A;
     --eroare-text: #FFB4AE;
@@ -71,8 +72,8 @@ body[data-traseu="adult"] {
     --principal-sombra: #3E6FAE;
   }
   body[data-traseu="adult"] {
-    --cald: #E3B25A;
-    --cald-moale: #353023;
-    --cald-contur: #E8C27A;
+    --cald: #F0983D;
+    --cald-moale: #3A2A14;
+    --cald-contur: #F5B160;
   }
 }
