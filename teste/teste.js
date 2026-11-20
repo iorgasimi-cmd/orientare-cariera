@@ -1097,28 +1097,32 @@ test("sub avertizarea despre CNP: cum să folosești și cum să nu folosești u
   S.sterge();
 });
 
-test("Faro: salută la început; o dată pe zi întreabă „Cum te simți azi?” și răspunde potrivit", () => {
+test("Faro: salută la început; pe ecranul lui, o dată pe zi întreabă „Cum te simți azi?” și răspunde potrivit", () => {
   S.sterge();
   assert.ok(C.module.sistem.ecran("start").corp.includes("Sunt Faro") && C.module.sistem.ecran("start").corp.includes('class="bosi"'));
   S.pune("varsta", "18-44"); S.pune("situatie", "caut");
   const T = D.bosi.stare, B = C.module.bosi;
+  /* ecranul principal doar duce la ecranul lui Faro, nu mai arată întrebarea direct */
   let m = C.module.adult.ecran("meniu").corp;
-  assert.ok(m.includes("Cum te simți azi?") && m.includes(">Bine<") && m.includes("Așa și așa") && m.includes("Nu prea bine") && !/>Greu</.test(m));
-  B.actiuni.stare("bine"); m = C.module.adult.ecran("meniu").corp;
-  assert.ok(!m.includes("Cum te simți azi?") && m.includes("Hai să facem următorul pas: Roata vieții profesionale") && m.includes("roata/intro"));
-  B.actiuni.stare("asa"); m = C.module.adult.ecran("meniu").corp;
-  assert.ok(m.includes("zi de pași mici") && m.includes("plan/saptamana") && m.includes("caiet/tot"));
-  B.actiuni.stare("nu"); m = C.module.adult.ecran("meniu").corp;
-  assert.ok(m.includes("nu te simți bine") && !m.includes("ești îngrijorat") && m.includes("Mâine te întreb din nou") && !m.includes("Merg la pasul următor"));
+  assert.ok(m.includes("Cum te simți azi?") && m.includes('data-arg="bosi"') && !m.includes(">Bine<"));
+  let f = B.ecran().corp;
+  assert.ok(f.includes("Cum te simți azi?") && f.includes(">Bine<") && f.includes("Așa și așa") && f.includes("Nu prea bine") && !/>Greu</.test(f));
+  B.actiuni.stare("bine"); f = B.ecran().corp; m = C.module.adult.ecran("meniu").corp;
+  assert.ok(!f.includes(">Bine<") && f.includes("Hai să facem următorul pas: Roata vieții profesionale") && m.includes("roata/intro"));
+  B.actiuni.stare("asa"); f = B.ecran().corp;
+  assert.ok(f.includes("zi de pași mici") && f.includes("plan/saptamana") && f.includes("caiet/tot"));
+  B.actiuni.stare("nu"); f = B.ecran().corp;
+  assert.ok(f.includes("nu te simți bine") && !f.includes("ești îngrijorat") && f.includes("Mâine te întreb din nou") && !f.includes("Merg la pasul următor"));
   assert.ok(!C.module.sistem.ecran("despre").corp.includes("ești îngrijorat"), "mesajul de ajutor scos la cererea autoarei");
   assert.ok(C.module.sistem.ecran("criza").corp.includes("112"), "ecranul pentru momente grele rămâne");
-  B.actiuni.stare(""); assert.ok(C.module.adult.ecran("meniu").corp.includes("Cum te simți azi?"));
-  S.pune("stare.zi", { data: C.adauga(C.azi(), -1), r: "nu" }); assert.ok(C.module.adult.ecran("meniu").corp.includes("Cum te simți azi?"), "a doua zi întreabă din nou");
+  B.actiuni.stare(""); assert.ok(B.ecran().corp.includes(">Bine<"));
+  S.pune("stare.zi", { data: C.adauga(C.azi(), -1), r: "nu" }); assert.ok(B.ecran().corp.includes(">Bine<"), "a doua zi întreabă din nou");
   S.pune("bosi.ultima", C.adauga(C.azi(), -5)); S.pune("bosi.revenit", "");
-  assert.ok(C.module.adult.ecran("meniu").corp.includes("Mă bucur să te revăd"));
+  assert.ok(B.ecran().corp.includes("Mă bucur să te revăd"));
   assert.ok(!/de ce n-ai|ai lipsit|ai ratat|dezamăg|Greu/i.test(JSON.stringify(D.bosi)), "fără vinovăție și fără „greu”");
   S.sterge(); S.pune("varsta", "sub18"); S.pune("clasa", "10"); B.actiuni.stare("bine");
-  assert.ok(C.module.elev.ecran("meniu").corp.includes("Hai să facem următorul pas: Test de interese"));
+  assert.ok(C.module.elev.ecran("meniu").corp.includes("Cum te simți azi?"));
+  assert.ok(B.ecran().corp.includes("Hai să facem următorul pas: Test de interese"));
   S.sterge();
 });
 
@@ -1200,15 +1204,15 @@ test("Faro își amintește: tema de săptămâna trecută cu cuvintele omului, 
   assert.ok(m.includes("Ai făcut exact ce ți-ai propus") && S.ia("plan.sapt.s0.bifat") === true && !m.includes("Cum a mers?"));
   B.actiuni.stare("nu"); m = C.module.adult.ecran("meniu").corp;
   assert.ok(!m.includes("Ai făcut exact") && !m.includes("Uite ce am parcurs"), "la „Nu prea bine” fără întrebări și rezumate");
-  /* 45+: „dumneavoastră” */
+  /* 45+: „dumneavoastră”, pe ecranul lui Faro */
   S.sterge(); S.pune("varsta", "45+"); S.pune("situatie", "caut"); S.pune("plan.start", start);
   S.pune("plan.sapt.s0.aleasa", "proprie"); S.pune("plan.sapt.s0.proprie", "Să sun la două firme");
-  m = C.module.adult.ecran("meniu").corp;
-  assert.ok(m.includes("Cum vă simțiți azi?"));
-  B.actiuni.stare("nu"); m = C.module.adult.ecran("meniu").corp;
-  assert.ok(m.includes("nu vă simțiți bine") && m.includes("Mâine vă întreb din nou") && !m.includes("sunați la 112"));
-  B.actiuni.stare("asa"); m = C.module.adult.ecran("meniu").corp;
-  assert.ok(m.includes("Vă înțeleg") && m.includes("Data trecută v-ați propus: „Să sun la două firme”"));
+  let f = B.ecran().corp;
+  assert.ok(f.includes("Cum vă simțiți azi?"));
+  B.actiuni.stare("nu"); f = B.ecran().corp;
+  assert.ok(f.includes("nu vă simțiți bine") && f.includes("Mâine vă întreb din nou") && !f.includes("sunați la 112"));
+  B.actiuni.stare("asa"); m = C.module.adult.ecran("meniu").corp; f = B.ecran().corp;
+  assert.ok(f.includes("Vă înțeleg") && m.includes("Data trecută v-ați propus: „Să sun la două firme”"));
   B.actiuni.memorie("0|nu"); assert.ok(C.module.adult.ecran("meniu").corp.includes("Mă bucur că ați revenit"));
   assert.ok(C.module.adult.ecran("bunvenit").corp.includes("în ritmul dumneavoastră"));
   /* elev */
@@ -1351,7 +1355,7 @@ test("ușor de folosit: ghid la prima folosire, „Continuă de unde ai rămas�
   S.sterge(); S.pune("varsta", "45+"); S.pune("situatie", "caut");
   let m = C.module.adult.ecran("meniu").corp;
   assert.ok(m.includes("atingeți butonul galben") && m.includes("Am înțeles"));
-  assert.ok(m.indexOf("Continuă de unde ai rămas") > 0 && m.indexOf("Continuă de unde ai rămas") < m.indexOf("Cum vă simțiți azi?") && m.includes("roata/intro"));
+  assert.ok(m.indexOf("Continuă de unde ai rămas") > 0 && m.indexOf("Continuă de unde ai rămas") < m.indexOf("Cum te simți azi?") && m.includes("roata/intro"));
   C.module.bosi.actiuni.ghid(); m = C.module.adult.ecran("meniu").corp;
   assert.ok(!m.includes("Am înțeles") && m.includes("Continuă aici"));
   S.pune("roata.gata", true); assert.ok(C.module.adult.ecran("meniu").corp.includes('data-arg="cv/intro"'));

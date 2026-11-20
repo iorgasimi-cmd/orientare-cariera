@@ -62,9 +62,6 @@
     }).join("") + "</div>";
   };
 
-  /* Bara de jos: Faro te întreabă cum ești azi, o dată pe zi, și răspunde cu o frază scurtă. */
-  C.faroBara = function (html) { return '<div class="faro-bara" role="region" aria-label="Faro">' + html + "</div>"; };
-
   /* Grupa de vârstă pentru felul în care vorbește Faro. */
   function grupa() { var v = S.ia("varsta", ""); return v === "45+" ? "a45" : (v && v !== "sub18" ? "adult" : "elev"); }
   /* Un text al lui Faro: la 45+ varianta cu „dumneavoastră”, dacă există. */
@@ -212,29 +209,35 @@
     return sarbatori() + detectiv() + memorie();
   }
 
-  /* Bara de jos: întrebarea „Cum te simți azi?”, o dată pe zi, și răspunsul lui Faro. */
-  function bara() {
+  /* Conversația „Cum te simți azi?”, pe propriul ei ecran (nu mai e pe ecranul principal). */
+  function stareConversatie() {
     var azi = C.azi(), ult = S.ia("bosi.ultima", "");
     if (ult && ult !== azi && C.zile(ult, azi) >= 2) S.pune("bosi.revenit", azi);
     S.pune("bosi.ultima", azi);
     var pasi = C.eAdult() ? (C.module.adult ? C.module.adult.pasiCuStare() : []) : pasiElev();
     var urm = pasi.filter(function (p) { return !p.gata; })[0];
     var T = stareT(), z = S.ia("stare.zi", {}) || {}, r = z.data === azi ? z.r : "";
+    var corp;
     if (!r) {
-      return C.faroBara('<div class="stare-zi">' + C.bosi(S.ia("bosi.revenit", "") === azi ? T.revenit : T.intrebare) +
-        '<div class="rand">' + T.optiuni.map(function (o) { return C.buton(esc(o[1]), "bosi.stare", o[0]); }).join("") + "</div></div>");
+      corp = C.bosi(S.ia("bosi.revenit", "") === azi ? T.revenit : T.intrebare) +
+        '<div class="rand">' + T.optiuni.map(function (o) { return C.buton(esc(o[1]), "bosi.stare", o[0]); }).join("") + "</div>";
+    } else {
+      var txt = r === "bine" ? (urm ? inl(T.bine, { pas: urm.t }) : T.bineTot) : (r === "asa" ? T.asa : T.nu);
+      var actiuni = r === "asa" ? C.buton(esc(T.butonMini), "nav", "plan/saptamana", "continua") + C.buton(esc(T.butonCaiet), "nav", "caiet/tot") : "";
+      var maine = r === "nu" ? C.bosi(T.maine) : "";
+      corp = C.bosi(txt, r === "bine" ? "bucurie" : "zambet") + maine +
+        (actiuni ? '<div class="rand">' + actiuni + "</div>" : "") +
+        '<div class="rand">' + C.buton(esc(T.schimb), "bosi.stare", "", "mic-btn") + "</div>";
     }
-    var txt = r === "bine" ? (urm ? inl(T.bine, { pas: urm.t }) : T.bineTot) : (r === "asa" ? T.asa : T.nu);
-    var actiuni = r === "asa" ? C.buton(esc(T.butonMini), "nav", "plan/saptamana", "continua") + C.buton(esc(T.butonCaiet), "nav", "caiet/tot") : "";
-    var maine = r === "nu" ? C.bosi(T.maine) : "";
-    return C.faroBara(C.bosi(txt, r === "bine" ? "bucurie" : "zambet") + maine +
-      (actiuni ? '<div class="rand">' + actiuni + "</div>" : "") +
-      '<div class="rand">' + C.buton(esc(T.schimb), "bosi.stare", "", "mic-btn") + "</div>");
+    return '<div id="stare-zi">' + corp + "</div>" + '<div class="rand">' + C.buton("Înapoi la drumul meu", "nav", C.acasa(), "primar") + "</div>";
+  }
+  /* Rândul mic de pe ecranul principal, care duce la ecranul „Cum te simți azi?”. */
+  function teaser() {
+    return '<div class="rand">' + C.buton(esc(D.stare.teaser), "nav", "bosi", "lista") + "</div>";
   }
 
-
   C.reg("bosi", {
-    ecran: function () { return C.pagina(D.nume, salut(), C.acasa()); },
+    ecran: function () { return C.pagina(D.stare.teaser, stareConversatie(), C.acasa()); },
     actiuni: {
       /* Răspunsul la „Cum te simți azi?”; gol = omul vrea să răspundă din nou. */
       /* Răspunsul la „Detectivul de 5 secunde”, sau „Altă dată”. */
@@ -255,7 +258,7 @@
       stare: function (r) { S.pune("stare.zi", r ? { data: C.azi(), r: r } : {}); C.deArata = r ? "stare-zi" : ""; }
     },
     salut: salut,
-    bara: bara,
+    teaser: teaser,
     carduri: function (x) { return C.carduri(x); },
     inceput: inceput,
     grupa: grupa,

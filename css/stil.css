@@ -248,9 +248,3 @@ main .btn.semn-inapoi { border-color: var(--verde); border-width: 3px; animation
 .carduri .gata .nr { background: var(--principal); color: var(--principal-text); }
 .carduri .nume { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-weight: 700; }
 .carduri .stare { font-size: .66rem; font-weight: 400; color: var(--text-slab); }
-.faro-bara { position: fixed; left: 0; right: 0; bottom: 0; z-index: 5; background: var(--suprafata); border-top: 3px solid var(--principal); box-shadow: 0 -4px 12px var(--umbra); padding: 8px 14px max(10px, env(safe-area-inset-bottom)); }
-.faro-bara .bosi { margin: 0 0 6px; }
-.faro-bara .bula { font-size: .95rem; padding: 8px 10px; }
-.faro-bara .rand { margin-top: 4px; }
-.faro-bara .rand .btn { flex: 1 1 0; min-height: 2.8rem; font-size: .9rem; padding: 6px 8px; }
-#continut:has(.faro-bara) { padding-bottom: 170px; }

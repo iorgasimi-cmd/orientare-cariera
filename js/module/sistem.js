@@ -67,7 +67,7 @@
       { nume: g.DATE.cauta.titlu, ecran: "cauta/intro", gata: !!S.ia("cauta.gata", false) }
     ]) +
       '<div class="rand">' + C.buton("Caietul meu", "nav", "caiet/tot") + "</div>";
-    corp += g.Cariera.module.bosi.bara();
+    corp += g.Cariera.module.bosi.teaser();
     return C.pagina("Drumul tău", corp, null);
   }
 

@@ -85,7 +85,7 @@
       return { nume: D.pasi[p].t, ecran: ecranPas(p) || "adult/pas/" + p, gata: !!(GATA[p] && GATA[p]()), detaliu: GATA[p] ? GATA[p]() : "" };
     })) : "") +
       '<div class="rand rand-mic">' + C.buton("Caietul meu", "nav", "caiet/tot", "mic-btn") + C.buton("Schimb situația", "nav", "adult/situatie", "mic-btn") + "</div>";
-    corp += C.module.bosi ? C.module.bosi.bara() : "";
+    corp += C.module.bosi ? C.module.bosi.teaser() : "";
     return C.pagina("Drumul tău", corp, null);
   }
 

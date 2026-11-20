@@ -34,7 +34,8 @@ window.DATE.bosi = {
     butonCaiet: "Caietul meu",
     nu: "Îmi pare rău că azi nu te simți bine. **E în regulă să iei o pauză.** Respiră încet: inspiră cât numeri până la 4, expiră cât numeri până la 6.",
     maine: "Mâine te întreb din nou.",
-    schimb: "Schimb răspunsul"
+    schimb: "Schimb răspunsul",
+    teaser: "Cum te simți azi?"
   },
 
   /* „Faro își amintește ce i-ai spus”: reflectă cuvintele omului, apreciază efortul, întreabă deschis, lasă alegerea omului.
