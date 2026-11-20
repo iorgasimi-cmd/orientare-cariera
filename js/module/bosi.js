@@ -31,7 +31,11 @@
   C.drum = function (statii) {
     var aici = -1;
     statii.forEach(function (s, i) { if (aici < 0 && !s.gata && !s.opt) aici = i; });
-    return '<ol class="drum">' + statii.map(function (s, i) {
+    /* Bara de progres, ca într-un joc: câți pași ai făcut din câți sunt. */
+    var facute = statii.filter(function (s) { return s.gata; }).length, total = statii.length;
+    var bara = '<div class="progres-drum"><p class="mic">Ai făcut <strong>' + facute + "</strong> din " + total + " pași.</p>" +
+      '<progress class="progres" max="' + total + '" value="' + facute + '" aria-label="Pașii făcuți"></progress></div>';
+    return bara + '<ol class="drum">' + statii.map(function (s, i) {
       var cls = s.gata ? "statie gata" : (i === aici ? "statie aici" : "statie");
       var punct = s.gata ? '<span class="punct" aria-hidden="true">✓</span>'
         : i === aici ? '<span class="punct" aria-hidden="true">' + desen("zambet") + "</span>"
@@ -168,6 +172,9 @@
   /* Primul lucru de pe ecranul principal: ghidul (o singură dată), apoi butonul mare „Continuă de unde ai rămas”. */
   function inceput() {
     var out = "";
+    /* Seria de zile la rând, ca o flacără mică pe ecranul principal. */
+    var zile = (S.ia("plan.zile", []) || []).slice().sort(), n = C.module.plan && C.module.plan.serie ? C.module.plan.serie(zile, C.azi()) : 0;
+    if (n) out += '<p class="seria"><span class="flacara" aria-hidden="true">♦</span> ' + esc("Seria ta: **" + n + (n === 1 ? " zi" : " zile") + " la rând.**") + "</p>";
     if (!S.ia("ghid.vazut", false)) {
       var G = D.ghid;
       out += '<div class="ghid">' + G[grupa()].map(function (t) { return C.bosi(t); }).join("") +

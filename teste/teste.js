@@ -1373,6 +1373,17 @@ test("semnale: „înainte” și „înapoi” pe butoanele de navigare; legăt
   S.sterge();
 });
 
+test("stil vesel: bară de progres pe drum, seria de zile pe ecranul principal", () => {
+  S.sterge(); S.pune("varsta", "18-44"); S.pune("situatie", "caut");
+  let m = C.module.adult.ecran("meniu").corp;
+  assert.ok(m.includes("progres-drum") && m.includes("Ai făcut <strong>0</strong> din"));
+  assert.ok(!m.includes("Seria ta"), "fără serie când nu ai lucrat");
+  const azi = C.azi(); S.pune("plan.zile", [C.adauga(azi, -1), azi]);
+  m = C.module.adult.ecran("meniu").corp;
+  assert.ok(m.includes("Seria ta: <strong>2 zile la rând.</strong>"));
+  S.sterge();
+});
+
 test("valorile: 10 → 5 → 3 → 1, cu limită la fiecare pas, întrebări, note și rezultat", () => {
   S.sterge(); S.pune("varsta", "sub18"); S.pune("clasa", "10");
   const a = C.module.valorile.actiuni, L = D.valoriPers.listaElev;
