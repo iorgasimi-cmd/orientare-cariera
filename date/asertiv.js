@@ -101,6 +101,7 @@ window.DATE.asertiv = {
   /* Modelul de frază asertivă în patru părți, completat de om, apoi verificat local, după câteva reguli simple. */
   model: {
     titlu: "Cum ai putea spune asertiv?",
+    lipsaVerificare: "Mai întâi completează cele patru părți și apasă „Verifică”, apoi vezi rezultatul.",
     explica: "Completează modelul de mai jos, pentru situația ta. Scrie doar ce urmează după cuvintele de început.",
     exemplu: "Exemplu: Când primesc sarcini noi vineri, mă simt copleșit(ă), pentru că vreau să le fac bine. Propun să le aflu de luni, ca să le pot planifica.",
     parti: [
