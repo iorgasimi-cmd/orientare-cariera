@@ -45,21 +45,55 @@
     }).join("") + "</ol>";
   };
 
-  /* Ecranul principal: fiecare secție e un card (widget). Cardul curent clipește ca semnalul, cardurile făcute au ✓. */
-  C.carduri = function (statii) {
-    var aici = -1;
-    statii.forEach(function (s, i) { if (aici < 0 && !s.gata && !s.opt) aici = i; });
-    var facute = statii.filter(function (s) { return s.gata; }).length, total = statii.length;
-    var bara = '<div class="progres-drum"><p class="mic">Ai făcut <strong>' + facute + "</strong> din " + total + " pași.</p>" +
+  /* Bara de progres: câți pași din câți. Separată de carduri, ca să poată apărea o singură dată pe ecran,
+     chiar dacă doar o bucată din carduri e pe acel ecran. */
+  C.progresDrum = function (facute, total) {
+    return '<div class="progres-drum"><p class="mic">Ai făcut <strong>' + facute + "</strong> din " + total + " pași.</p>" +
       '<progress class="progres" max="' + total + '" value="' + facute + '" aria-label="Pașii făcuți"></progress></div>';
-    return bara + '<div class="carduri">' + statii.map(function (s, i) {
-      var cls = s.gata ? "gata" : (i === aici ? "aici semn-inainte" : "");
+  };
+  /* Cardurile (widget-uri): fiecare secție e un card. Cardul curent clipește ca semnalul, cardurile făcute au ✓.
+     Fiecare element poate avea: nume, ecran, gata, detaliu, opt, și — dacă cel ce apelează vrea să arate asta —
+     nr (numărul lui în tot drumul) și aici (e cardul la care omul ar trebui să continue). */
+  C.carduri = function (statii) {
+    return '<div class="carduri">' + statii.map(function (s, i) {
+      var cls = s.gata ? "gata" : (s.aici ? "aici semn-inainte" : "");
       /* Pe card scrie doar ce contează acum: cardul curent și cele făcute; restul e liniștit, fără text în plus. */
-      var stareTxt = s.gata ? (s.detaliu || "✓ Făcut") : (i === aici ? "Continuă aici" : "");
-      var nr = s.gata ? "✓" : String(i + 1);
+      var stareTxt = s.gata ? (s.detaliu || "✓ Făcut") : (s.aici ? "Continuă aici" : "");
+      var nr = s.gata ? "✓" : String(s.nr != null ? s.nr : i + 1);
       return C.buton('<span class="nr" aria-hidden="true">' + nr + '</span><span class="nume">' + esc(s.nume || "") + '</span><span class="stare">' + stareTxt + "</span>",
         "nav", s.ecran, cls);
     }).join("") + "</div>";
+  };
+  /* Calcul pur: din lista întreagă de pași — numărul fiecăruia, care e „aici” (primul nefăcut, opțional exclus) și câți sunt făcuți. */
+  function pregateste(statii) {
+    var cuNr = statii.map(function (s, i) { return Object.assign({}, s, { nr: i + 1 }); });
+    var aiciIdx = -1;
+    cuNr.forEach(function (s, i) { if (aiciIdx < 0 && !s.gata && !s.opt) aiciIdx = i; });
+    if (aiciIdx >= 0) cuNr[aiciIdx].aici = true;
+    return { statii: cuNr, aiciIdx: aiciIdx, facute: cuNr.filter(function (s) { return s.gata; }).length, total: cuNr.length };
+  }
+  /* Cardul „Continuă aici”, singur, pentru ecranul principal (nu mai arată toate secțiunile deodată). */
+  C.cardulDeAcum = function (statii) {
+    var p = pregateste(statii);
+    var card = p.aiciIdx >= 0 ? p.statii[p.aiciIdx] : null;
+    if (!card) return "";
+    return C.progresDrum(p.facute, p.total) + C.carduri([card]);
+  };
+  /* Pagina „Toate secțiunile”: drumul complet, în bucăți mici (un rând de carduri), ca să încapă pe ecran. */
+  var PE_PAGINA = 4;
+  C.paginaToate = function (statii, sub, acasa, baza) {
+    var p = pregateste(statii), n = Math.max(0, Number(sub) || 0);
+    var pagini = Math.max(1, Math.ceil(p.total / PE_PAGINA));
+    n = Math.min(n, pagini - 1);
+    var bucata = p.statii.slice(n * PE_PAGINA, n * PE_PAGINA + PE_PAGINA);
+    var inapoi = n > 0 ? baza + "/" + (n - 1) : acasa;
+    var urmator = n < pagini - 1 ? baza + "/" + (n + 1) : null;
+    var corp = C.progresDrum(p.facute, p.total) +
+      (pagini > 1 ? '<p class="mic">Pagina ' + (n + 1) + " din " + pagini + "</p>" : "") +
+      C.carduri(bucata) +
+      '<div class="rand">' + C.buton("Înapoi", "nav", inapoi) +
+      (urmator ? C.buton("Mai departe", "nav", urmator, "continua") : C.buton("Înapoi la drumul meu", "nav", acasa, "primar")) + "</div>";
+    return C.pagina("Toate secțiunile", corp, inapoi, true);
   };
 
   /* Grupa de vârstă pentru felul în care vorbește Faro. */
@@ -88,12 +122,13 @@
     return r;
   }
   function textMoment(m) { return m[grupa()] || m.adult; }
-  /* Sărbătorile de azi: momentele noi primesc data de azi și apar toată ziua; cele vechi nu mai apar. */
-  function sarbatori() {
-    var azi = C.azi(), out = "";
+  /* Sărbătorile de azi, ca listă (una pe ecran, pe pagina „Noutăți”): momentele noi primesc data de azi
+     și apar toată ziua; cele vechi nu mai apar. */
+  function sarbatoriLista() {
+    var azi = C.azi(), out = [];
     atinse().forEach(function (id) { if (!S.ia("mom." + id, "")) S.pune("mom." + id, azi); });
     D.momente.forEach(function (m) {
-      if (S.ia("mom." + m.id, "") === azi) out += '<div class="sarbatoare">' + C.bosi("★ " + textMoment(m), "bucurie") + "</div>";
+      if (S.ia("mom." + m.id, "") === azi) out.push('<div class="sarbatoare">' + C.bosi("★ " + textMoment(m), "bucurie") + "</div>");
     });
     return out;
   }
@@ -137,34 +172,35 @@
     if (!S.ia("plan.sapt.s" + k + ".aleasa", "") || S.ia("mem.s" + k, "")) return null;
     var t = curata(C.module.plan.textTema(k)); return t ? { k: k, t: t } : null;
   }
-  function memorie() {
-    var M = D.memorie[grupa()], out = "", m = S.ia("mem.ultim", {}) || {};
-    /* răspunsul dat azi rămâne pe ecran */
+  /* „Cum a mers tema?” (sau răspunsul dat azi) — o idee, pe ecranul ei. */
+  function memorieTema() {
+    var M = D.memorie[grupa()], m = S.ia("mem.ultim", {}) || {};
     if (m.data === C.azi() && m.r) {
-      out += C.bosi(M[m.r], m.r === "reusit" ? "bucurie" : "zambet");
+      var out = C.bosi(M[m.r], m.r === "reusit" ? "bucurie" : "zambet");
       if (m.r === "reusit") out += C.camp("mem.ajutat.s" + m.k, esc(M.ajutat), "", 2);
-    } else {
-      var q = temaDeIntrebat();
-      if (q) out += C.bosi(inl(M.intrebare, { tema: q.t })) + '<div class="rand">' +
-        M.optiuni.map(function (o) { return C.buton(esc(o[1]), "bosi.memorie", q.k + "|" + o[0]); }).join("") + "</div>";
+      return out;
     }
-    /* rezumatul drumului, cel mult o dată la 7 zile */
-    var rz = S.ia("mem.rezumat", ""), azi = C.azi();
-    if (!rz || C.zile(rz, azi) >= 7 || rz === azi) {
-      var sec = Object.keys((S.ia("rec", {}) || {})).filter(function (k) { return g.DATE.retine && g.DATE.retine.sectiuni[k]; }).length, zile = (S.ia("plan.zile", []) || []).length, teme = 0, sp = S.ia("plan.sapt", {}) || {};
-      Object.keys(sp).forEach(function (k) { if (sp[k] && sp[k].bifat) teme++; });
-      var l = [];
-      if (sec) l.push(sec === 1 ? "o secțiune terminată" : sec + " secțiuni terminate");
-      if (zile) l.push(zile === 1 ? "o zi de lucru" : zile + " zile de lucru");
-      if (teme) l.push(teme === 1 ? "o temă reușită" : teme + " teme reușite");
-      if (l.length) {
-        if (rz !== azi) S.pune("mem.rezumat", azi);
-        out += C.bosi(inl(M.rezumat, { lista: l.join(", ") }), "bucurie");
-        var id = curata(S.ia("plan.identitate", "")), v = curata(S.ia("vp.top", ""));
-        if (id) { id = id.replace(/^[„"]|[”"]$/g, "").replace(/[.!]$/, ""); out += C.bosi(inl(M.identitate, { i: id.charAt(0).toLowerCase() + id.slice(1) })); }
-        else if (v) out += C.bosi(inl(M.valoare, { v: v }));
-      }
-    }
+    var q = temaDeIntrebat();
+    if (!q) return "";
+    return C.bosi(inl(M.intrebare, { tema: q.t })) + '<div class="rand">' +
+      M.optiuni.map(function (o) { return C.buton(esc(o[1]), "bosi.memorie", q.k + "|" + o[0]); }).join("") + "</div>";
+  }
+  /* Rezumatul drumului, cel mult o dată la 7 zile — altă idee, pe ecranul ei. */
+  function memorieRezumat() {
+    var M = D.memorie[grupa()], rz = S.ia("mem.rezumat", ""), azi = C.azi();
+    if (rz && C.zile(rz, azi) < 7 && rz !== azi) return "";
+    var sec = Object.keys((S.ia("rec", {}) || {})).filter(function (k) { return g.DATE.retine && g.DATE.retine.sectiuni[k]; }).length, zile = (S.ia("plan.zile", []) || []).length, teme = 0, sp = S.ia("plan.sapt", {}) || {};
+    Object.keys(sp).forEach(function (k) { if (sp[k] && sp[k].bifat) teme++; });
+    var l = [];
+    if (sec) l.push(sec === 1 ? "o secțiune terminată" : sec + " secțiuni terminate");
+    if (zile) l.push(zile === 1 ? "o zi de lucru" : zile + " zile de lucru");
+    if (teme) l.push(teme === 1 ? "o temă reușită" : teme + " teme reușite");
+    if (!l.length) return "";
+    if (rz !== azi) S.pune("mem.rezumat", azi);
+    var out = C.bosi(inl(M.rezumat, { lista: l.join(", ") }), "bucurie");
+    var id = curata(S.ia("plan.identitate", "")), v = curata(S.ia("vp.top", ""));
+    if (id) { id = id.replace(/^[„"]|[”"]$/g, "").replace(/[.!]$/, ""); out += C.bosi(inl(M.identitate, { i: id.charAt(0).toLowerCase() + id.slice(1) })); }
+    else if (v) out += C.bosi(inl(M.valoare, { v: v }));
     return out;
   }
 
@@ -186,27 +222,30 @@
     ];
   }
 
-  /* Primul lucru de pe ecranul principal: ghidul (o singură dată), apoi butonul mare „Continuă de unde ai rămas”. */
+  /* Seria de zile la rând, ca o flacără mică pe ecranul principal. Ghidul de prima folosire are propriul ecran. */
   function inceput() {
-    var out = "";
-    /* Seria de zile la rând, ca o flacără mică pe ecranul principal. */
     var zile = (S.ia("plan.zile", []) || []).slice().sort(), n = C.module.plan && C.module.plan.serie ? C.module.plan.serie(zile, C.azi()) : 0;
-    if (n) out += '<p class="seria"><span class="flacara" aria-hidden="true">♦</span> ' + esc("Seria ta: **" + n + (n === 1 ? " zi" : " zile") + " la rând.**") + "</p>";
-    if (!S.ia("ghid.vazut", false)) {
-      var G = D.ghid;
-      out += '<div class="ghid">' + G[grupa()].map(function (t) { return C.bosi(t); }).join("") +
-        '<div class="rand">' + C.buton(esc(G.buton), "bosi.ghid", null, "primar") + "</div></div>";
-    }
-    return out;
+    return n ? '<p class="seria"><span class="flacara" aria-hidden="true">♦</span> ' + esc("Seria ta: **" + n + (n === 1 ? " zi" : " zile") + " la rând.**") + "</p>" : "";
+  }
+  /* Ghidul de prima folosire, câte o bulă pe ecran. La final, „Am înțeles” duce pe ecranul principal. */
+  function paginaGhid(n) {
+    var G = D.ghid, lista = G[grupa()] || G.adult;
+    n = Math.max(0, Math.min(Number(n) || 0, lista.length - 1));
+    var ultim = n === lista.length - 1;
+    var corp = '<p class="mic">' + (n + 1) + " din " + lista.length + "</p>" + C.bosi(lista[n]) +
+      '<div class="rand">' + (ultim ? C.buton(esc(G.buton), "bosi.ghid", null, "primar") : C.buton("Continuă", "nav", "bosi/ghid/" + (n + 1), "continua")) + "</div>";
+    return C.pagina(D.nume, corp, null, true);
   }
 
-  /* Salutul de pe ecranul principal: primul pas, pasul următor sau „ți-am păstrat locul” după câteva zile de pauză. */
-  /* Partea de sus a ecranului principal: sărbători, joc și amintiri (dacă există), deasupra cardurilor. */
-  function salut() {
+  /* Sărbătorile, jocul și amintirile, ca o listă de bucăți separate (una pe ecran, pe pagina „Noutăți”). */
+  function sectiuniSalut() {
     var z = S.ia("stare.zi", {}) || {}, azi = C.azi(), r = z.data === azi ? z.r : "";
-    if (!r || r === "nu") return "";
-    if (r === "asa") return sarbatori() + memorie();
-    return sarbatori() + detectiv() + memorie();
+    if (!r || r === "nu") return [];
+    var parti = sarbatoriLista();
+    if (r === "bine") { var d = detectiv(); if (d) parti.push(d); }
+    var mt = memorieTema(); if (mt) parti.push(mt);
+    var mr = memorieRezumat(); if (mr) parti.push(mr);
+    return parti;
   }
 
   /* Conversația „Cum te simți azi?”, pe propriul ei ecran (nu mai e pe ecranul principal). */
@@ -236,8 +275,41 @@
     return '<div class="rand">' + C.buton(esc(D.stare.teaser), "nav", "bosi", "lista") + "</div>";
   }
 
+  /* „Noutăți de la Faro”: sărbători, detectivul zilei, ce-și amintește Faro, recapitulări de făcut — câte o idee pe ecran.
+     Nu mai apare direct pe ecranul principal — doar un rând mic duce aici, când e ceva de arătat. */
+  function noutatiSectiuni() {
+    var parti = sectiuniSalut();
+    var rem = C.module.reamintiri ? C.module.reamintiri.banner() : ""; if (rem) parti.push(rem);
+    var rb = C.module.retine ? C.module.retine.banner() : ""; if (rb) parti.push(rb);
+    return parti;
+  }
+  function paginaNoutati(sub) {
+    var parti = noutatiSectiuni();
+    if (!parti.length) {
+      var gol = "<p>" + esc(D.noutatiGol) + "</p>" + '<div class="rand">' + C.buton("Înapoi la drumul meu", "nav", C.acasa(), "primar") + "</div>";
+      return C.pagina(D.noutati, gol, C.acasa());
+    }
+    var n = Math.max(0, Math.min(Number(sub) || 0, parti.length - 1)), ultim = n === parti.length - 1;
+    var inapoi = n > 0 ? "bosi/noutati/" + (n - 1) : C.acasa();
+    var corp = (parti.length > 1 ? '<p class="mic">' + (n + 1) + " din " + parti.length + "</p>" : "") + parti[n] +
+      '<div class="rand">' + C.buton("Înapoi", "nav", inapoi) +
+      (ultim ? C.buton("Înapoi la drumul meu", "nav", C.acasa(), "primar") : C.buton("Continuă", "nav", "bosi/noutati/" + (n + 1), "continua")) + "</div>";
+    return C.pagina(D.noutati, corp, inapoi, true);
+  }
+  /* Rândul mic de pe ecranul principal, doar când Faro are ceva de arătat. */
+  function teaserNoutati() {
+    if (!noutatiSectiuni().length) return "";
+    return '<div class="rand">' + C.buton(esc(D.noutatiTeaser), "nav", "bosi/noutati/0", "lista") + "</div>";
+  }
+
   C.reg("bosi", {
-    ecran: function () { return C.pagina(D.stare.teaser, stareConversatie(), C.acasa()); },
+    ecran: function (sub) {
+      var no = /^noutati(?:\/(\d+))?$/.exec(sub || "");
+      if (no) return paginaNoutati(no[1]);
+      var g = /^ghid(?:\/(\d+))?$/.exec(sub || "");
+      if (g) return paginaGhid(g[1]);
+      return C.pagina(D.stare.teaser, stareConversatie(), C.acasa());
+    },
     actiuni: {
       /* Răspunsul la „Cum te simți azi?”; gol = omul vrea să răspundă din nou. */
       /* Răspunsul la „Detectivul de 5 secunde”, sau „Altă dată”. */
@@ -254,11 +326,12 @@
         S.pune("mem.s" + k, r); S.pune("mem.ultim", { data: C.azi(), r: r, k: k });
         if (r === "reusit") S.pune("plan.sapt.s" + k + ".bifat", true);
       },
-      ghid: function () { S.pune("ghid.vazut", true); },
+      ghid: function () { S.pune("ghid.vazut", true); C.mergi(C.acasa()); },
       stare: function (r) { S.pune("stare.zi", r ? { data: C.azi(), r: r } : {}); C.deArata = r ? "stare-zi" : ""; }
     },
-    salut: salut,
     teaser: teaser,
+    teaserNoutati: teaserNoutati,
+    paginaGhid: paginaGhid,
     carduri: function (x) { return C.carduri(x); },
     inceput: inceput,
     grupa: grupa,

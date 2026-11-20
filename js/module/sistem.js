@@ -38,22 +38,19 @@
   function bunVenit() {
     var corp = (C.bosi ? C.bosi(C.faro("bunVenit")) : "") + "<p>Iată ce urmează. Poți face pașii în ordinea ta și te poți opri oricând.</p>" +
       '<ol class="pasi"><li>Un test de interese: ce îți place să faci.</li><li>Punctele tale forte și ce contează pentru tine.</li><li>Idei de meserii și domenii.</li><li>Un plan mic, cu o temă pe săptămână.</li><li>Sfaturi scurte.</li><li>Cum spui clar ce vrei, inclusiv unui program de IA.</li><li>Ce valori contează pentru tine și cum te vezi.</li></ol>' +
-      '<div class="rand">' + C.buton("Începem", "nav", "elev/meniu", "primar") + C.buton("Schimb răspunsurile", "nav", "start") + "</div>";
+      '<div class="rand">' + C.buton("Începem", "nav", S.ia("ghid.vazut", false) ? "elev/meniu" : "bosi/ghid/0", "primar") + C.buton("Schimb răspunsurile", "nav", "start") + "</div>";
     return C.pagina("Bine ai venit!", corp, "elev/clasa");
   }
 
   function pasStatus(gata) { return gata ? '<span class="stare gata">✓ făcut</span>' : '<span class="stare">○ de făcut</span>'; }
 
-  function meniu() {
+  /* Toți pașii elevului, în formatul cerut de carduri/paginaToate. */
+  function statiiElev() {
     var test = !!S.ia("interese.top", null);
     var forte = (S.ia("forte.valori", []) || []).length >= 3;
     var plan = !!S.ia("plan.start", null);
-    var corp = "";
-    if (g.Cariera.module.bosi) corp += g.Cariera.module.bosi.inceput() + g.Cariera.module.bosi.salut();
-    if (g.Cariera.module.reamintiri) corp += g.Cariera.module.reamintiri.banner();
-    if (g.Cariera.module.retine) corp += g.Cariera.module.retine.banner();
     var vp = !!S.ia("vp.gata", false), st = !!S.ia("stima.gata", false);
-    corp += g.Cariera.module.bosi.carduri([
+    return [
       { nume: "Test de interese", ecran: test ? "interese/rezultat" : "interese/intro", gata: test },
       { nume: "Puncte forte și valori", ecran: forte ? "forte/rezumat" : "forte/intro", gata: forte },
       { nume: "Meserii și domenii", ecran: "meserii/lista", gata: (S.ia("meserii.salvate", []) || []).length > 0, opt: !test },
@@ -65,11 +62,21 @@
       { nume: g.DATE.corp.elev.titlu, ecran: "corp/intro", gata: !!S.ia("corp.gata", false) },
       { nume: g.DATE.cerinte.titlu, ecran: "cerinte/lista", gata: !!S.ia("cerinte.gata", false) },
       { nume: g.DATE.cauta.titlu, ecran: "cauta/intro", gata: !!S.ia("cauta.gata", false) }
-    ]) +
-      '<div class="rand">' + C.buton("Caietul meu", "nav", "caiet/tot") + "</div>";
-    corp += g.Cariera.module.bosi.teaser();
+    ];
+  }
+
+  function meniu() {
+    var B = g.Cariera.module.bosi, statii = statiiElev();
+    var corp = (B ? B.inceput() : "") + (B ? B.teaserNoutati() : "") +
+      (B ? C.cardulDeAcum(statii) : "") +
+      '<div class="rand">' + C.buton("Vezi toate secțiunile (" + statii.length + ")", "nav", "elev/toate/0") + "</div>" +
+      '<div class="rand rand-mic">' + C.buton("Caietul meu", "nav", "caiet/tot", "mic-btn") + "</div>";
+    corp += B ? B.teaser() : "";
     return C.pagina("Drumul tău", corp, null);
   }
+
+  /* „Toate secțiunile”: tot drumul, pe pagini mici (câte un rând de carduri). */
+  function toateElev(sub) { return C.paginaToate(statiiElev(), sub, "elev/meniu", "elev/toate"); }
 
 
   function setari() {
@@ -133,7 +140,13 @@
 
   /* Ecrane ale traseului elevului, găzduite de agentul principal. */
   C.reg("elev", {
-    ecran: function (sub) { return sub === "clasa" ? clasa() : sub === "bunvenit" ? bunVenit() : meniu(); },
+    ecran: function (sub) {
+      if (sub === "clasa") return clasa();
+      if (sub === "bunvenit") return bunVenit();
+      var t = /^toate(?:\/(\d+))?$/.exec(sub || "");
+      if (t) return toateElev(t[1]);
+      return meniu();
+    },
     actiuni: {}
   });
   C.reg("start", { ecran: start, actiuni: {} });

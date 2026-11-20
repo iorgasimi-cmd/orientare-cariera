@@ -14,10 +14,14 @@ window.DATE.bosi = {
   /* Pentru oamenii care se descurcă greu cu tehnologia (aprobat de Simona, 2026-11-18). */
   continua: "Continuă de unde ai rămas",
   totGata: "Răsfoiește caietul tău",
+  /* Ecranul separat cu sărbători, detectivul zilei, amintirile lui Faro și recapitulări — rândul mic de pe ecranul principal. */
+  noutati: "Noutăți de la Faro",
+  noutatiTeaser: "Ai noutăți de la Faro",
+  noutatiGol: "Nu ai nimic nou de la Faro acum.",
   ghid: {
-    elev: ["Bună! **Ca să mergi mai departe, atinge butonul galben „Continuă de unde ai rămas”.**", "Cu „**Înapoi**” te întorci oricând.", "**Tot ce scrii se salvează singur.**"],
-    adult: ["Bună! **Ca să mergi mai departe, atinge butonul galben „Continuă de unde ai rămas”.**", "Cu „**Înapoi**” te întorci oricând.", "**Tot ce scrii se salvează singur.**"],
-    a45: ["Bună ziua! **Ca să mergeți mai departe, atingeți butonul galben „Continuă de unde ai rămas”.**", "Cu „**Înapoi**” vă întoarceți oricând.", "**Tot ce scrieți se salvează singur.**"],
+    elev: ["Bună! **Pe ecranul principal vezi un singur card: pasul de acum.** Apasă-l ca să mergi mai departe.", "Vrei să vezi toți pașii? Apasă **„Vezi toate secțiunile”**.", "Cu „**Înapoi**” te întorci oricând. **Tot ce scrii se salvează singur.**"],
+    adult: ["Bună! **Pe ecranul principal vezi un singur card: pasul de acum.** Apasă-l ca să mergi mai departe.", "Vrei să vezi toți pașii? Apasă **„Vezi toate secțiunile”**.", "Cu „**Înapoi**” te întorci oricând. **Tot ce scrii se salvează singur.**"],
+    a45: ["Bună ziua! **Pe ecranul principal vedeți un singur card: pasul de acum.** Atingeți-l ca să mergeți mai departe.", "Vreți să vedeți toți pașii? Atingeți **„Vezi toate secțiunile”**.", "Cu „**Înapoi**” vă întoarceți oricând. **Tot ce scrieți se salvează singur.**"],
     buton: "Am înțeles"
   },
   /* „Cum te simți azi?” — o dată pe zi, pe ecranul principal. Texte aprobate de Simona (2026-11-17).

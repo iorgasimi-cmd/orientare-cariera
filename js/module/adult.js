@@ -74,19 +74,34 @@
     var corp = (C.bosi ? C.bosi(C.faro("bunVenit")) : "") + "<p>" + esc(s.bun) + "</p>" + (e45() ? "<p>" + esc(D.accent45) + "</p>" : "") +
       "<p>Iată pașii tăi. Îi poți face în ordinea ta și te poți opri oricând.</p>" +
       '<ol class="pasi">' + s.pasi.map(function (p) { return "<li>" + esc(D.pasi[p].t) + "</li>"; }).join("") + "</ol>" +
-      '<div class="rand">' + C.buton("Începem", "nav", "adult/meniu", "primar") + C.buton("Schimb răspunsurile", "nav", "start") + "</div>";
+      '<div class="rand">' + C.buton("Începem", "nav", S.ia("ghid.vazut", false) ? "adult/meniu" : "bosi/ghid/0", "primar") + C.buton("Schimb răspunsurile", "nav", "start") + "</div>";
     return C.pagina("Bine ai venit!", corp, "adult/situatie");
+  }
+
+  /* Toți pașii omului, în formatul cerut de carduri/paginaToate (nume, ecran, gata, detaliu). */
+  function statiiPasi(s) {
+    return s.pasi.map(function (p) {
+      return { nume: D.pasi[p].t, ecran: ecranPas(p) || "adult/pas/" + p, gata: !!(GATA[p] && GATA[p]()), detaliu: GATA[p] ? GATA[p]() : "" };
+    });
   }
 
   function meniu() {
     var s = situatia();
     if (!s) return intrebare();
-    var corp = (C.module.bosi ? C.module.bosi.inceput() + C.module.bosi.salut() : "") + (C.module.retine ? C.module.retine.banner() : "") + (C.module.bosi ? C.module.bosi.carduri(s.pasi.map(function (p, i) {
-      return { nume: D.pasi[p].t, ecran: ecranPas(p) || "adult/pas/" + p, gata: !!(GATA[p] && GATA[p]()), detaliu: GATA[p] ? GATA[p]() : "" };
-    })) : "") +
+    var B = C.module.bosi, statii = statiiPasi(s);
+    var corp = (B ? B.inceput() : "") + (B ? B.teaserNoutati() : "") +
+      (B ? C.cardulDeAcum(statii) : "") +
+      '<div class="rand">' + C.buton("Vezi toate secțiunile (" + statii.length + ")", "nav", "adult/toate/0") + "</div>" +
       '<div class="rand rand-mic">' + C.buton("Caietul meu", "nav", "caiet/tot", "mic-btn") + C.buton("Schimb situația", "nav", "adult/situatie", "mic-btn") + "</div>";
-    corp += C.module.bosi ? C.module.bosi.teaser() : "";
+    corp += B ? B.teaser() : "";
     return C.pagina("Drumul tău", corp, null);
+  }
+
+  /* „Toate secțiunile”: tot drumul, pe pagini mici (câte un rând de carduri). */
+  function toate(sub) {
+    var s = situatia();
+    if (!s) return intrebare();
+    return C.paginaToate(statiiPasi(s), sub, "adult/meniu", "adult/toate");
   }
 
   function pas(id) {
@@ -104,6 +119,8 @@
       if (sub === "bunvenit") return bunVenit();
       var m = /^pas\/([a-z]+)$/.exec(sub || "");
       if (m) return pas(m[1]);
+      var t = /^toate(?:\/(\d+))?$/.exec(sub || "");
+      if (t) return toate(t[1]);
       return meniu();
     },
     actiuni: {
