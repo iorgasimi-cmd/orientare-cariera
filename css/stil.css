@@ -178,7 +178,7 @@ fieldset.intrebare legend + * { clear: both; }
 .optiune.corect { border-color: var(--principal); background: var(--principal-moale); }
 .optiune.gresit { border-style: dashed; }
 
-/* Sărbătorile lui Faro: bula are chenar chihlimbar (plus steluța ★ din text) */
+/* Sărbătorile lui Faro: bula are chenar roșu (plus steluța ★ din text) */
 .sarbatoare .bula { border-color: var(--cald-contur); background: var(--cald-moale); }
 .sarbatoare .bula::before { border-right-color: var(--cald-contur); }
 
@@ -189,7 +189,7 @@ fieldset.intrebare legend + * { clear: both; }
 .ghid { border: 2px solid var(--principal); border-radius: 14px; padding: 10px; margin-bottom: 14px; background: var(--suprafata); }
 
 /* Stil vesel (variantă A): forme rotunjite, bară de progres, seria de zile, sărbătoare mai vizibilă.
-   Culorile rămân cele de încredere: albastru și chihlimbar. */
+   Culorile rămân cele de încredere: albastru și roșu. */
 /* Fond cu un colț colorat sus, ca într-un joc */
 body { background: linear-gradient(180deg, var(--principal-moale) 0, var(--fundal) 280px) no-repeat, var(--fundal); }
 h1 { font-size: 1.85rem; letter-spacing: -0.01em; }
@@ -227,7 +227,7 @@ details { margin: 14px 0; }
 details > summary { cursor: pointer; font-weight: 600; color: var(--principal); min-height: 2.6rem; padding: 8px 0; }
 details > summary:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
 
-/* Semnalizare, ca la mașină: „înainte” clipește chihlimbar, „înapoi” clipește verde.
+/* Semnalizare, ca la mașină: „înainte” clipește roșu, „înapoi” clipește verde.
    Clipirea e lentă (un ciclu la 1,2 secunde, sub pragul care poate provoca probleme) și doar în conținut, nu în antet.
    Cei care au oprit animațiile în telefon văd doar un contur și o săgeată. */
 main .btn.semn-inainte { border-color: var(--cald-contur); border-width: 3px; animation: semnal-inainte 1.2s steps(1, end) infinite; }

@@ -38,7 +38,7 @@ const TEXT = [
   ["principal", "suprafata", 4.5, "titluri și butoane secundare pe cartele"],
   ["principal", "principal-moale", 4.5, "titluri pe fundal discret"],
   ["principal-text", "principal", 4.5, "text pe butonul principal"],
-  ["cald-text", "cald", 4.5, "text pe butonul „Continuă” (chihlimbar)"],
+  ["cald-text", "cald", 4.5, "text pe butonul „Continuă” (roșu)"],
   ["eroare-text", "eroare-fundal", 4.5, "text de eroare"],
   ["eroare-text", "suprafata", 4.5, "butonul „Șterge tot” pe cartele"]
 ];

@@ -26,7 +26,7 @@
     /* Buton: act = "modul.actiune" sau "nav" (schimbă ecranul). */
     buton: function (text, act, arg, clasa) {
       var t = String(text), cl = clasa || "";
-      /* Semnalizare, ca la mașină: „înainte” clipește chihlimbar, „înapoi” clipește verde. Doar butoanele de navigare. */
+      /* Semnalizare, ca la mașină: „înainte” clipește roșu, „înapoi” clipește verde. Doar butoanele de navigare. */
       if (cl.indexOf("continua") >= 0 && (act === "nav" || /Continuă|Mai departe/.test(t))) {
         cl += " semn-inainte";
         t += ' <span class="flecha" aria-hidden="true">→</span>';

@@ -19,11 +19,11 @@
   --principal-text: #FFFFFF;    /* text pe butonul principal */
   --principal-moale: #DCE8FB;   /* fundal discret, cu text închis deasupra */
 
-  /* Accent cald: chihlimbar (felicitări, pași făcuți, butonul „Continuă”), mai saturat */
-  --cald: #FF9E00;
-  --cald-text: #1F2937;         /* text pe chihlimbar: mereu închis, niciodată alb */
-  --cald-moale: #FFEDCC;        /* fundal discret pentru felicitări */
-  --cald-contur: #A35600;       /* marginea elementelor chihlimbar */
+  /* Accent cald: roșu (felicitări, pași făcuți, butonul „Continuă”) */
+  --cald: #DC2626;
+  --cald-text: #FFFFFF;         /* text pe roșu: alb, fiindcă roșul e destul de închis */
+  --cald-moale: #FEE2E2;        /* fundal discret pentru felicitări */
+  --cald-contur: #7F1D1D;       /* marginea elementelor roșii */
 
   /* Linii și margini */
   --contur: #6B7280;            /* margini de butoane și câmpuri (contrast cel puțin 3) */
@@ -40,11 +40,11 @@
   --principal-sombra: #123F8C;  /* marginea de jos a butoanelor, ca un buton apăsabil */
 }
 
-/* Traseul pentru adulți (18+ și 45+): tot viu, dar o nuanță de chihlimbar mai adâncă */
+/* Traseul pentru adulți (18+ și 45+): tot roșu, dar o nuanță mai adâncă */
 body[data-traseu="adult"] {
-  --cald: #E2790A;
-  --cald-moale: #FCE4C2;
-  --cald-contur: #8A4600;
+  --cald: #B91C1C;
+  --cald-moale: #FBD5D5;
+  --cald-contur: #601313;
 }
 
 /* Modul întunecat al telefonului (se aplică automat) */
@@ -57,10 +57,10 @@ body[data-traseu="adult"] {
     --principal: #6FA8F0;
     --principal-text: #0B1626;
     --principal-moale: #233450;
-    --cald: #FFA726;
+    --cald: #F87171;
     --cald-text: #1F2937;
-    --cald-moale: #3A3220;
-    --cald-contur: #FFC266;
+    --cald-moale: #3A2020;
+    --cald-contur: #FCA5A5;
     --contur: #94A3B8;
     --linie: #2D394A;
     --eroare-text: #FFB4AE;
@@ -72,8 +72,8 @@ body[data-traseu="adult"] {
     --principal-sombra: #3E6FAE;
   }
   body[data-traseu="adult"] {
-    --cald: #F0983D;
-    --cald-moale: #3A2A14;
-    --cald-contur: #F5B160;
+    --cald: #F29494;
+    --cald-moale: #3A2A1A;
+    --cald-contur: #F2B2B2;
   }
 }
