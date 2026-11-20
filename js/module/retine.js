@@ -12,7 +12,9 @@
     return { idee: (elev && x.ideeElev) || x.idee, pas: (elev && x.pasElev) || x.pas };
   }
 
-  C.retine = function (id) {
+  /* Doar cartela (idee + „cu cuvintele tale” + pasul tău), fără bula lui Faro și fără legătura ColorPsi.
+     Separată de C.retine, ca un ecran lung să poată pune bula, cartela și legătura pe pași diferiți. */
+  function cartela(id) {
     var x = date(id); if (!x) return "";
     /* Omul a ajuns la finalul secțiunii: de aici pornesc recapitulările (prima, a doua zi). */
     if (!S.ia("rec." + id + ".urm", "")) { S.pune("rec." + id + ".urm", C.adauga(C.azi(), D.recap.zile[0])); S.pune("rec." + id + ".nivel", 0); }
@@ -20,14 +22,46 @@
     var msg = stare === "pus" ? '<p class="felicitare">' + esc(D.pus) + "</p>" :
       stare === "ocupat" ? "<p>" + esc(D.ocupat) + "</p>" : "";
     if (msg) msg += '<div class="rand">' + C.buton("Planul meu", "nav", "plan/saptamana") + "</div>";
-    return (C.bosi ? C.bosi(C.faro("final"), "bucurie") : "") + '<section class="card stil-asertiv"><h2>' + esc(D.titlu) + '</h2><p class="idee">' + esc(x.idee) + "</p>" +
+    return '<section class="card stil-asertiv"><h2>' + esc(D.titlu) + '</h2><p class="idee">' + esc(x.idee) + "</p>" +
       C.camp("caiet." + id + ".text", esc(D.scrie), esc(D.scrieAjutor), 2) +
       '<h2 class="intrebare-titlu">' + esc(D.pasTitlu) + "</h2><p>" + esc(x.pas) + "</p>" +
       '<div class="rand">' + C.buton(esc(D.buton), "retine.tema", id) + "</div>" +
-      '<div id="retine-' + id + '" role="status">' + msg + "</div></section>" +
-      /* Legătura către serviciile ColorPsi, la finalul secțiunilor de comunicare și la CV-ul pentru adulți. */
-      (LEAGA_COLORPSI.indexOf(id) >= 0 && C.servicii ? C.servicii.card() : "");
+      '<div id="retine-' + id + '" role="status">' + msg + "</div></section>";
+  }
+  /* Legătura către serviciile ColorPsi, la finalul secțiunilor de comunicare și la CV-ul pentru adulți (sau "" dacă nu e cazul). */
+  function colorpsi(id) { return LEAGA_COLORPSI.indexOf(id) >= 0 && C.servicii ? C.servicii.card() : ""; }
+  /* Bula lui Faro de la finalul secțiunii. */
+  function bulaFinal() { return C.bosi ? C.bosi(C.faro("final"), "bucurie") : ""; }
+
+  C.retine = function (id) {
+    var c = cartela(id); if (!c) return "";
+    return bulaFinal() + c + colorpsi(id);
   };
+  C.retineCartela = cartela;
+
+  /* Doar ideea (fără pasul tău): pentru un ecran scurt, când traseul are nevoie de un pas în plus.
+     Folosește aceleași date, dar nu repetă înregistrarea recapitulării (idempotentă oricum). */
+  function idee(id) {
+    var x = date(id); if (!x) return "";
+    if (!S.ia("rec." + id + ".urm", "")) { S.pune("rec." + id + ".urm", C.adauga(C.azi(), D.recap.zile[0])); S.pune("rec." + id + ".nivel", 0); }
+    return '<section class="card stil-asertiv"><h2>' + esc(D.titlu) + '</h2><p class="idee">' + esc(x.idee) + "</p>" +
+      C.camp("caiet." + id + ".text", esc(D.scrie), esc(D.scrieAjutor), 2) + "</section>";
+  }
+  /* Doar pasul tău (fără idee): perechea lui C.retineIdee, pentru același ecran scurt. */
+  function pasulTau(id) {
+    var x = date(id); if (!x) return "";
+    var stare = S.ia("caiet." + id + ".mesaj", "");
+    var msg = stare === "pus" ? '<p class="felicitare">' + esc(D.pus) + "</p>" :
+      stare === "ocupat" ? "<p>" + esc(D.ocupat) + "</p>" : "";
+    if (msg) msg += '<div class="rand">' + C.buton("Planul meu", "nav", "plan/saptamana") + "</div>";
+    return '<section class="card"><h2 class="intrebare-titlu">' + esc(D.pasTitlu) + "</h2><p>" + esc(x.pas) + "</p>" +
+      '<div class="rand">' + C.buton(esc(D.buton), "retine.tema", id) + "</div>" +
+      '<div id="retine-' + id + '" role="status">' + msg + "</div></section>";
+  }
+  C.retineIdee = idee;
+  C.retinePas = pasulTau;
+  C.retineColorpsi = colorpsi;
+  C.retineBula = bulaFinal;
 
   /* ---- Recapitulări (repetare la distanță) ---- */
   var R = D.recap;

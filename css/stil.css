@@ -3,7 +3,12 @@
    Elevii: litere de 18 px. Adulții 18–44: 20 px. Cei peste 45 de ani: 22 px. Toate mărimile sunt relative la acestea. */
 html { font-size: 18px; -webkit-text-size-adjust: 100%; }
 html[data-varsta="18-44"] { font-size: 20px; }
-html[data-varsta="45+"] { font-size: 22px; }
+html[data-varsta="45+"] { font-size: 21px; }
+/* Litera e deja mai mare la 45+; spațiile dintre elemente sunt puțin mai strânse, ca ecranul să încapă tot, fără derulare. */
+html[data-varsta="45+"] h1 { margin: 4px 0 10px; }
+html[data-varsta="45+"] main { padding: 4px 0 14px; }
+html[data-varsta="45+"] .card { padding: 12px; margin-bottom: 8px; }
+html[data-varsta="45+"] .rand { margin-top: 8px; }
 
 * { box-sizing: border-box; }
 body {

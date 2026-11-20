@@ -113,8 +113,9 @@
       return '<p><strong>' + esc(F.da) + '</strong></p><ul class="fara-buline">' + li(F.daLista, "✓") + "</ul>" +
         '<p><strong>' + esc(F.nu) + '</strong></p><ul class="fara-buline">' + li(F.nuLista, "✗") + "</ul>";
     },
-    pagina: function (titlu, corp, inapoi) {
-      return { titlu: titlu, corp: corp, inapoi: inapoi === undefined ? C.acasa() : inapoi };
+    /* faraGlosar: true pe pașii mici dintr-un traseu (ecranul de intrare în traseu păstrează cartela „Cuvinte de știut”). */
+    pagina: function (titlu, corp, inapoi, faraGlosar) {
+      return { titlu: titlu, corp: corp, inapoi: inapoi === undefined ? C.acasa() : inapoi, faraGlosar: !!faraGlosar };
     }
   };
 

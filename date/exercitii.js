@@ -8,7 +8,7 @@ window.DATE.exercitii = {
 
   grupAsertiv: {
     titlu: "Exersează cu situații",
-    explica: "Patru exerciții scurte, cu situații de la muncă. Alegi un răspuns și vezi de ce e sau nu potrivit."
+    explica: "Patru exerciții scurte, cu situații de la muncă."
   },
   grupInterviu: {
     titlu: "Exerciții pentru discuție",

@@ -16,14 +16,14 @@
     var ce = pentruElev() ? D.elev.ce : D.ce;
     var corp = (C.butonLectie ? C.butonLectie("asertiv") : "") + '<p class="citat">' + esc(ce) + "</p>" +
       '<div class="rand">' + C.buton("Ce câștigi", "nav", "asertiv/castig", "continua") + "</div>";
-    return C.pagina(D.titlu, corp, C.acasa());
+    return C.pagina(D.titlu, corp, C.acasa(), true);
   }
 
   function castig() {
     var castigD = pentruElev() ? D.elev.castig : D.castig;
     var corp = '<section class="card"><h2>' + esc(castigD.titlu) + "</h2>" + lista(castigD.lista) + "</section>" +
       '<div class="rand">' + C.buton("Văd cele patru stiluri", "nav", "asertiv/stiluri/1", "continua") + "</div>";
-    return C.pagina(castigD.titlu, corp, "asertiv/intro");
+    return C.pagina(castigD.titlu, corp, "asertiv/intro", true);
   }
 
   /* Un stil pe ecran. Asertivul e marcat cu bifă. */
@@ -34,7 +34,7 @@
       '<p class="mic">' + esc(s.motto) + "</p><p>" + esc(s.text) + '</p><p class="citat">' + esc(s.ex) + "</p></section>" +
       '<div class="rand">' + C.buton("Înapoi", "nav", n === 1 ? "asertiv/castig" : "asertiv/stiluri/" + (n - 1)) +
       C.buton(n < st.length ? "Continuă" : "Văd 5 exemple", "nav", n < st.length ? "asertiv/stiluri/" + (n + 1) : "asertiv/exemplu/1/1", "continua") + "</div>";
-    return C.pagina(D.stiluri.titlu, corp, n === 1 ? "asertiv/castig" : "asertiv/stiluri/" + (n - 1));
+    return C.pagina(D.stiluri.titlu, corp, n === 1 ? "asertiv/castig" : "asertiv/stiluri/" + (n - 1), true);
   }
 
   /* Un exemplu, în patru pași: situația, pasiv, agresiv, asertiv. */
@@ -50,7 +50,7 @@
     var urmator = k < PAS_EX ? "asertiv/exemplu/" + n + "/" + (k + 1) : (ultim ? "asertiv/exercitiu/formula" : "asertiv/exemplu/" + (n + 1) + "/1");
     var eticheta = k < PAS_EX ? "Continuă" : (ultim ? "Continuă: încearcă tu" : "Exemplul următor");
     var corp = mic + c + '<div class="rand">' + C.buton("Înapoi", "nav", inapoi) + C.buton(eticheta, "nav", urmator, "continua") + "</div>";
-    return C.pagina(e.titlu, corp, inapoi);
+    return C.pagina(e.titlu, corp, inapoi, true);
   }
 
   /* ---- Modelul în patru părți: Când… / Mă simt… / Pentru că… / Aș vrea… ---- */
@@ -89,12 +89,17 @@
   }
   function mesaj(t, v) { Object.keys(v || {}).forEach(function (k) { t = t.split("{" + k + "}").join(v[k]); }); return t; }
 
-  /* Pasul 4: cele patru părți ale frazei și butonul de verificare (apoi trecem la rezultat). */
-  function modelCampuri() {
+  /* Explicația modelului, pe ecranul ei: cum funcționează și un exemplu. */
+  function modelIntro() {
     var M = D.model;
-    return '<section class="card stil-asertiv"><h2>' + esc(M.titlu) + "</h2><p>" + esc(M.explica) + '</p><p class="mic">' + esc(pentruElev() ? D.elev.modelExemplu : M.exemplu) + "</p></section>" +
-      M.parti.map(function (x) { return C.camp("asertiv.model." + x.id, esc(x.t), esc(x.ajutor), 2); }).join("") +
-      '<div class="rand">' + C.buton(esc(M.buton), "asertiv.verifica", null, "continua") + "</div>";
+    return '<section class="card stil-asertiv"><h2>' + esc(M.titlu) + "</h2><p>" + esc(M.explica) + '</p><p class="mic">' + esc(pentruElev() ? D.elev.modelExemplu : M.exemplu) + "</p></section>";
+  }
+  /* Pașii 4a–4d: câte o parte a frazei pe ecran. Ultimul are butonul „Verifică”. */
+  function modelCamp(idx) {
+    var M = D.model, x = M.parti[idx], ultim = idx === M.parti.length - 1;
+    var corp = '<p class="mic">Partea ' + (idx + 1) + " din " + M.parti.length + "</p>" +
+      C.camp("asertiv.model." + x.id, esc(x.t), esc(x.ajutor), 2);
+    return { titlu: M.titlu, corp: corp, ultim: ultim };
   }
   /* Pasul 5: rezultatul verificării, doar după ce omul a apăsat butonul. */
   function modelRezultat() {
@@ -128,45 +133,76 @@
     if (lipsa) return "";
     return "Sunt " + primaMica(p.cine) + ". Vreau " + primaMica(p.ce) + ". Te rog " + primaMica(p.cum) + ".";
   }
-  function ecranIA() {
+  /* „Cere clar și de la IA”: câte o idee pe pagină — introducerea, câte 3 reguli, fiecare întrebare-exemplu,
+     câte o parte a întrebării proprii, apoi întrebarea gata de copiat. */
+  var PASI_IA = ["intro", "reguli1", "reguli2", "quiz0", "quiz1", "model0", "model1", "model2", "raspuns", "ghid"];
+  function ecranIA(pas) {
     var I = D.ia, M = I.model;
-    var corp = "<p>" + esc(I.intro) + '</p><ol class="pasi">' +
-      I.reguli.map(function (x) { return "<li><strong>" + esc(x.t) + "</strong> " + esc(x.ex) + "</li>"; }).join("") + "</ol>" +
-      '<p class="nota">' + esc(I.varsta) + "</p>";
-    I.quiz.forEach(function (q, i) {
-      var ales = S.ia("asertiv.iaq." + i, "");
-      corp += '<section class="card"><h2>' + esc(I.intrebare) + " (" + (i + 1) + " din " + I.quiz.length + ")</h2>";
+    var i = PASI_IA.indexOf(pas || "intro"); if (i < 0) i = 0;
+    pas = PASI_IA[i];
+    var inapoi = i === 0 ? "asertiv/exercitiu/ia" : "asertiv/ia/" + PASI_IA[i - 1];
+    var urmator = i < PASI_IA.length - 1 ? "asertiv/ia/" + PASI_IA[i + 1] : null;
+    var corp, titlu = I.titlu, butonSpecial = null;
+    var mReguli = /^reguli(\d)$/.exec(pas), mQuiz = /^quiz(\d)$/.exec(pas), mModel = /^model(\d)$/.exec(pas);
+    if (pas === "intro") {
+      corp = "<p>" + esc(I.intro) + '</p><p class="nota">' + esc(I.varsta) + "</p>";
+    } else if (mReguli) {
+      var de = (Number(mReguli[1]) - 1) * 3, bucata = I.reguli.slice(de, de + 3);
+      corp = '<ol class="pasi" start="' + (de + 1) + '">' + bucata.map(function (x) { return "<li><strong>" + esc(x.t) + "</strong> " + esc(x.ex) + "</li>"; }).join("") + "</ol>";
+    } else if (mQuiz) {
+      var qi = Number(mQuiz[1]), q = I.quiz[qi], ales = S.ia("asertiv.iaq." + qi, "");
+      corp = '<section class="card"><h2>' + esc(I.intrebare) + " (" + (qi + 1) + " din " + I.quiz.length + ")</h2>";
       corp += '<div class="meniu-lista">' + ["a", "b"].map(function (k) {
         var cls = !ales ? "lista" : (k === q.corect ? "lista salvat" : "lista");
-        return C.buton((ales && k === q.corect ? "✓ " : "") + esc(q[k]), "asertiv.iaAlege", i + "|" + k, cls);
+        return C.buton((ales && k === q.corect ? "✓ " : "") + esc(q[k]), "asertiv.iaAlege", qi + "|" + k, cls);
       }).join("") + "</div>";
       if (ales) corp += '<p class="' + (ales === q.corect ? "felicitare" : "mic") + '">' + esc(ales === q.corect ? I.bine : I.gresit) + " " + esc(q.expl) + "</p>";
       corp += "</section>";
-    });
-    corp += "<h2>" + esc(M.titlu) + "</h2>" +
-      M.parti.map(function (x) { return C.camp("asertiv.iam." + x.id, esc(x.t), esc(x.ajutor), 2); }).join("") +
-      '<div class="rand">' + C.buton(esc(M.buton), "asertiv.iaVad", null, "continua") + "</div>";
-    if (S.ia("asertiv.iaVazut", false)) {
-      var q = intrebareIA(S.ia("asertiv.iam", {}));
-      corp += '<div id="rezultat-ia">' + (q
-        ? '<section class="card stil-asertiv"><h2>' + esc(M.gata) + '</h2><div class="camp"><label for="c-intrebare-ia">' + esc(M.gata) + '</label><textarea id="c-intrebare-ia" rows="3" readonly>' + C.escSimplu(q) + "</textarea></div>" +
-          '<div class="rand">' + C.buton("Copiază", "asertiv.iaCopiaza", null, "continua") + '</div><p id="stare-copiere-ia" class="mic" role="status"></p><p>' + esc(M.sfat) + "</p></section>"
-        : '<section class="card"><p>' + esc(M.gol) + "</p></section>") + "</div>";
+    } else if (mModel) {
+      var idx = Number(mModel[1]), x = M.parti[idx], ultim = idx === M.parti.length - 1;
+      titlu = M.titlu;
+      corp = (idx === 0 ? "<h2>" + esc(M.titlu) + "</h2>" : '<p class="mic">Partea ' + (idx + 1) + " din " + M.parti.length + "</p>") +
+        C.camp("asertiv.iam." + x.id, esc(x.t), esc(x.ajutor), 2);
+      if (ultim) { urmator = "asertiv/ia/raspuns"; butonSpecial = C.buton(esc(M.buton), "asertiv.iaVad", null, "continua"); }
+    } else if (pas === "raspuns") {
+      /* Întrebarea gata de copiat. */
+      titlu = M.titlu;
+      if (S.ia("asertiv.iaVazut", false)) {
+        var raspuns = intrebareIA(S.ia("asertiv.iam", {}));
+        corp = raspuns
+          ? '<section class="card stil-asertiv"><h2>' + esc(M.gata) + '</h2><div class="camp"><label for="c-intrebare-ia">' + esc(M.gata) + '</label><textarea id="c-intrebare-ia" rows="3" readonly>' + C.escSimplu(raspuns) + "</textarea></div>" +
+            '<div class="rand">' + C.buton("Copiază", "asertiv.iaCopiaza", null, "continua") + '</div><p id="stare-copiere-ia" class="mic" role="status"></p><p>' + esc(M.sfat) + "</p></section>"
+          : '<section class="card"><p>' + esc(M.gol) + "</p></section>";
+      } else corp = '<section class="card"><p>' + esc(M.gol) + "</p></section>";
+    } else {
+      /* Ghidul (pliat) și întoarcerea la exercițiu. */
+      titlu = M.titlu;
+      corp = "<details><summary>" + esc(I.primaData) + "</summary>" + C.ghidIA() + "</details>";
+      corp += '<div class="rand">' + C.buton("Înapoi", "nav", inapoi) + C.buton("Înapoi la exercițiu", "nav", "asertiv/exercitiu/ia", "primar") + "</div>";
+      return C.pagina(titlu, corp, inapoi, true);
     }
-    corp += "<details><summary>" + esc(I.primaData) + "</summary>" + C.ghidIA() + "</details>" +
-      '<div class="rand">' + C.buton("Înapoi", "nav", "asertiv/exercitiu/ia", "primar") + "</div>";
-    return C.pagina(I.titlu, corp, "asertiv/exercitiu/ia");
+    var nav = '<div class="rand">' + C.buton("Înapoi", "nav", inapoi) + (butonSpecial || (urmator ? C.buton("Continuă", "nav", urmator, "continua") : "")) + "</div>";
+    return C.pagina(titlu, corp + nav, inapoi, true);
   }
 
-  /* Exercițiul, în opt pași, câte o idee pe pagină. */
-  var PASI_EX = ["formula", "corp", "situatie", "model", "rezultat", "exersez", "ia", "gata"];
+  /* Exercițiul, câte o idee pe pagină: formula, corpul, situația, cele patru părți ale frazei (câte un pas),
+     rezultatul, exersez, IA și, la final, câte un pas pentru fiecare bucată a ecranului de încheiere. */
+  function pasiExercitiu() {
+    var model = D.model.parti.map(function (x, i) { return "model" + i; });
+    /* Încheierea: bula lui Faro + ColorPsi, ideea, pasul, (doar la adulți) celelalte exerciții, apoi un ecran scurt de final. */
+    var gata = ["gata1", "gata2", "gata3"];
+    if (C.module.exercitii && !pentruElev()) gata.push("gata4");
+    gata.push("gataFin");
+    return ["formula", "corp", "situatie", "model-intro"].concat(model, ["rezultat", "exersez", "ia"], gata);
+  }
   function exercitiu(pas) {
-    var F = D.formula, X = D.exercitiu;
+    var F = D.formula, X = D.exercitiu, PASI_EX = pasiExercitiu();
     var i = PASI_EX.indexOf(pas || "formula"); if (i < 0) i = 0;
     pas = PASI_EX[i];
     var inapoi = i === 0 ? "asertiv/exemplu/" + N + "/" + PAS_EX : "asertiv/exercitiu/" + PASI_EX[i - 1];
     var urmator = i < PASI_EX.length - 1 ? "asertiv/exercitiu/" + PASI_EX[i + 1] : null;
-    var corp, titlu = X.titlu;
+    var corp, titlu = X.titlu, butonSpecial = null;
+    var mModel = /^model(\d)$/.exec(pas);
     if (pas === "formula") {
       var pasi = pentruElev() ? [D.elev.formulaPrimul].concat(F.pasi.slice(1)) : F.pasi;
       titlu = F.titlu;
@@ -177,9 +213,13 @@
     } else if (pas === "situatie") {
       corp = '<section class="card"><h2>' + esc(X.titlu) + "</h2>" +
         C.camp("asertiv." + X.campuri[0].id, esc(X.campuri[0].t), esc(pentruElev() ? D.elev.situatieAjutor : X.campuri[0].ajutor), X.campuri[0].randuri) + "</section>";
-    } else if (pas === "model") {
+    } else if (pas === "model-intro") {
       titlu = D.model.titlu;
-      corp = modelCampuri(); urmator = null;
+      corp = modelIntro();
+    } else if (mModel) {
+      var pc = modelCamp(Number(mModel[1]));
+      titlu = pc.titlu; corp = pc.corp;
+      if (pc.ultim) { urmator = null; butonSpecial = C.buton(esc(D.model.buton), "asertiv.verifica", null, "continua"); }
     } else if (pas === "rezultat") {
       titlu = D.model.titlu;
       corp = S.ia("asertiv.modelVerificat", false) ? modelRezultat() : '<section class="card"><p>' + esc(D.model.lipsaVerificare) + "</p></section>";
@@ -188,17 +228,36 @@
         X.campuri.slice(1).map(function (c) { return C.camp("asertiv." + c.id, esc(c.t), esc(c.ajutor), c.randuri); }).join("") + "</section>";
     } else if (pas === "ia") {
       corp = cartelaIA();
-    } else {
-      /* Gata: ideea de reținut și, pentru adulți, celelalte exerciții. */
+    } else if (pas === "gata1") {
+      /* Pasul 1 al încheierii: bula lui Faro și legătura ColorPsi, dacă e cazul. */
       titlu = X.titlu;
-      corp = C.retine("asertiv") + (C.module.exercitii && !pentruElev() ? C.module.exercitii.cartela("asertiv") : "");
+      corp = (C.retineBula ? C.retineBula() : "") + (C.retineColorpsi ? C.retineColorpsi("asertiv") : "");
+    } else if (pas === "gata2") {
+      /* Pasul 2: ideea de reținut, scrisă cu cuvintele tale. */
+      titlu = X.titlu;
+      corp = C.retineIdee ? C.retineIdee("asertiv") : "";
+    } else if (pas === "gata3") {
+      /* Pasul 3: pasul tău, cu butonul care îl pune temă săptămânii. */
+      titlu = X.titlu;
+      corp = C.retinePas ? C.retinePas("asertiv") : "";
+    } else if (pas === "gata4") {
+      /* Pasul 4 (doar la adulți): celelalte exerciții de comunicare. */
+      titlu = X.titlu;
+      corp = C.module.exercitii && !pentruElev() ? C.module.exercitii.cartela("asertiv") : "";
+    } else {
+      /* Ecranul scurt de final: doar butoanele. */
+      titlu = X.titlu;
+      corp = "";
+    }
+    if (i === PASI_EX.length - 1) {
+      /* Ultimul pas: butonul „Gata”, nu „Continuă”. */
       var u = C.eAdult() && C.module.adult ? C.module.adult.urmator("asertiv") : null;
       corp += '<div class="rand">' + C.buton("Înapoi", "nav", inapoi) +
         C.buton(u ? "Gata. Continuă: " + esc(u.t) : "Gata", "asertiv.gata", u ? u.ecran : C.acasa(), "primar") + "</div>";
-      return C.pagina(titlu, corp, inapoi);
+      return C.pagina(titlu, corp, inapoi, true);
     }
-    var nav = '<div class="rand">' + C.buton("Înapoi", "nav", inapoi) + (urmator ? C.buton("Continuă", "nav", urmator, "continua") : "") + "</div>";
-    return C.pagina(titlu, corp + nav, inapoi);
+    var nav = '<div class="rand">' + C.buton("Înapoi", "nav", inapoi) + (butonSpecial || (urmator ? C.buton("Continuă", "nav", urmator, "continua") : "")) + "</div>";
+    return C.pagina(titlu, corp + nav, inapoi, true);
   }
 
   C.reg("asertiv", {
@@ -210,7 +269,8 @@
       if (st) return stil(Number(st[1] || 1));
       var e = /^exercitiu(?:\/(\w+))?$/.exec(sub || "");
       if (e) return exercitiu(e[1]);
-      if (sub === "ia") return ecranIA();
+      var ia = /^ia(?:\/([\w-]+))?$/.exec(sub || "");
+      if (ia) return ecranIA(ia[1]);
       return intro();
     },
     actiuni: {
@@ -221,7 +281,7 @@
           var el = g.document && g.document.getElementById("c-asertiv-iam-" + x.id);
           if (el) S.pune("asertiv.iam." + x.id, el.value);
         });
-        S.pune("asertiv.iaVazut", true); C.deArata = "rezultat-ia";
+        S.pune("asertiv.iaVazut", true); C.mergi("asertiv/ia/raspuns");
       },
       iaCopiaza: function () { C.copiaza("c-intrebare-ia", "stare-copiere-ia", D.ia.model.copiat, D.ia.model.selectat); return false; },
       verifica: function () {

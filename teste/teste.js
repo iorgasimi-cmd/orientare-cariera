@@ -626,8 +626,10 @@ test("„Ce iei cu tine”: cerințele repetate sunt primele, lipsurile și conc
   S.sterge();
 });
 console.log("Comunicarea asertivă");
-const EXPASI = ["formula", "corp", "situatie", "model", "rezultat", "exersez", "ia", "gata"];
-const exTot = () => EXPASI.map(p => C.module.asertiv.ecran("exercitiu/" + p).corp).join("");
+const EXPASI_ADULT = ["formula", "corp", "situatie", "model-intro", "model0", "model1", "model2", "model3", "rezultat", "exersez", "ia", "gata1", "gata2", "gata3", "gata4", "gataFin"];
+const EXPASI_ELEV = ["formula", "corp", "situatie", "model-intro", "model0", "model1", "model2", "model3", "rezultat", "exersez", "ia", "gata1", "gata2", "gata3", "gataFin"];
+const exTot = (elev) => (elev ? EXPASI_ELEV : EXPASI_ADULT).map(p => C.module.asertiv.ecran("exercitiu/" + p).corp).join("");
+const modelTot = () => C.module.asertiv.ecran("exercitiu/model-intro").corp + [0, 1, 2, 3].map(i => C.module.asertiv.ecran("exercitiu/model" + i).corp).join("");
 const stilTot = () => [1, 2, 3, 4].map(n => C.module.asertiv.ecran("stiluri/" + n).corp).join("");
 const exemplTot = () => { let t = ""; for (let n = 1; n <= 5; n++) for (let k = 1; k <= 4; k++) t += C.module.asertiv.ecran("exemplu/" + n + "/" + k).corp; return t; };
 test("ce este, ce câștigi și cele 4 stiluri; asertivul se vede și prin bifă, nu doar prin culoare", () => {
@@ -655,7 +657,7 @@ test("formula în trei pași, limbajul corpului, exercițiul și trecerea la pas
   S.sterge(); S.pune("varsta", "18-44"); S.pune("situatie", "caut");
   const c = exTot();
   assert.ok(c.includes("O frază asertivă, în trei pași") && c.includes("Și cum spui") && (c.match(/<textarea/g) || []).length === 7);
-  assert.ok(C.module.asertiv.ecran("exercitiu/gata").corp.includes("Gata. Continuă: Pregătirea pentru interviu"));
+  assert.ok(C.module.asertiv.ecran("exercitiu/gataFin").corp.includes("Gata. Continuă: Pregătirea pentru interviu"));
   assert.strictEqual(C.module.asertiv.ecran("exercitiu/formula").inapoi, "asertiv/exemplu/5/4");
   assert.strictEqual(C.module.asertiv.ecran("exercitiu/ia").inapoi, "asertiv/exercitiu/exersez");
   C.module.asertiv.actiuni.gata("interviu/hub");
@@ -680,7 +682,7 @@ test("modelul asertiv în patru părți: fraza întreagă și verificarea", () =
 });
 test("ecranul „Încearcă tu” are modelul și arată fraza după verificare", () => {
   S.sterge(); S.pune("varsta", "18-44"); S.pune("situatie", "caut");
-  let c = C.module.asertiv.ecran("exercitiu/model").corp;
+  let c = modelTot();
   ["Când… (ce se întâmplă)", "Mă simt… (ce simți)", "Pentru că… (motivul)", "Propun să… (ce propui)", "Văd fraza mea"].forEach(t => assert.ok(c.includes(t), t));
   assert.ok(!c.includes("Aș vrea") && !c.includes("Fraza ta"), "rezultatul nu apare înainte de verificare");
   S.pune("asertiv.model.cand", "ședința începe târziu"); S.pune("asertiv.model.simt", "frustrată"); S.pune("asertiv.model.motiv", "am alte programări"); S.pune("asertiv.model.vreau", "începem la ora fixă");
@@ -726,7 +728,7 @@ test("„Cum să argumentezi”: ideile principale, forma în 4 pași și exerci
   let c = C.module.exercitii.ecran("argumentez").corp;
   assert.strictEqual(D.exercitii.argumentez.idei.length, 10);
   ["Ideile principale", "Ideea → Motivul → Exemplul → Propunerea", "Argumentul meu", "Văd argumentul meu", "Continuă: când cineva argumentează nedrept"].forEach(x => assert.ok(c.includes(C.esc(x)), x));
-  assert.ok(C.module.asertiv.ecran("exercitiu/gata").corp.includes('data-arg="exercitii/argumentez"'), "cartela duce la „Cum să argumentezi”");
+  assert.ok(C.module.asertiv.ecran("exercitiu/gata4").corp.includes('data-arg="exercitii/argumentez"'), "cartela duce la „Cum să argumentezi”");
   assert.strictEqual(C.module.exercitii.ecran("quiz/argumente").inapoi, "exercitii/argumentez");
   const f = C.module.exercitii.verificaArgument;
   const bun = f({ idee: "Propun să facem o ședință scurtă luni dimineață.", motiv: "ca să știm toți ce avem de făcut", exemplu: "de exemplu, săptămâna trecută doi colegi au lucrat la același raport", propunere: "hai să încercăm două săptămâni și apoi vedem" });
@@ -827,7 +829,7 @@ console.log("Asertivitate și IA pentru elevi");
 test("elevii au comunicarea asertivă în meniu, cu situații de la școală, nu de la muncă", () => {
   S.sterge(); S.pune("varsta", "sub18"); S.pune("clasa", "9");
   assert.ok(C.module.elev.ecran("meniu").corp.includes("Comunicarea asertivă"));
-  let tot = C.module.asertiv.ecran("intro").corp + stilTot() + exTot() + exemplTot();
+  let tot = C.module.asertiv.ecran("intro").corp + stilTot() + exTot(true) + exemplTot();
   assert.ok(tot.includes(C.esc(D.asertiv.elev.ce)) && tot.includes("Un coleg îți cere tema") && tot.includes("Proiectul nu e gata"));
   assert.ok(!/interviu|șef|ședinț|salariu|la muncă|raportul/i.test(tot.replace(/<[^>]+>/g, " ")), "fără exemple de la muncă");
   assert.ok(!tot.includes("Exersează cu situații"), "exercițiile de la muncă nu apar la elevi");
@@ -840,22 +842,24 @@ test("elevii au comunicarea asertivă în meniu, cu situații de la școală, nu
 });
 test("„Cere clar și de la IA”: 6 reguli, nota despre vârstă, alegerea cererii mai clare și întrebarea proprie", () => {
   S.sterge(); S.pune("varsta", "sub18"); S.pune("clasa", "10");
-  let c = C.module.asertiv.ecran("ia").corp;
+  const PASI_IA = ["intro", "reguli1", "reguli2", "quiz0", "quiz1", "model0", "model1", "model2", "raspuns", "ghid"];
+  const iaTot = () => PASI_IA.map(p => C.module.asertiv.ecran("ia/" + p).corp).join("");
+  let c = iaTot();
   assert.strictEqual(D.asertiv.ia.reguli.length, 6);
   ["Verifică ce îți spune.", "Nu scrie date personale.", "Folosește-o ca să înveți, nu ca să copiezi.", C.esc(D.asertiv.ia.varsta), "<details>"].forEach(x => assert.ok(c.includes(x), x));
   C.module.asertiv.actiuni.iaAlege("0|a");
-  c = C.module.asertiv.ecran("ia").corp;
+  c = C.module.asertiv.ecran("ia/quiz0").corp;
   assert.ok(c.includes(D.asertiv.ia.gresit) && c.includes("✓ " + C.esc(D.asertiv.ia.quiz[0].b)));
-  C.module.asertiv.actiuni.iaAlege("1|a"); assert.ok(C.module.asertiv.ecran("ia").corp.includes(D.asertiv.ia.bine));
+  C.module.asertiv.actiuni.iaAlege("1|a"); assert.ok(C.module.asertiv.ecran("ia/quiz1").corp.includes(D.asertiv.ia.bine));
   const f = C.module.asertiv.intrebareIA;
   assert.strictEqual(f({ cine: "elev în clasa a X-a", ce: "să înțeleg aria cercului", cum: "explică-mi simplu, cu un exemplu" }), "Sunt elev în clasa a X-a. Vreau să înțeleg aria cercului. Te rog explică-mi simplu, cu un exemplu.");
   assert.strictEqual(f({ cine: "Sunt elevă.", ce: "Vreau idei pentru un eseu", cum: "Te rog, pe scurt" }), "Sunt elevă. Vreau idei pentru un eseu. Te rog pe scurt.");
   assert.strictEqual(f({ cine: "x", ce: "", cum: "y" }), "");
   S.pune("asertiv.iam.cine", "elev"); S.pune("asertiv.iam.ce", "să învăț pentru teză"); S.pune("asertiv.iam.cum", "dă-mi 5 întrebări");
-  C.module.asertiv.actiuni.iaVad(); assert.strictEqual(C.deArata, "rezultat-ia"); C.deArata = "";
-  c = C.module.asertiv.ecran("ia").corp;
+  C.module.asertiv.actiuni.iaVad(); assert.strictEqual(C.ecran, "asertiv/ia/raspuns");
+  c = C.module.asertiv.ecran("ia/raspuns").corp;
   assert.ok(c.includes(">Sunt elev. Vreau să învăț pentru teză. Te rog dă-mi 5 întrebări.</textarea>") && c.includes("Copiază"));
-  assert.deepStrictEqual(Verificator.verificaText(c.replace(/<[^>]+>/g, " ")).map(x => x.gasit), []);
+  assert.deepStrictEqual(Verificator.verificaText(iaTot().replace(/<[^>]+>/g, " ")).map(x => x.gasit), []);
   S.sterge();
 });
 
@@ -966,7 +970,8 @@ test("obiceiuri mici: o temă din fiecare nivel, plan cu când/unde/după ce, va
 
 test("ideea de reținut și pasul tău: la finalul fiecărei secțiuni; pasul devine temă doar dacă săptămâna e liberă", () => {
   const fin = { interese: "interese/rezultat", forte: "forte/rezumat", valori: "valorile/rezultat", stima: "stima/rezultat", roata: "roata/rezultat",
-    competente: "competente/concluzie", cv: null, scrisoare: "scrisoare/schelet", interviu: "interviu/exersez", asertiv: "asertiv/exercitiu/gata",
+    competente: "competente/concluzie", cv: null, scrisoare: "scrisoare/schelet", interviu: "interviu/exersez",
+    asertiv: ["asertiv/exercitiu/gata2", "asertiv/exercitiu/gata3"],
     corp: "corp/gata", negociere: "negociere/exercitiu", cerinte: "cerinte/lista", meserii: "meserii/lista", cauta: null };
   S.sterge(); S.pune("varsta", "18-44"); S.pune("situatie", "schimb");
   S.pune("interese.top", ["S", "I", "A"]); S.pune("vp.top", "familie"); S.pune("vp.ales.p2", ["familie", "curaj", "umor"]);
@@ -974,7 +979,8 @@ test("ideea de reținut și pasul tău: la finalul fiecărei secțiuni; pasul de
   D.roata.zone.forEach(z => S.pune("roata.n." + z.id, 6));
   Object.keys(fin).forEach(id => {
     if (!fin[id]) return; /* CV-ul: rezultatul cere text lipit; e verificat în codul ecranului */
-    const [m, ...rest] = fin[id].split("/"); const c = C.module[m].ecran(rest.join("/")).corp;
+    const ecrane = Array.isArray(fin[id]) ? fin[id] : [fin[id]];
+    const c = ecrane.map(e => { const [m, ...rest] = e.split("/"); return C.module[m].ecran(rest.join("/")).corp; }).join("");
     assert.ok(c.includes(C.esc(D.retine.sectiuni[id].idee)) && c.includes(D.retine.pasTitlu), id);
   });
   assert.ok(Object.keys(D.retine.sectiuni).every(id => id in fin), "fiecare idee are un ecran");
