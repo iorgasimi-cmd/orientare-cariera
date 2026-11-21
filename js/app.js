@@ -27,7 +27,7 @@
 
     var bara = '<header class="bara">' +
       (p.inapoi ? '<button type="button" class="btn mic-btn" data-act="nav" data-arg="' + esc(p.inapoi) + '" aria-label="Înapoi">← Înapoi</button>' : '<span class="spatiu"></span>') +
-      '<span class="nume-app">Orientare în carieră</span>' +
+      '<span class="nume-app">' + (C.module.bosi ? '<span class="faro-cap" aria-hidden="true">' + C.module.bosi.desen("zambet") + "</span>" : "") + "Orientare în carieră</span>" +
       '<button type="button" class="btn mic-btn" data-act="nav" data-arg="sistem/setari">Setări</button></header>';
     radacina.innerHTML = bara +
       '<main id="continut"><h1 id="titlu" tabindex="-1">' + esc(p.titlu) + "</h1>" +
