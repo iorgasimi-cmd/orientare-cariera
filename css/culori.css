@@ -34,6 +34,10 @@
   --eroare-fundal: #FDEEEC;
   --eroare-contur: #C0392B;
 
+  /* „Cuvinte de știut”: cartelă galbenă, ca o notă evidențiată, text negru — la fel în lumină și în întuneric */
+  --glosar-fundal: #FEF3C7;
+  --glosar-text: #000000;
+
   --focus: #1F2937;             /* conturul când navighezi cu tastatura */
   --umbra: rgba(31, 41, 55, .10);
   /* Butonul „Înapoi”: plin cu verde (ca la mașină — înainte roșu, înapoi verde) */

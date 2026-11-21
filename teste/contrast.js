@@ -41,7 +41,8 @@ const TEXT = [
   ["cald-text", "cald", 4.5, "text pe butonul „Continuă” (roșu)"],
   ["eroare-text", "eroare-fundal", 4.5, "text de eroare"],
   ["eroare-text", "suprafata", 4.5, "butonul „Șterge tot” pe cartele"],
-  ["verde-text", "verde", 4.5, "text pe butonul „Înapoi” (verde)"]
+  ["verde-text", "verde", 4.5, "text pe butonul „Înapoi” (verde)"],
+  ["glosar-text", "glosar-fundal", 4.5, "text pe cartela „Cuvinte de știut”"]
 ];
 const MARGINI = [
   ["contur", "fundal", 3, "margini (bara de progres) pe fundal"],

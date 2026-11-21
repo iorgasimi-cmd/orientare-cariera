@@ -198,6 +198,9 @@ h1 { font-size: 1.85rem; letter-spacing: -0.01em; }
 /* Cartele cu o bandă colorată în stânga */
 .card { border-radius: 20px; border-left: 7px solid var(--principal); }
 .card.stil-asertiv, .card.servicii { border-left-color: var(--cald); }
+/* „Cuvinte de știut”: tot fundalul galben, text negru */
+.card.glosar { background: var(--glosar-fundal); color: var(--glosar-text); border-left-color: var(--glosar-text); }
+.card.glosar h2 { color: var(--glosar-text); }
 /* Butoane 3D: un buton „se apasă” */
 .btn { border-radius: 16px; border-bottom-width: 5px; }
 .btn.primar { border-bottom-color: var(--principal-sombra); }
