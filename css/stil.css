@@ -229,18 +229,20 @@ details { margin: 14px 0; }
 details > summary { cursor: pointer; font-weight: 600; color: var(--principal); min-height: 2.6rem; padding: 8px 0; }
 details > summary:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
 
-/* Semnalizare, ca la mașină: „înainte” clipește roșu, „înapoi” clipește verde.
-   Clipirea e lentă (un ciclu la 1,2 secunde, sub pragul care poate provoca probleme) și doar în conținut, nu în antet.
-   Cei care au oprit animațiile în telefon văd doar un contur și o săgeată. */
+/* Semnalizare, ca la mașină: „înainte” e roșu, „înapoi” e verde — plin cu culoare, nu doar cu margine.
+   În conținut, butoanele mai clipesc ușor (un ciclu la 1,2 secunde, sub pragul care poate provoca probleme);
+   în antet, butonul „Înapoi” e verde plin, fără clipire. Cei care au oprit animațiile în telefon văd un inel fix. */
+.btn.semn-inapoi { background: var(--verde); color: var(--verde-text); border-color: var(--verde-contur); }
+.btn.semn-inapoi:hover { background: var(--verde); filter: brightness(1.05); }
 main .btn.semn-inainte { border-color: var(--cald-contur); border-width: 3px; animation: semnal-inainte 1.2s steps(1, end) infinite; }
-main .btn.semn-inapoi { border-color: var(--verde); border-width: 3px; animation: semnal-inapoi 1.2s steps(1, end) infinite; }
+main .btn.semn-inapoi { border-width: 3px; animation: semnal-inapoi 1.2s steps(1, end) infinite; }
 @keyframes semnal-inainte { 0%, 49% { box-shadow: 0 0 0 5px var(--cald); } 50%, 100% { box-shadow: 0 0 0 0 transparent; } }
-@keyframes semnal-inapoi { 0%, 49% { box-shadow: 0 0 0 5px var(--verde); } 50%, 100% { box-shadow: 0 0 0 0 transparent; } }
+@keyframes semnal-inapoi { 0%, 49% { box-shadow: 0 0 0 5px var(--verde-contur); } 50%, 100% { box-shadow: 0 0 0 0 transparent; } }
 .flecha { font-weight: 700; }
 @media (prefers-reduced-motion: reduce) {
   .sarbatoare .bula { animation: none; }
   main .btn.semn-inainte { animation: none; box-shadow: 0 0 0 4px var(--cald); }
-  main .btn.semn-inapoi { animation: none; box-shadow: 0 0 0 4px var(--verde); }
+  main .btn.semn-inapoi { animation: none; box-shadow: 0 0 0 4px var(--verde-contur); }
 }
 
 /* Ecranul principal fără derulare: cardurile secțiunilor (widget-uri) și bara de jos cu Faro */

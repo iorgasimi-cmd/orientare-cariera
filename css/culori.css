@@ -36,7 +36,10 @@
 
   --focus: #1F2937;             /* conturul când navighezi cu tastatura */
   --umbra: rgba(31, 41, 55, .10);
-  --verde: #15803D;             /* semnalul „înapoi” (verde, ca la mașină) */
+  /* Butonul „Înapoi”: plin cu verde (ca la mașină — înainte roșu, înapoi verde) */
+  --verde: #15803D;
+  --verde-text: #FFFFFF;        /* text pe verde: alb, fiindcă verdele e destul de închis */
+  --verde-contur: #0E5C2D;      /* marginea și inelul de semnalizare, mai închise decât fundalul */
   --principal-sombra: #123F8C;  /* marginea de jos a butoanelor, ca un buton apăsabil */
 }
 
@@ -69,6 +72,8 @@ body[data-traseu="adult"] {
     --focus: #F1F5F4;
     --umbra: rgba(0, 0, 0, .4);
     --verde: #6FD08C;
+    --verde-text: #0F1520;
+    --verde-contur: #A8EFC2;
     --principal-sombra: #3E6FAE;
   }
   body[data-traseu="adult"] {
