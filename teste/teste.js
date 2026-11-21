@@ -917,18 +917,20 @@ test("limbajul corpului pentru elevi: în meniu, cu exemple de la școală, făr
   S.sterge();
 });
 
-test("ce cer angajatorii: fără procente, cu sursă și un pas mic; elevii au varianta lor", () => {
+function cerinteTot(n) { let p = ["intro"]; for (let i = 0; i < n; i++) p.push("item" + i); p.push("retine1", "retine2", "retine3"); return p.map(s => C.module.cerinte.ecran("lista/" + s).corp).join(""); }
+test("ce cer angajatorii: fără procente, cu sursă și un pas mic; elevii au varianta lor; o idee pe ecran", () => {
   S.sterge(); S.pune("varsta", "18-44"); S.pune("situatie", "caut");
-  const a = C.module.cerinte.ecran("lista").corp;
+  const a = cerinteTot(D.cerinte.adult.lista.length);
   assert.ok(!/%|ManpowerGroup/.test(a) && a.includes("tot mai des"));
-  assert.ok(!/ManpowerGroup/.test(C.module.cerinte.ecran("lista").corp));
   D.cerinte.adult.lista.concat(D.cerinte.elev.lista).forEach(x => assert.ok(C.module[x.link.split("/")[0]], x.link));
-  C.module.cerinte.actiuni.gata(); assert.strictEqual(C.ecran, "cauta/intro");
+  let c = C.module.cerinte.ecran("lista/retine3").corp;
+  assert.ok(c.includes('data-arg="cauta/intro"'));
+  C.module.cerinte.actiuni.gata("cauta/intro"); assert.strictEqual(C.ecran, "cauta/intro");
   assert.ok(toateAdult().includes("✓ citit"));
   S.sterge(); S.pune("varsta", "sub18"); S.pune("clasa", "10");
-  const e = C.module.cerinte.ecran("lista").corp;
+  const e = cerinteTot(D.cerinte.elev.lista.length);
   assert.ok(!/interviu|prudent|%/i.test(e) && e.includes("proiect la școală"));
-  C.module.cerinte.actiuni.gata(); assert.strictEqual(C.ecran, C.acasa());
+  C.module.cerinte.actiuni.gata(null); assert.strictEqual(C.ecran, C.acasa());
   S.sterge();
 });
 
@@ -977,7 +979,7 @@ test("ideea de reținut și pasul tău: la finalul fiecărei secțiuni; pasul de
   const fin = { interese: "interese/rezultat", forte: "forte/rezumat", valori: "valorile/rezultat", stima: "stima/rezultat", roata: "roata/rezultat",
     competente: "competente/concluzie", cv: null, scrisoare: "scrisoare/schelet", interviu: "interviu/exersez",
     asertiv: ["asertiv/exercitiu/gata2", "asertiv/exercitiu/gata3"],
-    corp: "corp/gata", negociere: "negociere/exercitiu", cerinte: "cerinte/lista", meserii: "meserii/lista", cauta: null };
+    corp: "corp/gata", negociere: "negociere/exercitiu", cerinte: ["cerinte/lista/retine2", "cerinte/lista/retine3"], meserii: "meserii/lista", cauta: null };
   S.sterge(); S.pune("varsta", "18-44"); S.pune("situatie", "schimb");
   S.pune("interese.top", ["S", "I", "A"]); S.pune("vp.top", "familie"); S.pune("vp.ales.p2", ["familie", "curaj", "umor"]);
   const r = {}; D.stima.itemi.forEach(it => { r[it.id] = 3; }); S.pune("stima.r", r);
