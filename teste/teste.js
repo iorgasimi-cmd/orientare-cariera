@@ -19,8 +19,8 @@ const C = Cariera, S = Stocare, D = DATE;
 let ok = 0;
 function test(nume, f) { try { f(); ok++; console.log("  ok  " + nume); } catch (e) { console.error("  EȘEC " + nume + "\n      " + e.message); process.exitCode = 1; } }
 /* Textul tuturor paginilor „Toate secțiunile” la un loc (ecranul principal nu mai arată toate cardurile deodată). */
-function toateAdult() { let t = "", n = 0; while (n < 6) { t += C.module.adult.ecran("toate/" + n).corp; n++; } return t; }
-function toateElev() { let t = "", n = 0; while (n < 6) { t += C.module.elev.ecran("toate/" + n).corp; n++; } return t; }
+function toateAdult() { let t = "", n = 0; while (n < 20) { t += C.module.adult.ecran("toate/" + n).corp; n++; } return t; }
+function toateElev() { let t = "", n = 0; while (n < 20) { t += C.module.elev.ecran("toate/" + n).corp; n++; } return t; }
 /* Pagina „Noutăți de la Faro” e paginată (o idee pe ecran); testele care verifică mai multe idei deodată le string împreună. */
 function toateNoutati() { let t = "", n = 0; while (n < 8) { t += C.module.bosi.ecran("noutati/" + n).corp; n++; } return t; }
 
@@ -1220,11 +1220,11 @@ test("ecranul principal: un singur card, „Continuă aici”; „Toate secțiun
   /* ecranul principal: un singur card, cel curent (primul nefăcut) */
   let m = C.module.adult.ecran("meniu").corp;
   assert.strictEqual((m.match(/Continuă aici/g) || []).length, 1);
-  assert.ok(m.includes('class="carduri"') && m.includes("Roata vieții profesionale") && !m.includes("CV-ul meu"));
+  assert.ok(m.includes('class="carduri') && m.includes("Roata vieții profesionale") && !m.includes("CV-ul meu"));
   /* „Toate secțiunile”: toate cardurile, pe pagini mici */
   let t = toateAdult();
   assert.strictEqual((t.match(/Continuă aici/g) || []).length, 1);
-  assert.ok(t.includes("Roata vieții profesionale") && t.includes("CV-ul meu") && t.includes('class="carduri"'));
+  assert.ok(t.includes("Roata vieții profesionale") && t.includes("CV-ul meu") && t.includes('class="carduri'));
   S.pune("roata.gata", true); m = C.module.adult.ecran("meniu").corp; t = toateAdult();
   assert.ok(m.includes("CV-ul meu"), "roata e făcută, pasul curent devine CV-ul");
   assert.ok(t.includes("✓ Făcut") || t.includes("✓ făcut"));

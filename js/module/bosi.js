@@ -55,7 +55,7 @@
      Fiecare element poate avea: nume, ecran, gata, detaliu, opt, și — dacă cel ce apelează vrea să arate asta —
      nr (numărul lui în tot drumul) și aici (e cardul la care omul ar trebui să continue). */
   C.carduri = function (statii) {
-    return '<div class="carduri">' + statii.map(function (s, i) {
+    return '<div class="carduri' + (statii.length === 1 ? " un-cadru" : "") + '">' + statii.map(function (s, i) {
       var cls = s.gata ? "gata" : (s.aici ? "aici semn-inainte" : "");
       /* Pe card scrie doar ce contează acum: cardul curent și cele făcute; restul e liniștit, fără text în plus. */
       var stareTxt = s.gata ? (s.detaliu || "✓ Făcut") : (s.aici ? "Continuă aici" : "");
@@ -79,8 +79,8 @@
     if (!card) return "";
     return C.progresDrum(p.facute, p.total) + C.carduri([card]);
   };
-  /* Pagina „Toate secțiunile”: drumul complet, în bucăți mici (un rând de carduri), ca să încapă pe ecran. */
-  var PE_PAGINA = 4;
+  /* Pagina „Toate secțiunile”: drumul complet, câte un card pe ecran. */
+  var PE_PAGINA = 1;
   C.paginaToate = function (statii, sub, acasa, baza) {
     var p = pregateste(statii), n = Math.max(0, Number(sub) || 0);
     var pagini = Math.max(1, Math.ceil(p.total / PE_PAGINA));
