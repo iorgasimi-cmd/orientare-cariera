@@ -19,9 +19,9 @@
   --principal-text: #FFFFFF;    /* text pe butonul principal */
   --principal-moale: #DCE8FB;   /* fundal discret, cu text închis deasupra */
 
-  /* Accent cald: roșu (felicitări, pași făcuți, butonul „Continuă”) */
-  --cald: #DC2626;
-  --cald-text: #FFFFFF;         /* text pe roșu: alb, fiindcă roșul e destul de închis */
+  /* Accent cald: roșu (felicitări, pași făcuți, butonul „Continuă”) — mai deschis și mai viu */
+  --cald: #FF5243;
+  --cald-text: #1F2937;         /* text pe roșu: închis, fiindcă roșul e acum deschis */
   --cald-moale: #FEE2E2;        /* fundal discret pentru felicitări */
   --cald-contur: #7F1D1D;       /* marginea elementelor roșii */
 
@@ -47,9 +47,10 @@
   --principal-sombra: #123F8C;  /* marginea de jos a butoanelor, ca un buton apăsabil */
 }
 
-/* Traseul pentru adulți (18+ și 45+): tot roșu, dar o nuanță mai adâncă */
+/* Traseul pentru adulți (18+ și 45+): tot roșu, dar o nuanță mai adâncă — mai deschis și mai viu decât înainte */
 body[data-traseu="adult"] {
-  --cald: #B91C1C;
+  --cald: #D32F2F;
+  --cald-text: #FFFFFF;
   --cald-moale: #FBD5D5;
   --cald-contur: #601313;
 }
