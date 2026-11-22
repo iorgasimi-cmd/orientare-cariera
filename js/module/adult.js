@@ -92,7 +92,7 @@
     var corp = (B ? B.inceput() : "") + (B ? B.teaserNoutati() : "") +
       (B ? C.cardulDeAcum(statii) : "") +
       '<div class="rand">' + C.buton("Vezi toate secțiunile (" + statii.length + ")", "nav", "adult/toate/0") + "</div>" +
-      '<div class="rand rand-mic">' + C.buton("Caietul meu", "nav", "caiet/tot", "mic-btn") + C.buton("Schimb situația", "nav", "adult/situatie", "mic-btn") + C.buton("Setări", "nav", "sistem/setari", "mic-btn") + "</div>";
+      '<div class="rand rand-mic">' + C.buton("Caietul meu", "nav", "caiet/tot", "mic-btn") + C.buton("Schimb situația", "nav", "adult/situatie", "mic-btn") + C.buton("Înapoi", "nav", "sistem/setari", "mic-btn") + "</div>";
     corp += B ? B.teaser() : "";
     return C.pagina("Drumul tău", corp, null);
   }
