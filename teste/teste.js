@@ -1319,13 +1319,40 @@ test("cuvinte de știut: apar doar cuvintele tehnice de pe ecran; mesajele de pa
   assert.deepStrictEqual(G.gasite("<p>Ia o pauză.</p>").map(w => w.t), [], "„Ia” (verbul) nu e „IA”");
   S.sterge(); S.pune("varsta", "18-44"); S.pune("situatie", "caut");
   const c = C.module.negociere.ecran("piata").corp;
-  assert.ok(c.includes("Cuvinte de știut") && c.includes("Banii pe care îi primești") === false && c.includes("Salariul din mijloc"));
+  const cuvinteGasite = G.gasite(c).map(w => w.t);
+  assert.ok(c.includes("Cuvinte de știut") && !cuvinteGasite.includes("Net") && cuvinteGasite.includes("Salariul din mijloc (mediana)"));
   assert.ok(!C.module.sistem.ecran("start").corp.includes("Cuvinte de știut"));
   /* mesajele „Încă un pas” */
   assert.ok(!/Lipsește|Completează toate|Alege exact/.test(JSON.stringify(D.asertiv) + JSON.stringify(D.valoriPers) + JSON.stringify(D.exercitii)));
   S.pune("plan.start", C.azi()); S.pune("plan.sapt.s0.aleasa", C.module.plan.temeSaptamanii(0)[0].id);
   const p = C.module.plan.ecran("saptamana").corp;
   assert.ok(p.includes("Reamintire în calendarul telefonului") && p.includes("La ce oră să-ți amintească?") && !/spune-mi|browser/i.test(p.slice(p.indexOf("Reamintire"), p.indexOf("Cuvinte de știut") > 0 ? p.indexOf("Cuvinte de știut") : undefined)));
+  S.sterge();
+});
+test("„Cuvinte de știut”: un singur cuvânt pe ecran, cu pagină înainte/înapoi între ele", () => {
+  S.sterge(); S.pune("varsta", "18-44"); S.pune("situatie", "caut");
+  const C_ = C.module.glosar;
+  C.mergi("negociere/piata");
+  const toate = C.module.negociere.ecran("piata").corp, lista = C_.gasite(toate);
+  assert.ok(lista.length >= 2, "ecranul trebuie să aibă cel puțin două cuvinte de glosar pentru acest test");
+  let c = C.module.negociere.ecran("piata").corp;
+  assert.ok(c.includes(C.esc(lista[0].t)) && c.includes(C.esc(lista[0].d)) && !c.includes(C.esc(lista[1].d)), "arată doar primul cuvânt");
+  assert.ok(c.includes("1 din " + lista.length) && !/‹ înapoi/.test(c) && /înainte ›/.test(c));
+  C_.actiuni.pag("1");
+  c = C.module.negociere.ecran("piata").corp;
+  assert.ok(c.includes(C.esc(lista[1].t)) && c.includes(C.esc(lista[1].d)) && !c.includes(C.esc(lista[0].d)), "pagina a doua arată al doilea cuvânt");
+  assert.ok(c.includes("2 din " + lista.length) && /‹ înapoi/.test(c));
+  C_.actiuni.pag("-1");
+  c = C.module.negociere.ecran("piata").corp;
+  assert.ok(c.includes("1 din " + lista.length), "înapoi revine la primul cuvânt");
+  /* pe același ecran, pagina de cuvinte nu repornește */
+  C_.actiuni.pag("1");
+  assert.ok(C.module.negociere.ecran("piata").corp.includes("2 din " + lista.length));
+  /* la trecerea pe alt ecran, pagina de cuvinte repornește de la primul */
+  C.mergi("negociere/hub"); C.module.negociere.ecran("hub");
+  C.mergi("negociere/piata");
+  assert.ok(C.module.negociere.ecran("piata").corp.includes("1 din " + lista.length), "alt ecran repornește de la primul cuvânt");
+  C.mergi("start");
   S.sterge();
 });
 

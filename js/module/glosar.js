@@ -15,10 +15,20 @@
       return RE[i].test(t);
     });
   }
+  /* Un singur cuvânt pe „cadran”, cu pagină înainte/înapoi între ele (ca la restul aplicației). */
+  var idx = 0, ultimulEcran = null;
   function cartela(l) {
     if (!l.length) return "";
-    return '<section class="card glosar"><h2>' + esc(D.titlu) + "</h2><ul>" +
-      l.map(function (w) { return "<li><strong>" + esc(w.t) + "</strong> – " + esc(w.d) + "</li>"; }).join("") + "</ul>" +
+    if (C.ecran !== ultimulEcran) { idx = 0; ultimulEcran = C.ecran; }
+    if (idx > l.length - 1) idx = l.length - 1;
+    var w = l[idx];
+    var pas = l.length > 1 ? '<div class="glosar-pas">' +
+      (idx > 0 ? C.buton("‹ înapoi", "glosar.pag", "-1", "mic-btn") : '<span class="spatiu"></span>') +
+      '<span class="mic" aria-live="polite">' + (idx + 1) + " din " + l.length + "</span>" +
+      (idx < l.length - 1 ? C.buton("înainte ›", "glosar.pag", "1", "mic-btn") : '<span class="spatiu"></span>') +
+      "</div>" : "";
+    return '<section class="card glosar"><h2>' + esc(D.titlu) + "</h2>" +
+      "<p><strong>" + esc(w.t) + "</strong> – " + esc(w.d) + "</p>" + pas +
       (C.module.cauta && C.ecran.indexOf("cauta/") !== 0 ? '<div class="rand">' + C.buton(esc(D.afla), "nav", "cauta/intro", "mic-btn") + "</div>" : "") + "</section>";
   }
 
@@ -31,5 +41,9 @@
     return pagina(titlu, corp + (adauga ? cartela(gasite(titlu + " " + corp)) : ""), inapoi, faraGlosar);
   };
 
-  C.reg("glosar", { ecran: function () { return C.pagina(D.titlu, "", C.acasa()); }, actiuni: {}, gasite: gasite });
+  C.reg("glosar", {
+    ecran: function () { return C.pagina(D.titlu, "", C.acasa()); },
+    actiuni: { pag: function (arg) { idx += Number(arg) || 0; return true; } },
+    gasite: gasite
+  });
 })(typeof window !== "undefined" ? window : globalThis);

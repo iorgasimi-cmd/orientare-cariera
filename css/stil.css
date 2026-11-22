@@ -227,6 +227,10 @@ h1 { font-size: 1.85rem; letter-spacing: -0.01em; }
 /* „Cuvinte de știut”: tot fundalul galben, text negru */
 .card.glosar { background: var(--glosar-fundal); color: var(--glosar-text); border-left-color: var(--glosar-text); }
 .card.glosar h2 { color: var(--glosar-text); }
+/* Pagină înainte/înapoi între cuvintele din „Cuvinte de știut”, câte unul pe „cadran”. */
+.glosar-pas { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 10px; }
+.glosar-pas .btn { flex: 0 0 auto; min-width: 0; }
+.glosar-pas .mic { margin: 0; }
 /* Butoane 3D: un buton „se apasă” */
 .btn { border-radius: 16px; border-bottom-width: 5px; }
 .btn.primar { border-bottom-color: var(--principal-sombra); }
