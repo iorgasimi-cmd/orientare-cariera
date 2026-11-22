@@ -54,7 +54,7 @@
     var bara = '<header class="bara">' +
       (p.inapoi ? '<button type="button" class="btn mic-btn semn-inapoi" data-act="nav" data-arg="' + esc(p.inapoi) + '" aria-label="Înapoi">← Înapoi</button>' : '<span class="spatiu"></span>') +
       '<span class="nume-app">' + faro + "Orientare în carieră</span>" +
-      '<button type="button" class="btn mic-btn roz" data-act="nav" data-arg="' + esc(C.acasa()) + '">Revino înapoi</button></header>' + callout;
+      '<span class="spatiu"></span></header>' + callout;
     radacina.innerHTML = bara +
       '<main id="continut"><h1 id="titlu" tabindex="-1">' + esc(p.titlu) + "</h1>" +
       '<div id="eroare" class="eroare" role="alert" aria-live="assertive">' + esc(C.eroare) + "</div>" + p.corp + "</main>";

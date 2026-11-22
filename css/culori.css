@@ -44,10 +44,6 @@
   --verde: #15803D;
   --verde-text: #FFFFFF;        /* text pe verde: alb, fiindcă verdele e destul de închis */
   --verde-contur: #0E5C2D;      /* marginea și inelul de semnalizare, mai închise decât fundalul */
-  /* Butonul „Pagina principală”, din antet: plin cu roz */
-  --roz: #DB2777;
-  --roz-text: #FFFFFF;
-  --roz-contur: #BE185D;
   --principal-sombra: #123F8C;  /* marginea de jos a butoanelor, ca un buton apăsabil */
 }
 
@@ -82,9 +78,6 @@ body[data-traseu="adult"] {
     --verde: #6FD08C;
     --verde-text: #0F1520;
     --verde-contur: #A8EFC2;
-    --roz: #F9A8D4;
-    --roz-text: #1F2937;
-    --roz-contur: #FBCFE8;
     --principal-sombra: #3E6FAE;
   }
   body[data-traseu="adult"] {

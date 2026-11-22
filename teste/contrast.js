@@ -43,7 +43,6 @@ const TEXT = [
   ["eroare-text", "suprafata", 4.5, "butonul „Șterge tot” pe cartele"],
   ["verde-text", "verde", 4.5, "text pe butonul „Înapoi” (verde)"],
   ["glosar-text", "glosar-fundal", 4.5, "text pe cartela „Cuvinte de știut”"],
-  ["roz-text", "roz", 4.5, "text pe butonul „Pagina principală” (roz)"]
 ];
 const MARGINI = [
   ["contur", "fundal", 3, "margini (bara de progres) pe fundal"],
@@ -58,8 +57,6 @@ const MARGINI = [
   ["verde-contur", "fundal", 3, "marginea butonului „Înapoi” pe fundal"],
   ["verde-contur", "suprafata", 3, "marginea butonului „Înapoi” pe cartele"],
   ["verde-contur", "verde", 1.3, "inelul de semnalizare pe butonul „Înapoi”"],
-  ["roz-contur", "fundal", 3, "marginea butonului „Pagina principală” pe fundal"],
-  ["roz-contur", "suprafata", 3, "marginea butonului „Pagina principală” pe cartele"],
   ["focus", "fundal", 3, "conturul de focus"],
   ["focus", "suprafata", 3, "conturul de focus pe cartele"]
 ];
