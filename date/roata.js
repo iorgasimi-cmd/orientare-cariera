@@ -24,10 +24,25 @@ window.DATE.roata = {
     { id: "siguranta", t: "Siguranța", d: "Cât de sigur e locul tău de muncă." },
     { id: "echilibru", t: "Echilibrul", d: "Între muncă și viața personală." }
   ],
+  /* Pentru cei care se întorc la muncă după o pauză profesională: opt dimensiuni ale pregătirii pentru reîntoarcere,
+     date de Simona direct (nu sunt din cursul ILBAH). */
+  zonePauza: [
+    { id: "claritate", t: "Claritatea direcției", d: "Cât de clar îți este tipul de rol, domeniul și forma de lucru spre care vrei să te îndrepți, după pauza profesională?" },
+    { id: "competente", t: "Actualizarea competențelor", d: "Cât de la zi ești astăzi cu competențele tehnice, digitale și practicile actuale din domeniul în care vrei să revii?" },
+    { id: "transferabile", t: "Abilitățile transferabile", d: "Cât de ușor îți este să recunoști și să formulezi competențele practicate acasă (organizare, buget, rezolvare de probleme, comunicare) ca atuuri reale?" },
+    { id: "candidatura", t: "Instrumentele de candidatură", d: "Cât de pregătite sunt astăzi CV-ul, profilul LinkedIn/portofoliul și modul în care îți prezinți pauza pentru a aplica la un rol potrivit?" },
+    { id: "retea", t: "Rețeaua de contacte", d: "Cât de activă este astăzi legătura ta cu foști colegi, cunoștințe profesionale sau grupuri relevante pentru reintrarea pe piața muncii?" },
+    { id: "incredere", t: "Încrederea și reglarea emoțională", d: "Cât de stabil(ă) emoțional te simți astăzi în fața perspectivei de a da interviuri, a primi observații și a gestiona eventuale refuzuri?" },
+    { id: "logistica", t: "Logistica și infrastructura de acasă", d: "Cât de clar și funcțional este organizat programul de acasă (îngrijire copii/familie, deplasări, sarcini zilnice, situații neprevăzute) pentru a susține un job?" },
+    { id: "financiar", t: "Așteptările financiare și condițiile", d: "Cât de realist cunoști nivelul salarial din piață? Care e pragul minim de venit și de flexibilitate de care ai nevoie, ca întoarcerea să merite?" }
+  ],
   note: {
     titlu: "Cât de mulțumit(ă) ești?",
+    titluPauza: "Cât de pregătit(ă) te simți?",
     explica: "Dă o notă fiecărei zone. **1 = deloc mulțumit(ă), 10 = foarte mulțumit(ă).**",
-    lipsa: "Mai ai câteva zone fără notă. **Dă-le câte o notă** și desenăm roata."
+    explicaPauza: "Scala de la 1 la 10 arată cât de pregătit(ă) și susținut(ă) te simți azi pe fiecare dimensiune. **Nota 1 înseamnă foarte puțin sau deloc conturat. Nota 10 înseamnă claritate și organizare solidă.**",
+    lipsa: "Mai ai câteva zone fără notă. **Dă-le câte o notă** și desenăm roata.",
+    lipsaPauza: "Mai ai câteva dimensiuni fără notă. **Dă-le câte o notă** și desenăm roata."
   },
   rezultat: {
     titlu: "Roata ta",

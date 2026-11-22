@@ -953,6 +953,33 @@ test("roata: doar la adulții cu loc de muncă, 8 zone, roata desenată și inte
   S.sterge();
 });
 
+test("roata pentru cei care se întorc la muncă (pauză): alte 8 dimensiuni, câte o întrebare pe ecran", () => {
+  S.sterge(); S.pune("varsta", "18-44"); S.pune("situatie", "pauza");
+  const R = C.module.roata;
+  assert.strictEqual(D.roata.zonePauza.length, 8);
+  /* propoziția care explică scala e singură pe prima pagină */
+  let c = R.ecran("note").corp;
+  assert.ok(c.includes(C.esc(D.roata.note.titluPauza)) === false); /* titlul e la nivel de pagină, nu în corp */
+  assert.strictEqual(R.ecran("note").titlu, D.roata.note.titluPauza);
+  assert.ok(c.includes("Scala de la 1 la 10 arată") && !c.includes("Claritatea direcției"), "doar explicația, nicio întrebare");
+  /* fiecare dimensiune e pe propriul ecran */
+  D.roata.zonePauza.forEach((z, i) => {
+    c = R.ecran("note/q" + i).corp;
+    assert.ok(c.includes(C.esc(z.t)) && c.includes(C.esc(z.d)) && (c.match(/class="opt"/g) || []).length === 10, z.id);
+    assert.ok(!D.roata.zonePauza.some((z2, j) => j !== i && c.includes(C.esc(z2.t))), "doar dimensiunea curentă, " + z.id);
+  });
+  assert.ok(!/feedback|networking|skills|mindset/i.test(JSON.stringify(D.roata.zonePauza)), "fără jargon");
+  /* ultimul ecran are butonul „Desenez roata”, nu „Continuă” */
+  const ultim = R.ecran("note/q7").corp;
+  assert.ok(ultim.includes("Desenez roata") && !ultim.includes(">Continuă<"));
+  R.actiuni.gata(); assert.ok(C.eroare.includes("dimensiuni")); C.eroare = "";
+  D.roata.zonePauza.forEach((z, i) => S.pune("roata.n." + z.id, [6, 7, 5, 8, 6, 7, 9, 5][i]));
+  R.actiuni.gata(); assert.strictEqual(C.ecran, "roata/rezultat");
+  const r = R.ecran("rezultat").corp;
+  assert.ok(r.includes("Claritatea direcției</strong> – 6 din 10") && (r.match(/class="felie"/g) || []).length === 8);
+  S.sterge();
+});
+
 test("obiceiuri mici: o temă din fiecare nivel, plan cu când/unde/după ce, varianta de 2 minute și „ce fel de om”", () => {
   ["sub18", "18-44"].forEach(v => {
     S.sterge(); S.pune("varsta", v); S.pune("situatie", "caut");
