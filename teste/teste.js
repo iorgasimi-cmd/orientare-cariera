@@ -10,7 +10,7 @@ globalThis.window = globalThis;
 globalThis.localStorage = fals();
 
 ["date/interese.js", "date/valori.js", "date/meserii.js", "date/sfaturi.js", "date/adulti.js", "date/cv.js", "date/scrisoare.js", "date/interviu.js", "date/competente.js", "date/asertiv.js", "date/exercitii.js", "date/ia.js", "date/valori_personale.js", "date/corp.js", "date/cerinte.js", "date/roata.js", "date/retine.js", "date/bosi.js", "date/lectii.js", "date/glosar.js", "date/datele.js", "date/servicii.js", "date/cauta.js", "date/detectiv.js", "date/negociere.js",
- "js/stocare.js", "js/verificator.js", "js/nucleu.js", "js/module/glosar.js",
+ "js/stocare.js", "js/verificator.js", "js/nucleu.js", "js/sunet.js", "js/module/glosar.js",
  "js/module/interese.js", "js/module/puncte-forte.js", "js/module/meserii.js",
  "js/module/plan.js", "js/module/sfaturi.js", "js/module/reamintiri.js", "js/module/sistem.js", "js/module/adult.js", "js/module/cv.js", "js/module/scrisoare.js", "js/module/interviu.js", "js/module/competente.js", "js/module/asertiv.js", "js/module/exercitii.js", "js/module/valorile.js", "js/module/corp.js", "js/module/cerinte.js", "js/module/roata.js", "js/module/retine.js", "js/module/servicii.js", "js/module/caiet.js", "js/module/bosi.js", "js/module/lectie.js", "js/module/datele.js", "js/module/cauta.js", "js/module/negociere.js"
 ].forEach(f => require(path.join(rad, f)));
@@ -78,6 +78,15 @@ test("salvează, citește și șterge", () => {
   assert.strictEqual(S.ia("varsta", "gol"), "gol");
   assert.strictEqual(localStorage.getItem("cariera_v1"), null);
 });
+test("sunetul lui Faro: pornit implicit, se poate opri, nu dă eroare fără AudioContext (ca în Node)", () => {
+  S.sterge();
+  assert.strictEqual(C.sunet.oprit(), false);
+  C.sunet.atingere(); C.sunet.gata(); /* fără AudioContext în Node: nu trebuie să arunce nicio eroare */
+  C.sunet.comuta(); assert.strictEqual(C.sunet.oprit(), true);
+  assert.strictEqual(S.ia("sunet.oprit", false), true, "alegerea se salvează pe telefon");
+  C.sunet.comuta(); assert.strictEqual(C.sunet.oprit(), false);
+  S.sterge();
+});
 test("nu lasă să fie stricate obiectele din sistem", () => {
   S.pune("__proto__.stricat", "da"); S.pune("a.constructor.x", 1);
   assert.strictEqual({}.stricat, undefined);
@@ -115,6 +124,23 @@ test("la egalitate ordinea e fixă (R, I, A, S, E, C)", () => {
 test("răspunsuri lipsă sau greșite nu strică calculul", () => {
   const rez = C.module.interese.calculeaza({ r1: "abc", i1: 99, a1: 5 });
   assert.strictEqual(rez.scor.A, 5); assert.strictEqual(rez.scor.R, 0);
+});
+test("o afirmație pe ecran, 36 de ecrane; butonul „Continuă” apare doar după răspuns; ultima duce la rezultat", () => {
+  S.sterge(); S.pune("varsta", "18-44"); S.pune("situatie", "caut");
+  let c = C.module.interese.ecran("test/0").corp;
+  assert.ok(c.includes("Întrebarea 1 din 36") && (c.match(/class="opt"/g) || []).length === 5 && !c.includes(">Continuă<"));
+  assert.strictEqual(C.module.interese.ecran("test/0").inapoi, "interese/intro");
+  S.pune("interese.r." + D.interese.intrebari.filter(q => q.tip === "R")[0].id, 3);
+  c = C.module.interese.ecran("test/0").corp;
+  assert.ok(c.includes('data-arg="interese/test/1"'), "după răspuns, apare Continuă spre întrebarea următoare");
+  assert.strictEqual(C.module.interese.ecran("test/1").inapoi, "interese/test/0");
+  D.interese.intrebari.forEach(q => S.pune("interese.r." + q.id, 3));
+  c = C.module.interese.ecran("test/35").corp;
+  assert.ok(c.includes("Întrebarea 36 din 36") && c.includes('data-arg="interese/rezultat"') && c.includes("Vezi rezultatul"));
+  assert.ok(C.module.interese.ecran("rezultat").corp.includes("cel mai mult interes"));
+  C.module.interese.actiuni.refa(); assert.strictEqual(C.ecran, "interese/test/0");
+  assert.strictEqual(S.ia("interese.r." + D.interese.intrebari[0].id, null), null, "refacerea șterge răspunsurile");
+  S.sterge();
 });
 
 console.log("Meserii");
@@ -585,8 +611,7 @@ test("toți pașii adulților sunt acum construiți; fiecare duce la pasul urmă
 test("testul de interese și punctele forte au texte pentru adulți, iar elevii le păstrează pe ale lor", () => {
   S.sterge(); S.pune("varsta", "45+"); S.pune("situatie", "schimb");
   assert.ok(C.module.interese.ecran("intro").corp.includes(D.interese.bagheta.adult));
-  S.pune("interese.pagina", 0);
-  const toate = [0, 1, 2, 3, 4, 5].map(i => { S.pune("interese.pagina", i); return C.module.interese.ecran("test").corp; }).join("");
+  const toate = Array.from({ length: 36 }, (_, i) => C.module.interese.ecran("test/" + i).corp).join("");
   assert.ok(toate.includes("Să ajut un coleg nou să învețe ce are de făcut.") && !toate.includes("o lecție"));
   assert.ok(C.module.forte.ecran("m0").corp.includes("la muncă, acasă"));
   S.pune("forte.valori", ["ajutor", "echipa", "invatare"]);

@@ -147,7 +147,9 @@
       if (t) return toateElev(t[1]);
       return meniu();
     },
-    actiuni: {}
+    actiuni: {},
+    /* Exportat ca Faro (din antet) să poată calcula progresul elevului, la fel ca pentru adulți. */
+    statiiElev: statiiElev
   });
   C.reg("start", { ecran: start, actiuni: {} });
 })(typeof window !== "undefined" ? window : globalThis);
