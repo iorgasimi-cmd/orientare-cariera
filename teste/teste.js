@@ -21,6 +21,7 @@ function test(nume, f) { try { f(); ok++; console.log("  ok  " + nume); } catch 
 /* Textul tuturor paginilor „Toate secțiunile” la un loc (ecranul principal nu mai arată toate cardurile deodată). */
 function toateAdult() { let t = "", n = 0; while (n < 20) { t += C.module.adult.ecran("toate/" + n).corp; n++; } return t; }
 function toateElev() { let t = "", n = 0; while (n < 20) { t += C.module.elev.ecran("toate/" + n).corp; n++; } return t; }
+function interviuGrupTot(id) { let t = "", prev = null, n = 0; while (n < 10) { const e = C.module.interviu.ecran("grup/" + id + "/" + n); if (e.titlu === prev) break; t += C.esc(e.titlu) + e.corp; prev = e.titlu; n++; } return t; }
 /* Pagina „Noutăți de la Faro” e paginată (o idee pe ecran); testele care verifică mai multe idei deodată le string împreună. */
 function toateNoutati() { let t = "", n = 0; while (n < 8) { t += C.module.bosi.ecran("noutati/" + n).corp; n++; } return t; }
 
@@ -549,9 +550,10 @@ test("patru grupe de întrebări, fiecare cu loc pentru răspuns și un sfat; f�
   S.sterge(); S.pune("varsta", "18-44"); S.pune("situatie", "caut");
   assert.deepStrictEqual(D.interviu.grupe.map(g => g.t), ["Despre tine", "Despre experiență", "Despre motivație", "Situații dificile"]);
   D.interviu.grupe.forEach(g => {
-    const c = C.module.interviu.ecran("grup/" + g.id).corp;
+    const c = interviuGrupTot(g.id);
     assert.strictEqual((c.match(/<textarea/g) || []).length, g.intrebari.length, g.id);
-    g.intrebari.forEach(q => { assert.ok(c.includes(C.esc(q.q)) && c.includes(C.esc(q.ajutor)), q.id); assert.ok(!/^de ce\b/i.test(q.q), q.id); });
+    g.intrebari.forEach(q => { assert.ok(c.includes(C.esc(q.ajutor)), q.id); assert.ok(!/^de ce\b/i.test(q.q), q.id); });
+    g.intrebari.forEach((q, i) => { assert.strictEqual(C.module.interviu.ecran("grup/" + g.id + "/" + i).titlu, q.q, q.id); });
   });
   S.sterge();
 });
@@ -559,9 +561,9 @@ test("întrebarea în plus apare după situație și la 45+", () => {
   S.sterge(); S.pune("varsta", "18-44"); S.pune("situatie", "caut");
   assert.ok(!C.module.interviu.ecran("hub").corp.includes("Pentru situația ta"), "„Caut un loc de muncă” nu are întrebare în plus");
   S.pune("situatie", "pauza");
-  assert.ok(C.module.interviu.ecran("grup/special").corp.includes("Văd o pauză în CV"));
+  assert.ok(interviuGrupTot("special").includes("Văd o pauză în CV"));
   S.pune("varsta", "45+"); S.pune("situatie", "schimb");
-  const c = C.module.interviu.ecran("grup/special").corp;
+  const c = interviuGrupTot("special");
   assert.ok(c.includes("Nu ai lucrat în acest domeniu") && c.includes("Ce programe sau aplicații folosești"));
   assert.ok(C.module.interviu.ecran("hub").corp.includes("2 întrebări"));
   assert.ok(!/vârst|prea bătrân|tânăr/i.test(c), "fără presupuneri despre vârstă");
@@ -576,7 +578,7 @@ test("poveștile: până la 5, cu context, ce ai făcut și rezultat; apar ca aj
   S.pune("interviu.p.p1.titlu", "Clientul nemulțumit"); S.pune("interviu.p.p2.context", "La magazin"); S.pune("interviu.p.p4.rezultat", "Am terminat la timp");
   assert.strictEqual(C.module.interviu.nrPovesti(), 3);
   assert.ok(C.module.interviu.ecran("povesti").corp.includes("✓ Clientul nemulțumit"));
-  assert.ok(C.module.interviu.ecran("grup/tine").corp.includes("Poveștile tale:</strong> Clientul nemulțumit"));
+  assert.ok(interviuGrupTot("tine").includes("Poveștile tale:</strong> Clientul nemulțumit"));
   assert.ok(toateAdult().includes("✓ povești scrise"));
   assert.ok(C.module.interviu.ecran("hub").corp.includes("✓ 3 din 5 scrise"));
   S.sterge();

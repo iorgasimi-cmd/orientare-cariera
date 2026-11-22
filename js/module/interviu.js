@@ -52,16 +52,22 @@
     return C.pagina(P.titlu, corp, "interviu/povesti");
   }
 
-  function grup(id) {
+  /* Câte o întrebare pe ecran: titlul paginii e chiar întrebarea. */
+  function grup(id, sub) {
     var gr = id === "special" ? { t: D.speciale.titlu, intrebari: speciale() } : D.grupe.filter(function (x) { return x.id === id; })[0];
     if (!gr || !gr.intrebari.length) return hub();
-    var titluri = []; for (var n = 1; n <= D.povesti.maxim; n++) if (titluPoveste(n)) titluri.push(titluPoveste(n));
-    var corp = (titluri.length ? '<p class="mic"><strong>' + esc(D.povestileTale) + "</strong> " + titluri.map(esc).join(" · ") + "</p>" : "") +
-      gr.intrebari.map(function (q) {
-        return '<section class="card"><h2>' + esc(q.q) + "</h2>" + C.camp("interviu.r." + q.id, esc(D.raspuns), esc(q.ajutor), 4) + "</section>";
-      }).join("") +
-      '<div class="rand">' + C.buton("Înapoi la interviu", "nav", "interviu/hub", "primar") + "</div>";
-    return C.pagina(gr.t, corp, "interviu/hub");
+    var n = Math.max(0, Math.min(Number(sub) || 0, gr.intrebari.length - 1));
+    var q = gr.intrebari[n];
+    var inapoi = n > 0 ? "interviu/grup/" + id + "/" + (n - 1) : "interviu/hub";
+    var urmator = n < gr.intrebari.length - 1 ? "interviu/grup/" + id + "/" + (n + 1) : null;
+    var titluri = []; for (var k = 1; k <= D.povesti.maxim; k++) if (titluPoveste(k)) titluri.push(titluPoveste(k));
+    var corp = (gr.intrebari.length > 1 ? '<p class="mic">Întrebarea ' + (n + 1) + " din " + gr.intrebari.length + "</p>" : "") +
+      (titluri.length ? '<p class="mic"><strong>' + esc(D.povestileTale) + "</strong> " + titluri.map(esc).join(" · ") + "</p>" : "") +
+      '<section class="card">' + C.camp("interviu.r." + q.id, esc(D.raspuns), esc(q.ajutor), 4) + "</section>" +
+      '<div class="rand">' + (urmator ?
+        C.buton("Înapoi" + (n === 0 ? " la interviu" : ""), "nav", inapoi, n === 0 ? "primar" : "") + C.buton("Continuă", "nav", urmator, "continua") :
+        C.buton("Înapoi la interviu", "nav", "interviu/hub", "primar")) + "</div>";
+    return C.pagina(q.q, corp, inapoi, true);
   }
 
   /* Calcul pur: promptul pentru o simulare de interviu cu IA. Nu conține date despre om, în afară de post și situație. */
@@ -101,8 +107,8 @@
       if (sub === "povesti") return povesti();
       var m = /^poveste\/(\d)$/.exec(sub || "");
       if (m && Number(m[1]) >= 1 && Number(m[1]) <= D.povesti.maxim) return povesteEcran(Number(m[1]));
-      var gm = /^grup\/([a-z]+)$/.exec(sub || "");
-      if (gm) return grup(gm[1]);
+      var gm = /^grup\/([a-z]+)(?:\/(\d+))?$/.exec(sub || "");
+      if (gm) return grup(gm[1], gm[2]);
       if (sub === "exersez") return exersez();
       return hub();
     },
