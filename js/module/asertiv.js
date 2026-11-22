@@ -189,7 +189,7 @@
      rezultatul, exersez, IA și, la final, câte un pas pentru fiecare bucată a ecranului de încheiere. */
   function pasiExercitiu() {
     var model = D.model.parti.map(function (x, i) { return "model" + i; });
-    /* Încheierea: bula lui Faro + ColorPsi, ideea, pasul, (doar la adulți) celelalte exerciții, apoi un ecran scurt de final. */
+    /* Încheierea: bula lui Simi + ColorPsi, ideea, pasul, (doar la adulți) celelalte exerciții, apoi un ecran scurt de final. */
     var gata = ["gata1", "gata2", "gata3"];
     if (C.module.exercitii && !pentruElev()) gata.push("gata4");
     gata.push("gataFin");
@@ -229,7 +229,7 @@
     } else if (pas === "ia") {
       corp = cartelaIA();
     } else if (pas === "gata1") {
-      /* Pasul 1 al încheierii: bula lui Faro și legătura ColorPsi, dacă e cazul. */
+      /* Pasul 1 al încheierii: bula lui Simi și legătura ColorPsi, dacă e cazul. */
       titlu = X.titlu;
       corp = (C.retineBula ? C.retineBula() : "") + (C.retineColorpsi ? C.retineColorpsi("asertiv") : "");
     } else if (pas === "gata2") {

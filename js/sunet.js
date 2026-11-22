@@ -1,6 +1,6 @@
-/* Sunetul lui Faro: un ton cald și scurt, generat local cu Web Audio API — fără fișiere .mp3/.wav,
-   fără bibliotecă externă, fără nicio cerere de rețea. Sunetul e doar pentru Faro: la atingere și
-   când Faro arată că s-a terminat o etapă (un ecran de rezultat). Nu sună niciun alt buton din aplicație.
+/* Sunetul lui Simi: un ton cald și scurt, generat local cu Web Audio API — fără fișiere .mp3/.wav,
+   fără bibliotecă externă, fără nicio cerere de rețea. Sunetul e doar pentru Simi: la atingere și
+   când Simi arată că s-a terminat o etapă (un ecran de rezultat). Nu sună niciun alt buton din aplicație.
    Omul poate opri sunetul oricând; alegerea rămâne salvată pe telefon (js/stocare.js). */
 (function (g) {
   "use strict";
@@ -40,9 +40,9 @@
   }
 
   C.sunet = {
-    /* La atingerea lui Faro: un ton scurt, de salut. */
+    /* La atingerea lui Simi: un ton scurt, de salut. */
     atingere: function () { ton([392, 523.25], 0.22); },
-    /* Când Faro arată că s-a terminat o etapă: un mic acord, puțin mai lung. */
+    /* Când Simi arată că s-a terminat o etapă: un mic acord, puțin mai lung. */
     gata: function () { ton([523.25, 659.25, 783.99], 0.5); },
     oprit: oprit,
     comuta: function () { S.pune("sunet.oprit", !oprit()); }

@@ -35,7 +35,7 @@
   /* Fiecare pagină primește, la final, cartela cu cuvintele ei. */
   var pagina = C.pagina;
   C.pagina = function (titlu, corp, inapoi, faraGlosar) {
-    /* Pe ecranul principal nu apare: acolo sunt doar cardurile și bara lui Faro.
+    /* Pe ecranul principal nu apare: acolo sunt doar cardurile și bara lui Simi.
        Pe pașii mici dintr-un traseu (faraGlosar) nu apare din nou: a apărut deja pe ecranul de intrare. */
     var adauga = titlu !== "Drumul tău" && !faraGlosar;
     return pagina(titlu, corp + (adauga ? cartela(gasite(titlu + " " + corp)) : ""), inapoi, faraGlosar);

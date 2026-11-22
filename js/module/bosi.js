@@ -1,22 +1,19 @@
-/* Faro, farul prietenos (în cod încă „bosi”, numele vechi): un desen mic (SVG, cu culorile din css/culori.css) și o bulă cu text, ca într-o conversație.
+/* Simi, globul prietenos (în cod încă „bosi”, numele vechi; a fost întâi „Faro” și far): un desen mic (SVG, cu culorile din css/culori.css) și o bulă cu text, ca într-o conversație.
    Două fețe: „zambet” (de obicei) și „bucurie” (la felicitări). Fără animații. */
 (function (g) {
   "use strict";
   var C = g.Cariera, S = g.Stocare, esc = C.esc, D = g.DATE.bosi;
 
-  /* Faro: un far mic, cu fața pe turn și lumina aprinsă. */
+  /* Simi: un glob pământesc mic, cu fața pe sferă. */
   function desen(fata) {
     var ochi = fata === "bucurie"
       ? '<path class="b-trasatura" d="M26 34 q2.5 -3.5 5 0 M33 34 q2.5 -3.5 5 0"/>'
       : '<circle class="b-ochi" cx="28.5" cy="33" r="2.3"/><circle class="b-ochi" cx="35.5" cy="33" r="2.3"/>';
     return '<svg class="bosi-desen" viewBox="0 0 64 64" aria-hidden="true" focusable="false">' +
-      '<path class="f-raza" d="M25 15 L6 9 L6 23 L25 20 Z M39 15 L58 9 L58 23 L39 20 Z"/>' +
-      '<path class="f-acoperis" d="M23 14 L32 5 L41 14 Z"/>' +
-      '<rect class="f-lumina" x="25" y="14" width="14" height="8" rx="1.5"/>' +
-      '<rect class="f-acoperis" x="21.5" y="22" width="21" height="3.2" rx="1"/>' +
-      '<path class="f-turn" d="M24 25.2 L40 25.2 L44 57 L20 57 Z"/>' +
-      '<path class="f-dunga" d="M21.9 45 L42.1 45 L42.9 51 L21.1 51 Z"/>' +
-      '<rect class="f-acoperis" x="16" y="57" width="32" height="3.5" rx="1.5"/>' +
+      '<circle class="g-glob" cx="32" cy="34" r="23"/>' +
+      '<ellipse class="g-continent" cx="24" cy="24" rx="7" ry="5" transform="rotate(-15 24 24)"/>' +
+      '<ellipse class="g-continent" cx="40" cy="44" rx="7" ry="5" transform="rotate(20 40 44)"/>' +
+      '<path class="g-linie" fill="none" d="M32 11 Q21 34 32 57 M32 11 Q43 34 32 57 M10.83 25 Q32 20 53.17 25 M10.83 43 Q32 48 53.17 43"/>' +
       ochi + '<path class="b-trasatura" d="' + (fata === "bucurie" ? "M27 38 q5 6 10 0" : "M28 38.5 q4 4 8 0") + '"/>' +
       '<circle class="b-obraz" cx="25.5" cy="37" r="1.8"/><circle class="b-obraz" cx="38.5" cy="37" r="1.8"/></svg>';
   }
@@ -96,9 +93,9 @@
     return C.pagina("Toate secțiunile", corp, inapoi, true);
   };
 
-  /* Grupa de vârstă pentru felul în care vorbește Faro. */
+  /* Grupa de vârstă pentru felul în care vorbește Simi. */
   function grupa() { var v = S.ia("varsta", ""); return v === "45+" ? "a45" : (v && v !== "sub18" ? "adult" : "elev"); }
-  /* Un text al lui Faro: la 45+ varianta cu „dumneavoastră”, dacă există. */
+  /* Un text al lui Simi: la 45+ varianta cu „dumneavoastră”, dacă există. */
   C.faro = function (k) { return grupa() === "a45" && D.dvs[k] ? D.dvs[k] : D[k]; };
   function stareT() { return grupa() === "a45" ? Object.assign({}, D.stare, D.dvs.stare) : D.stare; }
 
@@ -163,9 +160,9 @@
     return '<div class="detectiv" id="detectiv" role="status">' + C.bosi(ok ? detText(x, "bine") : Dt.aproape + " " + detText(x, "exp"), ok ? "bucurie" : "zambet") + "</div>";
   }
 
-  /* ---- „Faro își amintește” ---- */
+  /* ---- „Simi își amintește” ---- */
   function curata(t) { return String(t || "").replace(/\*\*/g, "").trim(); }
-  /* Săptămâna trecută a planului, dacă omul își alesese o temă și încă nu i-a spus lui Faro cum a mers. */
+  /* Săptămâna trecută a planului, dacă omul își alesese o temă și încă nu i-a spus lui Simi cum a mers. */
   function temaDeIntrebat() {
     if (!S.ia("plan.start", null) || !C.module.plan) return null;
     var k = C.saptamana() - 1; if (k < 0) return null;
@@ -275,7 +272,7 @@
     return '<div class="rand">' + C.buton(esc(D.stare.teaser), "nav", "bosi", "lista") + "</div>";
   }
 
-  /* „Noutăți de la Faro”: sărbători, detectivul zilei, ce-și amintește Faro, recapitulări de făcut — câte o idee pe ecran.
+  /* „Noutăți de la Simi”: sărbători, detectivul zilei, ce-și amintește Simi, recapitulări de făcut — câte o idee pe ecran.
      Nu mai apare direct pe ecranul principal — doar un rând mic duce aici, când e ceva de arătat. */
   function noutatiSectiuni() {
     var parti = sectiuniSalut();
@@ -296,7 +293,7 @@
       (ultim ? C.buton("Înapoi la drumul meu", "nav", C.acasa(), "primar") : C.buton("Continuă", "nav", "bosi/noutati/" + (n + 1), "continua")) + "</div>";
     return C.pagina(D.noutati, corp, inapoi, true);
   }
-  /* Rândul mic de pe ecranul principal, doar când Faro are ceva de arătat. */
+  /* Rândul mic de pe ecranul principal, doar când Simi are ceva de arătat. */
   function teaserNoutati() {
     if (!noutatiSectiuni().length) return "";
     return '<div class="rand">' + C.buton(esc(D.noutatiTeaser), "nav", "bosi/noutati/0", "lista") + "</div>";

@@ -178,11 +178,9 @@ fieldset.intrebare legend + * { clear: both; }
 .bosi-desen { flex: 0 0 4.2rem; width: 4.2rem; height: 4.2rem; }
 .bosi .bula { position: relative; flex: 1; margin: 6px 0 0; background: var(--suprafata); border: 2px solid var(--principal); border-radius: 14px; padding: 10px 12px; }
 .bosi .bula::before { content: ""; position: absolute; left: -9px; top: 14px; border-width: 8px 9px 8px 0; border-style: solid; border-color: transparent var(--principal) transparent transparent; }
-.f-raza { fill: var(--cald); fill-opacity: .35; }
-.f-acoperis { fill: var(--principal); }
-.f-lumina { fill: var(--cald); stroke: var(--principal); stroke-width: 1.5; }
-.f-turn { fill: var(--suprafata); stroke: var(--principal); stroke-width: 2.5; stroke-linejoin: round; }
-.f-dunga { fill: var(--principal); }
+.g-glob { fill: var(--principal-moale); stroke: var(--principal); stroke-width: 2.5; }
+.g-continent { fill: var(--verde); fill-opacity: .55; }
+.g-linie { stroke: var(--principal); stroke-width: 1; opacity: .5; }
 .b-ochi { fill: var(--text); }
 .b-trasatura { fill: none; stroke: var(--text); stroke-width: 2.6; stroke-linecap: round; }
 .b-obraz { fill: var(--cald-moale); }

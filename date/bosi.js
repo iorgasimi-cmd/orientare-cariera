@@ -1,4 +1,4 @@
-/* Date: Faro, farul prietenos (numit întâi „Bosi”, apoi „JobPsi”; ales „Faro” de Simona, 2026-11-17, pentru sentimentul de siguranță) care îl însoțește pe om prin aplicație.
+/* Date: Simi, globul prietenos (numit întâi „Bosi”, apoi „JobPsi”, apoi „Faro”; ales „Simi” de Simona, 2026-11-22, cu un glob pământesc în loc de far) care îl însoțește pe om prin aplicație.
    Bosi e un personaj scris dinainte, nu o inteligență artificială: spune doar textele de aici.
    Fără presiune și fără vinovăție: când omul lipsește, Bosi îi păstrează locul. Bosi nu știe numele omului.
    Ultima verificare de către Simona: NEVERIFICAT (ciornă scrisă la 2026-11-17). */
@@ -6,18 +6,18 @@ window.DATE = window.DATE || {};
 window.DATE.bosi = {
   verificat: "neverificat",
   scriere: "2026-11-17",
-  nume: "Faro",
-  start: "Bună! Sunt Faro. **Îți luminez drumul, ca să nu fii singur(ă) pe el.**",
+  nume: "Simi",
+  start: "Bună! Sunt Simi. **Te ajut să te orientezi, pas cu pas.**",
   bunVenit: "Mă bucur că ești aici! **Mergem împreună, în ritmul tău.**",
   final: "Bravo! **Ai ajuns la finalul secțiunii.**",
   aici: "Ești aici",
   /* Pentru oamenii care se descurcă greu cu tehnologia (aprobat de Simona, 2026-11-18). */
   continua: "Continuă de unde ai rămas",
   totGata: "Răsfoiește caietul tău",
-  /* Ecranul separat cu sărbători, detectivul zilei, amintirile lui Faro și recapitulări — rândul mic de pe ecranul principal. */
-  noutati: "Noutăți de la Faro",
-  noutatiTeaser: "Ai noutăți de la Faro",
-  noutatiGol: "Nu ai nimic nou de la Faro acum.",
+  /* Ecranul separat cu sărbători, detectivul zilei, amintirile lui Simi și recapitulări — rândul mic de pe ecranul principal. */
+  noutati: "Noutăți de la Simi",
+  noutatiTeaser: "Ai noutăți de la Simi",
+  noutatiGol: "Nu ai nimic nou de la Simi acum.",
   ghid: {
     elev: ["Bună! **Pe ecranul principal vezi un singur card: pasul de acum.** Apasă-l ca să mergi mai departe.", "Vrei să vezi toți pașii? Apasă **„Vezi toate secțiunile”**.", "Cu „**Înapoi**” te întorci oricând. **Tot ce scrii se salvează singur.**"],
     adult: ["Bună! **Pe ecranul principal vezi un singur card: pasul de acum.** Apasă-l ca să mergi mai departe.", "Vrei să vezi toți pașii? Apasă **„Vezi toate secțiunile”**.", "Cu „**Înapoi**” te întorci oricând. **Tot ce scrii se salvează singur.**"],
@@ -42,7 +42,7 @@ window.DATE.bosi = {
     teaser: "Cum te simți azi?"
   },
 
-  /* „Faro își amintește ce i-ai spus”: reflectă cuvintele omului, apreciază efortul, întreabă deschis, lasă alegerea omului.
+  /* „Simi își amintește ce i-ai spus”: reflectă cuvintele omului, apreciază efortul, întreabă deschis, lasă alegerea omului.
      Trei variante: elev (sub 18), adult (18–44), a45 (45+, cu „dumneavoastră”). Texte aprobate de Simona (2026-11-17). */
   memorie: {
     elev: {
@@ -80,7 +80,7 @@ window.DATE.bosi = {
     }
   },
 
-  /* Momentele importante: Faro le sărbătorește o singură dată; rămân în „Caietul meu”, la „Momentele mele”.
+  /* Momentele importante: Simi le sărbătorește o singură dată; rămân în „Caietul meu”, la „Momentele mele”.
      Laudă efortul și felul în care omul a lucrat, nu „cât de deștept” e. Texte aprobate de Simona (2026-11-17). */
   momente: [
     { id: "sectiune1",
@@ -117,7 +117,7 @@ window.DATE.bosi = {
       a45: "**Sunteți la jumătatea drumului!** Priviți cât ați parcurs deja." }
   ],
 
-  /* Pentru 45+: doar Faro vorbește cu „dumneavoastră”. Restul aplicației rămâne cu „tu” pentru toate vârstele (decizia Simonei, 2026-11-17). */
+  /* Pentru 45+: doar Simi vorbește cu „dumneavoastră”. Restul aplicației rămâne cu „tu” pentru toate vârstele (decizia Simonei, 2026-11-17). */
   dvs: {
     bunVenit: "Mă bucur că sunteți aici! **Mergem împreună, în ritmul dumneavoastră.**",
     final: "Bravo! **Ați ajuns la finalul secțiunii.**",

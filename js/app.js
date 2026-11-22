@@ -14,8 +14,8 @@
     return C.module.sistem.traseu(v);
   }
 
-  /* Progresul omului în tot drumul lui (câți pași din câți), ca să știe Faro cât de luminos să fie. */
-  function progresFaro() {
+  /* Progresul omului în tot drumul lui (câți pași din câți), ca să știe Simi cât de luminos să fie. */
+  function progresSimi() {
     var varsta = S.ia("varsta", ""); if (!varsta) return null;
     var lista = varsta !== "sub18"
       ? (C.module.adult && C.module.adult.situatia() ? C.module.adult.pasiCuStare() : null)
@@ -36,15 +36,15 @@
     var schimbat = C.ecran !== ultimulEcran;
     var y = g.scrollY || 0;
 
-    /* Faro semnalează (vizual și cu un ton) finalul unei etape, prima dată când ajungi pe ecranul ei de rezultat. */
+    /* Simi semnalează (vizual și cu un ton) finalul unei etape, prima dată când ajungi pe ecranul ei de rezultat. */
     if (schimbat && /\/rezultat$/.test(C.ecran) && C.sunet) { C.sunet.gata(); C._faroPuls = true; }
 
-    /* Faro arată, la atingere, cât de departe a ajuns omul; „lumina” lui crește cu progresul. */
-    var prog = progresFaro();
+    /* Simi arată, la atingere, cât de departe a ajuns omul; „lumina” lui crește cu progresul. */
+    var prog = progresSimi();
     var glow = prog && prog.total ? (prog.facute / prog.total) : 0;
     var puls = C._faroPuls ? " puls" : ""; C._faroPuls = false;
     /* Notă: fără „style=" inline (CSP-ul aplicației nu-l permite) — strălucirea se pune cu JS, după desenare. */
-    var faro = C.module.bosi ? '<button type="button" id="faro-cap" class="faro-cap' + puls + '" data-act="faro.tap" aria-label="Faro: ' +
+    var faro = C.module.bosi ? '<button type="button" id="faro-cap" class="faro-cap' + puls + '" data-act="faro.tap" aria-label="Simi: ' +
       (prog ? esc("ai făcut " + prog.facute + " din " + prog.total + " pași") : "spune bună") + '" aria-expanded="' + (C._faroDeschis ? "true" : "false") + '">' +
       C.module.bosi.desen("zambet") + "</button>" : "";
     var callout = (C._faroDeschis && prog) ? '<div class="faro-prog" role="status">' +
@@ -84,7 +84,7 @@
 
   function actiune(act, arg, el) {
     if (act === "nav") { C.mergi(arg); return true; }
-    /* Faro, din antet: la atingere, arată (sau ascunde) cât de departe a ajuns omul, cu un ton scurt. */
+    /* Simi, din antet: la atingere, arată (sau ascunde) cât de departe a ajuns omul, cu un ton scurt. */
     if (act === "faro.tap") {
       if (C.sunet) C.sunet.atingere();
       C._faroDeschis = !C._faroDeschis;
@@ -113,7 +113,7 @@
     var cale = el.getAttribute("data-camp");
     if (!cale) return;
     var val = el.value;
-    if (el.getAttribute("data-num")) { val = Number(val); C._faroPuls = true; } /* Faro „tresare” ușor la fiecare răspuns la un test — fără sunet */
+    if (el.getAttribute("data-num")) { val = Number(val); C._faroPuls = true; } /* Simi „tresare” ușor la fiecare răspuns la un test — fără sunet */
     S.pune(cale, val);
     /* Mesajul de eroare dispare după ce omul răspunde. */
     C.eroare = "";

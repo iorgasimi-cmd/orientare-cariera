@@ -26,7 +26,7 @@
         "<p>" + esc(x.ce) + '</p><p class="idee">' + esc(x.pas) + "</p>" +
         '<div class="rand">' + C.buton(esc(x.buton), "nav", x.link) + "</div>";
     } else if (pas === "retine1") {
-      /* Bula lui Faro și legătura ColorPsi, dacă e cazul. */
+      /* Bula lui Simi și legătura ColorPsi, dacă e cazul. */
       corp = (C.retineBula ? C.retineBula() : "") + (C.retineColorpsi ? C.retineColorpsi("cerinte") : "");
     } else if (pas === "retine2") {
       /* Ideea de reținut, scrisă cu cuvintele tale. */

@@ -22,7 +22,7 @@ function test(nume, f) { try { f(); ok++; console.log("  ok  " + nume); } catch 
 function toateAdult() { let t = "", n = 0; while (n < 20) { t += C.module.adult.ecran("toate/" + n).corp; n++; } return t; }
 function toateElev() { let t = "", n = 0; while (n < 20) { t += C.module.elev.ecran("toate/" + n).corp; n++; } return t; }
 function interviuGrupTot(id) { let t = "", prev = null, n = 0; while (n < 10) { const e = C.module.interviu.ecran("grup/" + id + "/" + n); if (e.titlu === prev) break; t += C.esc(e.titlu) + e.corp; prev = e.titlu; n++; } return t; }
-/* Pagina „Noutăți de la Faro” e paginată (o idee pe ecran); testele care verifică mai multe idei deodată le string împreună. */
+/* Pagina „Noutăți de la Simi” e paginată (o idee pe ecran); testele care verifică mai multe idei deodată le string împreună. */
 function toateNoutati() { let t = "", n = 0; while (n < 8) { t += C.module.bosi.ecran("noutati/" + n).corp; n++; } return t; }
 
 console.log("Date");
@@ -79,7 +79,7 @@ test("salvează, citește și șterge", () => {
   assert.strictEqual(S.ia("varsta", "gol"), "gol");
   assert.strictEqual(localStorage.getItem("cariera_v1"), null);
 });
-test("sunetul lui Faro: pornit implicit, se poate opri, nu dă eroare fără AudioContext (ca în Node)", () => {
+test("sunetul lui Simi: pornit implicit, se poate opri, nu dă eroare fără AudioContext (ca în Node)", () => {
   S.sterge();
   assert.strictEqual(C.sunet.oprit(), false);
   C.sunet.atingere(); C.sunet.gata(); /* fără AudioContext în Node: nu trebuie să arunce nicio eroare */
@@ -1158,12 +1158,12 @@ test("sub avertizarea despre CNP: cum să folosești și cum să nu folosești u
   S.sterge();
 });
 
-test("Faro: salută la început; pe ecranul lui, o dată pe zi întreabă „Cum te simți azi?” și răspunde potrivit", () => {
+test("Simi: salută la început; pe ecranul lui, o dată pe zi întreabă „Cum te simți azi?” și răspunde potrivit", () => {
   S.sterge();
-  assert.ok(C.module.sistem.ecran("start").corp.includes("Sunt Faro") && C.module.sistem.ecran("start").corp.includes('class="bosi"'));
+  assert.ok(C.module.sistem.ecran("start").corp.includes("Sunt Simi") && C.module.sistem.ecran("start").corp.includes('class="bosi"'));
   S.pune("varsta", "18-44"); S.pune("situatie", "caut");
   const T = D.bosi.stare, B = C.module.bosi;
-  /* ecranul principal doar duce la ecranul lui Faro, nu mai arată întrebarea direct */
+  /* ecranul principal doar duce la ecranul lui Simi, nu mai arată întrebarea direct */
   let m = C.module.adult.ecran("meniu").corp;
   assert.ok(m.includes("Cum te simți azi?") && m.includes('data-arg="bosi"') && !m.includes(">Bine<"));
   let f = B.ecran().corp;
@@ -1257,7 +1257,7 @@ test("lecția scurtă despre CV: o întrebare pe ecran, răspuns imediat, varian
   S.sterge();
 });
 
-test("Faro își amintește: tema de săptămâna trecută cu cuvintele omului, rezumatul, valoarea; „dumneavoastră” la 45+", () => {
+test("Simi își amintește: tema de săptămâna trecută cu cuvintele omului, rezumatul, valoarea; „dumneavoastră” la 45+", () => {
   const B = C.module.bosi, start = C.adauga(C.azi(), -8);
   /* adult 18–44 */
   S.sterge(); S.pune("varsta", "18-44"); S.pune("situatie", "caut"); S.pune("plan.start", start);
@@ -1271,7 +1271,7 @@ test("Faro își amintește: tema de săptămâna trecută cu cuvintele omului, 
   assert.ok(m.includes("Ai făcut exact ce ți-ai propus") && S.ia("plan.sapt.s0.bifat") === true && !m.includes("Cum a mers?"));
   B.actiuni.stare("nu"); m = toateNoutati();
   assert.ok(!m.includes("Ai făcut exact") && !m.includes("Uite ce am parcurs"), "la „Nu prea bine” fără întrebări și rezumate");
-  /* 45+: „dumneavoastră”, pe ecranul lui Faro */
+  /* 45+: „dumneavoastră”, pe ecranul lui Simi */
   S.sterge(); S.pune("varsta", "45+"); S.pune("situatie", "caut"); S.pune("plan.start", start);
   S.pune("plan.sapt.s0.aleasa", "proprie"); S.pune("plan.sapt.s0.proprie", "Să sun la două firme");
   let f = B.ecran().corp;
@@ -1290,7 +1290,7 @@ test("Faro își amintește: tema de săptămâna trecută cu cuvintele omului, 
   S.sterge();
 });
 
-test("Faro sărbătorește momentele importante o singură dată; ele rămân în caiet; nimic la „Nu prea bine”", () => {
+test("Simi sărbătorește momentele importante o singură dată; ele rămân în caiet; nimic la „Nu prea bine”", () => {
   const B = C.module.bosi, azi = C.azi();
   S.sterge(); S.pune("varsta", "18-44"); S.pune("situatie", "caut");
   assert.deepStrictEqual(B.atinse(), []);

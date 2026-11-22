@@ -12,7 +12,7 @@
     return { idee: (elev && x.ideeElev) || x.idee, pas: (elev && x.pasElev) || x.pas };
   }
 
-  /* Doar cartela (idee + „cu cuvintele tale” + pasul tău), fără bula lui Faro și fără legătura ColorPsi.
+  /* Doar cartela (idee + „cu cuvintele tale” + pasul tău), fără bula lui Simi și fără legătura ColorPsi.
      Separată de C.retine, ca un ecran lung să poată pune bula, cartela și legătura pe pași diferiți. */
   function cartela(id) {
     var x = date(id); if (!x) return "";
@@ -30,7 +30,7 @@
   }
   /* Legătura către serviciile ColorPsi, la finalul secțiunilor de comunicare și la CV-ul pentru adulți (sau "" dacă nu e cazul). */
   function colorpsi(id) { return LEAGA_COLORPSI.indexOf(id) >= 0 && C.servicii ? C.servicii.card() : ""; }
-  /* Bula lui Faro de la finalul secțiunii. */
+  /* Bula lui Simi de la finalul secțiunii. */
   function bulaFinal() { return C.bosi ? C.bosi(C.faro("final"), "bucurie") : ""; }
 
   C.retine = function (id) {

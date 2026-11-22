@@ -148,7 +148,7 @@
       return meniu();
     },
     actiuni: {},
-    /* Exportat ca Faro (din antet) să poată calcula progresul elevului, la fel ca pentru adulți. */
+    /* Exportat ca Simi (din antet) să poată calcula progresul elevului, la fel ca pentru adulți. */
     statiiElev: statiiElev
   });
   C.reg("start", { ecran: start, actiuni: {} });
